@@ -176,6 +176,14 @@ a{color:inherit}
 .note .lab{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--coral); margin-bottom:7px}
 .note.leave .lab{color:var(--sand)}
 .note p{margin:0}
+.steps{list-style:none; margin:18px 0 8px; padding:0; counter-reset:step}
+.steps>li{position:relative; padding:13px 0 15px 44px; border-bottom:1px solid var(--line-2); counter-increment:step; color:var(--ink-dim)}
+.steps>li:last-child{border-bottom:0}
+.steps>li::before{content:counter(step); position:absolute; left:0; top:11px; width:27px; height:27px; border-radius:50%; background:var(--surface-2); border:1px solid var(--line); color:var(--coral); font-family:var(--mono); font-size:12.5px; font-weight:600; display:flex; align-items:center; justify-content:center}
+.steps .st{display:block; color:var(--ink); font-weight:600; margin-bottom:5px}
+.steps .aside{color:var(--ink-faint)}
+.snip-cap{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin:12px 0 6px}
+.snip{font-family:var(--mono); font-size:12px; line-height:1.7; color:var(--ink-dim); background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--sand); border-radius:var(--rad-sm); padding:13px 16px; margin:0; overflow-x:auto; white-space:pre; tab-size:2}
 
 /* ordered loop steps */
 .loop{counter-reset:lp; list-style:none; margin:14px 0}
@@ -772,9 +780,53 @@ html.present .topic-band{display:none !important}
         </article>
       </section>
 
-      <section class="section" data-step data-mins="50" id="m3">
+      <section class="section" data-step data-mins="35" id="m3">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M3</span><span class="sec-time">≈ 50 MIN</span></div>
+          <div class="sec-head"><span class="sec-no">M3</span><span class="sec-time">≈ 35 MIN</span></div>
+          <h2><span class="lead">Agent-Ready</span>Making the Repo the Agent Can Actually Work In</h2>
+          <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
+          <div class="obj"><span class="lab">Objective</span><p>The room can take a cold repo and make it legible to an agent — so the loop from M2 has the context to act and something real to verify against — by adding four concrete things, live, no editor.</p></div>
+          <p>I open by pulling back the curtain on M1. That live build didn't go smoothly because the agent is magic — it went smoothly because the repo was <em>set up</em> for it. An agent starts every task cold: it knows none of what your teammates absorbed by osmosis — where things live, how you run them, what "done" looks like, what it must never touch. An <strong>agent-ready repo</strong> writes that tacit knowledge down and puts verification one command away. So this is the upstream lesson for everything after it: a context-starved loop spins, and the cure is almost always here, in the repo, not in a cleverer prompt.</p>
+          <p>I teach it as four moves and do each one live on the reference app — showing <em>ours</em>, then how you'd add it to a repo that has none.</p>
+
+          <ol class="steps">
+            <li><span class="st">Give it an onboarding file — fix the cold start.</span>The single highest-leverage move: a root-level instructions file the agent reads on every task — what this project is, how to run it, how to verify it, where the conventions live, and the hard guardrails. In Claude Code that file is <code>CLAUDE.md</code> <span class="aside">(Cursor: <code>.cursor/rules/*.mdc</code> · Codex: <code>AGENTS.md</code> — same idea; see the Rosetta)</span>. Keep it short and true — a stale onboarding file is worse than none.
+              <div class="snip-cap">CLAUDE.md — the shape, not a novel</div>
+              <pre class="snip"># &lt;Project&gt; — what this is, in two lines
+Run         npm run dev          # how to start it
+Verify      npm run verify       # the one command that proves work → move 2
+Conventions see docs/conventions.md   # link, don't restate
+Guardrails  never commit secrets · don't hand-edit /migrations · ask before deleting data</pre>
+            </li>
+            <li><span class="st">Make verification one command — give the loop something true to read.</span>M2's loop only closes on a <em>real observation</em>. The repo's job is to make that observation cheap and discoverable — one command any human or agent can run. You don't need tests to start: the <strong>floor</strong> is "does it compile, does it lint, does it run" — even that gives the loop a real verdict to read instead of the agent's say-so; the <strong>ceiling</strong> is a test that proves the behavior round-trips. Wire whatever you have behind one obvious script and name it in the onboarding file.
+              <div class="snip-cap">one discoverable command — floor today, ceiling later</div>
+              <pre class="snip">// package.json → "scripts"
+"verify": "tsc --noEmit &amp;&amp; eslint . &amp;&amp; npm run build"   // floor: compiles · lints · builds — cheapest "does it run"
+//          … &amp;&amp; vitest run   once you have tests          // ceiling</pre>
+            </li>
+            <li><span class="st">Write down "our way" — and leave one example to copy.</span>The patterns you'd correct in code review are the ones the agent can't guess. Put them in a short conventions doc — but more powerful than any prose, leave <strong>one golden-path example</strong> in the repo to pattern-match against (our <code>add-endpoint-our-way</code> reference is exactly this). "Do it like that file" beats a page of rules.</li>
+            <li><span class="st">Map the territory and set the guardrails.</span>A few lines on where things live and where the entry points are, so the agent isn't spelunking — then the off-limits list: secrets handling, generated files, the paths it must not edit. Guardrails are how you let the agent move fast without holding your breath.</li>
+          </ol>
+
+          <p>One line I hold firm: this is the <em>passive</em> layer — the always-on context any agent reads cold. Packaging a repeated move into a reusable skill is the <em>active</em> layer, and that's M5 — don't conflate them. Today we lay the ground the agent stands on; later we teach it your moves.</p>
+          <p>Then I make it real in ninety seconds: I add or extend the <code>CLAUDE.md</code> live, rerun the same kind of loop from M1, and let the room watch the difference good context makes — the agent stops guessing field names and starts following the house style.</p>
+
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>Why an agent starts every task cold — and what "agent-ready" actually means</li>
+            <li>The onboarding file (<code>CLAUDE.md</code> / <code>AGENTS.md</code>): what goes in it, and why short-and-true beats long-and-stale</li>
+            <li>Verification as a property of the repo — one command, floor (compiles/lints/runs) to ceiling (tests)</li>
+            <li>Conventions plus a golden-path example to copy; a territory map and hard guardrails</li>
+            <li>The line between this passive substrate and the active skills layer in M5</li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>This module has a prep dependency that doubles as rehearsal: the reference repo's <code>CLAUDE.md</code>, <code>verify</code> script, conventions doc, and golden-path example must exist before the session — building them <em>is</em> you running this tutorial once in private. Don't preach TDD to a room that doesn't test; sell the floor (compiles &amp; runs) and frame tests as the ceiling, not the entry fee. Keep the two skeletons on screen as shapes to copy, not gospel. This is where the clinic's "real <code>CLAUDE.md</code>" check and the coaching radar's "show me your <code>CLAUDE.md</code> — usually it's empty" get set up; plant the seed here.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>A four-item checklist they can run on any repo to make it agent-ready — and the reflex, when a loop spins, to fix the repo's context before reaching for a cleverer prompt.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step data-mins="50" id="m4">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M4</span><span class="sec-time">≈ 50 MIN</span></div>
           <h2><span class="lead">From PRD to a Sliced Board</span>Feeding the Loop Well</h2>
           <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
           <div class="obj"><span class="lab">Objective</span><p>Teach the discipline that makes the loop work — writing a tight PRD with the agent, then cutting it into thin <strong>vertical slices</strong> small enough to each be one good loop.</p></div>
@@ -793,9 +845,9 @@ html.present .topic-band{display:none !important}
         </article>
       </section>
 
-      <section class="section" data-step data-mins="50" id="m4">
+      <section class="section" data-step data-mins="50" id="m5">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M4</span><span class="sec-time">≈ 50 MIN</span></div>
+          <div class="sec-head"><span class="sec-no">M5</span><span class="sec-time">≈ 50 MIN</span></div>
           <h2><span class="lead">Skills</span>Teaching the Agent Your Team's Moves</h2>
           <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
           <div class="obj"><span class="lab">Objective</span><p>The room learns what a skill is, why a good skill is mostly a good <em>description</em>, and when one is worth writing at all — by building one live.</p></div>
@@ -813,7 +865,7 @@ html.present .topic-band{display:none !important}
           </div></div>
 
           <p>The flagship demo: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app.</p>
-          <div class="note"><div class="lab">Facilitator note</div><p>The bad-vs-good <strong>description</strong> contrast (beat ⑤) is the single most useful 5 minutes — slow down there. Resist hooks/MCP/subagents; point to the Rosetta and keep M4 on skills. Close on the rule of three.</p></div>
+          <div class="note"><div class="lab">Facilitator note</div><p>The bad-vs-good <strong>description</strong> contrast (beat ⑤) is the single most useful 5 minutes — slow down there. Resist hooks/MCP/subagents; point to the Rosetta and keep M5 on skills. Close on the rule of three.</p></div>
           <button class="reh-toggle" id="rehToggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
@@ -842,8 +894,8 @@ html.present .topic-band{display:none !important}
           <div class="deck-stage">
 
             <!-- 1 · COVER -->
-            <div class="beat active" data-code="M4 · Skills" data-mins="1">
-              <div class="b-kicker">M4 · The Missing Manual</div>
+            <div class="beat active" data-code="M5 · Skills" data-mins="1">
+              <div class="b-kicker">M5 · The Missing Manual</div>
               <h3>Building a <em>great</em> skill</h3>
               <p class="b-sub">Not just a skill — a great one. Four questions tell them apart. We'll build one for the reference app, live.</p>
               <div class="beat-notes">
@@ -932,7 +984,7 @@ html.present .topic-band{display:none !important}
                 <div class="bn-l">Talk track · the centerpiece</div>
                 <p class="say">"Read the bad one like the agent does: 'helps you add API endpoints.' When does it fire? It doesn't say. It restates its own name. A skill that doesn't fire rots, unused."</p>
                 <p class="say">"Now watch me sharpen it. Front-load what it does. List the real trigger phrases people actually say. Cut anything already in the body — every word here costs context load on every turn. The description IS the product."</p>
-                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' from M3 — shared words make it fire more reliably.</p>
+                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' from M4 — shared words make it fire more reliably.</p>
                 <p class="nxt">next ▸ ② structure</p>
               </div>
             </div>
@@ -1083,7 +1135,7 @@ that earns this file its own home</span></div>
                 <p class="say">"Recap: Trigger — model-invoked on purpose, a description that fires. Structure — steps + reference, conventions behind a pointer. Steering — a leading word the agent echoes. Pruning — deletion test, no no-ops."</p>
                 <p class="say">"Mic drop: this whole rubric is itself a skill — writing-great-skills. User-invoked, pure reference, discloses to a glossary. It practices everything it preaches."</p>
                 <p class="do"><b>handoff</b> "In the clinic, every team writes ONE skill with skill-creator, then runs these four over it. Pick by the rule of three. Let's build."</p>
-                <p class="nxt">▸ to the clinic (M5)</p>
+                <p class="nxt">▸ to the clinic (M6)</p>
               </div>
             </div>
 
@@ -1098,9 +1150,9 @@ that earns this file its own home</span></div>
         </div><!-- /deck -->
       </section>
 
-      <section class="section" data-step data-mins="140" id="m5">
+      <section class="section" data-step data-mins="140" id="m6">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M5</span><span class="sec-time">≈ 140 MIN · MID-BREAK</span></div>
+          <div class="sec-head"><span class="sec-no">M6</span><span class="sec-time">≈ 140 MIN · MID-BREAK</span></div>
           <h2><span class="lead">The Planning Clinic</span>Your Real Project, Sliced and Loaded</h2>
           <span class="gauge heavy"><i></i>Hands-on · Heavy</span>
           <div class="obj"><span class="lab">Objective</span><p>Every team turns the teaching into a running start on its <strong>own</strong> project — a PRD, a sliced board, and a scaffolded repo with its first loops queued — while I coach the room.</p></div>
@@ -1119,9 +1171,9 @@ that earns this file its own home</span></div>
         </article>
       </section>
 
-      <section class="section" data-step data-mins="30" id="m6">
+      <section class="section" data-step data-mins="30" id="m7">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M6</span><span class="sec-time">≈ 30 MIN</span></div>
+          <div class="sec-head"><span class="sec-no">M7</span><span class="sec-time">≈ 30 MIN</span></div>
           <h2><span class="lead">Reflection &amp; Handoff</span>Closing the Teaching, Launching the Build</h2>
           <span class="gauge light"><i></i>Hands-on · Light</span>
           <div class="obj"><span class="lab">Objective</span><p>Surface the mindset movement out loud (the real KPI here) and hand the room the self-guide that carries them through the self-guided build without me.</p></div>
@@ -1137,7 +1189,7 @@ that earns this file its own home</span></div>
           <div class="sec-head"><span class="sec-no">M1 · PREP</span></div>
           <h2><span class="lead">The Live-Build Spec</span>Rehearse to Muscle Memory</h2>
           <p><strong>Repo:</strong> the reference app (the shared playground), checked out clean on a known-good commit.</p>
-          <p><strong>The slice to build live:</strong> <em>"Save this record."</em> A user viewing a record clicks <strong>Save</strong>; it persists; reloading shows it; a test proves the round-trip. Thin, end-to-end, demoable — a textbook vertical slice, and a silent preview of M3.</p>
+          <p><strong>The slice to build live:</strong> <em>"Save this record."</em> A user viewing a record clicks <strong>Save</strong>; it persists; reloading shows it; a test proves the round-trip. Thin, end-to-end, demoable — a textbook vertical slice, and a silent preview of M4.</p>
           <div class="sub-h">The loop to demonstrate, out loud</div>
           <ol class="loop">
             <li><strong>Intent</strong> — state the slice and its acceptance criteria as prose. No implementation talk.</li>
@@ -1280,8 +1332,8 @@ that earns this file its own home</span></div>
           <p><strong>Solo delivery.</strong> I run it all alone. The clinic and the coaching both depend on the coverage discipline — deliberate laps, time-boxed stops — to make one facilitator reach every team.</p>
           <div class="sub-h">Three trade-offs built in, and how I compensate</div>
           <ol class="loop">
-            <li><strong>Same content for everyone, no tiering.</strong> Advanced engineers risk boredom. Counter with genuine depth (the M2 caveat, the M4 description craft) and the no-IDE discipline, which humbles even the fluent — and in the coaching, redirect bored experts into skills/subagents stretch work and deputize them to help peers.</li>
-            <li><strong>Teaching hands-on is on the shared reference app;</strong> the first transfer to their own project is the clinic and then the self-guided build — when I'm away. That's why the self-guide carries real weight; walk the room through it at M6.</li>
+            <li><strong>Same content for everyone, no tiering.</strong> Advanced engineers risk boredom. Counter with genuine depth (the M2 caveat, the M5 description craft) and the no-IDE discipline, which humbles even the fluent — and in the coaching, redirect bored experts into skills/subagents stretch work and deputize them to help peers.</li>
+            <li><strong>Teaching hands-on is on the shared reference app;</strong> the first transfer to their own project is the clinic and then the self-guided build — when I'm away. That's why the self-guide carries real weight; walk the room through it at M7.</li>
             <li><strong>The coaching is reactive-only.</strong> Coverage skews to the loud. The coverage sweep is the explicit fix — audit twice, go to the quiet teams on purpose.</li>
           </ol>
         </article>
@@ -1315,10 +1367,10 @@ that earns this file its own home</span></div>
   /* ============ TOPIC MODEL ============ */
   const TOPICS=[
     {id:'brief',           label:'The Brief',           blurb:'Why this exists, who’s in the room, and the shape of the program.',                                    sectionIds:['engagement','room','shape']},
-    {id:'mindset-loop',    label:'Mindset & The Loop',  blurb:'The no-IDE reframe, the live proof, and the agentic loop — with the honest “when not to loop” caveat.', sectionIds:['m0','m1','livebuild','m2']},
-    {id:'planning-slicing',label:'Planning & Slicing',  blurb:'PRD to thin vertical slices, then the clinic where every team slices its own real project.',           sectionIds:['m3','m5']},
-    {id:'skills',          label:'Skills',              blurb:'Building a great skill — trigger, structure, steering, pruning, and the rule of three.',                sectionIds:['m4']},
-    {id:'reflection-handoff',label:'Reflection & Handoff',blurb:'Close the teaching, surface the mindset shift, and hand off to the self-guided build.',               sectionIds:['m6']},
+    {id:'mindset-loop',    label:'Mindset & The Loop',  blurb:'The no-IDE reframe, the live proof, and the agentic loop — with the honest “when not to loop” caveat — then making the repo agent-ready so the loop can run.', sectionIds:['m0','m1','livebuild','m2','m3']},
+    {id:'planning-slicing',label:'Planning & Slicing',  blurb:'PRD to thin vertical slices, then the clinic where every team slices its own real project.',           sectionIds:['m4','m6']},
+    {id:'skills',          label:'Skills',              blurb:'Building a great skill — trigger, structure, steering, pruning, and the rule of three.',                sectionIds:['m5']},
+    {id:'reflection-handoff',label:'Reflection & Handoff',blurb:'Close the teaching, surface the mindset shift, and hand off to the self-guided build.',               sectionIds:['m7']},
     {id:'self-guided-build',label:'Self-Guided Build',  blurb:'The checklist teams run on their own project with no facilitator in the room.',                        sectionIds:['tue']},
     {id:'coaching',        label:'Coaching Playbook',   blurb:'Reactive floor-coaching — the anti-pattern radar, the pocket prompts, and the coverage sweep.',        sectionIds:['wed-run','wed-radar','wed-prompts']},
     {id:'reference',       label:'Reference & Take-Home',blurb:'Durable, portable artifacts — the cross-tool Rosetta, the take-home pack, and how I run it solo.',     sectionIds:['rosetta','takehome','logistics']}
@@ -1332,10 +1384,11 @@ that earns this file its own home</span></div>
     m1:'live build proof demo reference loop verify recovery planted mistake',
     livebuild:'rehearsal demo spec reference loop save record prep fallback',
     m2:'loop agentic verify observe plan act iterate one-shot caveat off-ramp',
-    m3:'prd slice vertical slicing tracer bullet board planning non-goals',
-    m5:'clinic planning slice prd context claude.md scaffold team project skill skill-creator',
-    m4:'skill skills description trigger structure steering pruning rule of three',
-    m6:'reflection handoff kpi mindset close self-guide build',
+    m3:'repo agent-ready agent-friendly claude.md agents.md context onboarding conventions verify verification harness guardrails golden-path scaffold cold-start observable',
+    m4:'prd slice vertical slicing tracer bullet board planning non-goals',
+    m6:'clinic planning slice prd context claude.md scaffold team project skill skill-creator',
+    m5:'skill skills description trigger structure steering pruning rule of three',
+    m7:'reflection handoff kpi mindset close self-guide build',
     tue:'self-guide checklist solo build loop verify context claude.md off-ramps',
     'wed-run':'coaching laps floor reactive challenge solo stance',
     'wed-radar':'anti-pattern radar intervention babysitting context starvation one-shotting verification',
