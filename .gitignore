@@ -1,0 +1,7 @@
+# This is a PUBLIC repo used only to host the genericized run-of-show on GitHub Pages.
+# Keep internal, client-identified source (markdown, client-named HTML, backups) OUT of it.
+# Only the genericized index.html is published.
+*.md
+guides/
+syllabi/
+*.BACKUP.html

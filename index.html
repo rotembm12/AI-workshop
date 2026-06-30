@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-First Engineering · Enpitech · Facilitator Run-of-Show</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ THEME TOKENS ============ */
+:root{
+  --abyss:#06161b; --deep:#0a2128; --surface:#0d2932; --surface-2:#11343f;
+  --line:rgba(232,214,176,.13); --line-2:rgba(232,214,176,.07);
+  --ink:#efe6d4; --ink-dim:#9db2b2; --ink-faint:#6d8585;
+  --teal:#43d2c9; --teal-deep:#0e7c7b; --teal-glow:rgba(67,210,201,.16);
+  --coral:#ff6f4d; --coral-dim:#ff9b80;
+  --sand:#e9c887;
+  --rad:16px; --rad-sm:10px;
+  --maxw:880px;
+  --shadow:0 24px 60px -28px rgba(0,0,0,.7);
+  --serif:"Inter Tight",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+html[data-theme="light"]{
+  --abyss:#f5f2ea; --deep:#efeadd; --surface:#fffefb; --surface-2:#f5f1e6;
+  --line:rgba(18,46,50,.12); --line-2:rgba(18,46,50,.055);
+  --ink:#15302f; --ink-dim:#4d6560; --ink-faint:#8b9c96;
+  --teal:#0c706c; --teal-deep:#0a5d5a; --teal-glow:rgba(12,112,108,.1);
+  --coral:#cf4f2a; --coral-dim:#bd4a28;
+  --sand:#a87a1c;
+  --shadow:0 18px 44px -30px rgba(40,60,55,.3);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--abyss); color:var(--ink); font-family:var(--sans);
+  font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* atmospheric depth background */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(1100px 700px at 78% -8%, var(--teal-glow), transparent 60%),
+    radial-gradient(900px 600px at 8% 108%, rgba(255,111,77,.07), transparent 55%),
+    linear-gradient(180deg, var(--abyss), var(--abyss));
+}
+/* grain texture removed — cleaner, projector-crisp surface */
+a{color:inherit}
+::selection{background:var(--coral); color:#fff}
+
+/* ============ LAYOUT ============ */
+.shell{display:grid; grid-template-columns:312px 1fr; min-height:100vh}
+
+/* ============ SIDEBAR ============ */
+.rail{
+  position:sticky; top:0; height:100vh; overflow-y:auto; padding:26px 20px 40px;
+  border-right:1px solid var(--line); background:linear-gradient(180deg,var(--deep),var(--abyss));
+  scrollbar-width:thin; scrollbar-color:var(--teal-deep) transparent;
+}
+.rail::-webkit-scrollbar{width:7px}
+.rail::-webkit-scrollbar-thumb{background:var(--teal-deep); border-radius:4px}
+
+.brand{display:flex; align-items:center; gap:11px; padding-bottom:18px; border-bottom:1px solid var(--line)}
+.brand svg{width:34px; height:34px; flex:0 0 auto; color:var(--teal)}
+.brand .bt{font-family:var(--mono); font-size:11px; letter-spacing:.14em; line-height:1.45; color:var(--ink-dim); text-transform:uppercase}
+.brand .bt b{color:var(--ink); font-weight:600; letter-spacing:.06em; font-size:12.5px}
+
+.rail-head{font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--ink-faint); text-transform:uppercase; margin:20px 2px 12px}
+
+/* timeline list */
+.tl{list-style:none; position:relative}
+.tl::before{content:""; position:absolute; left:13px; top:6px; bottom:14px; width:2px; background:linear-gradient(var(--teal-deep),var(--line-2))}
+.tl li{position:relative}
+.nav-link{
+  display:grid; grid-template-columns:28px 1fr; gap:10px; align-items:start;
+  padding:9px 9px 9px 0; border-radius:var(--rad-sm); cursor:pointer; color:var(--ink-dim);
+  text-decoration:none; transition:.18s; position:relative;
+}
+.nav-link:hover{color:var(--ink)}
+.nav-link .dot{
+  grid-column:1; width:11px; height:11px; border-radius:50%; margin:6px auto 0; margin-left:8px;
+  background:var(--abyss); border:2px solid var(--teal-deep); transition:.2s; z-index:1;
+}
+.nav-link.active .dot{background:var(--coral); border-color:var(--coral); box-shadow:0 0 0 4px rgba(255,111,77,.18)}
+.nav-link.done .dot{background:var(--teal); border-color:var(--teal)}
+.nav-txt .code{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; color:var(--ink-faint)}
+.nav-link.active .nav-txt .code{color:var(--coral)}
+.nav-txt .ttl{font-size:13.5px; font-weight:500; line-height:1.32; margin-top:1px; color:inherit}
+.nav-link.active .nav-txt .ttl{color:var(--ink)}
+.nav-link.done .nav-txt{opacity:.6}
+.nav-link.done .nav-txt .ttl{text-decoration:line-through; text-decoration-color:var(--teal-deep)}
+.mins{font-family:var(--mono); font-size:10px; color:var(--teal); letter-spacing:.05em}
+
+.rail-foot{margin-top:26px; padding-top:16px; border-top:1px solid var(--line); font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); letter-spacing:.04em; line-height:1.7}
+.rail-foot b{color:var(--ink-dim); font-weight:500}
+
+/* ============ MAIN ============ */
+.main{position:relative; min-width:0}
+.progress{position:fixed; top:0; left:312px; right:0; height:3px; background:transparent; z-index:50}
+.progress span{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--teal),var(--coral)); transition:width .15s}
+
+.topbar{
+  position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:14px;
+  padding:12px 30px; background:color-mix(in srgb, var(--abyss) 86%, transparent);
+  backdrop-filter:blur(14px); border-bottom:1px solid var(--line);
+}
+.tb-spacer{flex:1}
+.btn{
+  font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  padding:8px 13px; border:1px solid var(--line); border-radius:999px; background:transparent;
+  color:var(--ink-dim); cursor:pointer; transition:.2s; display:inline-flex; gap:7px; align-items:center; white-space:nowrap;
+}
+.btn:hover{border-color:var(--teal); color:var(--ink)}
+.btn.on{background:var(--coral); color:#fff; border-color:var(--coral)}
+.btn svg{width:14px; height:14px}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:42px 30px 160px}
+
+/* hero */
+.hero{margin-bottom:40px; opacity:0; animation:rise .7s .05s forwards}
+.kick{font-family:var(--mono); font-size:11px; letter-spacing:.26em; color:var(--coral); text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:10px}
+.kick::before{content:""; width:30px; height:1px; background:var(--coral)}
+.hero h1{font-family:var(--serif); font-weight:900; font-size:clamp(2.5rem,6vw,4.3rem); line-height:.98; letter-spacing:-.02em; color:var(--ink)}
+.hero h1 em{font-style:italic; color:var(--teal); font-weight:400}
+.hero .sub{font-size:1.12rem; color:var(--ink-dim); margin-top:18px; max-width:60ch}
+.flightcard{
+  margin-top:26px; border:1px solid var(--line); border-radius:var(--rad); overflow:hidden;
+  background:linear-gradient(135deg,var(--surface),var(--deep)); box-shadow:var(--shadow);
+}
+.fc-top{display:flex; flex-wrap:wrap; gap:1px; background:var(--line)}
+.fc-cell{flex:1 1 120px; background:var(--deep); padding:14px 16px}
+.fc-cell .l{font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; color:var(--ink-faint); text-transform:uppercase}
+.fc-cell .v{font-family:var(--mono); font-size:14px; color:var(--ink); margin-top:4px; font-weight:500; letter-spacing:.02em}
+.fc-cell .v.tl-c{color:var(--teal)}
+.fc-cell .v.co-c{color:var(--coral)}
+.fc-strip{display:flex; align-items:center; gap:10px; padding:11px 16px; border-top:1px dashed var(--line); font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--ink-faint)}
+.fc-strip .perf{flex:1; border-bottom:1.5px dotted var(--line)}
+
+/* sections / cards */
+.section{margin-top:30px; scroll-margin-top:80px}
+.card{
+  border:1px solid var(--line); border-radius:var(--rad); background:var(--surface);
+  padding:30px 32px; position:relative; box-shadow:var(--shadow);
+}
+.card + .card{margin-top:22px}
+.sec-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px}
+.sec-no{font-family:var(--mono); font-size:12px; color:var(--coral); letter-spacing:.1em; font-weight:600}
+.sec-time{font-family:var(--mono); font-size:11px; color:var(--teal); letter-spacing:.06em; border:1px solid var(--line); border-radius:999px; padding:3px 9px}
+.card h2{font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem,3vw,2rem); line-height:1.12; letter-spacing:-.01em; color:var(--ink); margin:4px 0 2px}
+.card h2 .lead{display:block; font-size:.62em; color:var(--teal); font-weight:500; font-style:italic; margin-bottom:3px}
+.gauge{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:5px 11px; border-radius:999px; margin:14px 0 4px; border:1px solid var(--line)}
+.gauge i{width:8px; height:8px; border-radius:50%}
+.gauge.light i{background:var(--teal)} .gauge.light{color:var(--teal)}
+.gauge.medium i{background:var(--sand)} .gauge.medium{color:var(--sand)}
+.gauge.heavy i{background:var(--coral)} .gauge.heavy{color:var(--coral)}
+
+.card p{margin:14px 0; color:var(--ink-dim)}
+.card p strong, .card li strong{color:var(--ink); font-weight:600}
+.card em{color:var(--ink); font-style:italic}
+.card code{font-family:var(--mono); font-size:.86em; background:var(--surface-2); border:1px solid var(--line-2); padding:1.5px 6px; border-radius:6px; color:var(--teal); letter-spacing:-.01em}
+.obj{display:flex; gap:12px; padding:15px 18px; background:var(--surface-2); border-left:3px solid var(--teal); border-radius:var(--rad-sm); margin:16px 0}
+.obj .lab{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--teal); text-transform:uppercase; flex:0 0 auto; padding-top:3px}
+.obj p{margin:0; color:var(--ink)}
+
+.sub-h{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin:24px 0 10px; display:flex; align-items:center; gap:10px}
+.sub-h::after{content:""; flex:1; height:1px; background:var(--line)}
+.cover{list-style:none; margin:8px 0}
+.cover li{position:relative; padding:7px 0 7px 26px; color:var(--ink-dim); border-bottom:1px solid var(--line-2)}
+.cover li:last-child{border-bottom:0}
+.cover li::before{content:""; position:absolute; left:4px; top:15px; width:7px; height:7px; border:1.5px solid var(--teal); transform:rotate(45deg)}
+
+.note{margin:18px 0 4px; padding:16px 18px; border:1px dashed var(--line); border-radius:var(--rad-sm); background:linear-gradient(var(--surface-2),transparent)}
+.note .lab{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--coral); margin-bottom:7px}
+.note.leave .lab{color:var(--sand)}
+.note p{margin:0}
+
+/* ordered loop steps */
+.loop{counter-reset:lp; list-style:none; margin:14px 0}
+.loop li{position:relative; padding:11px 0 11px 44px; border-bottom:1px solid var(--line-2); color:var(--ink-dim)}
+.loop li::before{counter-increment:lp; content:counter(lp); position:absolute; left:0; top:9px; width:28px; height:28px; border-radius:50%; border:1px solid var(--teal-deep); color:var(--teal); font-family:var(--mono); font-size:12px; display:grid; place-items:center}
+
+/* caveat block */
+.caveat{margin-top:22px; border:1px solid var(--coral); border-radius:var(--rad); overflow:hidden}
+.caveat-h{background:linear-gradient(90deg,rgba(255,111,77,.14),transparent); padding:14px 20px; font-family:var(--serif); font-style:italic; font-size:1.2rem; color:var(--coral); border-bottom:1px solid var(--line)}
+.caveat-b{padding:6px 20px 18px}
+.caveat-b .row{padding:14px 0; border-bottom:1px solid var(--line-2)}
+.caveat-b .row:last-child{border-bottom:0}
+.caveat-b .t{color:var(--ink); font-weight:600; display:block; margin-bottom:3px}
+
+/* interactive checklist */
+.chk{list-style:none; margin:14px 0}
+.chk li{margin:3px 0}
+.chk label{display:flex; gap:12px; align-items:flex-start; padding:11px 14px; border:1px solid var(--line); border-radius:var(--rad-sm); cursor:pointer; transition:.18s; color:var(--ink-dim); background:var(--surface-2)}
+.chk label:hover{border-color:var(--teal-deep)}
+.chk input{position:absolute; opacity:0; width:0; height:0}
+.chk .box{flex:0 0 auto; width:20px; height:20px; border:1.5px solid var(--teal-deep); border-radius:6px; margin-top:1px; display:grid; place-items:center; transition:.18s}
+.chk .box svg{width:13px; height:13px; opacity:0; transform:scale(.4); transition:.18s; color:var(--abyss)}
+.chk input:checked + .box{background:var(--teal); border-color:var(--teal)}
+.chk input:checked + .box svg{opacity:1; transform:scale(1)}
+.chk input:checked ~ .ct{color:var(--ink-faint); text-decoration:line-through; text-decoration-color:var(--teal-deep)}
+.chk-reset{font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink-faint); background:none; border:0; cursor:pointer; text-transform:uppercase; padding:4px 0}
+.chk-reset:hover{color:var(--coral)}
+
+.phase{margin-top:18px}
+.phase .ph-l{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal); margin-bottom:6px}
+.rhythm{font-family:var(--serif); font-size:1.35rem; font-style:italic; color:var(--ink); text-align:center; padding:20px; border:1px solid var(--line); border-radius:var(--rad); background:var(--surface-2); margin:8px 0 18px}
+.rhythm b{color:var(--coral); font-style:normal; font-weight:600}
+
+/* anti-pattern radar cards */
+.radar{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:8px}
+.ap{border:1px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:16px 17px; cursor:pointer; transition:.2s; position:relative; overflow:hidden}
+.ap:hover{border-color:var(--coral); transform:translateY(-2px)}
+.ap .ap-t{font-weight:600; color:var(--ink); font-size:1.02rem; display:flex; justify-content:space-between; align-items:center; gap:8px}
+.ap .ap-t .chev{font-family:var(--mono); color:var(--coral); transition:.25s; flex:0 0 auto}
+.ap.open .ap-t .chev{transform:rotate(45deg)}
+.ap .sym{font-style:italic; color:var(--ink-faint); font-size:.9rem; margin-top:6px}
+.ap .iv{max-height:0; opacity:0; transition:.3s; margin-top:0; color:var(--teal); border-top:1px dashed var(--line); padding-top:0}
+.ap.open .iv{max-height:300px; opacity:1; margin-top:12px; padding-top:12px}
+.ap .iv .ivl{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:5px}
+
+/* pocket prompts */
+.pocket{display:grid; gap:10px; margin-top:10px}
+.pocket div{padding:13px 16px; border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:var(--rad-sm); background:var(--surface-2); font-family:var(--serif); font-style:italic; font-size:1.08rem; color:var(--ink)}
+
+/* rosetta table */
+.tablewrap{overflow-x:auto; margin:14px -6px 6px; border-radius:var(--rad-sm)}
+table{border-collapse:collapse; width:100%; min-width:660px; font-size:.86rem}
+th,td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); border-bottom:1px solid var(--teal-deep); position:sticky; top:0; background:var(--surface)}
+tbody th{font-weight:600; color:var(--ink); white-space:nowrap; font-family:var(--sans)}
+td{color:var(--ink-dim)}
+tbody tr:hover{background:var(--surface-2)}
+td code,th code{font-size:.82em}
+
+.callouts{display:grid; gap:10px; margin-top:16px}
+.callouts .co{padding:14px 16px; border-radius:var(--rad-sm); background:var(--surface-2); border:1px solid var(--line)}
+.callouts .co b{color:var(--teal)}
+
+/* walkthrough mode */
+.wt-bar{display:none}
+html.wt .section{display:none}
+html.wt .section.active{display:block; animation:rise .4s}
+html.wt .hero, html.wt .quote-blocks{display:none}
+html.wt .wrap{padding-top:30px}
+html.wt .wt-bar{
+  display:flex; position:fixed; bottom:0; left:312px; right:0; z-index:60; align-items:center; gap:16px;
+  padding:14px 30px; background:color-mix(in srgb,var(--deep) 92%,transparent); backdrop-filter:blur(14px);
+  border-top:1px solid var(--teal-deep);
+}
+.wt-nav{display:flex; gap:8px}
+.wt-nav button{width:44px; height:44px; border-radius:12px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; font-size:18px; transition:.2s; display:grid; place-items:center}
+.wt-nav button:hover:not(:disabled){border-color:var(--teal); color:var(--teal)}
+.wt-nav button:disabled{opacity:.3; cursor:not-allowed}
+.wt-pos{font-family:var(--mono); font-size:12px; color:var(--ink-dim); letter-spacing:.05em; min-width:74px}
+.wt-pos b{color:var(--teal); font-weight:600}
+.timer{display:flex; align-items:center; gap:12px; margin-left:auto}
+.timer .clock{font-family:var(--mono); font-size:26px; font-weight:500; letter-spacing:.04em; color:var(--ink); min-width:96px; text-align:right}
+.timer .clock.over{color:var(--coral)}
+.timer .tgt{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.06em}
+.timer button{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; padding:9px 12px; border-radius:9px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; transition:.2s}
+.timer button:hover{border-color:var(--teal); color:var(--ink)}
+.timer button.run{background:var(--coral); color:#fff; border-color:var(--coral)}
+
+/* mobile nav */
+.menu-btn{display:none}
+/* backdrop is fixed at ALL widths so it never participates in the .shell grid
+   (on desktop it stays inert/hidden; only mobile nav-open reveals it) */
+.scrim{position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:80; opacity:0; pointer-events:none; transition:.3s}
+@media(max-width:980px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:fixed; top:0; left:0; bottom:0; width:300px; z-index:90; transform:translateX(-105%); transition:.3s; box-shadow:30px 0 60px -30px rgba(0,0,0,.8)}
+  html.nav-open .rail{transform:none}
+  .progress{left:0}
+  html.wt .wt-bar{left:0}
+  .menu-btn{display:inline-flex}
+  html.nav-open .scrim{opacity:1; pointer-events:auto}
+  .radar{grid-template-columns:1fr}
+  .wrap{padding:30px 18px 150px}
+  .card{padding:24px 20px}
+}
+@media(max-width:980px) and (min-width:1px){.menu-btn{order:-1}}
+
+@keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+.section{opacity:0; animation:rise .5s forwards}
+html.wt .section{opacity:1; animation:none}
+
+/* ============================================================
+   M4 · PRESENT MODE — fullscreen beat deck + live widgets
+   ============================================================ */
+/* launcher (normal mode) */
+.m4-launch{display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:24px 0 4px}
+.present-btn{
+  font-family:var(--sans); font-size:14px; letter-spacing:.01em; font-weight:600;
+  padding:14px 24px; border-radius:12px; border:1px solid var(--teal); cursor:pointer;
+  background:var(--teal); color:var(--abyss); transition:.2s; display:inline-flex; gap:10px; align-items:center;
+}
+.present-btn:hover{transform:translateY(-2px); box-shadow:0 14px 32px -14px var(--teal)}
+.present-btn svg{width:16px; height:16px}
+.present-hint{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.02em; line-height:1.6}
+.present-hint kbd{font-family:var(--mono); background:var(--surface-2); border:1px solid var(--line); border-radius:4px; padding:1px 6px; color:var(--ink-dim); font-size:10px}
+
+/* the 4-part spine */
+.spine{display:flex; gap:7px; flex-wrap:wrap; align-items:center}
+.spine .sp{
+  font-family:var(--mono); font-size:11px; letter-spacing:.04em; cursor:pointer;
+  padding:7px 13px; border-radius:999px; border:1px solid var(--line); color:var(--ink-faint); transition:.2s; white-space:nowrap; background:transparent;
+}
+.spine .sp:hover{border-color:var(--teal-deep); color:var(--ink-dim)}
+.spine .sp b{color:var(--ink-dim); font-weight:600; margin-right:4px}
+.spine .sp.on{border-color:var(--coral); color:var(--coral); background:rgba(255,111,77,.08)}
+.spine .sp.on b{color:var(--coral)}
+.m4-spine{margin:20px 0}
+
+/* rehearsal toggle */
+.reh-toggle{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-dim); background:none; border:0; border-top:1px solid var(--line); width:100%; text-align:left; padding:18px 0 2px; cursor:pointer; margin-top:20px; display:flex; align-items:center; gap:8px}
+.reh-toggle:hover{color:var(--teal)}
+.reh-toggle::before{content:"▸"; color:var(--teal); transition:.2s}
+.deck.reh ~ .reh-toggle::before, .reh-toggle.open::before{transform:rotate(90deg)}
+
+/* ---- THE DECK ---- */
+.deck{display:none}
+.deck.reh{display:block; margin-top:8px}                       /* inline rehearsal view */
+.deck.reh .beat{border:1px solid var(--line); border-radius:var(--rad); background:var(--surface-2); padding:22px 24px; margin-top:14px}
+.deck.reh .beat .b-kicker{color:var(--teal)}
+.deck.reh .deck-hud,.deck.reh .deck-foot,.deck.reh .deck-arrow{display:none}
+.deck.reh .beat-notes{display:block; margin-top:18px}
+
+/* present (fullscreen overlay) */
+html.present{overflow:hidden}
+/* the .section rise-animation leaves a transform that would trap position:fixed
+   inside the card; neutralise it so the deck covers the real viewport */
+html.present .section{opacity:1; transform:none; animation:none}
+html.present .deck{
+  display:block; position:fixed; inset:0; z-index:200; background:
+   radial-gradient(1200px 800px at 80% -12%, var(--teal-glow), transparent 60%),
+   linear-gradient(180deg,var(--deep),var(--abyss));
+}
+/* HUD (top) */
+html.present .deck-hud{
+  display:flex; align-items:center; gap:18px; position:absolute; top:0; left:0; right:0; height:62px;
+  padding:0 22px; border-bottom:1px solid var(--line); font-family:var(--mono);
+}
+.hud-x{width:38px; height:38px; border-radius:10px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; font-size:18px; display:grid; place-items:center; transition:.2s; flex:0 0 auto}
+.hud-x:hover{border-color:var(--coral); color:var(--coral)}
+.hud-code{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); font-weight:600; white-space:nowrap}
+.hud-spine{flex:1; display:flex; justify-content:center; gap:7px; overflow:hidden}
+.hud-r{display:flex; align-items:center; gap:14px; flex:0 0 auto}
+.hud-pos{font-size:12px; color:var(--ink-faint); letter-spacing:.06em; min-width:46px; text-align:right}
+.deck-clock{font-size:17px; font-weight:500; color:var(--ink); letter-spacing:.04em; min-width:52px; text-align:right}
+.deck-clock.over{color:var(--coral)}
+.deck-tgt{font-size:10px; color:var(--ink-faint); letter-spacing:.06em; min-width:48px}
+.hud-note{width:38px; height:38px; border-radius:10px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; display:grid; place-items:center; transition:.2s}
+.hud-note:hover{border-color:var(--teal); color:var(--teal)}
+html.present.notes .hud-note{background:var(--coral); color:#fff; border-color:var(--coral)}
+.hud-note svg{width:16px; height:16px}
+
+/* stage (center) */
+html.present .deck-stage{position:absolute; inset:62px 0 60px; display:grid; place-items:center; padding:3vh 7vw; overflow:auto}
+html.present .beat{display:none; width:100%; max-width:1080px; animation:rise .35s}
+html.present .beat.active{display:block}
+html.present .beat-notes{display:none}
+html.present.notes .beat.active .beat-notes{
+  display:block; position:fixed; right:22px; bottom:74px; width:min(460px,42vw); max-height:58vh; overflow:auto;
+  background:var(--surface); border:1px solid var(--coral); border-radius:var(--rad); padding:18px 20px; box-shadow:var(--shadow); z-index:210;
+}
+/* on-screen prev/next arrows */
+.deck-arrow{display:none}
+html.present .deck-arrow{
+  display:grid; place-items:center; position:absolute; top:50%; transform:translateY(-50%); z-index:205;
+  width:56px; height:56px; border-radius:50%; border:1px solid var(--line); background:color-mix(in srgb,var(--surface) 70%,transparent);
+  color:var(--ink-dim); font-size:24px; cursor:pointer; transition:.2s; backdrop-filter:blur(6px);
+}
+html.present .deck-arrow:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-50%) scale(1.06)}
+html.present .deck-arrow:disabled{opacity:.25; cursor:default; transform:translateY(-50%)}
+html.present .deck-arrow.prev{left:18px}
+html.present .deck-arrow.next{right:18px}
+
+/* foot (bottom controls) */
+html.present .deck-foot{display:flex; align-items:center; justify-content:center; gap:10px; position:absolute; left:0; right:0; bottom:0; height:60px; border-top:1px solid var(--line); padding:0 22px}
+.foot-btn{font-family:var(--mono); font-size:11px; letter-spacing:.04em; padding:9px 15px; border-radius:9px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; transition:.2s; display:inline-flex; gap:7px; align-items:center}
+.foot-btn:hover:not(:disabled){border-color:var(--teal); color:var(--ink)}
+.foot-btn:disabled{opacity:.3; cursor:default}
+.foot-btn.primary{border-color:var(--teal-deep); color:var(--teal)}
+.dots{display:flex; gap:7px; margin:0 8px}
+.dots .dot{width:9px; height:9px; border-radius:50%; background:var(--line); border:0; padding:0; cursor:pointer; transition:.2s}
+.dots .dot:hover{background:var(--ink-faint)}
+.dots .dot.on{background:var(--coral); transform:scale(1.25)}
+.foot-keys{position:absolute; right:22px; font-family:var(--mono); font-size:10px; color:var(--ink-faint); letter-spacing:.04em}
+.foot-keys kbd{background:var(--surface-2); border:1px solid var(--line); border-radius:4px; padding:0 5px; color:var(--ink-dim)}
+@media(max-width:820px){.foot-keys{display:none}}
+
+/* blackout */
+html.present.black .deck-stage,html.present.black .deck-hud,html.present.black .deck-foot,html.present.black .deck-arrow{visibility:hidden}
+html.present.black .deck{background:#000}
+
+/* beat stage typography (present) */
+html.present .beat .b-kicker{font-family:var(--mono); font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); margin-bottom:16px}
+html.present .beat h3{font-family:var(--serif); font-weight:700; font-size:clamp(2rem,5.2vw,3.7rem); line-height:1.04; letter-spacing:-.02em; color:var(--ink); margin-bottom:14px}
+html.present .beat h3 em{font-style:italic; color:var(--teal); font-weight:600}
+html.present .beat .b-sub{font-size:clamp(1.05rem,2vw,1.55rem); color:var(--ink-dim); max-width:42ch; line-height:1.45}
+html.present .beat .b-sub strong{color:var(--ink)}
+html.present .beat .b-big{font-family:var(--serif); font-weight:600; font-size:clamp(1.6rem,3.6vw,2.7rem); color:var(--ink); line-height:1.15; margin-top:4px}
+html.present .beat .b-big code{font-size:.9em}
+
+/* notes block */
+.beat-notes{font-size:.96rem}
+.beat-notes .bn-l{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); margin-bottom:9px}
+.beat-notes .say{color:var(--ink); margin:0 0 11px; padding-left:13px; border-left:2px solid var(--teal); line-height:1.5}
+.beat-notes .do{color:var(--ink-dim); margin:0 0 8px; font-size:.9rem; line-height:1.45}
+.beat-notes .do b{font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--sand); margin-right:6px}
+.beat-notes .nxt{font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-top:12px; padding-top:9px; border-top:1px dashed var(--line)}
+
+/* skill-hell ladder */
+.ladder{display:flex; flex-direction:column; gap:9px; margin-top:6px; max-width:620px}
+.ladder .rung{font-family:var(--mono); font-size:1rem; padding:12px 18px; border:1px solid var(--line); border-radius:var(--rad-sm); color:var(--ink-faint)}
+.ladder .rung.hot{border-color:var(--coral); color:var(--coral); font-weight:600; background:rgba(255,111,77,.07)}
+.bro{font-family:var(--serif); font-style:italic; font-size:1.15rem; color:var(--ink-dim); margin-top:16px}
+
+/* anatomy tree */
+.tree{font-family:var(--mono); font-size:clamp(.85rem,1.4vw,1.05rem); line-height:1.95; color:var(--ink-dim); background:var(--surface-2); border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 22px; display:inline-block; text-align:left; white-space:pre}
+.tree .f{color:var(--teal)} .tree .hl{color:var(--coral)} .tree .c{color:var(--ink-faint)}
+
+/* invocation two-up */
+.invo{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; max-width:820px}
+.invo .col{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2)}
+.invo .col h4{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:12px}
+.invo .col.model h4{color:var(--coral)}
+.invo .col ul{list-style:none; display:grid; gap:9px}
+.invo .col li{font-size:.95rem; color:var(--ink-dim); padding-left:16px; position:relative; line-height:1.4}
+.invo .col li::before{content:"·"; position:absolute; left:5px; color:var(--ink-faint)}
+.invo .col li b{color:var(--ink); font-weight:600}
+
+/* description before/after widget */
+.descflip{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:4px; align-items:start; max-width:980px}
+.dcard{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
+.dcard .dl{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:11px}
+.dcard.bad .dl{color:var(--coral)} .dcard.good .dl{color:var(--teal)}
+.dcard .desc{font-family:var(--mono); font-size:.92rem; line-height:1.65; color:var(--ink)}
+.dcard.good{opacity:.18; filter:blur(3px); pointer-events:none}
+.descflip.revealed .dcard.good{opacity:1; filter:none; pointer-events:auto}
+.descflip.revealed .dcard.bad{opacity:.5}
+.dcard mark{background:rgba(67,210,201,.18); color:var(--teal); padding:0 3px; border-radius:3px}
+.dcard mark.trig{background:rgba(255,111,77,.16); color:var(--coral)}
+.moves{display:grid; gap:7px; margin-top:13px; opacity:0; transform:translateY(6px); transition:.45s}
+.descflip.revealed .moves{opacity:1; transform:none}
+.moves div{font-size:.86rem; color:var(--ink-dim); padding-left:19px; position:relative}
+.moves div::before{content:"→"; position:absolute; left:0; color:var(--teal); font-weight:600}
+
+/* deletion test widget */
+.deltest{margin-top:4px; max-width:760px}
+.deltest .file{font-family:var(--mono); font-size:.92rem; line-height:1.5; border:1px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:12px 14px}
+.deltest .ln{display:block; padding:5px 9px; border-radius:6px; cursor:pointer; color:var(--ink-dim); transition:.2s; border:1px solid transparent; margin:2px 0}
+.deltest .ln[data-noop]::after{content:"no-op?"; font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--coral); opacity:0; margin-left:10px; transition:.2s}
+.deltest .ln[data-noop]:hover{border-color:var(--coral); color:var(--coral)}
+.deltest .ln[data-noop]:hover::after{opacity:.8}
+.deltest .ln:not([data-noop]):hover{border-color:var(--teal-deep)}
+.deltest .ln.cut{text-decoration:line-through; color:var(--ink-faint); opacity:.4; border-color:transparent}
+.deltest .ln.kept{animation:nudge .4s}
+@keyframes nudge{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.deltest .meter{display:flex; align-items:center; gap:16px; margin-top:14px; font-family:var(--mono); font-size:12px; color:var(--ink-faint)}
+.deltest .meter b{color:var(--teal); font-size:20px; font-weight:600}
+
+/* leading-word trace */
+.trace{font-family:var(--mono); font-size:.95rem; line-height:1.7; border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:var(--rad-sm); background:var(--surface-2); padding:15px 18px; color:var(--ink-dim); margin-top:4px; max-width:760px; min-height:84px}
+.trace .tl{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:9px}
+.trace .echo{opacity:0; transition:.5s}
+.trace.run .echo{opacity:1}
+.trace mark{background:rgba(255,111,77,.16); color:var(--coral); padding:0 4px; border-radius:3px; font-weight:600}
+
+/* skill before/after viewer */
+.skillview{margin-top:4px; border:1px solid var(--line); border-radius:var(--rad-sm); overflow:hidden; background:var(--surface-2); max-width:900px}
+.sv-tabs{display:flex; border-bottom:1px solid var(--line)}
+.sv-tab{font-family:var(--mono); font-size:11px; letter-spacing:.04em; padding:11px 16px; cursor:pointer; color:var(--ink-faint); background:transparent; border:0; border-right:1px solid var(--line); transition:.2s}
+.sv-tab:hover{color:var(--ink)}
+.sv-tab.on{color:var(--teal); background:var(--surface); box-shadow:inset 0 -2px 0 var(--teal)}
+.sv-tab.on.bad{color:var(--coral); box-shadow:inset 0 -2px 0 var(--coral)}
+.sv-pane{display:none; margin:0; padding:16px 18px; font-family:var(--mono); font-size:.8rem; line-height:1.65; color:var(--ink); max-height:46vh; overflow:auto; white-space:pre-wrap}
+.sv-pane.on{display:block}
+.sv-pane .cmt{color:var(--coral)}
+.sv-pane .k{color:var(--teal)}
+.sv-pane .ptr{color:var(--sand)}
+
+/* rule of three */
+.rule3{display:flex; align-items:center; gap:28px; margin-top:8px; flex-wrap:wrap}
+.r3-count{font-family:var(--serif); font-weight:800; font-size:clamp(3rem,9vw,6.5rem); color:var(--coral); line-height:1}
+
+@media(max-width:720px){.descflip,.invo{grid-template-columns:1fr}}
+@media(max-width:980px){
+  html.present .deck-stage{padding:2vh 5vw; inset:62px 0 60px}
+  html.present .deck-arrow{width:46px; height:46px; font-size:20px}
+  html.present.notes .beat.active .beat-notes{position:static; width:auto; max-height:none; margin-top:18px}
+}
+
+/* print */
+@media print{
+  body::before,body::after{display:none}
+  .rail,.topbar,.wt-bar,.progress,.scrim{display:none!important}
+  .shell{display:block}
+  html{--abyss:#fff;--surface:#fff;--surface-2:#f6f3ec;--ink:#111;--ink-dim:#333;--line:#ccc;--teal:#0a5e5d;--coral:#c0431f}
+  html.wt .section{display:block!important}
+  .card{box-shadow:none; break-inside:avoid; border-color:#ccc}
+  .ap .iv{max-height:none!important; opacity:1!important; margin-top:12px!important; padding-top:12px!important}
+  .wrap{max-width:100%}
+  /* M4 deck prints as a stacked rehearsal script */
+  .deck{display:block!important; position:static!important}
+  .deck-hud,.deck-foot,.deck-arrow{display:none!important}
+  .beat{display:block!important; break-inside:avoid; border:1px solid #ccc; border-radius:10px; padding:18px 20px; margin-top:12px}
+  .beat-notes{display:block!important}
+  .descflip .dcard.good{opacity:1!important; filter:none!important}
+  .descflip .moves{opacity:1!important; transform:none!important}
+  .trace .echo{opacity:1!important}
+  .sv-pane{display:block!important; max-height:none!important}
+}
+
+/* ============ TOPIC NAV · search / threads / groups ============ */
+.nav-search{position:relative; margin:18px 0 10px}
+.nav-search > svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); width:14px; height:14px; color:var(--ink-faint); pointer-events:none}
+.nav-search input{
+  width:100%; font-family:var(--sans); font-size:13px; color:var(--ink);
+  background:var(--surface-2); border:1px solid var(--line); border-radius:999px;
+  padding:9px 30px 9px 33px; outline:none; transition:.2s;
+}
+.nav-search input::placeholder{color:var(--ink-faint)}
+.nav-search input:focus{border-color:var(--teal-deep); background:var(--surface)}
+#searchClear{
+  position:absolute; right:7px; top:50%; transform:translateY(-50%); width:21px; height:21px;
+  border:0; background:none; color:var(--ink-faint); cursor:pointer; font-size:12px; border-radius:50%;
+  display:grid; place-items:center; opacity:0; pointer-events:none; transition:.2s;
+}
+html.searching #searchClear{opacity:1; pointer-events:auto}
+#searchClear:hover{color:var(--coral)}
+
+.threads{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 8px}
+.thread-chip{
+  font-family:var(--mono); font-size:10px; letter-spacing:.03em; padding:4px 9px;
+  border:1px dashed var(--line); border-radius:999px; color:var(--ink-faint); cursor:pointer; transition:.2s; user-select:none;
+}
+.thread-chip:hover{border-style:solid; border-color:var(--teal); color:var(--teal)}
+
+/* group accordions */
+#navList{margin-top:6px}
+.nav-group{margin-bottom:3px; border-bottom:1px solid var(--line-2)}
+.nav-group:last-child{border-bottom:0}
+.group-head{
+  display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;
+  background:none; border:0; cursor:pointer; padding:11px 4px 9px 2px; color:var(--ink-dim); transition:.2s; text-align:left;
+}
+.group-head:hover{color:var(--ink)}
+.group-head .chev{display:inline-block; color:var(--teal); font-size:9px; transition:transform .2s; transform:rotate(90deg); flex:0 0 auto}
+.nav-group.collapsed .chev{transform:rotate(0deg)}
+.gh-tw{display:flex; align-items:center; min-width:0}
+.gh-label{font-family:var(--mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:inherit; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.nav-group.active .gh-label{color:var(--coral)}
+.nav-group.all-done .gh-label{text-decoration:line-through; text-decoration-color:var(--teal-deep); opacity:.65}
+.gh-meta{font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; flex:0 0 auto}
+.group-body{margin:0 0 8px}
+.nav-group.collapsed .group-body{display:none}
+html.searching .nav-group.collapsed .group-body{display:block}
+.nav-link.hide{display:none}
+.nav-group.hide{display:none}
+
+/* topic bands — in-document section dividers */
+.topic-band{margin:54px 0 4px; padding:0 2px; display:flex; flex-direction:column; gap:4px; opacity:0; animation:rise .5s forwards}
+.topic-band:first-of-type{margin-top:14px}
+.topic-band .tb-label{font-family:var(--serif); font-weight:800; font-size:clamp(1.4rem,2.6vw,1.85rem); color:var(--ink); letter-spacing:-.01em; line-height:1.05}
+.topic-band .tb-blurb{font-size:.94rem; color:var(--ink-dim); max-width:62ch}
+.topic-band::after{content:""; height:1px; background:linear-gradient(90deg,var(--teal-deep),transparent 80%); margin-top:10px}
+html.wt .topic-band{display:none !important}
+html.present .topic-band{display:none !important}
+
+@media(max-width:980px){
+  .topic-band{margin-top:40px}
+}
+
+/* print — full topic-ordered document */
+@media print{
+  .nav-search,.threads{display:none !important}
+  .section{display:block !important}
+  .topic-band{display:block !important; opacity:1 !important; break-after:avoid; margin-top:26px}
+  .topic-band .tb-label{font-size:1.35rem}
+  .nav-group .group-body{display:block !important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="rail" id="rail">
+    <div class="brand">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 30c8 0 10-6 18-6s12 8 22 4c-4 6-12 9-20 7-7-1.6-12-5-20-5Z" fill="currentColor" fill-opacity=".14"/>
+        <path d="M4 30c8 0 10-6 18-6s12 8 22 4"/>
+        <path d="M30 17c3-5 9-6 13-3-2 4-7 6-11 5"/>
+        <circle cx="16" cy="27" r="1.3" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="bt"><b>Enpitech</b><br>AI-First · Run-of-Show</div>
+    </div>
+
+        <div class="nav-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="navSearch" type="text" placeholder="Search modules and topics…" autocomplete="off" spellcheck="false" aria-label="Search the run-of-show">
+      <button id="searchClear" title="Clear search" aria-label="Clear search">✕</button>
+    </div>
+
+    <div class="threads" id="threads" aria-label="Cross-cutting threads">
+      <span class="thread-chip" data-q="context">Context</span>
+      <span class="thread-chip" data-q="loop">The loop</span>
+      <span class="thread-chip" data-q="slice">Slicing</span>
+      <span class="thread-chip" data-q="verify">Verification</span>
+      <span class="thread-chip" data-q="skill">Skills</span>
+    </div>
+
+    <div class="rail-head" id="railHead">All topics</div>
+    <div id="navList"></div>
+
+    <div class="rail-foot">
+      <b>RULE</b> no IDE · all AI<br>
+      <b>KPI</b> mindset shift, not demos
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <div class="progress"><span id="progBar"></span></div>
+
+    <div class="topbar">
+      <button class="btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      <div class="tb-spacer"></div>
+      <button class="btn" id="wtBtn" title="Walkthrough mode (one module at a time)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
+        Walkthrough
+      </button>
+      <button class="btn" id="themeBtn" title="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+        Theme
+      </button>
+      <button class="btn" id="printBtn" title="Print / PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z"/></svg>
+      </button>
+    </div>
+
+    <div class="wrap">
+
+      <!-- HERO -->
+      <header class="hero">
+        <div class="kick">Facilitator Run-of-Show</div>
+        <h1>AI-First<br><em>Engineering</em></h1>
+        <p class="sub">This is the spine I run the workshop from: the topics in the order I teach them, the live demos I drive, the planning clinic, and the coaching playbook. How many sessions it spans and when each piece lands is my call to make per group. This is the what, not the calendar.</p>
+
+        <div class="flightcard">
+          <div class="fc-top">
+            <div class="fc-cell"><div class="l">Facilitator</div><div class="v">ENPITECH</div></div>
+            <div class="fc-cell"><div class="l">Mode</div><div class="v tl-c">TEACH + COACH</div></div>
+            <div class="fc-cell"><div class="l">Primary tool</div><div class="v">CLAUDE CODE</div></div>
+            <div class="fc-cell"><div class="l">House rule</div><div class="v co-c">NO IDE · ALL AI</div></div>
+          </div>
+          <div class="fc-strip"><span>ENP · AI</span><span class="perf"></span><span>NO IDE · ALL AI · SHIP WHAT YOU TRUST</span></div>
+        </div>
+      </header>
+
+      <!-- ============ BRIEF ============ -->
+      <section class="section" data-step id="engagement">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">BRIEF · 01</span></div>
+          <h2>What this workshop is for</h2>
+          <p>Nobody runs this workshop to walk away with a few cool demos. The demos are a nice side effect. What I'm actually after is a <strong>mindset shift</strong>: by the end, every engineer in the room has moved a real distance from "AI is a faster autocomplete" toward "AI is how I work." Some of them already live at the far end with their own agent workflows. Others are still typing into the editor and tabbing for a completion. They're all in one room, and my job is to move the whole room to the right, not to entertain the people who are already there.</p>
+          <p>So I set one constraint that does most of the teaching for me: <strong>nobody writes code directly in the IDE — everything goes through AI.</strong> It's deliberately uncomfortable, and the discomfort is the point. Once you can't reach for the keyboard to "just fix this one line," you're forced into the thing this is really about: describing intent, engineering context, and steering a loop instead of producing keystrokes. What I want is for that constraint to feel <em>possible and better</em>, so people leave preferring it rather than enduring it.</p>
+          <p>I teach primarily through <strong>Claude Code</strong>, because it puts the full agentic toolkit — skills, subagents, hooks, MCP — in front of you as first-class, and because going deep on one tool beats going shallow on three. Anyone on <strong>Cursor</strong> or <strong>Codex</strong> still gets everything: I teach each pattern as a portable idea, and the Rosetta maps it back to their tool.</p>
+          <p>The honest framing I give the room: this is not a productivity-hack session. The four things I want you to walk out with — thinking in <strong>context</strong> instead of implementation, spending your attention on <strong>intent and architecture</strong> instead of typing, building <strong>workflows</strong> instead of writing code faster, and <strong>collaborating</strong> with the agent instead of treating it as autocomplete — aren't features you install. They're a change in where you point your attention.</p>
+          <p><strong>I teach on one small, real reference app</strong> — a stand-in codebase scoped so a genuine end-to-end vertical slice fits inside a live demo. Swap in whatever app suits the group; the patterns don't care what it is.</p>
+          <div class="obj"><span class="lab">Outcome</span><p>Every engineer can take a fuzzy goal, turn it into a sliced plan, and drive an AI agent through a verify-and-iterate loop to code they trust — without touching the editor themselves.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step id="room">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">BRIEF · 02</span></div>
+          <h2>Who's in the room</h2>
+          <ul class="cover">
+            <li><strong>One undifferentiated room, very mixed AI adoption.</strong> A handful run sophisticated agent workflows. A larger group still uses AI as an in-editor assistant. A few are skeptical it's more than hype. Everyone gets the same content, and that's deliberate.</li>
+            <li><strong>Teams, each building its own project.</strong> I teach on the shared reference app; each team applies what they learn to its own real idea.</li>
+            <li><strong>Tooling:</strong> mostly Claude Code, with some Cursor and Codex users. The Rosetta keeps everyone able to follow along.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section" data-step id="shape">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">BRIEF · 03</span></div>
+          <h2>The shape of the program</h2>
+          <p>It runs in three movements, and I schedule them however the engagement allows. First the <strong>teaching</strong>: a sequence of short modules that each leave the room with one thing, climbing to a <strong>planning clinic</strong> where every team puts the ideas to work on its own real project. Then a stretch of <strong>self-guided build</strong>, where teams apply the workflow on their own with no facilitator in the room — the one-page self-guide is what carries them, and it does real load-bearing work. Then the <strong>coaching</strong>: reactive floor-work with no fixed agenda, where I move between teams and push each one further. The back half of this document is the playbook I run that from.</p>
+        </article>
+      </section>
+
+      <!-- ============ TEACHING MODULES ============ -->
+      <section class="section" data-step data-mins="35" id="m0">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M0</span><span class="sec-time">≈ 35 MIN</span></div>
+          <h2><span class="lead">The Reframe</span>Why You're Not Allowed to Touch the Keyboard</h2>
+          <span class="gauge light"><i></i>Hands-on · Light</span>
+          <div class="obj"><span class="lab">Objective</span><p>The room understands <em>why</em> the no-IDE rule exists and reframes it from punishment to training wheels, before a single tool appears.</p></div>
+          <p>I open with the uncomfortable rule stated plainly, then I make the case for it. The reason you reach into the editor to fix one line is that it's <em>faster right now</em>, and that local speed is exactly what keeps you from building the workflow that's faster every time after. Every time you take the keyboard back, you skip the step where you'd have learned to say what you wanted well enough for the agent to do it. The rule removes the escape hatch so the better habit has room to form.</p>
+          <p>Then I name the four shifts in plain terms: stop thinking about <em>the implementation</em> and start thinking about <em>the context the agent needs</em>; stop spending your best attention on typing and spend it on intent and architecture; stop trying to write code faster and start building a workflow that writes it for you; stop treating the agent as autocomplete and start working with it like a fast, literal, eager junior who never gets tired and never reads your mind. I don't demo anything yet — this module sells the <em>why</em> so everything after it runs downhill.</p>
+          <p>I close honestly with the skeptics and the already-advanced: yes, in here this will sometimes be slower than just typing the line. That's the cost I'm asking you to pay on purpose, to buy the habit. Hold that thought — M2 says exactly when, in real life, you <em>should</em> take the keyboard back.</p>
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>The no-IDE rule, stated and defended — local speed vs. compounding workflow speed</li>
+            <li>The four shifts, put in plain engineer terms</li>
+            <li>The "eager literal junior" mental model for what an agent actually is</li>
+            <li>A one-line promise: by the end you won't want the keyboard back</li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>Keep this short and high-energy; the temptation is to over-explain. Read the room's skepticism and remember who frowned — those are the people I convert with the live build in M1. I don't open a terminal during M0; the contrast with M1 is the whole point.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>A reason to take the constraint seriously instead of gaming it.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step data-mins="55" id="m1">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M1</span><span class="sec-time">≈ 55 MIN</span></div>
+          <h2><span class="lead">The Proof</span>Building a Feature Live, Through AI Only</h2>
+          <span class="gauge heavy"><i></i>Hands-on · Heavy (facilitator) · watch-only (room)</span>
+          <div class="obj"><span class="lab">Objective</span><p>Kill the "this can't really work for real code" objection by shipping a working vertical slice of the reference app live, no editor, including a real recovery from a real mistake.</p></div>
+          <p>This is the centerpiece and the trust-builder. I pick one slice of the app small enough to finish and real enough that it can't be faked — the one I reach for is <strong>"add a 'save' button that persists a record": a button, an API endpoint, persistence, and a test that proves it round-trips.</strong> I build it entirely by steering the agent: I state the intent, let it propose a plan, approve or correct the plan, let it write the code, run the test, read the failure, feed the failure back, and watch it converge. I narrate my thinking out loud the whole time — <em>what</em> I'm deciding and <em>why</em>, never <em>how to type it</em>.</p>
+          <p>The most important 8 minutes of this module are the <strong>planted mistake</strong>. I give the agent a deliberately under-specified instruction early — omit a constraint, or let it guess a field name wrong — so it produces something subtly wrong. Then I don't fix it by hand. I show the room the loop catching it: the test goes red, I read the actual error, I feed it back with the missing context, the agent corrects itself. This is the entire workshop in one motion. The lesson isn't "the agent is perfect"; it's "the agent plus a verification loop plus you reading the output is a system that converges, and you never touched the keyboard."</p>
+          <p>I end by pointing at the artifact: a working, tested feature, built in under an hour, by someone who typed only prose. Then I say the quiet part out loud: <em>that felt slower than typing it for the first two minutes and faster than typing it for the last twenty.</em></p>
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>A full intent → plan → act → verify → iterate cycle on real code, live</li>
+            <li>Reading agent output critically — the test result is the source of truth, not the agent's confidence</li>
+            <li>The planted-mistake recovery: how context, not correction-by-hand, fixes a wrong result</li>
+            <li>The feel of working in prose: where it drags, where it flies</li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>Rehearse until the reference-app slice is muscle memory, then rehearse the recovery twice more — the demo gods punish the unrehearsed recovery. Keep a known-good transcript or branch as a fallback if a live run wedges. If the agent one-shots it cleanly, <em>induce</em> a mistake anyway — the recovery is non-negotiable teaching. Weave in a 60-second secrets-hygiene aside when you wire the endpoint.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>Firsthand proof that real, tested code ships through prose alone — and a picture of what "good" looks like before they try it.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step data-mins="45" id="m2">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M2</span><span class="sec-time">≈ 45 MIN</span></div>
+          <h2><span class="lead">Loops</span>You Steer a Loop, You Don't Write Code</h2>
+          <span class="gauge light"><i></i>Hands-on · Light</span>
+          <div class="obj"><span class="lab">Objective</span><p>Install the single mental model the whole no-IDE workshop rests on — the agentic loop — and, just as importantly, name when <em>not</em> to use it.</p></div>
+          <p>This is the "why" lecture, deliberately conceptual. Everything you saw in M1 was one loop: <strong>plan → act → observe → verify → repeat.</strong> The shift from autocomplete-thinking to AI-first thinking <em>is</em> the shift from expecting one good answer to running a loop that converges on one. Autocomplete is a single shot. An agent is a loop — you set a direction, it acts, <em>something observable happens</em> (a test runs, a file changes, an error prints), and that observation steers the next turn. Your job moves from producing the output to <strong>designing the loop and judging each turn</strong>.</p>
+          <p>I make the verification point concrete, because it's where beginners fail: a loop without a real observation at each turn isn't a loop, it's hopeful one-shotting in a trench coat. The observation has to be something true about the world — a passing or failing test, a type error, a running app, a diff you actually read — not the agent's own claim that it's done. Iteration plus honest verification beats one-shot prompting, every time.</p>
+
+          <div class="caveat">
+            <div class="caveat-h">The honest caveat — when the loop is the wrong tool</div>
+            <div class="caveat-b">
+              <p style="color:var(--ink-dim);margin:14px 0">I treat this with the same seriousness as the rest — it's what earns the skeptics in the back row. AI-first is not "AI-only-always," and pretending otherwise burns credibility with the very engineers I most need to convert.</p>
+              <div class="row"><span class="t">The change is smaller than the prompt to describe it.</span>A one-character fix you can see is faster typed than explained. (In here you do it through AI anyway, to build the habit — but I say out loud that in real life this is a judgment call, not a commandment.)</div>
+              <div class="row"><span class="t">You can't verify the output and the cost of wrong is high.</span>Security-sensitive code, money-moving logic, irreversible migrations — if you don't have a loop that can <em>prove</em> the result, the agent's confidence is worth nothing. Slow down and review by hand.</div>
+              <div class="row"><span class="t">The agent is going in circles.</span>Two or three turns with no progress is a signal, not a reason to prompt harder. Usually the context is wrong or the task isn't sliced small enough — stop, fix the setup, restart. You'll see this constantly once teams are building on their own.</div>
+            </div>
+          </div>
+          <p>I land the verdict cleanly: the loop is the default, not the law. An AI-first engineer runs the loop by reflex <em>and</em> knows its three failure cases by heart.</p>
+
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>The agentic loop — plan → act → observe → verify → repeat — as the core model</li>
+            <li>Why verification is the load-bearing step, and what counts as a real observation</li>
+            <li>One-shot vs. loop, and why autocomplete habits quietly sabotage agent work</li>
+            <li>The three cases where the loop is the wrong tool — said honestly</li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>Anchor every abstract point to a concrete moment from M1 ("remember when the test went red — that red was the observation"). The caveat is your credibility deposit with advanced engineers; do not soften it into "but AI is still always great." Name the failure cases with conviction.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>A model they can apply to any task — and permission to distrust the agent in the cases where distrust is correct.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step data-mins="50" id="m3">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M3</span><span class="sec-time">≈ 50 MIN</span></div>
+          <h2><span class="lead">From PRD to a Sliced Board</span>Feeding the Loop Well</h2>
+          <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
+          <div class="obj"><span class="lab">Objective</span><p>Teach the discipline that makes the loop work — writing a tight PRD with the agent, then cutting it into thin <strong>vertical slices</strong> small enough to each be one good loop.</p></div>
+          <p>A loop is only as good as what you feed it, and the most common reason an agent flails is being handed a vague mountain instead of a sharp small task. I demo writing a short PRD <em>with</em> the agent for a feature on the reference app — not a novel, a tight spec: the problem, the user-visible behavior, the acceptance criteria, the explicit non-goals. The non-goals matter as much as the goals; they're how you stop the agent from gold-plating.</p>
+          <p>Then the heart of it: <strong>vertical slicing</strong>, which is just tracer-bullet thinking from <em>The Pragmatic Programmer</em> applied to AI work. A bad task list is horizontal — "build the data layer," "build the API," "build the UI" — three tasks where nothing works until all three are done. A good task list is vertical — each card is a thin slice that goes <em>all the way through</em> (a button that calls a real endpoint that writes a real row that a real test checks), delivers something demoable, and can be built and verified in a single loop. I cut the app's "save a record" feature into vertical slices live: the first slice is ugly and end-to-end and <em>works</em>; later slices add width, not depth.</p>
+          <p>I show the tooling lightly: the agent can do the slicing with you (the <code>write-a-prd</code> and <code>prd-to-issues</code>/<code>to-issues</code> flows turn a PRD into tracer-bullet tasks), and each slice lands as a card on whatever board the team already uses — GitHub issues, a markdown checklist, a sticky wall. I teach the discipline, not the board.</p>
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>Writing a tight PRD with the agent — behavior, acceptance criteria, and explicit non-goals</li>
+            <li>Vertical slice vs. horizontal layer — the tracer-bullet principle, shown on the reference app</li>
+            <li>What makes a good slice: thin, end-to-end, demoable, with verification built in</li>
+            <li>Turning a PRD into a board of sliced cards (<code>write-a-prd</code>, <code>prd-to-issues</code>), mapped to the team's own board</li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>The slicing demo is the keeper — spend your time there, not on PRD formatting. The "first slice is ugly and works" moment is the one to dwell on; engineers trained on tidy architecture resist it. Tie it straight back to M2: each card is one turn of the loop, sized so the loop can actually close.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>The ability to take a feature and cut it into tasks an agent can actually finish one at a time.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step data-mins="50" id="m4">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M4</span><span class="sec-time">≈ 50 MIN</span></div>
+          <h2><span class="lead">Skills</span>Teaching the Agent Your Team's Moves</h2>
+          <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
+          <div class="obj"><span class="lab">Objective</span><p>The room learns what a skill is, why a good skill is mostly a good <em>description</em>, and when one is worth writing at all — by building one live.</p></div>
+
+          <div class="m4-launch">
+            <button class="present-btn" id="presentM4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this module</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="trigger"><b>①</b>Trigger</span>
+            <span class="sp" data-sp="structure"><b>②</b>Structure</span>
+            <span class="sp" data-sp="steering"><b>③</b>Steering</span>
+            <span class="sp" data-sp="pruning"><b>④</b>Pruning</span>
+          </div></div>
+
+          <p>The flagship demo: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app.</p>
+          <div class="note"><div class="lab">Facilitator note</div><p>The bad-vs-good <strong>description</strong> contrast (beat ⑤) is the single most useful 5 minutes — slow down there. Resist hooks/MCP/subagents; point to the Rosetta and keep M4 on skills. Close on the rule of three.</p></div>
+          <button class="reh-toggle" id="rehToggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
+        </article>
+
+        <!-- ============ THE BEAT DECK · single source of truth ============ -->
+        <div class="deck" id="m4deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" id="deckClose" title="Exit (Esc)">✕</button>
+            <span class="hud-code" id="beatCode">—</span>
+            <div class="hud-spine" id="hudSpine">
+              <span class="sp" data-sp="trigger"><b>①</b>Trigger</span>
+              <span class="sp" data-sp="structure"><b>②</b>Structure</span>
+              <span class="sp" data-sp="steering"><b>③</b>Steering</span>
+              <span class="sp" data-sp="pruning"><b>④</b>Pruning</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos" id="beatPos">1 / 10</span>
+              <span class="deck-clock" id="beatClock">00:00</span>
+              <span class="deck-tgt" id="beatTgt"></span>
+              <button class="hud-note" id="notesToggle" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" id="deckPrev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" id="deckNext" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="M4 · Skills" data-mins="1">
+              <div class="b-kicker">M4 · The Missing Manual</div>
+              <h3>Building a <em>great</em> skill</h3>
+              <p class="b-sub">Not just a skill — a great one. Four questions tell them apart. We'll build one for the reference app, live.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"You'll all leave here with skills. The real question is whether they're any <em>good</em> — and most people can't tell. Here's the rubric, and we'll build one with it."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. High energy — this is a 50-minute slot, the description beat is the one to protect.</p>
+                <p class="nxt">next ▸ cold open · skill hell</p>
+              </div>
+            </div>
+
+            <!-- 2 · COLD OPEN -->
+            <div class="beat" data-code="Cold open" data-mins="4">
+              <div class="b-kicker">Why this matters</div>
+              <h3>Skill hell</h3>
+              <div class="ladder">
+                <div class="rung">tutorial hell — watch twenty, build nothing</div>
+                <div class="rung">framework hell — a new one every week</div>
+                <div class="rung hot">skill hell — everyone has skills, nobody can tell good from bad</div>
+              </div>
+              <p class="bro">"just one more skill, bro — this one fixes it."</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Quick history of developer suffering: tutorial hell, then framework hell. Now — skill hell. Everyone has skills they can download and share, and nobody can tell a good one from a bad one, so they pile up, don't fire, and quietly don't deliver."</p>
+                <p class="say">"The missing piece is a shared rubric. By the end of this you'll have one — four items — and a real skill built with it."</p>
+                <p class="do"><b>watch</b> The advanced engineers perk up at 'you can't tell good from bad.' That's your hook for them.</p>
+                <p class="nxt">next ▸ 90-second anatomy</p>
+              </div>
+            </div>
+
+            <!-- 3 · ANATOMY -->
+            <div class="beat" data-code="Anatomy" data-mins="3">
+              <div class="b-kicker">90 seconds, no more</div>
+              <h3>A folder with a <code>SKILL.md</code></h3>
+              <div class="tree">.claude/skills/<span class="hl">add-endpoint-our-way/</span>
+├── <span class="f">SKILL.md</span>      <span class="c">frontmatter (name, description) + body</span>
+└── <span class="f">reference/</span>     <span class="c">bundled files — loaded only when needed</span>
+    └── conventions.md</div>
+              <p class="b-sub" style="margin-top:18px">By default the agent sees only <strong>name + description</strong>. The body loads <em>only</em> when the description fires — <strong>progressive disclosure</strong>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"A skill is a folder with a SKILL.md — frontmatter with a name and the all-important description, then a markdown body. It can bundle files that load only when needed. Team skills live in .claude/skills so they ship with the repo."</p>
+                <p class="say">"The one fact to keep: the agent sees only name and description until the description matches. That's why the description is the whole ballgame."</p>
+                <p class="do"><b>do</b> Keep it fast. Don't go deep on anatomy — the value is the next four beats.</p>
+                <p class="nxt">next ▸ ① trigger · invocation</p>
+              </div>
+            </div>
+
+            <!-- 4 · TRIGGER (invocation) -->
+            <div class="beat" data-code="① Trigger" data-spine="trigger" data-mins="5">
+              <div class="b-kicker">① Trigger · how it's invoked</div>
+              <h3>Two ways in — pick on purpose</h3>
+              <div class="invo">
+                <div class="col user"><h4>User-invoked</h4><ul>
+                  <li>Only you fire it, by name</li>
+                  <li>No description in the agent's context</li>
+                  <li>Cost: <b>cognitive load</b> — you must remember it exists</li>
+                </ul></div>
+                <div class="col model"><h4>Model-invoked</h4><ul>
+                  <li>The agent fires it itself (and you can too)</li>
+                  <li>Description sits in context <em>every turn</em></li>
+                  <li>Cost: <b>context load</b> + it may not fire when it should</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px"><strong>Our endpoint skill → model-invoked.</strong> We want the agent to reach for it automatically. So the description has to earn its keep.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Two famous libraries bet opposite ways. Superpowers is mostly model-invoked — flexible. Matt Pocock's are mostly user-invoked — he types the name, removing the risk the agent just doesn't fire it, which you'd otherwise have to eval away."</p>
+                <p class="say">"Rule: model-invoke only when the agent must reach it on its own. Every model-invoked skill taxes every request your whole team makes."</p>
+                <p class="do"><b>say</b> "To make one user-invoked instead: disable-model-invocation: true — the description leaves the agent's view."</p>
+                <p class="nxt">next ▸ ① trigger · the description (slow down)</p>
+              </div>
+            </div>
+
+            <!-- 5 · TRIGGER (the description) — CENTERPIECE -->
+            <div class="beat" data-code="① Trigger · description" data-spine="trigger" data-mins="6">
+              <div class="b-kicker">① Trigger · the description is the product</div>
+              <h3>Bad vs great description</h3>
+              <div class="descflip" id="descA">
+                <div class="dcard bad"><div class="dl">✗ before</div><div class="desc">Helps you add API endpoints to the codebase.</div></div>
+                <div class="dcard good"><div class="dl">✓ after</div><div class="desc">Add an HTTP API endpoint to <mark>our app the way our team builds them</mark> — a thin vertical slice from route to a round-trip test. Use when <mark class="trig">adding a new endpoint or API route</mark>, exposing a resource over HTTP, or when someone says <mark class="trig">"add an endpoint", "new route", "wire up an endpoint"</mark>.</div>
+                  <div class="moves"><div>Front-load the leading concept</div><div>List real triggers — situations &amp; phrases</div><div>Cut identity already in the body</div></div>
+                </div>
+              </div>
+              <button class="present-btn" data-flip="descA" style="margin-top:16px; font-size:13px; padding:11px 18px">Rewrite it live →</button>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the centerpiece</div>
+                <p class="say">"Read the bad one like the agent does: 'helps you add API endpoints.' When does it fire? It doesn't say. It restates its own name. A skill that doesn't fire rots, unused."</p>
+                <p class="say">"Now watch me sharpen it. Front-load what it does. List the real trigger phrases people actually say. Cut anything already in the body — every word here costs context load on every turn. The description IS the product."</p>
+                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' from M3 — shared words make it fire more reliably.</p>
+                <p class="nxt">next ▸ ② structure</p>
+              </div>
+            </div>
+
+            <!-- 6 · STRUCTURE -->
+            <div class="beat" data-code="② Structure" data-spine="structure" data-mins="7">
+              <div class="b-kicker">② Structure · steps + reference, kept small</div>
+              <h3>Push branch-only reference behind a pointer</h3>
+              <div class="skillview" id="svA">
+                <div class="sv-tabs">
+                  <button class="sv-tab bad on">SKILL.md · before</button>
+                  <button class="sv-tab">SKILL.md · after</button>
+                  <button class="sv-tab">reference/conventions.md</button>
+                </div>
+                <div class="sv-pane on">---
+name: add-endpoint-our-way
+description: Helps you add API endpoints.   <span class="cmt">← vague · no triggers</span>
+---
+
+# Add Endpoint
+This skill helps you add a new API endpoint.   <span class="cmt">← no-op · identity</span>
+First, think carefully and plan your approach.  <span class="cmt">← no-op · it plans anyway</span>
+
+1. Create a route.
+2. Add a handler. Keep it clean and readable.  <span class="cmt">← no-op</span>
+3. Validate the request body; reject with 400.
+4. Save the data to the database.
+5. Write a test.
+6. Write a clear, descriptive commit message.   <span class="cmt">← no-op</span>
+
+## Conventions
+Error envelope { error, code }. Status 200/201/400/404/500.
+List endpoints paginate via limit &amp; offset (default 20)…  <span class="cmt">← branch-only · disclose it</span>
+Remember to validate and reject bad input with 400.  <span class="cmt">← duplicate of step 3</span></div>
+                <div class="sv-pane">---
+name: add-endpoint-our-way
+description: Add an HTTP API endpoint to our app the way our
+  team builds them — a <span class="k">thin vertical slice</span> from route to a
+  round-trip test. Use when adding a new endpoint or API
+  route, … "add an endpoint", "new route", "wire up an
+  endpoint", "expose X over the API".
+---
+
+Build the endpoint as one <span class="k">thin vertical slice</span>: route →
+validated handler → repository call → a test that proves
+the round-trip. Depth first, width later.
+
+## Steps
+1. Find the pattern — match the two most recent endpoints
+   under src/api/.
+2. Add the route; register it in src/api/index.ts.
+3. Validate input with a schema; reject with 400 first.
+4. Call the repository, never the DB directly.
+   See <span class="ptr">reference/conventions.md</span> when the slice needs it.
+5. Write the round-trip test — not done until it's green.
+
+## Done when
+- Route registered and reachable.
+- Invalid input → 400; valid → documented shape.
+- A test proves the round-trip and passes.</div>
+                <div class="sv-pane"># Our API conventions
+<span class="cmt">Disclosed reference — reached from step 4 only when a
+slice needs it. NOT loaded with the main skill.</span>
+
+## Error envelope
+{ "error": "message", "code": "MACHINE_CODE" }
+
+## Status codes
+200 ok · 201 created · 400 bad input · 404 not found
+409 conflict · 500 never thrown deliberately
+
+## Pagination — <span class="ptr">list endpoints only</span>
+limit (default 20, max 100) + offset (default 0)
+return { items, total } — never a bare array
+<span class="cmt">most endpoints never read past here — that's the branch
+that earns this file its own home</span></div>
+              </div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Two units: steps — the procedure — and reference — the facts it leans on. Make SKILL.md small; smaller is easier to audit and cheaper every run."</p>
+                <p class="say">"The lever is branches. Matt's to-prd always writes a PRD, so its template stays inline. His domain-modeling sometimes writes an ADR, sometimes not — so that template moves behind a pointer. Here: the conventions are branch-only, so they live one file away. Watch the main file shrink to five clean steps."</p>
+                <p class="do"><b>do</b> Tab before → after → conventions. The shrink is the lesson.</p>
+                <p class="nxt">next ▸ ③ steering</p>
+              </div>
+            </div>
+
+            <!-- 7 · STEERING -->
+            <div class="beat" data-code="③ Steering" data-spine="steering" data-mins="6">
+              <div class="b-kicker">③ Steering · leading words</div>
+              <h3>Pack intent into a word the model already knows</h3>
+              <p class="b-big">"thin vertical slice"</p>
+              <div class="trace" id="traceA"><div class="tl">agent · reasoning trace</div><span class="echo">Okay — I'll build this as a <mark>thin vertical slice</mark>: one route, one handler, one test, end-to-end before adding any width…</span></div>
+              <button class="present-btn" data-trace="traceA" style="margin-top:14px; font-size:13px; padding:11px 18px">Run the agent →</button>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"'I wrote it clearly and it ignored me' — usually the fix is a leading word: a compact phrase the model already understands. You write it once, the agent repeats it back and changes behavior."</p>
+                <p class="say">"Agents build layer by layer; nothing works till the end. Two words — 'thin vertical slice' — and it builds one path end-to-end. And you can <em>check</em>: watch the reasoning trace echo it. If it doesn't, your word's too weak. English is a wide API."</p>
+                <p class="do"><b>do</b> Click 'Run the agent' to reveal the echoed trace.</p>
+                <p class="nxt">next ▸ ④ pruning</p>
+              </div>
+            </div>
+
+            <!-- 8 · PRUNING -->
+            <div class="beat" data-code="④ Pruning" data-spine="pruning" data-mins="6">
+              <div class="b-kicker">④ Pruning · the deletion test</div>
+              <h3>Delete what the agent already does</h3>
+              <div class="deltest" id="delA">
+                <div class="file">
+                  <span class="ln" data-noop>Think carefully and plan before writing code.</span>
+                  <span class="ln">Create the route and register it in src/api/index.ts.</span>
+                  <span class="ln" data-noop>Make sure the handler is clean and readable.</span>
+                  <span class="ln">Validate input; reject bad input with 400.</span>
+                  <span class="ln">Write a round-trip test; not done until it is green.</span>
+                  <span class="ln" data-noop>Write a clear, descriptive commit message.</span>
+                </div>
+                <div class="meter"><span>lines left <b data-count>6</b></span><span>click the no-ops → they vanish</span><button class="foot-btn" data-delreset>↺ reset</button></div>
+              </div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"A working skill isn't a finished skill. The deletion test: take a line and ask — if I delete it, does the agent do worse? 'Write a clear commit message' — delete it, you still get a good one. That's a no-op. Pay tokens to say nothing? Delete it."</p>
+                <p class="say">"Three bloat sources: duplication (one fact, one place), sediment (everyone adds, nobody deletes), no-ops. The deletion test kills all three. That's the whole secret to small skills — not cleverness, deletion."</p>
+                <p class="do"><b>do</b> Click the three no-op lines live; watch the file shrink.</p>
+                <p class="nxt">next ▸ when is it worth it?</p>
+              </div>
+            </div>
+
+            <!-- 9 · RULE OF THREE -->
+            <div class="beat" data-code="Rule of three" data-mins="3">
+              <div class="b-kicker">When is a skill worth writing?</div>
+              <h3>The rule of three</h3>
+              <div class="rule3"><div class="r3-count">3×</div><div><p class="b-sub">Done by prompt three times, and you'll do it thirty more → <strong>that's</strong> a skill. A one-off dressed up as a skill is just ceremony.</p></div></div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Counter-message, because I just sold skills hard: most things should NOT be a skill. The test is repetition, not 'that was cool.' Three times done, thirty to go."</p>
+                <p class="say">"'add-endpoint-our-way' passes easily — we add endpoints constantly and they should all look the same. In the clinic, that's your filter: what has your team typed three times already?"</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 10 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="4">
+              <div class="b-kicker">Land it · the rubric you keep</div>
+              <h3>Trigger · Structure · Steering · Pruning</h3>
+              <p class="b-sub">Same four questions work on any skill — including the dodgy ones you download.</p>
+              <p class="b-big" style="margin-top:18px">The rubric itself ships as a skill: <code>writing-great-skills</code>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Recap: Trigger — model-invoked on purpose, a description that fires. Structure — steps + reference, conventions behind a pointer. Steering — a leading word the agent echoes. Pruning — deletion test, no no-ops."</p>
+                <p class="say">"Mic drop: this whole rubric is itself a skill — writing-great-skills. User-invoked, pure reference, discloses to a glossary. It practices everything it preaches."</p>
+                <p class="do"><b>handoff</b> "In the clinic, every team writes ONE skill with skill-creator, then runs these four over it. Pick by the rule of three. Let's build."</p>
+                <p class="nxt">▸ to the clinic (M5)</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn" id="footPrev">‹ Prev</button>
+            <div class="dots" id="deckDots"></div>
+            <button class="foot-btn primary" id="footNext">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
+      </section>
+
+      <section class="section" data-step data-mins="140" id="m5">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M5</span><span class="sec-time">≈ 140 MIN · MID-BREAK</span></div>
+          <h2><span class="lead">The Planning Clinic</span>Your Real Project, Sliced and Loaded</h2>
+          <span class="gauge heavy"><i></i>Hands-on · Heavy</span>
+          <div class="obj"><span class="lab">Objective</span><p>Every team turns the teaching into a running start on its <strong>own</strong> project — a PRD, a sliced board, and a scaffolded repo with its first loops queued — while I coach the room.</p></div>
+          <p>Everything funnels here. Each team takes its actual project idea and runs the workflow we just built on it, for real, while I move between teams. I set the room up to self-pace against a visible checklist so fast teams don't wait and stalled teams have an obvious next step. My job here is the coaching job in miniature — circulate, challenge, unblock. I watch hardest for the two failure modes that will otherwise eat the self-guided build: PRDs that are vague mountains instead of sliced foothills, and <code>CLAUDE.md</code> files that are empty so every loop starts context-starved.</p>
+          <div class="sub-h">Clinic checklist <button class="chk-reset" data-reset="clinic">↺ reset</button></div>
+          <ul class="chk" data-group="clinic">
+            <li><label><input type="checkbox" data-check="clinic-1"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">A one-page PRD for our project — behavior, acceptance criteria, non-goals — written with the agent</span></label></li>
+            <li><label><input type="checkbox" data-check="clinic-2"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">The PRD cut into vertical slices; first slice is thin and end-to-end</span></label></li>
+            <li><label><input type="checkbox" data-check="clinic-3"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Slices on our board (issues / markdown / wall — our choice)</span></label></li>
+            <li><label><input type="checkbox" data-check="clinic-4"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Repo scaffolded with a real <code>CLAUDE.md</code> (stack, conventions, how we work)</span></label></li>
+            <li><label><input type="checkbox" data-check="clinic-5"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">At least one team skill drafted with <code>skill-creator</code></span></label></li>
+            <li><label><input type="checkbox" data-check="clinic-6"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">First slice's loop started — agent has a plan we approved</span></label></li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>Time-box your stops (≈8–10 min/team) and do a deliberate lap so no team is starved — the same coverage discipline as the coaching phase. When you find a great move (a sharp slice, a clean <code>CLAUDE.md</code>), pull two other teams over to see it; cross-pollination scales you. Keep the reference app open as a template.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>Their own project sliced and scaffolded, already running its first loop — the build phase starts warm.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step data-mins="30" id="m6">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M6</span><span class="sec-time">≈ 30 MIN</span></div>
+          <h2><span class="lead">Reflection &amp; Handoff</span>Closing the Teaching, Launching the Build</h2>
+          <span class="gauge light"><i></i>Hands-on · Light</span>
+          <div class="obj"><span class="lab">Objective</span><p>Surface the mindset movement out loud (the real KPI here) and hand the room the self-guide that carries them through the self-guided build without me.</p></div>
+          <p>I close with a short, genuine reflection round — one sentence per person or team: <em>what shifted for you?</em> This is not fluff; it's the only instrument in the teaching that surfaces the KPI, and it plants the language the org is listening for. Expect a spread, and let the honest answers stand, including "I'm not sold yet" — converting that person is the coaching phase's work, and naming it now makes that easier.</p>
+          <p>Then I hand off the self-guided build explicitly. I won't be in the room for it; the <strong>AI-First Build Checklist</strong> is the facilitator-in-absentia. I walk them through it once so it's familiar when they hit a wall with no one to ask. I point them at the Rosetta if they're on Cursor or Codex. And I set one expectation for the coaching: the best use of me is to be challenged — bring your stuck loops and your "is this the right way" questions.</p>
+          <div class="note"><div class="lab">Facilitator notes</div><p>Keep the reflection psychologically safe — you want true answers, not performances for the boss. If a manager is in the room, prime them beforehand that skepticism voiced out loud is data, not disloyalty. Capture the recurring themes; they're your steer for where to push in the coaching.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>Language for their own shift, and the one-pager that keeps them moving on their own.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step id="livebuild">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M1 · PREP</span></div>
+          <h2><span class="lead">The Live-Build Spec</span>Rehearse to Muscle Memory</h2>
+          <p><strong>Repo:</strong> the reference app (the shared playground), checked out clean on a known-good commit.</p>
+          <p><strong>The slice to build live:</strong> <em>"Save this record."</em> A user viewing a record clicks <strong>Save</strong>; it persists; reloading shows it; a test proves the round-trip. Thin, end-to-end, demoable — a textbook vertical slice, and a silent preview of M3.</p>
+          <div class="sub-h">The loop to demonstrate, out loud</div>
+          <ol class="loop">
+            <li><strong>Intent</strong> — state the slice and its acceptance criteria as prose. No implementation talk.</li>
+            <li><strong>Plan</strong> — let the agent propose the plan (endpoint, persistence, UI hook, test). Approve or correct it <em>as a plan</em>, before any code.</li>
+            <li><strong>Act</strong> — agent writes the code across the layers.</li>
+            <li><strong>Observe</strong> — run the test. The observation is the result, not the agent's say-so.</li>
+            <li><strong>The planted mistake</strong> — earlier, under-specify one constraint (omit an owner id, or let it guess the persistence field name). The test goes red here.</li>
+            <li><strong>Recover by context, not by hand</strong> — read the real error aloud, feed back the missing constraint, let the agent fix itself, re-run to green.</li>
+            <li><strong>Land it</strong> — point at the working, tested feature built in prose; deliver the "slower for two minutes, faster for twenty" line.</li>
+          </ol>
+          <div class="note"><div class="lab">Fallbacks</div><p>A pre-recorded transcript or a finished branch in case a live run wedges; a second rehearsed mistake in case the first one self-resolves. Never let the recovery be the unrehearsed part. <strong>Woven asides (≈60s each):</strong> secrets hygiene when wiring the endpoint; "the test is the truth, not the agent's confidence" when it goes green.</p></div>
+        </article>
+      </section>
+
+      <!-- ============ SELF-GUIDED BUILD ============ -->
+      <section class="section" data-step id="tue">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">SELF-GUIDE</span></div>
+          <h2><span class="lead">Teams build solo · no facilitator in the room</span>The AI-First Build Checklist</h2>
+          <p style="color:var(--ink-faint);font-style:italic">The load-bearing artifact of the workshop: this is the first time teams apply the workflow to their own project with no facilitator in the room, so this page has to carry them. <span style="color:var(--teal)">These boxes are check-as-you-go — your ticks are saved on this device.</span></p>
+          <div class="rhythm">The rhythm, every task:<br><b>PRD → slice → loop → verify</b><br><span style="font-size:.8rem;color:var(--ink-dim);font-style:normal">If you're stuck, you've almost always skipped one.</span></div>
+
+          <div class="phase"><div class="ph-l">Before you prompt</div>
+          <ul class="chk" data-group="tue">
+            <li><label><input type="checkbox" data-check="tue-1"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Is this a <em>thin vertical slice</em>, or a vague mountain? If you can't name how you'll verify it, it's too big — cut it thinner.</span></label></li>
+            <li><label><input type="checkbox" data-check="tue-2"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Does the agent have the context? Is the relevant spec, file, and convention in <code>CLAUDE.md</code> or your prompt? A context-starved loop spins.</span></label></li>
+          </ul></div>
+
+          <div class="phase"><div class="ph-l">While the loop runs</div>
+          <ul class="chk" data-group="tue">
+            <li><label><input type="checkbox" data-check="tue-3"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">After each turn, look at a <em>real observation</em> — a test, a running app, a diff you actually read. Not the agent's claim that it's done.</span></label></li>
+            <li><label><input type="checkbox" data-check="tue-4"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Going in circles two or three turns? <strong>Stop.</strong> Don't prompt harder. Fix the context or cut the slice smaller, then restart.</span></label></li>
+            <li><label><input type="checkbox" data-check="tue-5"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Resist the keyboard. If you're itching to hand-fix, that itch is usually a sign the agent is missing context — give it the context instead.</span></label></li>
+          </ul></div>
+
+          <div class="phase"><div class="ph-l">Before you call it done</div>
+          <ul class="chk" data-group="tue">
+            <li><label><input type="checkbox" data-check="tue-6"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Did a verification actually pass — a test, a manual check you'd trust before a real deploy?</span></label></li>
+            <li><label><input type="checkbox" data-check="tue-7"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span><span class="ct">Would you put your name on this in review? If you can't tell, you haven't read it closely enough.</span></label></li>
+          </ul></div>
+          <button class="chk-reset" data-reset="tue" style="margin-top:6px">↺ reset checklist</button>
+          <div class="note"><div class="lab">Three honest off-ramps (from M2)</div><p>Take the keyboard back when the change is smaller than the prompt; slow down and review by hand when you can't verify and the cost of wrong is high; stop and re-set-up when the agent is stuck — looping harder won't help. <strong>On Cursor or Codex?</strong> See the Rosetta — every Claude Code move above has your tool's equivalent.</p></div>
+        </article>
+      </section>
+
+      <!-- ============ COACHING PLAYBOOK ============ -->
+      <section class="section" data-step id="wed-run">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">COACHING · 01</span></div>
+          <h2><span class="lead">Reactive floor-coaching</span>How to Run It</h2>
+          <p style="color:var(--ink-faint);font-style:italic">Not a timed agenda. This is reactive floor-coaching: I move between teams, challenge assumptions, and nudge toward better workflow — solo, without starving the quiet teams.</p>
+          <p>Work in <strong>deliberate laps</strong>, not by following the noise. Reactive coaching skews to the loudest, most-stuck, or most-confident teams; a visible checklist of every team, ticked each lap, is the fix. Touch every team early, before you go deep with anyone — a fast diagnostic lap first, then depth where it's needed. Then cycle: diagnose, intervene, leave them with one concrete next move, come back to verify it landed.</p>
+          <div class="obj"><span class="lab">Stance</span><p><strong>Challenge, don't solve.</strong> The goal is a mindset shift, which doesn't happen if you fix their loop for them. Ask the question that makes them see the better move; make them run it. You are coaching the workflow, not debugging the project.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step id="wed-radar">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">COACHING · 02</span></div>
+          <h2><span class="lead">The Anti-Pattern Radar</span>What to Spot · the Intervention</h2>
+          <p style="color:var(--ink-dim)">Walk up to a team and read their screen and their behavior. <span style="color:var(--teal)">Tap a card for the intervention line.</span></p>
+          <div class="radar">
+            <div class="ap"><div class="ap-t">Babysitting the agent <span class="chev">+</span></div><div class="sym">hovering, correcting every turn by hand, never letting a loop close</div><div class="iv"><span class="ivl">Say</span>"Let it finish the turn. What's the <em>observation</em> you're going to check — is there a test? Let's make the loop close on its own."</div></div>
+            <div class="ap"><div class="ap-t">No plan, straight to code <span class="chev">+</span></div><div class="sym">a huge vague prompt, agent off building something sprawling</div><div class="iv"><span class="ivl">Say</span>"Stop — what's the thinnest slice that proves this works end-to-end? Let's get a plan you approve before it writes anything." Invoke plan mode in front of them.</div></div>
+            <div class="ap"><div class="ap-t">Context starvation <span class="chev">+</span></div><div class="sym">agent guessing field names, ignoring conventions, repeating mistakes</div><div class="iv"><span class="ivl">Say</span>"What does it actually know about your repo? Show me your <code>CLAUDE.md</code>." Usually it's empty. Fix it together, watch the next loop improve.</div></div>
+            <div class="ap"><div class="ap-t">One-shotting <span class="chev">+</span></div><div class="sym">prompt, take output, discard, re-prompt from scratch — autocomplete habits</div><div class="iv"><span class="ivl">Say</span>"You're throwing away the loop. Don't restart — feed the result back. What did this turn get wrong, specifically?"</div></div>
+            <div class="ap"><div class="ap-t">Accepting unverified output <span class="chev">+</span></div><div class="sym">"it says it's done," no test run, moving on</div><div class="iv"><span class="ivl">Say</span>"How do you <em>know</em> it works? The agent's confidence isn't evidence. What would convince you before a real deploy?"</div></div>
+            <div class="ap"><div class="ap-t">Sneaking hand-fixes <span class="chev">+</span></div><div class="sym">someone's in the editor — the rule is broken</div><div class="iv"><span class="ivl">Say (light touch, not police)</span>"I get it, it's faster right now. But you just skipped the part where you'd learn to say what you wanted. Put it back through the agent — what context was it missing that made you want to fix it yourself?"</div></div>
+            <div class="ap"><div class="ap-t">A stuck loop nobody stops <span class="chev">+</span></div><div class="sym">turn after turn, no progress, rising frustration</div><div class="iv"><span class="ivl">Say</span>"Two turns, no progress — that's a signal. The context is wrong or the slice is too big. Stop the loop, fix the setup, restart."</div></div>
+            <div class="ap"><div class="ap-t">The disengaged advanced engineer <span class="chev">+</span></div><div class="sym">already AI-first, bored, coasting</div><div class="iv"><span class="ivl">Stretch, don't bore</span>"Your loop's clean. Now: can you make this a skill your team reuses? Can a subagent parallelize it? Show me something I haven't seen today." Then pull others over to learn from them.</div></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" data-step id="wed-prompts">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">COACHING · 03</span></div>
+          <h2><span class="lead">Pocket Prompts, Coverage &amp; Close</span>The Rest of the Playbook</h2>
+          <div class="sub-h">Challenge-the-assumption prompts — keep these in your pocket</div>
+          <div class="pocket">
+            <div>"What's the thinnest version of this that could possibly work?"</div>
+            <div>"How will you <em>verify</em> this turn — what's the observation?"</div>
+            <div>"What does the agent actually know about your codebase right now?"</div>
+            <div>"You've prompted that three times — should it be a skill?"</div>
+            <div>"If you couldn't touch the keyboard <em>or</em> re-prompt, what context would you add to get this right in one plan?"</div>
+            <div>"Is the agent stuck, or is your task too big? Which one?"</div>
+          </div>
+          <div class="note"><div class="lab">The coverage sweep</div><p>Twice across the session, do a fast silent audit: <em>have I given every team real time?</em> The teams that don't flag you down are the ones quietly getting the least — the over-confident team heading the wrong way and the under-confident team too polite to interrupt. Go to them on purpose.</p></div>
+          <div class="note leave"><div class="lab">Closing</div><p>End with a short reflection mirroring the one that closed the teaching — <em>what shifted since then?</em> Listen for the autocomplete-users describing loops and slices in their own words; that's the KPI moving, and what the org wants to hear. Flag for the sponsor (privately) which teams moved most and where the resistance still sits.</p></div>
+        </article>
+      </section>
+
+      <!-- ============ REFERENCE ============ -->
+      <section class="section" data-step id="rosetta">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">REF · ROSETTA</span></div>
+          <h2><span class="lead">Claude Code ↔ Cursor ↔ Codex</span>The Cross-Tool Rosetta</h2>
+          <p style="color:var(--ink-dim)">So Cursor and Codex users reproduce every pattern in their own tool. The three have converged hard, bridged by two open standards: <strong>AGENTS.md</strong> (project instructions) and <strong>Agent Skills</strong> (<code>SKILL.md</code>). Teach in Claude Code; point here for translation.</p>
+          <div class="tablewrap">
+          <table>
+            <thead><tr><th>Concept</th><th>Claude Code</th><th>Cursor</th><th>OpenAI Codex</th></tr></thead>
+            <tbody>
+              <tr><th>Reusable skills</th><td>Skills — <code>.claude/skills/&lt;name&gt;/SKILL.md</code></td><td>Skills (now supported) + Project Rules (<code>.cursor/rules/*.mdc</code>)</td><td>Skills — <code>.agents/skills/SKILL.md</code> (open standard); <code>$skill-name</code> or <code>/skills</code>; built-in <code>$skill-creator</code></td></tr>
+              <tr><th>Subagents</th><td>Subagents — <code>.claude/agents/*.md</code></td><td>Subagents / Background Agents</td><td>Custom agents — <code>~/.codex/agents/</code>; built-ins <code>default</code>/<code>worker</code>/<code>explorer</code>; <code>/agent</code></td></tr>
+              <tr><th>Hooks</th><td>Hooks in <code>settings.json</code> (PreToolUse, PostToolUse, Stop…)</td><td>Cursor Hooks (<code>onPreEdit</code>/<code>onPostEdit</code>, can veto)</td><td>Hooks — <code>~/.codex/hooks.json</code> or <code>[hooks]</code>; PreToolUse, PostToolUse, UserPromptSubmit, SessionStart, Stop</td></tr>
+              <tr><th>External tools (MCP)</th><td>MCP — <code>.mcp.json</code>, <code>claude mcp add</code></td><td>MCP — <code>~/.cursor/mcp.json</code></td><td>MCP — <code>[mcp_servers]</code> in <code>config.toml</code>; runs as a server via <code>codex mcp-server</code></td></tr>
+              <tr><th>Custom commands</th><td>Slash commands (now expressed as skills)</td><td>Custom commands (<code>.cursor/commands</code>) + MCP prompts</td><td>Slash commands (40+ built-in) + skills; legacy prompts deprecated → skills</td></tr>
+              <tr><th>Project memory</th><td><code>CLAUDE.md</code></td><td><code>.cursor/rules/*.mdc</code> + AGENTS.md + Memories</td><td>AGENTS.md (+ <code>config.toml</code>)</td></tr>
+              <tr><th>Plan mode</th><td>Plan mode (<code>Shift+Tab</code> / <code>/plan</code>)</td><td>Plan Mode (Composer: Agent / Ask / Plan)</td><td><strong style="color:var(--coral)">No true Plan mode</strong> — internal checklist only; closest is <code>--sandbox read-only</code></td></tr>
+              <tr><th>Approval / sandbox</th><td>Permission modes</td><td>Agent / Ask / Manual modes</td><td><code>/permissions</code> + <code>sandbox_mode</code> (read-only / workspace-write / full-access)</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="callouts">
+            <div class="co"><b>Subagents are a clean three-way match</b> — the pattern ports directly to any of the three.</div>
+            <div class="co"><b>Plan mode is the one real gap:</b> Claude Code and Cursor have a true Plan Mode; Codex does not. Don't claim Codex has one on stage — show Codex users the read-only sandbox as the nearest substitute.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" data-step id="takehome">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">REF · TAKE-HOME</span></div>
+          <h2>The take-home pack</h2>
+          <p>Each team leaves with:</p>
+          <ul class="cover">
+            <li><strong>Their project's AI-first scaffolding</strong> — <code>CLAUDE.md</code>, the team skill(s) they authored, and their sliced board, all living in their repo.</li>
+            <li><strong>The AI-First Build Checklist</strong> one-pager (the self-guide).</li>
+            <li><strong>The Cross-Tool Rosetta</strong> for whichever tool they actually use.</li>
+            <li><strong>The reference app repo</strong> — the teaching playground, to lift patterns from.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section" data-step id="logistics">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">REF · LOGISTICS</span></div>
+          <h2>How I run it &amp; the known trade-offs</h2>
+          <p><strong>Format.</strong> The teaching is hands-on by design once the clinic starts — the lectures are tight teach-and-demo, and the clinic is where the room's hands are on the keyboard. The coaching is entirely hands-on for the teams; I coach, I never take the keyboard. I deliver in Hebrew; this document is the English run-of-show.</p>
+          <p><strong>Solo delivery.</strong> I run it all alone. The clinic and the coaching both depend on the coverage discipline — deliberate laps, time-boxed stops — to make one facilitator reach every team.</p>
+          <div class="sub-h">Three trade-offs built in, and how I compensate</div>
+          <ol class="loop">
+            <li><strong>Same content for everyone, no tiering.</strong> Advanced engineers risk boredom. Counter with genuine depth (the M2 caveat, the M4 description craft) and the no-IDE discipline, which humbles even the fluent — and in the coaching, redirect bored experts into skills/subagents stretch work and deputize them to help peers.</li>
+            <li><strong>Teaching hands-on is on the shared reference app;</strong> the first transfer to their own project is the clinic and then the self-guided build — when I'm away. That's why the self-guide carries real weight; walk the room through it at M6.</li>
+            <li><strong>The coaching is reactive-only.</strong> Coverage skews to the loud. The coverage sweep is the explicit fix — audit twice, go to the quiet teams on purpose.</li>
+          </ol>
+        </article>
+      </section>
+
+    </div><!-- /wrap -->
+
+    <!-- walkthrough control bar -->
+    <div class="wt-bar">
+      <div class="wt-nav">
+        <button id="wtPrev" title="Previous (←)">‹</button>
+        <button id="wtNext" title="Next (→)">›</button>
+      </div>
+      <div class="wt-pos"><b id="wtCur">1</b> / <span id="wtTot">7</span> · <span id="wtName">—</span></div>
+      <div class="timer">
+        <span class="tgt" id="tgt">TARGET —</span>
+        <span class="clock" id="clock">00:00</span>
+        <button id="tStart">Start</button>
+        <button id="tReset">Reset</button>
+        <button class="btn" id="wtExit" title="Exit walkthrough (Esc)" style="border-radius:9px">Exit</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  const root=document.documentElement, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const byId=id=>document.getElementById(id);
+
+  /* ============ TOPIC MODEL ============ */
+  const TOPICS=[
+    {id:'brief',           label:'The Brief',           blurb:'Why this exists, who’s in the room, and the shape of the program.',                                    sectionIds:['engagement','room','shape']},
+    {id:'mindset-loop',    label:'Mindset & The Loop',  blurb:'The no-IDE reframe, the live proof, and the agentic loop — with the honest “when not to loop” caveat.', sectionIds:['m0','m1','livebuild','m2']},
+    {id:'planning-slicing',label:'Planning & Slicing',  blurb:'PRD to thin vertical slices, then the clinic where every team slices its own real project.',           sectionIds:['m3','m5']},
+    {id:'skills',          label:'Skills',              blurb:'Building a great skill — trigger, structure, steering, pruning, and the rule of three.',                sectionIds:['m4']},
+    {id:'reflection-handoff',label:'Reflection & Handoff',blurb:'Close the teaching, surface the mindset shift, and hand off to the self-guided build.',               sectionIds:['m6']},
+    {id:'self-guided-build',label:'Self-Guided Build',  blurb:'The checklist teams run on their own project with no facilitator in the room.',                        sectionIds:['tue']},
+    {id:'coaching',        label:'Coaching Playbook',   blurb:'Reactive floor-coaching — the anti-pattern radar, the pocket prompts, and the coverage sweep.',        sectionIds:['wed-run','wed-radar','wed-prompts']},
+    {id:'reference',       label:'Reference & Take-Home',blurb:'Durable, portable artifacts — the cross-tool Rosetta, the take-home pack, and how I run it solo.',     sectionIds:['rosetta','takehome','logistics']}
+  ];
+  /* searchable keywords — make cross-cutting concepts (context engineering, verification…) findable */
+  const TAGS={
+    engagement:'mindset kpi goal outcome why',
+    room:'audience adoption skeptics mixed who',
+    shape:'shape overview structure program arc movements',
+    m0:'mindset reframe no-ide keyboard four shifts context attention junior',
+    m1:'live build proof demo reference loop verify recovery planted mistake',
+    livebuild:'rehearsal demo spec reference loop save record prep fallback',
+    m2:'loop agentic verify observe plan act iterate one-shot caveat off-ramp',
+    m3:'prd slice vertical slicing tracer bullet board planning non-goals',
+    m5:'clinic planning slice prd context claude.md scaffold team project skill skill-creator',
+    m4:'skill skills description trigger structure steering pruning rule of three',
+    m6:'reflection handoff kpi mindset close self-guide build',
+    tue:'self-guide checklist solo build loop verify context claude.md off-ramps',
+    'wed-run':'coaching laps floor reactive challenge solo stance',
+    'wed-radar':'anti-pattern radar intervention babysitting context starvation one-shotting verification',
+    'wed-prompts':'pocket prompts coverage sweep close reflection',
+    rosetta:'rosetta cursor codex cross tool agents.md skill mcp hooks plan mode',
+    takehome:'take-home pack artifacts deliverables',
+    logistics:'logistics format solo trade-offs hebrew delivery'
+  };
+
+  const secs=()=>$$('.section');
+  function codeFor(sec){const no=sec.querySelector('.sec-no'); return no?no.textContent.split('·')[0].trim():'';}
+  function titleFor(sec){const h=sec.querySelector('h2'); if(!h)return''; const lead=h.querySelector('.lead'); return lead?lead.textContent:h.textContent;}
+  function minsOf(sec){return sec.dataset.mins?+sec.dataset.mins:0;}
+
+  /* ============ APPLY METADATA + REORDER DOM BY TOPIC ============ */
+  TOPICS.forEach(t=>t.sectionIds.forEach(id=>{const s=byId(id); if(s){s.dataset.topic=t.id; s.dataset.tags=TAGS[id]||'';}}));
+  (function reorder(){
+    const wrap=$('.wrap'); if(!wrap)return;
+    TOPICS.forEach(t=>{
+      const band=document.createElement('div'); band.className='topic-band'; band.dataset.topic=t.id;
+      band.innerHTML='<span class="tb-label">'+t.label+'</span><span class="tb-blurb">'+t.blurb+'</span>';
+      wrap.appendChild(band);
+      t.sectionIds.forEach(id=>{const s=byId(id); if(s)wrap.appendChild(s);});
+    });
+  })();
+
+  /* ============ THEME ============ */
+  const savedTheme=localStorage.getItem('afe-theme'); if(savedTheme) root.dataset.theme=savedTheme;
+  $('#themeBtn').onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('afe-theme',root.dataset.theme);};
+
+  /* ============ PERSISTENT CHECKLISTS ============ */
+  $$('[data-check]').forEach(cb=>{
+    const k='afe-chk-'+cb.dataset.check;
+    if(localStorage.getItem(k)==='1') cb.checked=true;
+    cb.addEventListener('change',()=>localStorage.setItem(k,cb.checked?'1':'0'));
+  });
+  $$('[data-reset]').forEach(b=>b.onclick=()=>{
+    $$('.chk[data-group="'+b.dataset.reset+'"] [data-check]').forEach(cb=>{cb.checked=false;localStorage.setItem('afe-chk-'+cb.dataset.check,'0');});
+  });
+
+  /* ============ ANTI-PATTERN CARDS ============ */
+  $$('.ap').forEach(c=>c.onclick=()=>c.classList.toggle('open'));
+
+  /* ============ NAVIGATION ============ */
+  const navList=$('#navList'), railHead=$('#railHead');
+
+  function sectionsForTopic(tid){const t=TOPICS.find(x=>x.id===tid); return t?t.sectionIds.map(byId).filter(Boolean):[];}
+  function isDone(id){return localStorage.getItem('afe-done-'+id)==='1';}
+
+  function mkLink(sec){
+    const a=document.createElement('a'); a.className='nav-link'; a.href='#'+sec.id; a.dataset.target=sec.id;
+    a.dataset.hay=(codeFor(sec)+' '+titleFor(sec)+' '+(sec.dataset.tags||'')).toLowerCase();
+    const mins=sec.dataset.mins?'<span class="mins">'+sec.dataset.mins+'m</span>':'';
+    a.innerHTML='<span class="dot"></span><span class="nav-txt"><span class="code">'+codeFor(sec)+' '+mins+'</span><span class="ttl">'+titleFor(sec)+'</span></span>';
+    if(isDone(sec.id)){a.classList.add('done'); sec.classList.add('done');}
+    a.onclick=e=>{ if(root.classList.contains('wt')){e.preventDefault(); const set=activeSet(), i=set.indexOf(sec); if(i>=0)goTo(i);} closeNav(); };
+    return a;
+  }
+
+  function buildNav(){
+    navList.innerHTML='';
+    railHead.textContent='All topics';
+    TOPICS.forEach(t=>{
+      const list=sectionsForTopic(t.id); if(!list.length)return;
+      const grp=document.createElement('div'); grp.className='nav-group'; grp.dataset.topic=t.id;
+      const collapsed=localStorage.getItem('afe-grp-'+t.id)==='0'; if(collapsed)grp.classList.add('collapsed');
+      const totalMins=list.reduce((s,x)=>s+minsOf(x),0);
+      const meta=list.length+(totalMins?' · '+totalMins+'m':'');
+      const head=document.createElement('button'); head.className='group-head'; head.setAttribute('aria-expanded',String(!collapsed));
+      head.innerHTML='<span class="gh-tw"><span class="chev">▸</span><span class="gh-label">'+t.label+'</span></span><span class="gh-meta">'+meta+'</span>';
+      head.onclick=()=>{const c=grp.classList.toggle('collapsed'); head.setAttribute('aria-expanded',String(!c)); localStorage.setItem('afe-grp-'+t.id,c?'0':'1');};
+      grp.appendChild(head);
+      const ul=document.createElement('ul'); ul.className='tl group-body';
+      list.forEach(sec=>{const li=document.createElement('li'); li.appendChild(mkLink(sec)); ul.appendChild(li);});
+      grp.appendChild(ul);
+      if(list.every(s=>isDone(s.id))) grp.classList.add('all-done');
+      navList.appendChild(grp);
+    });
+    applyDisplay(); applySearch();
+  }
+
+  /* section + band visibility */
+  function applyDisplay(){
+    secs().forEach(s=>{ s.style.display=''; });
+    $$('.topic-band').forEach(b=>{ b.style.display=''; });
+  }
+
+  /* the ordered set walkthrough / spy / timer operate on */
+  function activeSet(){ return secs(); }
+
+  /* ============ SEARCH (filter only — never touches the walkthrough set) ============ */
+  const searchInput=$('#navSearch'), searchClear=$('#searchClear');
+  function applySearch(){
+    const q=((searchInput&&searchInput.value)||'').trim().toLowerCase();
+    root.classList.toggle('searching',!!q);
+    $$('#navList .nav-link').forEach(a=>a.classList.toggle('hide',!!q && (a.dataset.hay||'').indexOf(q)<0));
+    $$('#navList .nav-group').forEach(g=>{ const any=[...g.querySelectorAll('.nav-link')].some(a=>!a.classList.contains('hide')); g.classList.toggle('hide',!!q && !any); });
+  }
+  if(searchInput){
+    searchInput.addEventListener('input',applySearch);
+    searchInput.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){ const first=$('#navList .nav-link:not(.hide)'); if(first){ const sec=byId(first.dataset.target); if(sec){ if(root.classList.contains('wt')){const i=activeSet().indexOf(sec); if(i>=0)goTo(i);} else sec.scrollIntoView({behavior:'smooth'}); } } }
+      else if(e.key==='Escape'){ searchInput.value=''; applySearch(); searchInput.blur(); }
+    });
+  }
+  if(searchClear) searchClear.onclick=()=>{ if(searchInput){searchInput.value=''; applySearch(); searchInput.focus();} };
+  $$('.thread-chip').forEach(c=>c.onclick=()=>{ if(searchInput){searchInput.value=c.dataset.q; applySearch(); searchInput.focus();} });
+
+  /* ============ SCROLL SPY (id-matched, group-aware) ============ */
+  function spy(){
+    if(root.classList.contains('wt'))return;
+    let best=null,bd=1e9;
+    activeSet().forEach(sec=>{ if(sec.style.display==='none')return; const r=sec.getBoundingClientRect(), d=Math.abs(r.top-120); if(r.top<window.innerHeight*0.5 && d<bd){bd=d;best=sec;} });
+    $$('#navList .nav-link').forEach(l=>l.classList.remove('active'));
+    $$('#navList .nav-group').forEach(g=>g.classList.remove('active'));
+    if(best){ const a=$('#navList .nav-link[data-target="'+best.id+'"]'); if(a){ a.classList.add('active'); const g=a.closest('.nav-group'); if(g)g.classList.add('active'); } }
+  }
+  const progBar=$('#progBar');
+  function prog(){ const h=document.documentElement.scrollHeight-window.innerHeight; progBar.style.width=(h>0?(window.scrollY/h*100):0)+'%'; }
+  window.addEventListener('scroll',()=>{spy();prog();},{passive:true});
+
+  /* ============ WALKTHROUGH ============ */
+  let idx=0;
+  function goTo(i){
+    const v=activeSet(); if(!v.length)return;
+    idx=Math.max(0,Math.min(i,v.length-1));
+    v.forEach((s,j)=>s.classList.toggle('active',j===idx));
+    const sec=v[idx];
+    $('#wtCur').textContent=idx+1; $('#wtTot').textContent=v.length;
+    $('#wtName').textContent=(codeFor(sec)+' '+titleFor(sec)).trim();
+    $('#wtPrev').disabled=idx===0; $('#wtNext').disabled=idx===v.length-1;
+    $$('#navList .nav-link').forEach(l=>l.classList.toggle('active',l.dataset.target===sec.id));
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTarget(minsOf(sec)); resetTimer();
+  }
+  function enterWT(){root.classList.add('wt');$('#wtBtn').classList.add('on');goTo(0);}
+  function exitWT(){root.classList.remove('wt');$('#wtBtn').classList.remove('on');secs().forEach(s=>s.classList.remove('active'));stopTimer();applyDisplay();spy();}
+  $('#wtBtn').onclick=()=>root.classList.contains('wt')?exitWT():enterWT();
+  $('#wtExit').onclick=exitWT;
+  $('#wtPrev').onclick=()=>goTo(idx-1);
+  $('#wtNext').onclick=()=>goTo(idx+1);
+  document.addEventListener('keydown',e=>{
+    if(!root.classList.contains('wt'))return;
+    if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(e.key==='ArrowRight')goTo(idx+1);
+    else if(e.key==='ArrowLeft')goTo(idx-1);
+    else if(e.key==='Escape')exitWT();
+  });
+
+  /* ============ PACING TIMER ============ */
+  let elapsed=0,target=0,tick=null;
+  const clock=$('#clock'),tgtEl=$('#tgt'),startBtn=$('#tStart');
+  function fmt(s){const m=Math.floor(Math.abs(s)/60),x=Math.abs(s)%60;return (s<0?'-':'')+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0');}
+  function render(){ clock.textContent=fmt(elapsed); clock.classList.toggle('over',target>0&&elapsed>=target*60); }
+  function setTarget(m){target=m;tgtEl.textContent=m?('TARGET '+m+':00'):'NO TARGET';}
+  function startTimer(){ if(tick){stopTimer();return;} startBtn.textContent='Pause';startBtn.classList.add('run'); tick=setInterval(()=>{elapsed++;render();},1000); }
+  function stopTimer(){if(tick)clearInterval(tick);tick=null;startBtn.textContent='Start';startBtn.classList.remove('run');}
+  function resetTimer(){stopTimer();elapsed=0;render();}
+  startBtn.onclick=startTimer; $('#tReset').onclick=resetTimer;
+
+  /* ============ DOUBLE-CLICK A MODULE TO MARK DONE ============ */
+  navList.addEventListener('dblclick',e=>{
+    const a=e.target.closest('.nav-link'); if(!a)return; e.preventDefault();
+    const id=a.dataset.target, sec=byId(id), on=!a.classList.contains('done');
+    a.classList.toggle('done',on); if(sec)sec.classList.toggle('done',on);
+    localStorage.setItem('afe-done-'+id,on?'1':'0');
+    const g=a.closest('.nav-group'); if(g){const links=[...g.querySelectorAll('.nav-link')]; g.classList.toggle('all-done',links.length>0&&links.every(l=>l.classList.contains('done')));}
+  });
+
+  /* ============ MOBILE NAV ============ */
+  function closeNav(){root.classList.remove('nav-open');}
+  $('#menuBtn').onclick=()=>root.classList.toggle('nav-open');
+  $('#scrim').onclick=closeNav;
+  $('#printBtn').onclick=()=>window.print();
+  const brand=$('.brand'); if(brand){brand.style.cursor='pointer'; brand.title='Back to top'; brand.onclick=()=>{ if(root.classList.contains('wt'))goTo(0); else window.scrollTo({top:0,behavior:'smooth'}); };}
+
+  /* ============ M4 PRESENT MODE ============ */
+  (function(){
+    const deck=document.getElementById('m4deck'); if(!deck) return;
+    const beats=[...deck.querySelectorAll('.beat')];
+    const hudCode=$('#beatCode'), hudPos=$('#beatPos'), bclock=$('#beatClock'), btgt=$('#beatTgt');
+    let bi=0, bel=0, btgtM=0, btick=null;
+
+    const bfmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+    function brender(){ if(bclock){bclock.textContent=bfmt(bel); bclock.classList.toggle('over',btgtM>0&&bel>=btgtM*60);} }
+    function bstop(){ if(btick)clearInterval(btick); btick=null; }
+    function bstart(){ bstop(); btick=setInterval(()=>{bel++;brender();},1000); }
+
+    /* nav dots */
+    const dotsWrap=$('#deckDots');
+    beats.forEach((b,i)=>{ const d=document.createElement('button'); d.className='dot'; d.title='Beat '+(i+1); d.onclick=()=>showBeat(i); dotsWrap.appendChild(d); });
+    const dots=[...dotsWrap.children];
+
+    function showBeat(i){
+      bi=Math.max(0,Math.min(i,beats.length-1));
+      beats.forEach((b,j)=>b.classList.toggle('active',j===bi));
+      dots.forEach((d,j)=>d.classList.toggle('on',j===bi));
+      const b=beats[bi];
+      if(hudCode)hudCode.textContent=b.dataset.code||('Beat '+(bi+1));
+      if(hudPos)hudPos.textContent=(bi+1)+' / '+beats.length;
+      btgtM=b.dataset.mins?+b.dataset.mins:0;
+      if(btgt)btgt.textContent=btgtM?('/ '+btgtM+'m'):'';
+      bel=0; brender(); if(root.classList.contains('present')) bstart();
+      const sp=b.dataset.spine||'';
+      $$('#hudSpine .sp').forEach(el=>el.classList.toggle('on',!!sp&&el.dataset.sp===sp));
+      $('#deckPrev').disabled=$('#footPrev').disabled=bi===0;
+      $('#deckNext').disabled=$('#footNext').disabled=bi===beats.length-1;
+      try{localStorage.setItem('afe-m4-beat',String(bi));}catch(e){}
+    }
+    const nextBeat=()=>showBeat(bi+1), prevBeat=()=>showBeat(bi-1);
+
+    function resetWidgets(){
+      $$('.descflip').forEach(w=>w.classList.remove('revealed'));
+      $$('[data-flip]').forEach(b=>b.textContent='Rewrite it live →');
+      $$('.trace').forEach(t=>t.classList.remove('run'));
+      $$('.deltest').forEach(dt=>{ dt.querySelectorAll('.ln').forEach(l=>l.classList.remove('cut','kept')); const c=dt.querySelector('[data-count]'); if(c)c.textContent=dt.querySelectorAll('.ln').length; });
+    }
+
+    function enterPresent(){
+      if(root.classList.contains('wt')) exitWT();
+      deck.classList.remove('reh');
+      root.classList.add('present');
+      resetWidgets();
+      const el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+      showBeat(0);
+    }
+    function exitPresent(){
+      root.classList.remove('present','notes','black'); bstop();
+      if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    }
+
+    $('#presentM4').onclick=enterPresent;
+    $('#deckClose').onclick=exitPresent;
+    $('#deckPrev').onclick=prevBeat; $('#footPrev').onclick=prevBeat;
+    $('#deckNext').onclick=nextBeat; $('#footNext').onclick=nextBeat;
+    $('#notesToggle').onclick=()=>root.classList.toggle('notes');
+
+    document.addEventListener('keydown',e=>{
+      if(!root.classList.contains('present'))return;
+      switch(e.key){
+        case 'ArrowRight': case 'PageDown': case ' ': e.preventDefault(); nextBeat(); break;
+        case 'ArrowLeft': case 'PageUp': e.preventDefault(); prevBeat(); break;
+        case 'n': case 'N': root.classList.toggle('notes'); break;
+        case 'b': case 'B': root.classList.toggle('black'); break;
+        case 'f': case 'F': { const el=document.documentElement; if(document.fullscreenElement){document.exitFullscreen&&document.exitFullscreen();} else {el.requestFullscreen&&el.requestFullscreen();} break; }
+        case 'Home': e.preventDefault(); showBeat(0); break;
+        case 'End': e.preventDefault(); showBeat(beats.length-1); break;
+        case 'Escape': e.preventDefault(); exitPresent(); break;
+      }
+    });
+
+    /* inline rehearsal toggle */
+    const rehBtn=$('#rehToggle');
+    if(rehBtn) rehBtn.onclick=()=>{
+      const on=!deck.classList.contains('reh');
+      deck.classList.toggle('reh',on); rehBtn.classList.toggle('open',on);
+      rehBtn.querySelector('.rt').textContent=on?'Hide rehearsal script':'Show rehearsal script — read every beat inline';
+      if(on) beats.forEach(b=>b.classList.remove('active')); else showBeat(bi);
+    };
+
+    /* spine chips jump to that section (and enter present if needed) */
+    $$('.sp[data-sp]').forEach(el=>el.addEventListener('click',()=>{
+      const t=beats.findIndex(b=>b.dataset.spine===el.dataset.sp); if(t<0)return;
+      if(!root.classList.contains('present')) enterPresent();
+      showBeat(t);
+    }));
+
+    /* optional second-window sync for a dual-display presenter view */
+    window.addEventListener('storage',e=>{ if(e.key==='afe-m4-beat'&&root.classList.contains('present')){ const v=+e.newValue; if(!isNaN(v)&&v!==bi) showBeat(v); } });
+
+    /* ---- live widgets ---- */
+    $$('[data-flip]').forEach(btn=>btn.onclick=()=>{
+      const w=document.getElementById(btn.dataset.flip); if(!w)return;
+      btn.textContent=w.classList.toggle('revealed')?'↺ Show the bad one again':'Rewrite it live →';
+    });
+    $$('[data-trace]').forEach(btn=>btn.onclick=()=>{ const t=document.getElementById(btn.dataset.trace); if(t)t.classList.toggle('run'); });
+    $$('.deltest').forEach(dt=>{
+      const lines=[...dt.querySelectorAll('.ln')], counter=dt.querySelector('[data-count]');
+      const upd=()=>{ if(counter)counter.textContent=lines.filter(l=>!l.classList.contains('cut')).length; };
+      lines.forEach(l=>l.onclick=()=>{
+        if(l.hasAttribute('data-noop')){ l.classList.toggle('cut'); upd(); }
+        else { l.classList.remove('kept'); void l.offsetWidth; l.classList.add('kept'); }
+      });
+      const rb=dt.querySelector('[data-delreset]'); if(rb)rb.onclick=()=>{ lines.forEach(l=>l.classList.remove('cut','kept')); upd(); };
+    });
+    $$('.skillview').forEach(sv=>{
+      const tabs=[...sv.querySelectorAll('.sv-tab')], panes=[...sv.querySelectorAll('.sv-pane')];
+      tabs.forEach((t,i)=>t.onclick=()=>{ tabs.forEach(x=>x.classList.remove('on')); panes.forEach(x=>x.classList.remove('on')); t.classList.add('on'); if(panes[i])panes[i].classList.add('on'); });
+    });
+  })();
+
+  /* ============ INIT ============ */
+  buildNav(); render(); spy(); prog();
+})();
+</script>
+</body>
+</html>
