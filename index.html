@@ -341,7 +341,7 @@ html.present{overflow:hidden}
 /* the .section rise-animation leaves a transform that would trap position:fixed
    inside the card; neutralise it so the deck covers the real viewport */
 html.present .section{opacity:1; transform:none; animation:none}
-html.present .deck{
+html.present .deck.presenting{
   display:block; position:fixed; inset:0; z-index:200; background:
    radial-gradient(1200px 800px at 80% -12%, var(--teal-glow), transparent 60%),
    linear-gradient(180deg,var(--deep),var(--abyss));
@@ -494,6 +494,20 @@ html.present .beat .b-big code{font-size:.9em}
 /* rule of three */
 .rule3{display:flex; align-items:center; gap:28px; margin-top:8px; flex-wrap:wrap}
 .r3-count{font-family:var(--serif); font-weight:800; font-size:clamp(3rem,9vw,6.5rem); color:var(--coral); line-height:1}
+
+/* context-bloat meter (M7) */
+.bloat{margin-top:6px; max-width:780px}
+.bloat-chips{display:flex; flex-wrap:wrap; gap:8px}
+.bchip{font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:8px 13px; border-radius:8px; border:1px solid var(--line); background:var(--surface-2); color:var(--ink-faint); cursor:pointer; transition:.2s}
+.bchip:hover{border-color:var(--teal-deep); color:var(--ink-dim)}
+.bchip.on{border-color:var(--teal); color:var(--teal); background:rgba(67,210,201,.10)}
+.bchip.on.over{border-color:var(--coral); color:var(--coral); background:rgba(255,111,77,.10)}
+.bloat-bar{height:10px; border-radius:6px; background:var(--surface-2); border:1px solid var(--line); margin-top:16px; overflow:hidden}
+.bloat-fill{display:block; height:100%; width:0; background:var(--teal); transition:width .3s, background .3s}
+.bloat-fill.over{background:var(--coral)}
+.bloat-read{font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-top:11px; line-height:1.5}
+.bloat-read b{color:var(--ink); font-weight:600}
+.bloat-read.over .br-pct,.bloat-read.over .br-say{color:var(--coral)}
 
 @media(max-width:720px){.descflip,.invo{grid-template-columns:1fr}}
 @media(max-width:980px){
@@ -808,7 +822,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
             <li><span class="st">Map the territory and set the guardrails.</span>A few lines on where things live and where the entry points are, so the agent isn't spelunking — then the off-limits list: secrets handling, generated files, the paths it must not edit. Guardrails are how you let the agent move fast without holding your breath.</li>
           </ol>
 
-          <p>One line I hold firm: this is the <em>passive</em> layer — the always-on context any agent reads cold. Packaging a repeated move into a reusable skill is the <em>active</em> layer, and that's M5 — don't conflate them. Today we lay the ground the agent stands on; later we teach it your moves.</p>
+          <p>One line I hold firm: this is the <em>passive</em> layer — the always-on context any agent reads cold. Packaging a repeated move into a reusable skill is the <em>active</em> layer, and that's M6 — don't conflate them. Today we lay the ground the agent stands on; later we teach it your moves.</p>
           <p>Then I make it real in ninety seconds: I add or extend the <code>CLAUDE.md</code> live, rerun the same kind of loop from M1, and let the room watch the difference good context makes — the agent stops guessing field names and starts following the house style.</p>
 
           <div class="sub-h">What I cover</div>
@@ -817,37 +831,69 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
             <li>The onboarding file (<code>CLAUDE.md</code> / <code>AGENTS.md</code>): what goes in it, and why short-and-true beats long-and-stale</li>
             <li>Verification as a property of the repo — one command, floor (compiles/lints/runs) to ceiling (tests)</li>
             <li>Conventions plus a golden-path example to copy; a territory map and hard guardrails</li>
-            <li>The line between this passive substrate and the active skills layer in M5</li>
+            <li>The line between this passive substrate and the active skills layer in M6</li>
           </ul>
           <div class="note"><div class="lab">Facilitator notes</div><p>This module has a prep dependency that doubles as rehearsal: the reference repo's <code>CLAUDE.md</code>, <code>verify</code> script, conventions doc, and golden-path example must exist before the session — building them <em>is</em> you running this tutorial once in private. Don't preach TDD to a room that doesn't test; sell the floor (compiles &amp; runs) and frame tests as the ceiling, not the entry fee. Keep the two skeletons on screen as shapes to copy, not gospel. This is where the clinic's "real <code>CLAUDE.md</code>" check and the coaching radar's "show me your <code>CLAUDE.md</code> — usually it's empty" get set up; plant the seed here.</p></div>
           <div class="note leave"><div class="lab">Room leaves with</div><p>A four-item checklist they can run on any repo to make it agent-ready — and the reflex, when a loop spins, to fix the repo's context before reaching for a cleverer prompt.</p></div>
         </article>
       </section>
 
-      <section class="section" data-step data-mins="50" id="m4">
+      <section class="section" data-step data-mins="35" id="m4">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M4</span><span class="sec-time">≈ 50 MIN</span></div>
-          <h2><span class="lead">From PRD to a Sliced Board</span>Feeding the Loop Well</h2>
+          <div class="sec-head"><span class="sec-no">M4</span><span class="sec-time">≈ 35 MIN</span></div>
+          <h2><span class="lead">The Spec</span>Writing a PRD the Agent Can Build From</h2>
           <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
-          <div class="obj"><span class="lab">Objective</span><p>Teach the discipline that makes the loop work — writing a tight PRD with the agent, then cutting it into thin <strong>vertical slices</strong> small enough to each be one good loop.</p></div>
-          <p>A loop is only as good as what you feed it, and the most common reason an agent flails is being handed a vague mountain instead of a sharp small task. I demo writing a short PRD <em>with</em> the agent for a feature on the reference app — not a novel, a tight spec: the problem, the user-visible behavior, the acceptance criteria, the explicit non-goals. The non-goals matter as much as the goals; they're how you stop the agent from gold-plating.</p>
-          <p>Then the heart of it: <strong>vertical slicing</strong>, which is just tracer-bullet thinking from <em>The Pragmatic Programmer</em> applied to AI work. A bad task list is horizontal — "build the data layer," "build the API," "build the UI" — three tasks where nothing works until all three are done. A good task list is vertical — each card is a thin slice that goes <em>all the way through</em> (a button that calls a real endpoint that writes a real row that a real test checks), delivers something demoable, and can be built and verified in a single loop. I cut the app's "save a record" feature into vertical slices live: the first slice is ugly and end-to-end and <em>works</em>; later slices add width, not depth.</p>
-          <p>I show the tooling lightly: the agent can do the slicing with you (the <code>write-a-prd</code> and <code>prd-to-issues</code>/<code>to-issues</code> flows turn a PRD into tracer-bullet tasks), and each slice lands as a card on whatever board the team already uses — GitHub issues, a markdown checklist, a sticky wall. I teach the discipline, not the board.</p>
+          <div class="obj"><span class="lab">Objective</span><p>The room can turn a fuzzy feature idea into a short, sharp PRD — written <em>with</em> the agent — that a loop can actually build against: the problem, the user-visible behavior, the acceptance criteria, the explicit non-goals, and the seam it gets tested at.</p></div>
+          <p>Hand an agent a vague idea and you get vague code — it compiles, it half-works, and it drifts a little differently every run. The fix isn't a cleverer prompt after the fact; it's one short document you and the agent agree on <em>before</em> the loop starts. That document is a <strong>PRD</strong> — a product requirements doc — and getting it right does more for the output than any amount of prompt-polishing later. This is the upstream move for all of M5: you can't slice a spec you never wrote.</p>
+          <p>So let me kill the two things people picture when I say "PRD." It is <em>not</em> a twelve-heading corporate template nobody reads, and it is <em>not</em> something you write alone in a doc tool and paste in. I write it <strong>with the agent, in the conversation I'm already having</strong> — it has already read the repo, so it drafts from what we've discussed and I steer. No interview, no blank page: it synthesizes what's already on the table and I sharpen it. Five minutes, not an afternoon.</p>
+          <p>The shape that earns its keep is short and decision-dense. The <strong>problem</strong> stated from the user's side, not the implementation's. The <strong>solution</strong> as behavior a user can see. A genuinely long list of <strong>user stories</strong> that enumerates the real cases instead of gesturing at them. The <strong>decisions</strong> already made — the modules and their interfaces, the schema, the API contract — but never file paths or code snippets, which rot within a day. How it gets <strong>tested</strong>. And the section everyone skips and shouldn't: the explicit <strong>non-goals</strong>. Non-goals do the heaviest lifting in the whole document — they're how you stop the agent gold-plating something you never asked for.</p>
+          <p>One move I make before writing a word of the spec: I decide <strong>where this gets tested — the seam</strong>. Prefer a seam that already exists over a new one, prefer the highest one you can, and prefer as few as possible — one, ideally. Naming the seam is what turns "acceptance criteria" from a wish into something the loop can check, and it's the straight line into M5, where every slice has to prove itself right there. Once the spec is tight the same agent turns it into a board — the <code>to-prd</code> / <code>prd-to-issues</code> flow reads the doc and drops sliced, ready-for-agent cards onto your tracker — but that's downstream plumbing. The document is the thing.</p>
+
+          <div class="caveat">
+            <div class="caveat-h">The honest caveat — when a PRD is just ceremony</div>
+            <div class="caveat-b">
+              <div class="row"><span class="t">Skip it for one-liners and spikes.</span>A rename, a one-character fix, a throwaway tracer you'll delete tomorrow — writing a PRD for those is ritual, not planning. Run the loop.</div>
+              <div class="row"><span class="t">Write it when the feature is big, fuzzy, or shared.</span>Big enough to slice, fuzzy enough that the agent will drift, or shared enough that someone else needs the same picture you carry in your head — that's exactly the feature a team brings to the clinic (M8).</div>
+            </div>
+          </div>
+
           <div class="sub-h">What I cover</div>
           <ul class="cover">
-            <li>Writing a tight PRD with the agent — behavior, acceptance criteria, and explicit non-goals</li>
-            <li>Vertical slice vs. horizontal layer — the tracer-bullet principle, shown on the reference app</li>
-            <li>What makes a good slice: thin, end-to-end, demoable, with verification built in</li>
-            <li>Turning a PRD into a board of sliced cards (<code>write-a-prd</code>, <code>prd-to-issues</code>), mapped to the team's own board</li>
+            <li>Why a shared spec tames the drift — vague idea in, vague code out</li>
+            <li>Writing the PRD <em>with</em> the agent, not at it — it's read the repo, so it drafts and you steer</li>
+            <li>The shape that earns its keep: problem, visible behavior, acceptance criteria — and the non-goals everyone skips</li>
+            <li>Picking the test seam up front — highest, fewest, prefer the one that already exists</li>
+            <li>Turning the PRD into a sliced, ready-for-agent board (<code>to-prd</code> / <code>prd-to-issues</code>) — the bridge to M5</li>
           </ul>
-          <div class="note"><div class="lab">Facilitator notes</div><p>The slicing demo is the keeper — spend your time there, not on PRD formatting. The "first slice is ugly and works" moment is the one to dwell on; engineers trained on tidy architecture resist it. Tie it straight back to M2: each card is one turn of the loop, sized so the loop can actually close.</p></div>
-          <div class="note leave"><div class="lab">Room leaves with</div><p>The ability to take a feature and cut it into tasks an agent can actually finish one at a time.</p></div>
+          <div class="note"><div class="lab">Facilitator notes</div><p>The pull is to teach PRD formatting — resist it. The signal is <em>non-goals</em> and the <em>seam</em>; dwell there and rush the headings. Draft it live <em>with</em> the agent on the reference app so the room sees a five-minute synthesis, not a form to fill. Say the "skip it for a one-liner" line out loud — that honesty is what buys you the senior engineers. Plant the seed for the clinic (M8): every team's PRD gets checked there, and this is the method they'll run.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>The ability to turn a fuzzy feature into a short PRD an agent can build against — and the judgment to tell when a feature even needs one.</p></div>
         </article>
       </section>
 
       <section class="section" data-step data-mins="50" id="m5">
         <article class="card">
           <div class="sec-head"><span class="sec-no">M5</span><span class="sec-time">≈ 50 MIN</span></div>
+          <h2><span class="lead">From PRD to a Sliced Board</span>Feeding the Loop Well</h2>
+          <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
+          <div class="obj"><span class="lab">Objective</span><p>Teach the discipline that turns the M4 PRD into buildable work — cutting a spec into thin <strong>vertical slices</strong> small enough that each one is a single good loop.</p></div>
+          <p>A loop is only as good as what you feed it, and the most common reason an agent flails is being handed a vague mountain instead of a sharp small task. In M4 we wrote the PRD; here we turn it into work the agent can actually finish. The PRD settles <em>what</em> and <em>why</em> — slicing decides the <em>order</em>, and the order is where most people go wrong.</p>
+          <p>Then the heart of it: <strong>vertical slicing</strong>, which is just tracer-bullet thinking from <em>The Pragmatic Programmer</em> applied to AI work. A bad task list is horizontal — "build the data layer," "build the API," "build the UI" — three tasks where nothing works until all three are done. A good task list is vertical — each card is a thin slice that goes <em>all the way through</em> (a button that calls a real endpoint that writes a real row that a real test checks), delivers something demoable, and can be built and verified in a single loop. I cut the app's "save a record" feature into vertical slices live: the first slice is ugly and end-to-end and <em>works</em>; later slices add width, not depth.</p>
+          <p>I show the tooling lightly: the same <code>to-prd</code> / <code>prd-to-issues</code> flow from M4 turns that spec into tracer-bullet tasks, and each slice lands as a card on whatever board the team already uses — GitHub issues, a markdown checklist, a sticky wall. I teach the discipline, not the board.</p>
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>Taking the M4 PRD and turning it into an ordered task list you can actually build</li>
+            <li>Vertical slice vs. horizontal layer — the tracer-bullet principle, shown on the reference app</li>
+            <li>What makes a good slice: thin, end-to-end, demoable, with verification built in</li>
+            <li>Turning the PRD into a board of sliced cards (<code>prd-to-issues</code>), mapped to the team's own board</li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>The slicing demo is the keeper — the PRD came in from M4, so every minute here is the cut. The "first slice is ugly and works" moment is the one to dwell on; engineers trained on tidy architecture resist it. Tie it straight back to M2: each card is one turn of the loop, sized so the loop can actually close.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>The ability to take a feature and cut it into tasks an agent can actually finish one at a time.</p></div>
+        </article>
+      </section>
+
+      <section class="section" data-step data-mins="50" id="m6">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M6</span><span class="sec-time">≈ 50 MIN</span></div>
           <h2><span class="lead">Skills</span>Teaching the Agent Your Team's Moves</h2>
           <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
           <div class="obj"><span class="lab">Objective</span><p>The room learns what a skill is, why a good skill is mostly a good <em>description</em>, and when one is worth writing at all — by building one live.</p></div>
@@ -865,7 +911,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           </div></div>
 
           <p>The flagship demo: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app.</p>
-          <div class="note"><div class="lab">Facilitator note</div><p>The bad-vs-good <strong>description</strong> contrast (beat ⑤) is the single most useful 5 minutes — slow down there. Resist hooks/MCP/subagents; point to the Rosetta and keep M5 on skills. Close on the rule of three.</p></div>
+          <div class="note"><div class="lab">Facilitator note</div><p>The bad-vs-good <strong>description</strong> contrast (beat ⑤) is the single most useful 5 minutes — slow down there. Resist hooks and subagents — MCP gets its own module next (M7); point to the Rosetta and keep M6 on skills. Close on the rule of three.</p></div>
           <button class="reh-toggle" id="rehToggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
@@ -894,8 +940,8 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           <div class="deck-stage">
 
             <!-- 1 · COVER -->
-            <div class="beat active" data-code="M5 · Skills" data-mins="1">
-              <div class="b-kicker">M5 · The Missing Manual</div>
+            <div class="beat active" data-code="M6 · Skills" data-mins="1">
+              <div class="b-kicker">M6 · The Missing Manual</div>
               <h3>Building a <em>great</em> skill</h3>
               <p class="b-sub">Not just a skill — a great one. Four questions tell them apart. We'll build one for the reference app, live.</p>
               <div class="beat-notes">
@@ -984,7 +1030,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
                 <div class="bn-l">Talk track · the centerpiece</div>
                 <p class="say">"Read the bad one like the agent does: 'helps you add API endpoints.' When does it fire? It doesn't say. It restates its own name. A skill that doesn't fire rots, unused."</p>
                 <p class="say">"Now watch me sharpen it. Front-load what it does. List the real trigger phrases people actually say. Cut anything already in the body — every word here costs context load on every turn. The description IS the product."</p>
-                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' from M4 — shared words make it fire more reliably.</p>
+                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' from M5 — shared words make it fire more reliably.</p>
                 <p class="nxt">next ▸ ② structure</p>
               </div>
             </div>
@@ -1135,7 +1181,7 @@ that earns this file its own home</span></div>
                 <p class="say">"Recap: Trigger — model-invoked on purpose, a description that fires. Structure — steps + reference, conventions behind a pointer. Steering — a leading word the agent echoes. Pruning — deletion test, no no-ops."</p>
                 <p class="say">"Mic drop: this whole rubric is itself a skill — writing-great-skills. User-invoked, pure reference, discloses to a glossary. It practices everything it preaches."</p>
                 <p class="do"><b>handoff</b> "In the clinic, every team writes ONE skill with skill-creator, then runs these four over it. Pick by the rule of three. Let's build."</p>
-                <p class="nxt">▸ to the clinic (M6)</p>
+                <p class="nxt">▸ to the clinic (M8)</p>
               </div>
             </div>
 
@@ -1150,9 +1196,222 @@ that earns this file its own home</span></div>
         </div><!-- /deck -->
       </section>
 
-      <section class="section" data-step data-mins="140" id="m6">
+      <section class="section" data-step data-mins="30" id="m7">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M6</span><span class="sec-time">≈ 140 MIN · MID-BREAK</span></div>
+          <div class="sec-head"><span class="sec-no">M7</span><span class="sec-time">≈ 30 MIN</span></div>
+          <h2><span class="lead">Reach</span>MCP — Giving the Agent Hands and Eyes Outside the Repo</h2>
+          <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
+          <div class="obj"><span class="lab">Objective</span><p>The room can extend the agent past the repo — wiring in a capability it didn't have, like a live browser or real docs, by adding one MCP server live and using it inside a loop — and can tell the few MCPs worth that cost from the many that just tax every prompt.</p></div>
+
+          <div class="m4-launch">
+            <button class="present-btn" id="presentM6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this module</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="capability"><b>①</b>Capability</span>
+            <span class="sp" data-sp="connect"><b>②</b>Connect</span>
+            <span class="sp" data-sp="curate"><b>③</b>Curate</span>
+            <span class="sp" data-sp="cost"><b>④</b>Cost</span>
+          </div></div>
+
+          <p>The third axis of making an agent better: not new <em>knowledge</em> — that was M3's context and M6's skills — but new <em>capability</em>. A skill is a file you write; an MCP is a server you <em>connect</em>. I add one live (<code>context7</code>), then hold the honest line: every MCP you add taxes every prompt, so install few.</p>
+          <div class="note"><div class="lab">Facilitator note</div><p>Add exactly one MCP live and keep it <code>context7</code> — no account, no service, can't strand you. Name-drop the rest; don't install them. The keeper beat is ④ Cost — the room wants a shopping list and the lesson is the opposite. Tie the boundary back to M6 out loud, or the two modules blur.</p></div>
+          <button class="reh-toggle" id="rehToggleM6"><span class="rt">Show rehearsal script — read every beat inline</span></button>
+        </article>
+
+        <!-- ============ M7 BEAT DECK · single source of truth ============ -->
+        <div class="deck" id="m6deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="capability"><b>①</b>Capability</span>
+              <span class="sp" data-sp="connect"><b>②</b>Connect</span>
+              <span class="sp" data-sp="curate"><b>③</b>Curate</span>
+              <span class="sp" data-sp="cost"><b>④</b>Cost</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 8</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="M7 · Reach" data-mins="1">
+              <div class="b-kicker">M7 · New Reach</div>
+              <h3>Giving the agent <em>hands</em></h3>
+              <p class="b-sub">Two modules made the agent smarter about your repo. This one gives it a power it didn't have — eyes on a browser, a live database, the current docs. Not knowledge. <strong>Capability.</strong></p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"You've taught the agent what your project is and how your team works. It's still blind to everything outside the repo. Watch me hand it a new sense — live."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. Thirty-minute slot — keep it moving; the one beat to protect is ④ Cost.</p>
+                <p class="nxt">next ▸ the gap · what it still can't do</p>
+              </div>
+            </div>
+
+            <!-- 2 · THE GAP -->
+            <div class="beat" data-code="① Capability" data-spine="capability" data-mins="3">
+              <div class="b-kicker">① Capability · what's still missing</div>
+              <h3>It only knows the <em>repo</em></h3>
+              <div class="ladder">
+                <div class="rung">can't see the page it just built render</div>
+                <div class="rung">can't read the error your users are hitting in prod</div>
+                <div class="rung">can't pull the current docs for a library it's using</div>
+                <div class="rung hot">all of it lives outside the repo — and the repo is all the agent knows</div>
+              </div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"An agent starts every task cold, knowing only the repo — that was M3's whole point. So anything real that lives elsewhere is invisible to it: the browser, prod, the live docs. No prompt fixes that. It's not a knowledge gap, it's a reach gap."</p>
+                <p class="nxt">next ▸ ① a file you write vs a server you connect</p>
+              </div>
+            </div>
+
+            <!-- 3 · KNOWLEDGE vs CAPABILITY -->
+            <div class="beat" data-code="① Capability · the line" data-spine="capability" data-mins="5">
+              <div class="b-kicker">① Capability · the line that keeps M6 and M7 apart</div>
+              <h3>A file you write vs a server you <em>connect</em></h3>
+              <div class="invo">
+                <div class="col user"><h4>Skill · M6</h4><ul>
+                  <li><b>Knowledge</b> — a markdown file</li>
+                  <li>Teaches your team's moves</li>
+                  <li>Shapes behavior it could already do</li>
+                  <li>Can't grant a new power</li>
+                </ul></div>
+                <div class="col model"><h4>MCP · M7</h4><ul>
+                  <li><b>Capability</b> — a server you connect</li>
+                  <li>Adds verbs it can call mid-loop</li>
+                  <li>Reaches systems outside the repo</li>
+                  <li>Can't teach your review checklist</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Different axes. A skill will never give the agent eyes on a browser; an MCP will never teach it how your team reviews a PR.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the centerpiece</div>
+                <p class="say">"Hold this line or the two modules blur. A skill is knowledge — a file you write, teaching moves the agent could already make. An MCP is capability — a server you connect that gives it moves it couldn't make at all."</p>
+                <p class="say">"The test in one breath: does the agent need to <em>know</em> something, or be <em>able</em> to do something? Knowledge → a skill or CLAUDE.md. A new ability → an MCP."</p>
+                <p class="do"><b>say</b> "You can't skill your way to a browser. You can't MCP your way to good taste."</p>
+                <p class="nxt">next ▸ ② what MCP actually is</p>
+              </div>
+            </div>
+
+            <!-- 4 · WHAT MCP IS -->
+            <div class="beat" data-code="② Connect" data-spine="connect" data-mins="4">
+              <div class="b-kicker">② Connect · what MCP actually is</div>
+              <h3>A standard way to hand the agent <em>tools</em></h3>
+              <p class="b-sub" style="margin-bottom:14px">Connect a server once; the agent gains new verbs it can call mid-loop:</p>
+              <div class="tree"><span class="hl">context7</span>    → <span class="c">fetch_docs(library)</span>
+<span class="hl">playwright</span>  → <span class="c">open() · click() · screenshot()</span>
+<span class="hl">github</span>      → <span class="c">create_issue() · list_prs()</span>
+<span class="hl">postgres</span>    → <span class="c">query(sql)</span></div>
+              <p class="b-sub" style="margin-top:18px">It's an <strong>open standard</strong> — the same server works in Claude Code, Cursor, and Codex. One more row in the Rosetta. The agent doesn't <em>learn</em> to browse; it <em>gains</em> a browser.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"MCP — Model Context Protocol. Strip the ceremony: a standard way to give the agent tools it can call in the middle of a loop. A server knows how to drive a browser or query Postgres; you connect it; the agent gains those actions."</p>
+                <p class="say">"Not a Claude thing — an open standard, so one server works across tools. The agent doesn't <em>learn</em> to browse. It <em>gains</em> a browser."</p>
+                <p class="nxt">next ▸ ② add one, live</p>
+              </div>
+            </div>
+
+            <!-- 5 · ADD ONE LIVE -->
+            <div class="beat" data-code="② Connect · live" data-spine="connect" data-mins="5">
+              <div class="b-kicker">② Connect · add one, watch the loop change</div>
+              <h3><code>context7</code> — the cheapest win</h3>
+              <div class="tree">$ claude mcp add context7 -- npx -y @upstash/context7-mcp@latest
+
+<span class="c">before</span>  "use the latest &lt;lib&gt; API"  → invents a method → loop goes <span class="hl">red</span>
+<span class="c">after</span>   same prompt → reads the <span class="f">current</span> docs → it compiles</div>
+              <button class="present-btn" data-trace="traceMcp" style="margin-top:16px; font-size:13px; padding:11px 18px">Run the agent →</button>
+              <div class="trace" id="traceMcp" style="margin-top:14px"><div class="tl">agent · reasoning trace</div><span class="echo">User wants the latest API — I'll <mark>call context7</mark> for the current docs instead of guessing… writing the signature it returned. No invented method names.</span></div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"One command. No account, no service — that's why context7 is the one I add in front of you. Then I rerun the same kind of loop from M1."</p>
+                <p class="say">"Before: it guesses an API and the loop goes red on a method that doesn't exist. After: it fetches the real docs and writes code that compiles. New reach turning straight into a real observation."</p>
+                <p class="do"><b>do</b> Click 'Run the agent' — the trace should echo the tool call. If it doesn't reach for it, the task didn't need it; that's fine too.</p>
+                <p class="nxt">next ▸ ③ the general-purpose few</p>
+              </div>
+            </div>
+
+            <!-- 6 · THE MENU -->
+            <div class="beat" data-code="③ Curate" data-spine="curate" data-mins="4">
+              <div class="b-kicker">③ Curate · the general-purpose few</div>
+              <h3>Recognize them — don't install them all</h3>
+              <div class="tree"><span class="hl">context7</span>    live, version-correct docs — kills hallucinated APIs   ← today
+<span class="hl">playwright</span>  a real browser — navigate, click, screenshot
+<span class="hl">github</span>      issues + PRs — reads + moves the M5 board
+<span class="hl">postgres</span>    real schema + data — a true observation for the loop
+<span class="hl">figma</span>       a design file → code — straight from the file</div>
+              <p class="b-sub" style="margin-top:16px">You want <strong>two or three</strong> of these — chosen for what you're building — not all five.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"The ones I actually reach for. Browser for anything with a UI. Live docs so it stops hallucinating. GitHub so it reads and moves the board we sliced in M5. A database or Sentry when the truth lives in prod. Figma when you're building from a design."</p>
+                <p class="say">"But recognize, don't collect. Which two or three you wire depends on what you're building today — and that leads straight to the catch."</p>
+                <p class="nxt">next ▸ ④ the catch — every MCP has a cost</p>
+              </div>
+            </div>
+
+            <!-- 7 · COST (the caveat) -->
+            <div class="beat" data-code="④ Cost" data-spine="cost" data-mins="5">
+              <div class="b-kicker">④ Cost · every MCP taxes every prompt</div>
+              <h3>Install few. <em>Curate, don't hoard.</em></h3>
+              <div class="bloat" id="bloatA">
+                <div class="bloat-chips">
+                  <button class="bchip">context7</button>
+                  <button class="bchip">playwright</button>
+                  <button class="bchip">github</button>
+                  <button class="bchip">postgres</button>
+                  <button class="bchip">figma</button>
+                  <button class="bchip">slack</button>
+                  <button class="bchip">notion</button>
+                </div>
+                <div class="bloat-bar"><span class="bloat-fill"></span></div>
+                <div class="bloat-read"><b class="br-n">0</b> installed · context tax <b class="br-pct">0%</b> — <span class="br-say">nothing loaded yet — clean context</span></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">And two more: an MCP is <strong>third-party code with your access</strong> — vet it like any dependency. New reach is new ways to break things — <strong>the loop from M2 still rules</strong>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the keeper</div>
+                <p class="say">"The reflex walking out of here is to install all of them. That reflex is wrong. Every MCP's tool definitions sit in the context window for the whole session — not loaded on demand. Ten you 'might use' is a slower, more confused, pricier agent on every turn that needed none of them."</p>
+                <p class="say">"Two more honest ones. An MCP is third-party code running with your tokens and access — vet it like any dependency, be slow near prod and secrets. And a browser or a live DB doesn't suspend M2: you still steer, observe, verify. More reach just raises the cost of skipping that."</p>
+                <p class="do"><b>do</b> Click chips past three — watch the bar go coral. That's the whole lesson: curate.</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 8 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="3">
+              <div class="b-kicker">Land it · four questions before you wire one</div>
+              <h3>Capability · Connect · Curate · Cost</h3>
+              <p class="b-sub"><strong>Capability?</strong> a power it lacks, not just knowledge · <strong>Connect?</strong> a server you trust · <strong>Curate?</strong> will you actually use it · <strong>Cost?</strong> does it earn its seat in the context window.</p>
+              <p class="b-big" style="margin-top:18px">New knowledge → a skill. New power → an <code>MCP</code>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Recap as a rubric you keep. Capability — a power it lacks, or just something it needs to know? Connect — do you trust the server? Curate — will you really use it? Cost — does it earn its place in every prompt?"</p>
+                <p class="do"><b>handoff</b> "In the coaching, if you're fluent and bored: wire an MCP for your own stack and prove it changed a loop. Everyone else — one is plenty."</p>
+                <p class="nxt">▸ to the clinic (M8)</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
+      </section>
+
+      <section class="section" data-step data-mins="140" id="m8">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M8</span><span class="sec-time">≈ 140 MIN · MID-BREAK</span></div>
           <h2><span class="lead">The Planning Clinic</span>Your Real Project, Sliced and Loaded</h2>
           <span class="gauge heavy"><i></i>Hands-on · Heavy</span>
           <div class="obj"><span class="lab">Objective</span><p>Every team turns the teaching into a running start on its <strong>own</strong> project — a PRD, a sliced board, and a scaffolded repo with its first loops queued — while I coach the room.</p></div>
@@ -1171,9 +1430,9 @@ that earns this file its own home</span></div>
         </article>
       </section>
 
-      <section class="section" data-step data-mins="30" id="m7">
+      <section class="section" data-step data-mins="30" id="m9">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M7</span><span class="sec-time">≈ 30 MIN</span></div>
+          <div class="sec-head"><span class="sec-no">M9</span><span class="sec-time">≈ 30 MIN</span></div>
           <h2><span class="lead">Reflection &amp; Handoff</span>Closing the Teaching, Launching the Build</h2>
           <span class="gauge light"><i></i>Hands-on · Light</span>
           <div class="obj"><span class="lab">Objective</span><p>Surface the mindset movement out loud (the real KPI here) and hand the room the self-guide that carries them through the self-guided build without me.</p></div>
@@ -1189,7 +1448,7 @@ that earns this file its own home</span></div>
           <div class="sec-head"><span class="sec-no">M1 · PREP</span></div>
           <h2><span class="lead">The Live-Build Spec</span>Rehearse to Muscle Memory</h2>
           <p><strong>Repo:</strong> the reference app (the shared playground), checked out clean on a known-good commit.</p>
-          <p><strong>The slice to build live:</strong> <em>"Save this record."</em> A user viewing a record clicks <strong>Save</strong>; it persists; reloading shows it; a test proves the round-trip. Thin, end-to-end, demoable — a textbook vertical slice, and a silent preview of M4.</p>
+          <p><strong>The slice to build live:</strong> <em>"Save this record."</em> A user viewing a record clicks <strong>Save</strong>; it persists; reloading shows it; a test proves the round-trip. Thin, end-to-end, demoable — a textbook vertical slice, and a silent preview of M5.</p>
           <div class="sub-h">The loop to demonstrate, out loud</div>
           <ol class="loop">
             <li><strong>Intent</strong> — state the slice and its acceptance criteria as prose. No implementation talk.</li>
@@ -1332,8 +1591,8 @@ that earns this file its own home</span></div>
           <p><strong>Solo delivery.</strong> I run it all alone. The clinic and the coaching both depend on the coverage discipline — deliberate laps, time-boxed stops — to make one facilitator reach every team.</p>
           <div class="sub-h">Three trade-offs built in, and how I compensate</div>
           <ol class="loop">
-            <li><strong>Same content for everyone, no tiering.</strong> Advanced engineers risk boredom. Counter with genuine depth (the M2 caveat, the M5 description craft) and the no-IDE discipline, which humbles even the fluent — and in the coaching, redirect bored experts into skills/subagents stretch work and deputize them to help peers.</li>
-            <li><strong>Teaching hands-on is on the shared reference app;</strong> the first transfer to their own project is the clinic and then the self-guided build — when I'm away. That's why the self-guide carries real weight; walk the room through it at M7.</li>
+            <li><strong>Same content for everyone, no tiering.</strong> Advanced engineers risk boredom. Counter with genuine depth (the M2 caveat, the M6 description craft) and the no-IDE discipline, which humbles even the fluent — and in the coaching, redirect bored experts into skills/subagents stretch work and deputize them to help peers.</li>
+            <li><strong>Teaching hands-on is on the shared reference app;</strong> the first transfer to their own project is the clinic and then the self-guided build — when I'm away. That's why the self-guide carries real weight; walk the room through it at M9.</li>
             <li><strong>The coaching is reactive-only.</strong> Coverage skews to the loud. The coverage sweep is the explicit fix — audit twice, go to the quiet teams on purpose.</li>
           </ol>
         </article>
@@ -1368,9 +1627,9 @@ that earns this file its own home</span></div>
   const TOPICS=[
     {id:'brief',           label:'The Brief',           blurb:'Why this exists, who’s in the room, and the shape of the program.',                                    sectionIds:['engagement','room','shape']},
     {id:'mindset-loop',    label:'Mindset & The Loop',  blurb:'The no-IDE reframe, the live proof, and the agentic loop — with the honest “when not to loop” caveat — then making the repo agent-ready so the loop can run.', sectionIds:['m0','m1','livebuild','m2','m3']},
-    {id:'planning-slicing',label:'Planning & Slicing',  blurb:'PRD to thin vertical slices, then the clinic where every team slices its own real project.',           sectionIds:['m4','m6']},
-    {id:'skills',          label:'Skills',              blurb:'Building a great skill — trigger, structure, steering, pruning, and the rule of three.',                sectionIds:['m5']},
-    {id:'reflection-handoff',label:'Reflection & Handoff',blurb:'Close the teaching, surface the mindset shift, and hand off to the self-guided build.',               sectionIds:['m7']},
+    {id:'planning-slicing',label:'Planning & Slicing',  blurb:'Writing a PRD the agent can build from, cutting it into thin vertical slices, then the clinic where every team plans its own real project.', sectionIds:['m4','m5','m8']},
+    {id:'skills',          label:'Skills & MCP',        blurb:'Building a great skill — trigger, structure, the rule of three — then MCP: giving the agent new reach beyond the repo.', sectionIds:['m6','m7']},
+    {id:'reflection-handoff',label:'Reflection & Handoff',blurb:'Close the teaching, surface the mindset shift, and hand off to the self-guided build.',               sectionIds:['m9']},
     {id:'self-guided-build',label:'Self-Guided Build',  blurb:'The checklist teams run on their own project with no facilitator in the room.',                        sectionIds:['tue']},
     {id:'coaching',        label:'Coaching Playbook',   blurb:'Reactive floor-coaching — the anti-pattern radar, the pocket prompts, and the coverage sweep.',        sectionIds:['wed-run','wed-radar','wed-prompts']},
     {id:'reference',       label:'Reference & Take-Home',blurb:'Durable, portable artifacts — the cross-tool Rosetta, the take-home pack, and how I run it solo.',     sectionIds:['rosetta','takehome','logistics']}
@@ -1385,10 +1644,12 @@ that earns this file its own home</span></div>
     livebuild:'rehearsal demo spec reference loop save record prep fallback',
     m2:'loop agentic verify observe plan act iterate one-shot caveat off-ramp',
     m3:'repo agent-ready agent-friendly claude.md agents.md context onboarding conventions verify verification harness guardrails golden-path scaffold cold-start observable',
-    m4:'prd slice vertical slicing tracer bullet board planning non-goals',
-    m6:'clinic planning slice prd context claude.md scaffold team project skill skill-creator',
-    m5:'skill skills description trigger structure steering pruning rule of three',
-    m7:'reflection handoff kpi mindset close self-guide build',
+    m4:'prd product requirements document spec problem solution user stories acceptance criteria non-goals out-of-scope scope seams testing synthesis planning matt pocock to-prd',
+    m5:'slice vertical slicing tracer bullet board planning non-goals tasks prd',
+    m6:'skill skills description trigger structure steering pruning rule of three',
+    m7:'mcp model context protocol tool tools reach server connect capability extend context7 docs playwright browser github figma sentry postgres prod cross-tool',
+    m8:'clinic planning slice prd context claude.md scaffold team project skill skill-creator',
+    m9:'reflection handoff kpi mindset close self-guide build',
     tue:'self-guide checklist solo build loop verify context claude.md off-ramps',
     'wed-run':'coaching laps floor reactive challenge solo stance',
     'wed-radar':'anti-pattern radar intervention babysitting context starvation one-shotting verification',
@@ -1565,11 +1826,17 @@ that earns this file its own home</span></div>
   $('#printBtn').onclick=()=>window.print();
   const brand=$('.brand'); if(brand){brand.style.cursor='pointer'; brand.title='Back to top'; brand.onclick=()=>{ if(root.classList.contains('wt'))goTo(0); else window.scrollTo({top:0,behavior:'smooth'}); };}
 
-  /* ============ M4 PRESENT MODE ============ */
-  (function(){
-    const deck=document.getElementById('m4deck'); if(!deck) return;
-    const beats=[...deck.querySelectorAll('.beat')];
-    const hudCode=$('#beatCode'), hudPos=$('#beatPos'), bclock=$('#beatClock'), btgt=$('#beatTgt');
+  /* ============ BEAT-DECK PRESENT MODE · per-deck factory ============ */
+  function initDeck(deck){
+    const beats=[...deck.querySelectorAll('.beat')]; if(!beats.length) return;
+    const section=deck.closest('.section');
+    const q=s=>deck.querySelector(s), qq=s=>[...deck.querySelectorAll(s)];
+    const hudCode=q('.hud-code'), hudPos=q('.hud-pos'), bclock=q('.deck-clock'), btgt=q('.deck-tgt');
+    const prevA=q('.deck-arrow.prev'), nextA=q('.deck-arrow.next');
+    const footPrev=q('.deck-foot .foot-btn:not(.primary)'), footNext=q('.deck-foot .foot-btn.primary');
+    const launch=section&&section.querySelector('.m4-launch .present-btn');
+    const rehBtn=section&&section.querySelector('.reh-toggle');
+    const bkey='afe-beat-'+(deck.id||'deck');
     let bi=0, bel=0, btgtM=0, btick=null;
 
     const bfmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
@@ -1578,7 +1845,7 @@ that earns this file its own home</span></div>
     function bstart(){ bstop(); btick=setInterval(()=>{bel++;brender();},1000); }
 
     /* nav dots */
-    const dotsWrap=$('#deckDots');
+    const dotsWrap=q('.dots');
     beats.forEach((b,i)=>{ const d=document.createElement('button'); d.className='dot'; d.title='Beat '+(i+1); d.onclick=()=>showBeat(i); dotsWrap.appendChild(d); });
     const dots=[...dotsWrap.children];
 
@@ -1591,43 +1858,45 @@ that earns this file its own home</span></div>
       if(hudPos)hudPos.textContent=(bi+1)+' / '+beats.length;
       btgtM=b.dataset.mins?+b.dataset.mins:0;
       if(btgt)btgt.textContent=btgtM?('/ '+btgtM+'m'):'';
-      bel=0; brender(); if(root.classList.contains('present')) bstart();
+      bel=0; brender(); if(deck.classList.contains('presenting')) bstart();
       const sp=b.dataset.spine||'';
-      $$('#hudSpine .sp').forEach(el=>el.classList.toggle('on',!!sp&&el.dataset.sp===sp));
-      $('#deckPrev').disabled=$('#footPrev').disabled=bi===0;
-      $('#deckNext').disabled=$('#footNext').disabled=bi===beats.length-1;
-      try{localStorage.setItem('afe-m4-beat',String(bi));}catch(e){}
+      qq('.hud-spine .sp').forEach(el=>el.classList.toggle('on',!!sp&&el.dataset.sp===sp));
+      if(prevA)prevA.disabled=bi===0; if(footPrev)footPrev.disabled=bi===0;
+      if(nextA)nextA.disabled=bi===beats.length-1; if(footNext)footNext.disabled=bi===beats.length-1;
+      try{localStorage.setItem(bkey,String(bi));}catch(e){}
     }
     const nextBeat=()=>showBeat(bi+1), prevBeat=()=>showBeat(bi-1);
 
     function resetWidgets(){
-      $$('.descflip').forEach(w=>w.classList.remove('revealed'));
-      $$('[data-flip]').forEach(b=>b.textContent='Rewrite it live →');
-      $$('.trace').forEach(t=>t.classList.remove('run'));
-      $$('.deltest').forEach(dt=>{ dt.querySelectorAll('.ln').forEach(l=>l.classList.remove('cut','kept')); const c=dt.querySelector('[data-count]'); if(c)c.textContent=dt.querySelectorAll('.ln').length; });
+      qq('.descflip').forEach(w=>w.classList.remove('revealed'));
+      qq('[data-flip]').forEach(b=>b.textContent=b.dataset.flipOff||'Rewrite it live →');
+      qq('.trace').forEach(t=>t.classList.remove('run'));
+      qq('.deltest').forEach(dt=>{ dt.querySelectorAll('.ln').forEach(l=>l.classList.remove('cut','kept')); const c=dt.querySelector('[data-count]'); if(c)c.textContent=dt.querySelectorAll('.ln').length; });
+      qq('.bloat').forEach(b=>b._reset&&b._reset());
     }
 
     function enterPresent(){
       if(root.classList.contains('wt')) exitWT();
+      document.querySelectorAll('.deck').forEach(d=>{ if(d!==deck) d.classList.remove('presenting'); });
       deck.classList.remove('reh');
-      root.classList.add('present');
+      root.classList.add('present'); deck.classList.add('presenting');
       resetWidgets();
       const el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
       showBeat(0);
     }
     function exitPresent(){
-      root.classList.remove('present','notes','black'); bstop();
+      root.classList.remove('present','notes','black'); deck.classList.remove('presenting'); bstop();
       if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(()=>{});
     }
 
-    $('#presentM4').onclick=enterPresent;
-    $('#deckClose').onclick=exitPresent;
-    $('#deckPrev').onclick=prevBeat; $('#footPrev').onclick=prevBeat;
-    $('#deckNext').onclick=nextBeat; $('#footNext').onclick=nextBeat;
-    $('#notesToggle').onclick=()=>root.classList.toggle('notes');
+    if(launch)launch.onclick=enterPresent;
+    const closeBtn=q('.hud-x'); if(closeBtn)closeBtn.onclick=exitPresent;
+    if(prevA)prevA.onclick=prevBeat; if(footPrev)footPrev.onclick=prevBeat;
+    if(nextA)nextA.onclick=nextBeat; if(footNext)footNext.onclick=nextBeat;
+    const noteBtn=q('.hud-note'); if(noteBtn)noteBtn.onclick=()=>root.classList.toggle('notes');
 
     document.addEventListener('keydown',e=>{
-      if(!root.classList.contains('present'))return;
+      if(!deck.classList.contains('presenting'))return;
       switch(e.key){
         case 'ArrowRight': case 'PageDown': case ' ': e.preventDefault(); nextBeat(); break;
         case 'ArrowLeft': case 'PageUp': e.preventDefault(); prevBeat(); break;
@@ -1641,31 +1910,31 @@ that earns this file its own home</span></div>
     });
 
     /* inline rehearsal toggle */
-    const rehBtn=$('#rehToggle');
     if(rehBtn) rehBtn.onclick=()=>{
       const on=!deck.classList.contains('reh');
       deck.classList.toggle('reh',on); rehBtn.classList.toggle('open',on);
-      rehBtn.querySelector('.rt').textContent=on?'Hide rehearsal script':'Show rehearsal script — read every beat inline';
+      const rt=rehBtn.querySelector('.rt'); if(rt)rt.textContent=on?'Hide rehearsal script':'Show rehearsal script — read every beat inline';
       if(on) beats.forEach(b=>b.classList.remove('active')); else showBeat(bi);
     };
 
-    /* spine chips jump to that section (and enter present if needed) */
-    $$('.sp[data-sp]').forEach(el=>el.addEventListener('click',()=>{
+    /* spine chips (card + hud) jump to that beat, entering present if needed */
+    if(section) section.querySelectorAll('.sp[data-sp]').forEach(el=>el.addEventListener('click',()=>{
       const t=beats.findIndex(b=>b.dataset.spine===el.dataset.sp); if(t<0)return;
-      if(!root.classList.contains('present')) enterPresent();
+      if(!deck.classList.contains('presenting')) enterPresent();
       showBeat(t);
     }));
 
     /* optional second-window sync for a dual-display presenter view */
-    window.addEventListener('storage',e=>{ if(e.key==='afe-m4-beat'&&root.classList.contains('present')){ const v=+e.newValue; if(!isNaN(v)&&v!==bi) showBeat(v); } });
+    window.addEventListener('storage',e=>{ if(e.key===bkey&&deck.classList.contains('presenting')){ const v=+e.newValue; if(!isNaN(v)&&v!==bi) showBeat(v); } });
 
-    /* ---- live widgets ---- */
-    $$('[data-flip]').forEach(btn=>btn.onclick=()=>{
+    /* ---- live widgets (scoped to this deck) ---- */
+    qq('[data-flip]').forEach(btn=>btn.onclick=()=>{
       const w=document.getElementById(btn.dataset.flip); if(!w)return;
-      btn.textContent=w.classList.toggle('revealed')?'↺ Show the bad one again':'Rewrite it live →';
+      const on=w.classList.toggle('revealed');
+      btn.textContent=on?(btn.dataset.flipOn||'↺ Show the bad one again'):(btn.dataset.flipOff||'Rewrite it live →');
     });
-    $$('[data-trace]').forEach(btn=>btn.onclick=()=>{ const t=document.getElementById(btn.dataset.trace); if(t)t.classList.toggle('run'); });
-    $$('.deltest').forEach(dt=>{
+    qq('[data-trace]').forEach(btn=>btn.onclick=()=>{ const t=document.getElementById(btn.dataset.trace); if(t)t.classList.toggle('run'); });
+    qq('.deltest').forEach(dt=>{
       const lines=[...dt.querySelectorAll('.ln')], counter=dt.querySelector('[data-count]');
       const upd=()=>{ if(counter)counter.textContent=lines.filter(l=>!l.classList.contains('cut')).length; };
       lines.forEach(l=>l.onclick=()=>{
@@ -1674,11 +1943,33 @@ that earns this file its own home</span></div>
       });
       const rb=dt.querySelector('[data-delreset]'); if(rb)rb.onclick=()=>{ lines.forEach(l=>l.classList.remove('cut','kept')); upd(); };
     });
-    $$('.skillview').forEach(sv=>{
+    qq('.skillview').forEach(sv=>{
       const tabs=[...sv.querySelectorAll('.sv-tab')], panes=[...sv.querySelectorAll('.sv-pane')];
       tabs.forEach((t,i)=>t.onclick=()=>{ tabs.forEach(x=>x.classList.remove('on')); panes.forEach(x=>x.classList.remove('on')); t.classList.add('on'); if(panes[i])panes[i].classList.add('on'); });
     });
-  })();
+    qq('.bloat').forEach(bl=>{
+      const chips=[...bl.querySelectorAll('.bchip')];
+      const fill=bl.querySelector('.bloat-fill'), read=bl.querySelector('.bloat-read');
+      const nEl=bl.querySelector('.br-n'), pctEl=bl.querySelector('.br-pct'), sayEl=bl.querySelector('.br-say');
+      const LEAN=3, FULL=7;
+      function upd(){
+        const n=chips.filter(c=>c.classList.contains('on')).length;
+        const pct=Math.round(Math.min(1,n/FULL)*100), over=n>LEAN;
+        if(fill){fill.style.width=pct+'%'; fill.classList.toggle('over',over);}
+        if(read)read.classList.toggle('over',over);
+        chips.forEach(c=>c.classList.toggle('over',over&&c.classList.contains('on')));
+        if(nEl)nEl.textContent=n; if(pctEl)pctEl.textContent=pct+'%';
+        if(sayEl)sayEl.textContent = n===0?'nothing loaded yet — clean context'
+          : !over?'lean — every one of these earns its seat'
+          : n>=FULL?'bloated — slower, pricier, and it misfires the tools'
+          : 'over budget — you’re paying for tools this turn never needed';
+      }
+      chips.forEach(c=>c.onclick=()=>{c.classList.toggle('on');upd();});
+      bl._reset=()=>{chips.forEach(c=>c.classList.remove('on','over'));upd();};
+      upd();
+    });
+  }
+  $$('.deck').forEach(initDeck);
 
   /* ============ INIT ============ */
   buildNav(); render(); spy(); prog();
