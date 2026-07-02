@@ -296,7 +296,7 @@ html.wt .wt-bar{
 html.wt .section{opacity:1; animation:none}
 
 /* ============================================================
-   M4 · PRESENT MODE — fullscreen beat deck + live widgets
+   PRESENT MODE — fullscreen beat decks + live widgets
    ============================================================ */
 /* launcher (normal mode) */
 .m4-launch{display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:24px 0 4px}
@@ -495,7 +495,7 @@ html.present .beat .b-big code{font-size:.9em}
 .rule3{display:flex; align-items:center; gap:28px; margin-top:8px; flex-wrap:wrap}
 .r3-count{font-family:var(--serif); font-weight:800; font-size:clamp(3rem,9vw,6.5rem); color:var(--coral); line-height:1}
 
-/* context-bloat meter (M7) */
+/* context-bloat meter (M5) */
 .bloat{margin-top:6px; max-width:780px}
 .bloat-chips{display:flex; flex-wrap:wrap; gap:8px}
 .bchip{font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:8px 13px; border-radius:8px; border:1px solid var(--line); background:var(--surface-2); color:var(--ink-faint); cursor:pointer; transition:.2s}
@@ -526,7 +526,7 @@ html.present .beat .b-big code{font-size:.9em}
   .card{box-shadow:none; break-inside:avoid; border-color:#ccc}
   .ap .iv{max-height:none!important; opacity:1!important; margin-top:12px!important; padding-top:12px!important}
   .wrap{max-width:100%}
-  /* M4 deck prints as a stacked rehearsal script */
+  /* decks print as stacked rehearsal scripts */
   .deck{display:block!important; position:static!important}
   .deck-hud,.deck-foot,.deck-arrow{display:none!important}
   .beat{display:block!important; break-inside:avoid; border:1px solid #ccc; border-radius:10px; padding:18px 20px; margin-top:12px}
@@ -822,7 +822,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
             <li><span class="st">Map the territory and set the guardrails.</span>A few lines on where things live and where the entry points are, so the agent isn't spelunking — then the off-limits list: secrets handling, generated files, the paths it must not edit. Guardrails are how you let the agent move fast without holding your breath.</li>
           </ol>
 
-          <p>One line I hold firm: this is the <em>passive</em> layer — the always-on context any agent reads cold. Packaging a repeated move into a reusable skill is the <em>active</em> layer, and that's M6 — don't conflate them. Today we lay the ground the agent stands on; later we teach it your moves.</p>
+          <p>One line I hold firm: this is the <em>passive</em> layer — the always-on context any agent reads cold. Packaging a repeated move into a reusable skill is the <em>active</em> layer, and that's M4 — don't conflate them. Today we lay the ground the agent stands on; later we teach it your moves.</p>
           <p>Then I make it real in ninety seconds: I add or extend the <code>CLAUDE.md</code> live, rerun the same kind of loop from M1, and let the room watch the difference good context makes — the agent stops guessing field names and starts following the house style.</p>
 
           <div class="sub-h">What I cover</div>
@@ -831,69 +831,16 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
             <li>The onboarding file (<code>CLAUDE.md</code> / <code>AGENTS.md</code>): what goes in it, and why short-and-true beats long-and-stale</li>
             <li>Verification as a property of the repo — one command, floor (compiles/lints/runs) to ceiling (tests)</li>
             <li>Conventions plus a golden-path example to copy; a territory map and hard guardrails</li>
-            <li>The line between this passive substrate and the active skills layer in M6</li>
+            <li>The line between this passive substrate and the active skills layer in M4</li>
           </ul>
           <div class="note"><div class="lab">Facilitator notes</div><p>This module has a prep dependency that doubles as rehearsal: the reference repo's <code>CLAUDE.md</code>, <code>verify</code> script, conventions doc, and golden-path example must exist before the session — building them <em>is</em> you running this tutorial once in private. Don't preach TDD to a room that doesn't test; sell the floor (compiles &amp; runs) and frame tests as the ceiling, not the entry fee. Keep the two skeletons on screen as shapes to copy, not gospel. This is where the clinic's "real <code>CLAUDE.md</code>" check and the coaching radar's "show me your <code>CLAUDE.md</code> — usually it's empty" get set up; plant the seed here.</p></div>
           <div class="note leave"><div class="lab">Room leaves with</div><p>A four-item checklist they can run on any repo to make it agent-ready — and the reflex, when a loop spins, to fix the repo's context before reaching for a cleverer prompt.</p></div>
         </article>
       </section>
 
-      <section class="section" data-step data-mins="35" id="m4">
+      <section class="section" data-step data-mins="50" id="m4">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M4</span><span class="sec-time">≈ 35 MIN</span></div>
-          <h2><span class="lead">The Spec</span>Writing a PRD the Agent Can Build From</h2>
-          <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
-          <div class="obj"><span class="lab">Objective</span><p>The room can turn a fuzzy feature idea into a short, sharp PRD — written <em>with</em> the agent — that a loop can actually build against: the problem, the user-visible behavior, the acceptance criteria, the explicit non-goals, and the seam it gets tested at.</p></div>
-          <p>Hand an agent a vague idea and you get vague code — it compiles, it half-works, and it drifts a little differently every run. The fix isn't a cleverer prompt after the fact; it's one short document you and the agent agree on <em>before</em> the loop starts. That document is a <strong>PRD</strong> — a product requirements doc — and getting it right does more for the output than any amount of prompt-polishing later. This is the upstream move for all of M5: you can't slice a spec you never wrote.</p>
-          <p>So let me kill the two things people picture when I say "PRD." It is <em>not</em> a twelve-heading corporate template nobody reads, and it is <em>not</em> something you write alone in a doc tool and paste in. I write it <strong>with the agent, in the conversation I'm already having</strong> — it has already read the repo, so it drafts from what we've discussed and I steer. No interview, no blank page: it synthesizes what's already on the table and I sharpen it. Five minutes, not an afternoon.</p>
-          <p>The shape that earns its keep is short and decision-dense. The <strong>problem</strong> stated from the user's side, not the implementation's. The <strong>solution</strong> as behavior a user can see. A genuinely long list of <strong>user stories</strong> that enumerates the real cases instead of gesturing at them. The <strong>decisions</strong> already made — the modules and their interfaces, the schema, the API contract — but never file paths or code snippets, which rot within a day. How it gets <strong>tested</strong>. And the section everyone skips and shouldn't: the explicit <strong>non-goals</strong>. Non-goals do the heaviest lifting in the whole document — they're how you stop the agent gold-plating something you never asked for.</p>
-          <p>One move I make before writing a word of the spec: I decide <strong>where this gets tested — the seam</strong>. Prefer a seam that already exists over a new one, prefer the highest one you can, and prefer as few as possible — one, ideally. Naming the seam is what turns "acceptance criteria" from a wish into something the loop can check, and it's the straight line into M5, where every slice has to prove itself right there. Once the spec is tight the same agent turns it into a board — the <code>to-prd</code> / <code>prd-to-issues</code> flow reads the doc and drops sliced, ready-for-agent cards onto your tracker — but that's downstream plumbing. The document is the thing.</p>
-
-          <div class="caveat">
-            <div class="caveat-h">The honest caveat — when a PRD is just ceremony</div>
-            <div class="caveat-b">
-              <div class="row"><span class="t">Skip it for one-liners and spikes.</span>A rename, a one-character fix, a throwaway tracer you'll delete tomorrow — writing a PRD for those is ritual, not planning. Run the loop.</div>
-              <div class="row"><span class="t">Write it when the feature is big, fuzzy, or shared.</span>Big enough to slice, fuzzy enough that the agent will drift, or shared enough that someone else needs the same picture you carry in your head — that's exactly the feature a team brings to the clinic (M8).</div>
-            </div>
-          </div>
-
-          <div class="sub-h">What I cover</div>
-          <ul class="cover">
-            <li>Why a shared spec tames the drift — vague idea in, vague code out</li>
-            <li>Writing the PRD <em>with</em> the agent, not at it — it's read the repo, so it drafts and you steer</li>
-            <li>The shape that earns its keep: problem, visible behavior, acceptance criteria — and the non-goals everyone skips</li>
-            <li>Picking the test seam up front — highest, fewest, prefer the one that already exists</li>
-            <li>Turning the PRD into a sliced, ready-for-agent board (<code>to-prd</code> / <code>prd-to-issues</code>) — the bridge to M5</li>
-          </ul>
-          <div class="note"><div class="lab">Facilitator notes</div><p>The pull is to teach PRD formatting — resist it. The signal is <em>non-goals</em> and the <em>seam</em>; dwell there and rush the headings. Draft it live <em>with</em> the agent on the reference app so the room sees a five-minute synthesis, not a form to fill. Say the "skip it for a one-liner" line out loud — that honesty is what buys you the senior engineers. Plant the seed for the clinic (M8): every team's PRD gets checked there, and this is the method they'll run.</p></div>
-          <div class="note leave"><div class="lab">Room leaves with</div><p>The ability to turn a fuzzy feature into a short PRD an agent can build against — and the judgment to tell when a feature even needs one.</p></div>
-        </article>
-      </section>
-
-      <section class="section" data-step data-mins="50" id="m5">
-        <article class="card">
-          <div class="sec-head"><span class="sec-no">M5</span><span class="sec-time">≈ 50 MIN</span></div>
-          <h2><span class="lead">From PRD to a Sliced Board</span>Feeding the Loop Well</h2>
-          <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
-          <div class="obj"><span class="lab">Objective</span><p>Teach the discipline that turns the M4 PRD into buildable work — cutting a spec into thin <strong>vertical slices</strong> small enough that each one is a single good loop.</p></div>
-          <p>A loop is only as good as what you feed it, and the most common reason an agent flails is being handed a vague mountain instead of a sharp small task. In M4 we wrote the PRD; here we turn it into work the agent can actually finish. The PRD settles <em>what</em> and <em>why</em> — slicing decides the <em>order</em>, and the order is where most people go wrong.</p>
-          <p>Then the heart of it: <strong>vertical slicing</strong>, which is just tracer-bullet thinking from <em>The Pragmatic Programmer</em> applied to AI work. A bad task list is horizontal — "build the data layer," "build the API," "build the UI" — three tasks where nothing works until all three are done. A good task list is vertical — each card is a thin slice that goes <em>all the way through</em> (a button that calls a real endpoint that writes a real row that a real test checks), delivers something demoable, and can be built and verified in a single loop. I cut the app's "save a record" feature into vertical slices live: the first slice is ugly and end-to-end and <em>works</em>; later slices add width, not depth.</p>
-          <p>I show the tooling lightly: the same <code>to-prd</code> / <code>prd-to-issues</code> flow from M4 turns that spec into tracer-bullet tasks, and each slice lands as a card on whatever board the team already uses — GitHub issues, a markdown checklist, a sticky wall. I teach the discipline, not the board.</p>
-          <div class="sub-h">What I cover</div>
-          <ul class="cover">
-            <li>Taking the M4 PRD and turning it into an ordered task list you can actually build</li>
-            <li>Vertical slice vs. horizontal layer — the tracer-bullet principle, shown on the reference app</li>
-            <li>What makes a good slice: thin, end-to-end, demoable, with verification built in</li>
-            <li>Turning the PRD into a board of sliced cards (<code>prd-to-issues</code>), mapped to the team's own board</li>
-          </ul>
-          <div class="note"><div class="lab">Facilitator notes</div><p>The slicing demo is the keeper — the PRD came in from M4, so every minute here is the cut. The "first slice is ugly and works" moment is the one to dwell on; engineers trained on tidy architecture resist it. Tie it straight back to M2: each card is one turn of the loop, sized so the loop can actually close.</p></div>
-          <div class="note leave"><div class="lab">Room leaves with</div><p>The ability to take a feature and cut it into tasks an agent can actually finish one at a time.</p></div>
-        </article>
-      </section>
-
-      <section class="section" data-step data-mins="50" id="m6">
-        <article class="card">
-          <div class="sec-head"><span class="sec-no">M6</span><span class="sec-time">≈ 50 MIN</span></div>
+          <div class="sec-head"><span class="sec-no">M4</span><span class="sec-time">≈ 50 MIN</span></div>
           <h2><span class="lead">Skills</span>Teaching the Agent Your Team's Moves</h2>
           <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
           <div class="obj"><span class="lab">Objective</span><p>The room learns what a skill is, why a good skill is mostly a good <em>description</em>, and when one is worth writing at all — by building one live.</p></div>
@@ -911,7 +858,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           </div></div>
 
           <p>The flagship demo: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app.</p>
-          <div class="note"><div class="lab">Facilitator note</div><p>The bad-vs-good <strong>description</strong> contrast (beat ⑤) is the single most useful 5 minutes — slow down there. Resist hooks and subagents — MCP gets its own module next (M7); point to the Rosetta and keep M6 on skills. Close on the rule of three.</p></div>
+          <div class="note"><div class="lab">Facilitator note</div><p>The bad-vs-good <strong>description</strong> contrast (beat ⑤) is the single most useful 5 minutes — slow down there. Resist hooks and subagents — MCP gets its own module next (M5); point to the Rosetta and keep M4 on skills. Close on the rule of three.</p></div>
           <button class="reh-toggle" id="rehToggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
@@ -940,8 +887,8 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           <div class="deck-stage">
 
             <!-- 1 · COVER -->
-            <div class="beat active" data-code="M6 · Skills" data-mins="1">
-              <div class="b-kicker">M6 · The Missing Manual</div>
+            <div class="beat active" data-code="M4 · Skills" data-mins="1">
+              <div class="b-kicker">M4 · The Missing Manual</div>
               <h3>Building a <em>great</em> skill</h3>
               <p class="b-sub">Not just a skill — a great one. Four questions tell them apart. We'll build one for the reference app, live.</p>
               <div class="beat-notes">
@@ -1030,7 +977,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
                 <div class="bn-l">Talk track · the centerpiece</div>
                 <p class="say">"Read the bad one like the agent does: 'helps you add API endpoints.' When does it fire? It doesn't say. It restates its own name. A skill that doesn't fire rots, unused."</p>
                 <p class="say">"Now watch me sharpen it. Front-load what it does. List the real trigger phrases people actually say. Cut anything already in the body — every word here costs context load on every turn. The description IS the product."</p>
-                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' from M5 — shared words make it fire more reliably.</p>
+                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' — the same words the workflow module (M6) leans on; shared words make it fire more reliably.</p>
                 <p class="nxt">next ▸ ② structure</p>
               </div>
             </div>
@@ -1181,7 +1128,7 @@ that earns this file its own home</span></div>
                 <p class="say">"Recap: Trigger — model-invoked on purpose, a description that fires. Structure — steps + reference, conventions behind a pointer. Steering — a leading word the agent echoes. Pruning — deletion test, no no-ops."</p>
                 <p class="say">"Mic drop: this whole rubric is itself a skill — writing-great-skills. User-invoked, pure reference, discloses to a glossary. It practices everything it preaches."</p>
                 <p class="do"><b>handoff</b> "In the clinic, every team writes ONE skill with skill-creator, then runs these four over it. Pick by the rule of three. Let's build."</p>
-                <p class="nxt">▸ to the clinic (M8)</p>
+                <p class="nxt">▸ to the clinic (M7)</p>
               </div>
             </div>
 
@@ -1196,9 +1143,9 @@ that earns this file its own home</span></div>
         </div><!-- /deck -->
       </section>
 
-      <section class="section" data-step data-mins="30" id="m7">
+      <section class="section" data-step data-mins="30" id="m5">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M7</span><span class="sec-time">≈ 30 MIN</span></div>
+          <div class="sec-head"><span class="sec-no">M5</span><span class="sec-time">≈ 30 MIN</span></div>
           <h2><span class="lead">Reach</span>MCP — Giving the Agent Hands and Eyes Outside the Repo</h2>
           <span class="gauge medium"><i></i>Hands-on · Medium-light</span>
           <div class="obj"><span class="lab">Objective</span><p>The room can extend the agent past the repo — wiring in a capability it didn't have, like a live browser or real docs, by adding one MCP server live and using it inside a loop — and can tell the few MCPs worth that cost from the many that just tax every prompt.</p></div>
@@ -1215,12 +1162,12 @@ that earns this file its own home</span></div>
             <span class="sp" data-sp="cost"><b>④</b>Cost</span>
           </div></div>
 
-          <p>The third axis of making an agent better: not new <em>knowledge</em> — that was M3's context and M6's skills — but new <em>capability</em>. A skill is a file you write; an MCP is a server you <em>connect</em>. I add one live (<code>context7</code>), then hold the honest line: every MCP you add taxes every prompt, so install few.</p>
-          <div class="note"><div class="lab">Facilitator note</div><p>Add exactly one MCP live and keep it <code>context7</code> — no account, no service, can't strand you. Name-drop the rest; don't install them. The keeper beat is ④ Cost — the room wants a shopping list and the lesson is the opposite. Tie the boundary back to M6 out loud, or the two modules blur.</p></div>
+          <p>The third axis of making an agent better: not new <em>knowledge</em> — that was M3's context and M4's skills — but new <em>capability</em>. A skill is a file you write; an MCP is a server you <em>connect</em>. I add one live (<code>context7</code>), then hold the honest line: every MCP you add taxes every prompt, so install few.</p>
+          <div class="note"><div class="lab">Facilitator note</div><p>Add exactly one MCP live and keep it <code>context7</code> — no account, no service, can't strand you. Name-drop the rest; don't install them. The keeper beat is ④ Cost — the room wants a shopping list and the lesson is the opposite. Tie the boundary back to M4 out loud, or the two modules blur.</p></div>
           <button class="reh-toggle" id="rehToggleM6"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
-        <!-- ============ M7 BEAT DECK · single source of truth ============ -->
+        <!-- ============ M5 BEAT DECK · single source of truth ============ -->
         <div class="deck" id="m6deck" aria-hidden="true">
           <div class="deck-hud">
             <button class="hud-x" title="Exit (Esc)">✕</button>
@@ -1245,8 +1192,8 @@ that earns this file its own home</span></div>
           <div class="deck-stage">
 
             <!-- 1 · COVER -->
-            <div class="beat active" data-code="M7 · Reach" data-mins="1">
-              <div class="b-kicker">M7 · New Reach</div>
+            <div class="beat active" data-code="M5 · Reach" data-mins="1">
+              <div class="b-kicker">M5 · New Reach</div>
               <h3>Giving the agent <em>hands</em></h3>
               <p class="b-sub">Two modules made the agent smarter about your repo. This one gives it a power it didn't have — eyes on a browser, a live database, the current docs. Not knowledge. <strong>Capability.</strong></p>
               <div class="beat-notes">
@@ -1276,16 +1223,16 @@ that earns this file its own home</span></div>
 
             <!-- 3 · KNOWLEDGE vs CAPABILITY -->
             <div class="beat" data-code="① Capability · the line" data-spine="capability" data-mins="5">
-              <div class="b-kicker">① Capability · the line that keeps M6 and M7 apart</div>
+              <div class="b-kicker">① Capability · the line that keeps M4 and M5 apart</div>
               <h3>A file you write vs a server you <em>connect</em></h3>
               <div class="invo">
-                <div class="col user"><h4>Skill · M6</h4><ul>
+                <div class="col user"><h4>Skill · M4</h4><ul>
                   <li><b>Knowledge</b> — a markdown file</li>
                   <li>Teaches your team's moves</li>
                   <li>Shapes behavior it could already do</li>
                   <li>Can't grant a new power</li>
                 </ul></div>
-                <div class="col model"><h4>MCP · M7</h4><ul>
+                <div class="col model"><h4>MCP · M5</h4><ul>
                   <li><b>Capability</b> — a server you connect</li>
                   <li>Adds verbs it can call mid-loop</li>
                   <li>Reaches systems outside the repo</li>
@@ -1345,13 +1292,13 @@ that earns this file its own home</span></div>
               <h3>Recognize them — don't install them all</h3>
               <div class="tree"><span class="hl">context7</span>    live, version-correct docs — kills hallucinated APIs   ← today
 <span class="hl">playwright</span>  a real browser — navigate, click, screenshot
-<span class="hl">github</span>      issues + PRs — reads + moves the M5 board
+<span class="hl">github</span>      issues + PRs — reads + moves your task board
 <span class="hl">postgres</span>    real schema + data — a true observation for the loop
 <span class="hl">figma</span>       a design file → code — straight from the file</div>
               <p class="b-sub" style="margin-top:16px">You want <strong>two or three</strong> of these — chosen for what you're building — not all five.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"The ones I actually reach for. Browser for anything with a UI. Live docs so it stops hallucinating. GitHub so it reads and moves the board we sliced in M5. A database or Sentry when the truth lives in prod. Figma when you're building from a design."</p>
+                <p class="say">"The ones I actually reach for. Browser for anything with a UI. Live docs so it stops hallucinating. GitHub so it reads and moves your task board. A database or Sentry when the truth lives in prod. Figma when you're building from a design."</p>
                 <p class="say">"But recognize, don't collect. Which two or three you wire depends on what you're building today — and that leads straight to the catch."</p>
                 <p class="nxt">next ▸ ④ the catch — every MCP has a cost</p>
               </div>
@@ -1394,7 +1341,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Recap as a rubric you keep. Capability — a power it lacks, or just something it needs to know? Connect — do you trust the server? Curate — will you really use it? Cost — does it earn its place in every prompt?"</p>
                 <p class="do"><b>handoff</b> "In the coaching, if you're fluent and bored: wire an MCP for your own stack and prove it changed a loop. Everyone else — one is plenty."</p>
-                <p class="nxt">▸ to the clinic (M8)</p>
+                <p class="nxt">▸ to the clinic (M7)</p>
               </div>
             </div>
 
@@ -1409,9 +1356,250 @@ that earns this file its own home</span></div>
         </div><!-- /deck -->
       </section>
 
-      <section class="section" data-step data-mins="140" id="m8">
+      <section class="section" data-step data-mins="95" id="m6">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M8</span><span class="sec-time">≈ 140 MIN · MID-BREAK</span></div>
+          <div class="sec-head"><span class="sec-no">M6</span><span class="sec-time">≈ 95 MIN</span></div>
+          <h2><span class="lead">The Workflow</span>One Feature, End to End — from Fuzzy Sentence to Merged Code</h2>
+          <span class="gauge heavy"><i></i>Hands-on · Heavy · Follow-along</span>
+          <div class="obj"><span class="lab">Objective</span><p>The room can run the full maker/checker pipeline — grill → spec → verify → architect → slice → build + review — on a real feature, with a fresh context checking every stage's work.</p></div>
+
+          <div class="m4-launch">
+            <button class="present-btn" id="presentWf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this module</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="grill"><b>①</b>Grill</span>
+            <span class="sp" data-sp="spec"><b>②</b>Spec</span>
+            <span class="sp" data-sp="verify"><b>③</b>Verify</span>
+            <span class="sp" data-sp="architect"><b>④</b>Architect</span>
+            <span class="sp" data-sp="slice"><b>⑤</b>Slice</span>
+            <span class="sp" data-sp="build"><b>⑥</b>Build</span>
+          </div></div>
+
+          <p>In the morning live build I said it out loud: <em>no sharing yet</em>. This is where that deferral comes due. One fuzzy sentence — "let people share their records" — goes in; merged, reviewed, tested code comes out, and the room watches every stage in between. The disciplines are all behind us by now; this module chains them into one pipeline on the reference app — the flagship block of the day.</p>
+          <p>One idea carries the whole ninety minutes: <strong>produce in one context, verify in a clean one.</strong> The agent that argued the spec into shape is the worst judge of whether the spec is complete — it heard the argument, so it shares the blind spots. At every stage a fresh context that never saw the drafting checks the work: a gaps report on the PRD, a grilling pass on the architecture, a reviewer on the code. Nobody verifies their own homework, the AI included.</p>
+          <p>The pipeline descends by altitude — WHY → WHAT → prove it → WHERE → HOW MUCH → DO. Grill until "share" means one specific thing. Write the spec <em>with</em> the agent. Hand it to a clean context and loop until the gaps report comes back empty. Let the agent propose where the change should live, and judge the candidates. Cut the spec into slices an agent can finish. Then build and review in separate contexts, and merge.</p>
+          <p>Delivery is follow-along: I drive the two divergent beats — the grilling and the architecture — and the room runs the crisp ones on their own machines. At every stage boundary a frozen checkpoint file drops and everyone re-syncs from it, so a wandering agent never strands anyone. The same files go home as the worked reference.</p>
+
+          <div class="caveat">
+            <div class="caveat-h">The honest caveat — this is the heavy-feature pipeline</div>
+            <div class="caveat-b">
+              <div class="row"><span class="t">Skip it for one-liners and spikes.</span>A rename, a one-character fix, a tracer you'll delete tomorrow — running six stages on those is ceremony, not planning. Run the loop and move on.</div>
+              <div class="row"><span class="t">Run it when the feature is big, fuzzy, or shared.</span>Big enough to slice, fuzzy enough that the agent will drift, or shared enough that someone else needs the same picture you carry in your head — that's the feature this pipeline is for, and the one your team brings to the clinic (M7).</div>
+            </div>
+          </div>
+
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>The maker/checker engine — produce in one context, verify in a clean one, at every altitude</li>
+            <li>Grilling a fuzzy one-liner into a grounded goal (<code>/grilling</code>) — the agent interrogates from the code's reality, then synthesizes</li>
+            <li>The six-pillar PRD written with the agent (<code>write-a-prd</code>) — stories that enumerate, non-goals that carry the weight, the test seam picked up front</li>
+            <li>The clean-context gaps report, looped until it comes back empty</li>
+            <li>Architecture candidates as an HTML report — locality and leverage, a before/after of the deepening, Strong / Worth exploring / Speculative</li>
+            <li>Vertical slices as independently-grabbable issues (<code>prd-to-issues</code>), then the build + review relay in clean contexts (<code>/code-review</code>)</li>
+          </ul>
+          <div class="note"><div class="lab">Facilitator notes</div><p>The follow-along mechanics are the module's spine: I drive Beats 1 and 4, the room runs 2, 3, 5 and 6 hands-on from the frozen checkpoint files — fell behind or your agent wandered? Grab the file, stay with the room. Run the commit gate before Beat 1 so everyone starts from the same reference-app commit. Two moments to protect: the Beat-1 contradiction ("share with anyone" vs "only I can edit") and the Beat-6 reviewer catch. Trim levers if the block runs long: Beat 4 down to 10 minutes — show the winning candidate, skip the losers — and drop the TDD aside in Beat 6.</p></div>
+          <div class="note leave"><div class="lab">Room leaves with</div><p>The complete workflow seen end-to-end on the reference app — and the checkpoint files (<code>grounded-context.md</code> → <code>share-record.prd.md</code> → <code>gaps-report.md</code> → <code>architecture.md</code> → <code>slices/</code> → merged slice 1) as a worked reference to rerun it on their own project in the clinic (M7).</p></div>
+          <button class="reh-toggle" id="rehToggleWf"><span class="rt">Show rehearsal script — read every beat inline</span></button>
+        </article>
+
+        <!-- ============ M6 BEAT DECK · single source of truth ============ -->
+        <div class="deck" id="wfdeck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="grill"><b>①</b>Grill</span>
+              <span class="sp" data-sp="spec"><b>②</b>Spec</span>
+              <span class="sp" data-sp="verify"><b>③</b>Verify</span>
+              <span class="sp" data-sp="architect"><b>④</b>Architect</span>
+              <span class="sp" data-sp="slice"><b>⑤</b>Slice</span>
+              <span class="sp" data-sp="build"><b>⑥</b>Build</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 8</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="M6 · Workflow" data-mins="5">
+              <div class="b-kicker">M6 · The Whole Pipeline</div>
+              <h3>One feature, <em>end to end</em></h3>
+              <p class="b-sub">This morning I deferred sharing on purpose. Now we build it properly — one fuzzy sentence to merged code, and at every stage a fresh context checks the previous one's work.</p>
+              <div class="tree"><span class="hl">grill</span>      WHY       <span class="c">one fuzzy sentence → one specific thing</span>
+<span class="hl">spec</span>       WHAT      <span class="c">the six-pillar PRD, written with the agent</span>
+<span class="hl">verify</span>     prove it  <span class="c">a clean context reads the plan cold</span>
+<span class="hl">architect</span>  WHERE     <span class="c">candidates, judged on locality &amp; leverage</span>
+<span class="hl">slice</span>      HOW MUCH  <span class="c">thin vertical slices, grabbable as issues</span>
+<span class="hl">build</span>      DO        <span class="c">one context builds · a second reviews</span></div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"In the live build this morning I said it out loud: no sharing yet. That deferral comes due now — one fuzzy sentence to merged code, the whole pipeline."</p>
+                <p class="say">"Watch what happens at every step: a fresh agent checks the previous one's work. Nobody verifies their own homework, the AI included. That's the whole engine."</p>
+                <p class="say">"Honest line before we start: this is the heavy-feature pipeline. For a one-line fix, skip all of it and run the loop — using this on a rename is ceremony."</p>
+                <p class="do"><b>do</b> Run the commit gate — everyone on the same reference-app commit. State the contract: I drive the slow beats and hand you a file at each boundary; you run the crisp ones.</p>
+                <p class="nxt">next ▸ ① grill · why</p>
+              </div>
+            </div>
+
+            <!-- 2 · GRILL -->
+            <div class="beat" data-code="① Grill" data-spine="grill" data-mins="12">
+              <div class="b-kicker">① Grill · WHY — I drive, you watch</div>
+              <h3>No building until "share" means one specific thing</h3>
+              <div class="ladder">
+                <div class="rung">public link, or private by default?</div>
+                <div class="rung">view-only, or can a viewer edit?</div>
+                <div class="rung">anyone with the link, or invited accounts?</div>
+                <div class="rung">owner keeps editing — do viewers see it live? revoke? expiry?</div>
+                <div class="rung hot">"share with anyone" + "only I can edit" — so what does the link actually do?</div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Not a blank-form interview — the agent has read the repo, knows there's an <code>ownerId</code>, and grills from the code's reality. Then it synthesizes. Checkpoint → <code>grounded-context.md</code>. Command: <code>/grilling</code>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"I hand the agent the dev's real one-liner — 'let people share their records' — and I let it interrogate me. It's read the code; it grills from what's actually there, not from a form."</p>
+                <p class="say">"You said 'share with anyone' and 'only I can edit' — so is the link view-only? What about a co-owner on the same plan? That contradiction is the moment 'share' stops being one word."</p>
+                <p class="do"><b>do</b> Dwell on the contradiction — it's the first moment to protect. Drop <code>grounded-context.md</code> at the gate.</p>
+                <p class="nxt">next ▸ ② spec · your hands</p>
+              </div>
+            </div>
+
+            <!-- 3 · SPEC -->
+            <div class="beat" data-code="② Spec" data-spine="spec" data-mins="12">
+              <div class="b-kicker">② Spec · WHAT — your hands now</div>
+              <h3>Six pillars, written <em>with</em> the agent</h3>
+              <div class="tree"><span class="hl">Problem</span>        <span class="c">from the user's side, not the implementation's</span>
+<span class="hl">Solution</span>       <span class="c">behavior a user can see</span>
+<span class="hl">User stories</span>   <span class="c">a long numbered list — enumerate, don't gesture</span>
+<span class="hl">Implementation</span> <span class="c">the seam: canView / canEdit — created on purpose</span>
+<span class="hl">Testing</span>        <span class="c">every share story verified at that one seam</span>
+<span class="hl">Out of scope</span>   <span class="c">NOT real-time collab · NOT public discovery · NOT comments</span></div>
+              <p class="b-sub" style="margin-top:16px">Non-goals carry the weight — dwell there, rush the headings. Checkpoint → <code>share-record.prd.md</code>. Command: <code>write-a-prd</code>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Stories enumerate the real cases: 'as an owner I share a view-only link so a friend sees my plan without editing it.' 'As an owner I revoke a link so access ends.' A long list is the point — gesturing is how drift gets in."</p>
+                <p class="say">"And I pick the test seam before any code exists: the access decision — canView, canEdit. Highest seam, fewest seams; it doesn't exist yet, so we create exactly one. Every share story gets verified right there."</p>
+                <p class="do"><b>do</b> A five-minute synthesis live, not a form to fill. At the gate everyone adopts the canonical frozen PRD, so the next beat runs against one spec.</p>
+                <p class="nxt">next ▸ ③ verify the plan</p>
+              </div>
+            </div>
+
+            <!-- 4 · VERIFY -->
+            <div class="beat" data-code="③ Verify" data-spine="verify" data-mins="8">
+              <div class="b-kicker">③ Verify · a context that never heard the argument</div>
+              <h3>Loop until the gaps report comes back <em>empty</em></h3>
+              <p class="b-sub">Open a clean context. Hand it only the PRD. One ask: find the gaps and contradictions.</p>
+              <button class="present-btn" data-trace="traceWf" style="margin-top:16px; font-size:13px; padding:11px 18px">Run the checker →</button>
+              <div class="trace" id="traceWf" style="margin-top:14px"><div class="tl">clean context · gaps report</div><span class="echo">Revocable links — but nothing says what a <mark>revoked link shows the visitor</mark>. Expiry is in scope with no story for an <mark>expired link</mark>. "View-only" and "collaborator" both listed, but Out-of-Scope says no editing — <mark>which is it?</mark></span></div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"This agent never heard our argument and doesn't know how hard we worked. It reads the spec cold — and that's exactly why its report is worth something."</p>
+                <p class="say">"Take the report back to the plan agent — it has the context to fix each hole — then run the checker again. The payoff is the empty second report. Keep this move in your pocket; it comes back at build time."</p>
+                <p class="do"><b>do</b> Room runs this hands-on from the frozen PRD. Checkpoint → tightened PRD + <code>gaps-report.md</code>. Say it out loud: this is a discipline, not a tool — a second window is enough.</p>
+                <p class="nxt">next ▸ ④ architect · where</p>
+              </div>
+            </div>
+
+            <!-- 5 · ARCHITECT -->
+            <div class="beat" data-code="④ Architect" data-spine="architect" data-mins="15">
+              <div class="b-kicker">④ Architect · WHERE — I drive; the new material</div>
+              <h3>One access seam instead of scattered checks</h3>
+              <div class="invo">
+                <div class="col user"><h4>Before · shallow</h4><ul>
+                  <li>"is this mine?" = <code>record.ownerId === userId</code></li>
+                  <li>copy-pasted across every handler</li>
+                  <li>add sharing → the leak spreads to every endpoint</li>
+                </ul></div>
+                <div class="col model"><h4>After · deep</h4><ul>
+                  <li>one <code>access</code> module: <code>canView</code> / <code>canEdit</code></li>
+                  <li>endpoints ask the policy — they don't re-derive it</li>
+                  <li>the policy is tested once, not per handler</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">The agent explores the repo and renders an <strong>HTML candidate report</strong> — per approach: files · problem · solution in plain English · benefits in <strong>locality</strong> and <strong>leverage</strong> · a before/after diagram · a badge: Strong / Worth exploring / Speculative. Then a grilling loop down to the winner. Checkpoint → <code>architecture.md</code>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · give it air</div>
+                <p class="say">"Nothing else in the day teaches this. The report names the friction in today's shape: 'is this mine?' is a scattered ownership check, copy-pasted across handlers — add sharing and the leak spreads everywhere."</p>
+                <p class="say">"The winning candidate collapses it behind one seam. Locality: all the rules in one module. Leverage: every endpoint benefits at once, and the policy is tested once. That's the vocabulary for judging any candidate."</p>
+                <p class="do"><b>do</b> The before/after drawing is the keeper visual. Keep the rejected candidates in <code>architecture.md</code> — with why. Commands: <code>codebase-design</code> + <code>design-an-interface</code> ("design it twice, in parallel"). Trim lever: 10 min — show the winner, skip the losers.</p>
+                <p class="nxt">next ▸ ⑤ slice · how much</p>
+              </div>
+            </div>
+
+            <!-- 6 · SLICE -->
+            <div class="beat" data-code="⑤ Slice" data-spine="slice" data-mins="12">
+              <div class="b-kicker">⑤ Slice · HOW MUCH — your hands</div>
+              <h3>Slice 1 is ugly, end-to-end, and <em>works</em></h3>
+              <div class="tree"><span class="hl">slice 1</span>  read-only share link — token → shared view → a test proves a
+         non-owner can view via link and <span class="f">cannot edit</span>   <span class="c">← ugly · end-to-end · works</span>
+<span class="hl">slice 2</span>  revoke + expiry                              <span class="c">blocked by 1</span>
+<span class="hl">slice 3</span>  invited collaborators with edit              <span class="c">blocked by 1</span></div>
+              <p class="b-sub" style="margin-top:16px">Each slice cuts through every layer — never a horizontal "build the data layer" task. Acceptance criteria are written against the access seam from ④. Checkpoint → <code>slices/</code>. Command: <code>prd-to-issues</code> (or <code>prd-to-plan</code> for local markdown).</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Slice 1 is a raw, unstyled link that genuinely round-trips. Later slices add width, not depth. Engineers trained on tidy architecture resist the ugliness — that resistance is the thing to talk through."</p>
+                <p class="say">"Each issue is independently grabbable: context gathered, acceptance criteria at the seam, blocked-by marked — 2 and 3 wait on 1's token and policy. Publish to whatever tracker your team uses."</p>
+                <p class="do"><b>watch</b> for horizontal slicers as the room cuts from the frozen PRD + <code>architecture.md</code> — it's the failure mode here.</p>
+                <p class="nxt">next ▸ ⑥ build + review</p>
+              </div>
+            </div>
+
+            <!-- 7 · BUILD + REVIEW -->
+            <div class="beat" data-code="⑥ Build + Review" data-spine="build" data-mins="15">
+              <div class="b-kicker">⑥ Build + Review · DO — the relay</div>
+              <h3>One context builds. A second one judges.</h3>
+              <div class="tree"><span class="hl">build</span>     <span class="c">a clean context takes slice 1 + architecture.md + the card</span>
+<span class="hl">review</span>    <span class="c">a second clean context — conventions · criteria · tests green → findings</span>
+<span class="hl">refactor</span>  <span class="c">a third pass works the findings</span>
+<span class="hl">merge</span>     <span class="c">slice 1 lands</span></div>
+              <p class="b-sub" style="margin-top:16px">The knobs I name and don't demo: AFK vs attended · one slice vs fan-out parallel · TDD vs not. Today: attended, slice 1 only, full relay visible. Command: your coding agent, then <code>/code-review</code> — it already reviews on Standards + Spec.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the punchline</div>
+                <p class="say">"The reviewer never saw the builder's rationalizations — and it catches that the shared-view endpoint renders an expired link, because the builder forgot to ask canView. That catch is the module's punchline. Land it."</p>
+                <p class="say">"In real life you fan slices 2 and 3 out AFK overnight and review them in the morning. Today we stay attended and watch the relay end to end."</p>
+                <p class="do"><b>do</b> Room builds hands-on; merge slice 1 at the gate. If time is tight, drop the TDD aside — the relay is the lesson.</p>
+                <p class="nxt">next ▸ handoff</p>
+              </div>
+            </div>
+
+            <!-- 8 · HANDOFF -->
+            <div class="beat" data-code="Handoff" data-mins="4">
+              <div class="b-kicker">Land it · the pipeline is yours</div>
+              <h3>Next block, <em>your</em> project runs these beats</h3>
+              <p class="b-sub">That's the whole pipeline on one feature — produced in one context, verified in a clean one, at every altitude.</p>
+              <div class="tree"><span class="c">the trail you keep:</span>
+<span class="f">grounded-context.md</span> → <span class="f">share-record.prd.md</span> → <span class="f">gaps-report.md</span>
+→ <span class="f">architecture.md</span> → <span class="f">slices/</span> → <span class="hl">merged slice 1</span></div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Every stage produced in one context and was checked in a clean one. That habit — nobody verifies their own homework — is the thing to take home, more than any single command."</p>
+                <p class="do"><b>handoff</b> "In the clinic, you run these beats on your own project. The checkpoint files show what good looks like at each gate."</p>
+                <p class="nxt">▸ to the clinic (M7)</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
+      </section>
+
+      <section class="section" data-step data-mins="140" id="m7">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">M7</span><span class="sec-time">≈ 140 MIN · MID-BREAK</span></div>
           <h2><span class="lead">The Planning Clinic</span>Your Real Project, Sliced and Loaded</h2>
           <span class="gauge heavy"><i></i>Hands-on · Heavy</span>
           <div class="obj"><span class="lab">Objective</span><p>Every team turns the teaching into a running start on its <strong>own</strong> project — a PRD, a sliced board, and a scaffolded repo with its first loops queued — while I coach the room.</p></div>
@@ -1430,9 +1618,9 @@ that earns this file its own home</span></div>
         </article>
       </section>
 
-      <section class="section" data-step data-mins="30" id="m9">
+      <section class="section" data-step data-mins="30" id="m8">
         <article class="card">
-          <div class="sec-head"><span class="sec-no">M9</span><span class="sec-time">≈ 30 MIN</span></div>
+          <div class="sec-head"><span class="sec-no">M8</span><span class="sec-time">≈ 30 MIN</span></div>
           <h2><span class="lead">Reflection &amp; Handoff</span>Closing the Teaching, Launching the Build</h2>
           <span class="gauge light"><i></i>Hands-on · Light</span>
           <div class="obj"><span class="lab">Objective</span><p>Surface the mindset movement out loud (the real KPI here) and hand the room the self-guide that carries them through the self-guided build without me.</p></div>
@@ -1448,7 +1636,7 @@ that earns this file its own home</span></div>
           <div class="sec-head"><span class="sec-no">M1 · PREP</span></div>
           <h2><span class="lead">The Live-Build Spec</span>Rehearse to Muscle Memory</h2>
           <p><strong>Repo:</strong> the reference app (the shared playground), checked out clean on a known-good commit.</p>
-          <p><strong>The slice to build live:</strong> <em>"Save this record."</em> A user viewing a record clicks <strong>Save</strong>; it persists; reloading shows it; a test proves the round-trip. Thin, end-to-end, demoable — a textbook vertical slice, and a silent preview of M5.</p>
+          <p><strong>The slice to build live:</strong> <em>"Save this record."</em> A user viewing a record clicks <strong>Save</strong>; it persists; reloading shows it; a test proves the round-trip. Thin, end-to-end, demoable — a textbook vertical slice, and a silent preview of M6. Non-goals I say out loud: no auth, and no <em>sharing</em> — I defer sharing deliberately, because building it properly is exactly what M6 does.</p>
           <div class="sub-h">The loop to demonstrate, out loud</div>
           <ol class="loop">
             <li><strong>Intent</strong> — state the slice and its acceptance criteria as prose. No implementation talk.</li>
@@ -1591,8 +1779,8 @@ that earns this file its own home</span></div>
           <p><strong>Solo delivery.</strong> I run it all alone. The clinic and the coaching both depend on the coverage discipline — deliberate laps, time-boxed stops — to make one facilitator reach every team.</p>
           <div class="sub-h">Three trade-offs built in, and how I compensate</div>
           <ol class="loop">
-            <li><strong>Same content for everyone, no tiering.</strong> Advanced engineers risk boredom. Counter with genuine depth (the M2 caveat, the M6 description craft) and the no-IDE discipline, which humbles even the fluent — and in the coaching, redirect bored experts into skills/subagents stretch work and deputize them to help peers.</li>
-            <li><strong>Teaching hands-on is on the shared reference app;</strong> the first transfer to their own project is the clinic and then the self-guided build — when I'm away. That's why the self-guide carries real weight; walk the room through it at M9.</li>
+            <li><strong>Same content for everyone, no tiering.</strong> Advanced engineers risk boredom. Counter with genuine depth (the M2 caveat, the M4 description craft) and the no-IDE discipline, which humbles even the fluent — and in the coaching, redirect bored experts into skills/subagents stretch work and deputize them to help peers.</li>
+            <li><strong>Teaching hands-on is on the shared reference app;</strong> the first transfer to their own project is the clinic and then the self-guided build — when I'm away. That's why the self-guide carries real weight; walk the room through it at M8.</li>
             <li><strong>The coaching is reactive-only.</strong> Coverage skews to the loud. The coverage sweep is the explicit fix — audit twice, go to the quiet teams on purpose.</li>
           </ol>
         </article>
@@ -1627,9 +1815,9 @@ that earns this file its own home</span></div>
   const TOPICS=[
     {id:'brief',           label:'The Brief',           blurb:'Why this exists, who’s in the room, and the shape of the program.',                                    sectionIds:['engagement','room','shape']},
     {id:'mindset-loop',    label:'Mindset & The Loop',  blurb:'The no-IDE reframe, the live proof, and the agentic loop — with the honest “when not to loop” caveat — then making the repo agent-ready so the loop can run.', sectionIds:['m0','m1','livebuild','m2','m3']},
-    {id:'planning-slicing',label:'Planning & Slicing',  blurb:'Writing a PRD the agent can build from, cutting it into thin vertical slices, then the clinic where every team plans its own real project.', sectionIds:['m4','m5','m8']},
-    {id:'skills',          label:'Skills & MCP',        blurb:'Building a great skill — trigger, structure, the rule of three — then MCP: giving the agent new reach beyond the repo.', sectionIds:['m6','m7']},
-    {id:'reflection-handoff',label:'Reflection & Handoff',blurb:'Close the teaching, surface the mindset shift, and hand off to the self-guided build.',               sectionIds:['m9']},
+    {id:'skills',          label:'Skills & MCP',        blurb:'Building a great skill — trigger, structure, the rule of three — then MCP: giving the agent new reach beyond the repo.', sectionIds:['m4','m5']},
+    {id:'workflow',        label:'The Workflow & Clinic',blurb:'The full pipeline — grill, spec, verify, architect, slice, build — run end-to-end on one feature, then the clinic where every team runs it on its own project.', sectionIds:['m6','m7']},
+    {id:'reflection-handoff',label:'Reflection & Handoff',blurb:'Close the teaching, surface the mindset shift, and hand off to the self-guided build.',               sectionIds:['m8']},
     {id:'self-guided-build',label:'Self-Guided Build',  blurb:'The checklist teams run on their own project with no facilitator in the room.',                        sectionIds:['tue']},
     {id:'coaching',        label:'Coaching Playbook',   blurb:'Reactive floor-coaching — the anti-pattern radar, the pocket prompts, and the coverage sweep.',        sectionIds:['wed-run','wed-radar','wed-prompts']},
     {id:'reference',       label:'Reference & Take-Home',blurb:'Durable, portable artifacts — the cross-tool Rosetta, the take-home pack, and how I run it solo.',     sectionIds:['rosetta','takehome','logistics']}
@@ -1644,12 +1832,11 @@ that earns this file its own home</span></div>
     livebuild:'rehearsal demo spec reference loop save record prep fallback',
     m2:'loop agentic verify observe plan act iterate one-shot caveat off-ramp',
     m3:'repo agent-ready agent-friendly claude.md agents.md context onboarding conventions verify verification harness guardrails golden-path scaffold cold-start observable',
-    m4:'prd product requirements document spec problem solution user stories acceptance criteria non-goals out-of-scope scope seams testing synthesis planning matt pocock to-prd',
-    m5:'slice vertical slicing tracer bullet board planning non-goals tasks prd',
-    m6:'skill skills description trigger structure steering pruning rule of three',
-    m7:'mcp model context protocol tool tools reach server connect capability extend context7 docs playwright browser github figma sentry postgres prod cross-tool',
-    m8:'clinic planning slice prd context claude.md scaffold team project skill skill-creator',
-    m9:'reflection handoff kpi mindset close self-guide build',
+    m4:'skill skills description trigger structure steering pruning rule of three',
+    m5:'mcp model context protocol tool tools reach server connect capability extend context7 docs playwright browser github figma sentry postgres prod cross-tool',
+    m6:'workflow pipeline grilling grill interview prd product requirements spec user stories acceptance criteria non-goals out-of-scope seam verify gaps contradictions clean context architecture candidates locality leverage deepening slice vertical slicing tracer bullet board build review maker checker share checkpoint',
+    m7:'clinic planning slice prd context claude.md scaffold team project skill skill-creator',
+    m8:'reflection handoff kpi mindset close self-guide build',
     tue:'self-guide checklist solo build loop verify context claude.md off-ramps',
     'wed-run':'coaching laps floor reactive challenge solo stance',
     'wed-radar':'anti-pattern radar intervention babysitting context starvation one-shotting verification',
