@@ -412,6 +412,10 @@ html.present .beat .b-sub{font-size:clamp(1.05rem,2vw,1.55rem); color:var(--ink-
 html.present .beat .b-sub strong{color:var(--ink)}
 html.present .beat .b-big{font-family:var(--serif); font-weight:600; font-size:clamp(1.6rem,3.6vw,2.7rem); color:var(--ink); line-height:1.15; margin-top:4px}
 html.present .beat .b-big code{font-size:.9em}
+html.present .invo{max-width:980px}
+html.present .invo .col li{font-size:clamp(.95rem,1.6vw,1.3rem)}
+html.present .ladder{max-width:760px}
+html.present .ladder .rung{font-size:clamp(1rem,1.7vw,1.35rem)}
 
 /* notes block */
 .beat-notes{font-size:.96rem}
@@ -693,6 +697,18 @@ html.present .topic-band{display:none !important}
         <article class="card">
           <div class="sec-head"><span class="sec-no">PART 1</span></div>
           <h2><span class="lead">Vibe Coding</span>Great Demos, and Why They Collapse in a Real Repo</h2>
+
+          <div class="m4-launch">
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="vibe"><b>①</b>The vibe</span>
+            <span class="sp" data-sp="collapse"><b>②</b>The collapse</span>
+            <span class="sp" data-sp="reframe"><b>③</b>The reframe</span>
+          </div></div>
+
           <p>I open with the thing everyone in the room has already done, because starting anywhere else is dishonest. You paste a request into a chat window, code comes back, you paste it in, it runs. It feels like the future — and for a weekend toy it genuinely is. That's vibe coding: you describe, it generates, and you ride the vibes instead of reading the code. I don't mock it. Vibe coding is how most of us got convinced this technology is real, and for greenfield throwaways it's still the right speed.</p>
           <p>Then I bring it into a real repo and let the room watch it fall apart. The model doesn't know our project structure, so it invents one. It doesn't know our conventions, so it writes somebody else's. It can't run our tests, so "it works" means "it looked plausible." Every paste is a one-shot — no memory of the last attempt, no way to check itself — and the sixth round of "almost right" costs more than typing it yourself would have. The demo got 80% of the way there in five minutes; the last 20% eats the week.</p>
           <p>The point I land: the failure isn't the model, it's the setup. A brilliant intern working through a mail slot — no repo access, no way to run anything, no memory between letters — would fail exactly the same way. Fixing the setup is the rest of this talk.</p>
@@ -703,30 +719,410 @@ html.present .topic-band{display:none !important}
             <li>Why the last 20% eats the week — one-shots don't converge</li>
             <li>The reframe: the model isn't the bottleneck, the setup is</li>
           </ul>
+          <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
+
+        <!-- ============ PART 1 BEAT DECK ============ -->
+        <div class="deck" id="p1deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="vibe"><b>①</b>The vibe</span>
+              <span class="sp" data-sp="collapse"><b>②</b>The collapse</span>
+              <span class="sp" data-sp="reframe"><b>③</b>The reframe</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 6</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="Part 1 · Vibe Coding" data-mins="1">
+              <div class="b-kicker">Part 1 · Where Everyone Starts</div>
+              <h3>Great demos — and why they collapse in a <em>real repo</em></h3>
+              <p class="b-sub">Everyone in this room has pasted a request into a chat window and shipped what came back. I'm not here to mock that. I'm here to show exactly where it stops working.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"I'm opening with the thing you've all already done, because starting anywhere else would be dishonest. You paste a request into a chat, code comes back, you paste it in, it runs. It feels like the future."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. This is the opener — warm, zero scolding. The room has to feel seen, not judged, or they defend instead of listen.</p>
+                <p class="nxt">next ▸ ① the vibe · what it actually is</p>
+              </div>
+            </div>
+
+            <!-- 2 · THE VIBE -->
+            <div class="beat" data-code="① The vibe" data-spine="vibe" data-mins="3">
+              <div class="b-kicker">① The vibe · what it actually is</div>
+              <h3>Describe. Generate. <em>Don't read.</em></h3>
+              <div class="tree"><span class="c">you</span>     "build me a habit tracker"
+<span class="c">model</span>   three files of plausible code
+<span class="c">you</span>     paste → run → <span class="f">it works</span>
+<span class="c">repeat</span>  ride the vibes — <span class="hl">never read the code</span></div>
+              <p class="b-sub" style="margin-top:18px">For a weekend toy, this is genuinely the right speed. Vibe coding is how most of us got convinced this technology is real.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"That's vibe coding: you describe, it generates, and you ride the vibes instead of reading the code. I don't mock it — for greenfield throwaways it's still the right call, and it's what convinced most of us the technology is real."</p>
+                <p class="say">"Hold that respect honestly, because the next beat is where it breaks — and I want the break to land as a fact, not as a lecture."</p>
+                <p class="do"><b>watch</b> The room relaxes when you say you won't mock it. That's the moment they stop defending their workflow and start listening.</p>
+                <p class="nxt">next ▸ ② the collapse · same trick, real repo</p>
+              </div>
+            </div>
+
+            <!-- 3 · THE COLLAPSE -->
+            <div class="beat" data-code="② The collapse" data-spine="collapse" data-mins="4">
+              <div class="b-kicker">② The collapse · same trick, inside a real repo</div>
+              <h3>Now watch it fall apart</h3>
+              <div class="ladder">
+                <div class="rung">doesn't know our structure — so it invents one</div>
+                <div class="rung">doesn't know our conventions — so it writes somebody else's</div>
+                <div class="rung">can't run our tests — so "it works" means "it looked plausible"</div>
+                <div class="rung hot">every paste is a one-shot — no memory of the last attempt, no way to check itself</div>
+              </div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Same trick, real repo, and I let the room watch it fall apart. It invents a project structure we don't have. It writes conventions from somebody else's codebase. And it calls the result done without ever running a thing."</p>
+                <p class="say">"The bottom rung is the killer: each paste starts from zero. It doesn't remember what went wrong two attempts ago, and it has no way to check its own work."</p>
+                <p class="do"><b>do</b> Run this live on the reference app if the demo gods allow — the slide is the fallback, not the plan.</p>
+                <p class="nxt">next ▸ ② the collapse · what it costs</p>
+              </div>
+            </div>
+
+            <!-- 4 · THE LAST 20% -->
+            <div class="beat" data-code="② The collapse · the cost" data-spine="collapse" data-mins="3">
+              <div class="b-kicker">② The collapse · what it actually costs</div>
+              <h3>The last 20% eats the week</h3>
+              <div class="rule3"><div class="r3-count">80%</div><div><p class="b-sub">…in five minutes. Then the sixth round of "almost right" costs more than typing it yourself would have. <strong>One-shots don't converge.</strong></p></div></div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"The demo got 80% of the way there in five minutes, and that's the part everyone remembers. Nobody counts the week the last 20% ate."</p>
+                <p class="say">"By round six of 'almost right' you're paying more to steer the chat than the typing would have cost. That's not bad luck. One-shots don't converge, because nothing in this setup can observe a result or remember an attempt."</p>
+                <p class="nxt">next ▸ ③ the reframe</p>
+              </div>
+            </div>
+
+            <!-- 5 · THE REFRAME -->
+            <div class="beat" data-code="③ The reframe" data-spine="reframe" data-mins="2">
+              <div class="b-kicker">③ The reframe · the point I land</div>
+              <h3>The failure isn't the model. It's the <em>setup</em>.</h3>
+              <p class="b-big">A brilliant intern, working through a mail slot.</p>
+              <p class="b-sub" style="margin-top:14px">No repo access. No way to run anything. No memory between letters. They'd fail exactly the same way — and you wouldn't blame the intern.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the keeper</div>
+                <p class="say">"Picture the best intern you've ever worked with — but they sit behind a mail slot. They can't see the repo, can't run anything, and forget everything between letters. They'd produce exactly what the chat window produces."</p>
+                <p class="say">"So blaming the model is aiming at the wrong thing. The mail slot is the problem."</p>
+                <p class="do"><b>do</b> Say the h3 line slowly — the whole talk hangs on it.</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 6 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="2">
+              <div class="b-kicker">Land it · what the rest of the talk is</div>
+              <h3>Fixing the setup is Parts 2–8</h3>
+              <div class="tree"><span class="hl">give it the repo</span>      Part 2 · an agent that reads, edits, runs the tests
+<span class="hl">give it the context</span>   Part 3 · the repo made agent-ready
+<span class="hl">give it your moves</span>    Part 4 · skills — and on to the full workflow</div>
+              <p class="b-sub" style="margin-top:18px">Each part from here takes down one wall of the mail slot.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Nothing in this part was an argument against AI. It was an argument against the mail slot — and everything from here on removes one of its walls. First we hand it the repo."</p>
+                <p class="nxt">▸ on to Part 2 · an agent in the repo</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
       </section>
 
       <section class="section" data-step id="part2">
         <article class="card">
           <div class="sec-head"><span class="sec-no">PART 2</span></div>
           <h2><span class="lead">AI Engineering</span>An Agent in the Repo: You Steer, It Types</h2>
-          <p>The first real step up from the chat window: put the agent <em>inside</em> the repo. Claude Code reads the files, edits them, runs commands, runs the tests — and that changes the shape of the work from a one-shot into a loop: <strong>plan → act → observe → verify → repeat.</strong> You state intent, it acts, something observable happens — a test passes or fails, an error prints, a diff appears — and that observation steers the next turn. Your job stops being "produce the code" and becomes designing the loop and judging each turn.</p>
+
+          <div class="m4-launch">
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="loop"><b>①</b>The loop</span>
+            <span class="sp" data-sp="proof"><b>②</b>Live proof</span>
+            <span class="sp" data-sp="day"><b>③</b>Day to day</span>
+            <span class="sp" data-sp="edges"><b>④</b>The edges</span>
+          </div></div>
+
+          <p>The first real step up from the chat window: put the agent <em>inside</em> the repo. Claude Code reads the files, edits them, runs commands, runs the tests — and that changes the shape of the work from a one-shot into a loop: <strong>plan → act → observe → verify → repeat.</strong> You state intent, it acts, something observable happens — a test passes or fails, an error prints, a diff appears — and that observation steers the next turn. Your job stops being "produce the code" and becomes designing the loop and judging each turn. I give the loss its minute too — the traditional way of writing code, you and an editor and every line yours, had a real romance to it, and steering an agent isn't that. I'd rather name it than sell past it: the typing is what left the job; the deciding and judging is what grew. And I put one correction on the table before any demo: an AI is not a person and doesn't draw conclusions the way a human brain does — what it doesn't know it doesn't know, what you don't tell it to do it may skip, and what you don't tell it how to do it will absolutely do, its way. You feed it intent by the spoonful and treat it like the machine it is.</p>
           <p>I prove it live, because no slide kills the "not on real code" objection. One vertical slice of the reference app — a save button, an API endpoint, persistence, a test that proves the round-trip — built entirely by steering the agent, no editor. The most useful minutes are the planted mistake: I under-specify on purpose, the agent guesses wrong, the test goes red, I feed the failure back, and the room watches the loop converge instead of watching me fix it by hand. Someone always asks about sharing records while I'm in there; I say <em>no sharing yet</em>, on purpose — that debt comes due in Part 8.</p>
-          <p>I'm honest about the edges, because the skeptics in the back row are the ones I need: a one-character fix you can see is faster typed than described. If you can't verify the output and the cost of wrong is high, the agent's confidence is worth nothing. And an agent circling for three turns isn't a prompting problem — it's a context problem. Which is exactly the friction this level leaves you with: it works, and every single task starts with you typing the same orientation paragraph again.</p>
+          <p>I'm honest about the edges, because the skeptics in the back row are the ones I need: a one-character fix you can see is faster typed than described. If you can't verify the output and the cost of wrong is high, the agent's confidence is worth nothing. And an agent circling for three turns isn't a prompting problem — it's a context problem. Sometimes the context is missing; sometimes it's just full — quality slides as a session grows, a slope rather than a cliff, so I finish the slice before the dumb zone and hand long work to a fresh session with a written summary. Which is exactly the friction this level leaves you with: it works, and every single task starts with you typing the same orientation paragraph again.</p>
           <div class="sub-h">What I cover</div>
           <ul class="cover">
             <li>The agentic loop — plan → act → observe → verify — and why iteration plus verification beats one-shotting</li>
+            <li>Not a person: what it doesn't know it doesn't know · what you don't say it may skip · what you don't specify it does its way</li>
+            <li>Day to day: five do's and don'ts at the turn level, and the dumb zone — quality slides long before the window is full</li>
             <li>The live proof: a tested vertical slice through prose alone, planted mistake and recovery included</li>
             <li>Reading agent output critically — the test result is the truth, not the agent's confidence</li>
             <li>When the loop is the wrong tool, said plainly — and the repeated-context itch that sets up Part 3</li>
           </ul>
+          <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
+
+        <!-- ============ PART 2 BEAT DECK ============ -->
+        <div class="deck" id="p2deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="loop"><b>①</b>The loop</span>
+              <span class="sp" data-sp="proof"><b>②</b>Live proof</span>
+              <span class="sp" data-sp="day"><b>③</b>Day to day</span>
+              <span class="sp" data-sp="edges"><b>④</b>The edges</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 10</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="Part 2 · AI Engineering" data-mins="1">
+              <div class="b-kicker">Part 2 · The First Real Step Up</div>
+              <h3>An agent in the repo: <em>you steer, it types</em></h3>
+              <p class="b-sub">The mail slot from Part 1 comes down. The agent reads the files, edits them, runs commands, runs the tests — and that changes what your job is.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"The first real step up from the chat window is putting the agent inside the repo. Not smarter answers — access. It can finally see what's there and run what it wrote."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. This block carries the biggest live demo before Part 8 — check the terminal is ready before you start talking.</p>
+                <p class="nxt">next ▸ ① the loop</p>
+              </div>
+            </div>
+
+            <!-- 2 · THE LOOP -->
+            <div class="beat" data-code="① The loop" data-spine="loop" data-mins="4">
+              <div class="b-kicker">① The loop · from one-shot to loop</div>
+              <h3>Plan → act → observe → <em>verify</em> → repeat</h3>
+              <div class="tree"><span class="c">plan</span>     you state intent
+<span class="c">act</span>      it edits files · runs commands
+<span class="c">observe</span>  a test passes or fails · an error prints · a diff appears
+<span class="c">verify</span>   the observation steers the next turn — <span class="f">repeat</span></div>
+              <p class="b-sub" style="margin-top:18px">Every turn ends in something <strong>observable</strong>. The chat window never had that — and it's why iteration plus verification beats one-shotting.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Repo access changes the shape of the work from a one-shot into a loop. You state intent, it acts, something observable happens — a test result, an error, a diff — and that observation steers the next turn."</p>
+                <p class="say">"Underline the third row. The loop doesn't close on the agent's opinion of its own work; it closes on something that actually happened."</p>
+                <p class="nxt">next ▸ ① the loop · what your job becomes</p>
+              </div>
+            </div>
+
+            <!-- 3 · YOUR JOB CHANGES -->
+            <div class="beat" data-code="① The loop · your job" data-spine="loop" data-mins="4">
+              <div class="b-kicker">① The loop · the actual mindset shift</div>
+              <h3>Your job stops being "produce the code"</h3>
+              <div class="invo">
+                <div class="col user"><h4>The traditional craft</h4><ul>
+                  <li>You and an editor — <b>every line yours</b></li>
+                  <li>The pride lives in the code itself — the elegant line, the clever fix</li>
+                  <li>Flow state at 2am — the romance this field ran on</li>
+                </ul></div>
+                <div class="col model"><h4>The job now</h4><ul>
+                  <li><b>Design the loop</b> — what gets built, what gets observed</li>
+                  <li><b>Judge each turn</b> — read the diff, believe the test</li>
+                  <li>The pride moves to what shipped — and what you decided</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Something real is lost in this move. I'd rather name it than sell past it.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Before I sell the new job, I give the old one its due. The traditional method was you and an editor: you typed every line, and the craft — the identity — lived in the code itself. That's how most of us fell in love with this field. The 2am flow state. The line only you could have written."</p>
+                <p class="say">"Some of that romance doesn't survive this shift, and I say so out loud instead of selling past it. But the typing was never the job. Deciding what to build, what done means, and what's good enough — that was the job, and that part grew."</p>
+                <p class="say">"So the sentence I care about today: you design the loop, and you judge every turn it takes. The KPI of this talk is that mindset shift, not a demo."</p>
+                <p class="do"><b>watch</b> Some people hear 'the agent replaces the typing' as a threat. Naming the loss first is what buys you the right to say: you were never paid for the typing.</p>
+                <p class="nxt">next ▸ ① the loop · it's not a person</p>
+              </div>
+            </div>
+
+            <!-- 4 · NOT A PERSON -->
+            <div class="beat" data-code="① The loop · the machine" data-spine="loop" data-mins="3">
+              <div class="b-kicker">① The loop · the thing you're actually steering</div>
+              <h3>It's not a person — it doesn't <em>conclude</em> like you do</h3>
+              <div class="ladder">
+                <div class="rung">what it doesn't know — it doesn't know</div>
+                <div class="rung">what you don't tell it to do — it may quietly skip</div>
+                <div class="rung hot">what you don't tell it how to do — it will do. Its way, not yours.</div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">A human fills the gaps in a request with your intent. The model fills them with the most plausible guess. So spoon-feed the intent — treat it like a machine that happens to speak fluent English.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"One correction before the demo, so the intern picture from Part 1 doesn't mislead you. The intern was about the setup. The mind is a different story: an AI is not a person, and it doesn't draw conclusions the way a human brain does. A teammate fills the gaps in your request with what you meant. The model fills them with what's statistically likely. Those are different operations."</p>
+                <p class="say">"Three laws, keep them in your pocket. What it doesn't know — it doesn't know; it won't go find out on its own. What you don't tell it to do — maybe it happens, maybe it doesn't. What you don't tell it how to do — that it will do, guaranteed. Its way, not yours. The planted mistake in a few minutes is law three, live."</p>
+                <p class="do"><b>watch</b> Spoon-feed means intent and context, not padding — Part 4's deletion test cuts lines the model already follows. The rule: everything you care about, said explicitly; nothing it already does.</p>
+                <p class="nxt">next ▸ ② live proof · the slice contract</p>
+              </div>
+            </div>
+
+            <!-- 5 · LIVE PROOF -->
+            <div class="beat" data-code="② Live proof" data-spine="proof" data-mins="15">
+              <div class="b-kicker">② Live proof · no slide kills the objection</div>
+              <h3>One vertical slice, <em>no editor</em></h3>
+              <div class="tree"><span class="hl">save button</span>   the UI piece
+<span class="hl">endpoint</span>      POST /records on the reference app
+<span class="hl">persistence</span>   it survives a refresh
+<span class="hl">test</span>          proves the round-trip</div>
+              <p class="b-sub" style="margin-top:18px">Built entirely by steering the agent with prose. This slide stays up while I switch to the terminal.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Every room has the 'sure, but not on real code' objection, and no slide kills it — so I stop talking and build. One vertical slice: a save button, an endpoint, persistence, a test that proves the round-trip. I never open an editor."</p>
+                <p class="say">"Someone always asks about sharing records while I'm in there. The answer is <em>no sharing yet</em> — on purpose. That debt comes due in Part 8, and I say so out loud."</p>
+                <p class="do"><b>do</b> Switch to the terminal here; the deck waits. Narrate intent before each turn, then shut up and let the room read the diff.</p>
+                <p class="nxt">next ▸ ② live proof · the planted mistake</p>
+              </div>
+            </div>
+
+            <!-- 6 · PLANTED MISTAKE -->
+            <div class="beat" data-code="② Live proof · planted mistake" data-spine="proof" data-mins="5">
+              <div class="b-kicker">② Live proof · the planted mistake</div>
+              <h3>I under-specify <em>on purpose</em></h3>
+              <button class="present-btn" data-trace="traceP2" style="margin-top:6px; font-size:13px; padding:11px 18px">Watch the loop converge →</button>
+              <div class="trace" id="traceP2" style="margin-top:14px"><div class="tl">agent · after the red test comes back</div><span class="echo">Test failed: <mark>expected 201, route returned 404</mark> — the new route was never registered. Registering it in src/api/index.ts, re-running the suite… green. The round-trip passes.</span></div>
+              <p class="b-sub" style="margin-top:16px">The agent guessed wrong because I let it. The test went red, I fed the failure back, and the room watched the loop converge — instead of watching me fix it by hand.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the most useful minutes</div>
+                <p class="say">"These are the most useful minutes of the block. I under-specify on purpose, the agent guesses wrong, and the test goes red in front of everyone. Then I paste the failure back — verbatim, no editorializing — and the next turn fixes it."</p>
+                <p class="say">"The red test did the steering, not me. That's the loop earning its keep."</p>
+                <p class="do"><b>do</b> This happens live in the terminal; the trace on this slide is the fallback if the demo gods say no.</p>
+                <p class="nxt">next ▸ ③ day to day · do's and don'ts</p>
+              </div>
+            </div>
+
+            <!-- 7 · DO'S AND DON'TS -->
+            <div class="beat" data-code="③ Day to day" data-spine="day" data-mins="4">
+              <div class="b-kicker">③ Day to day · running the loop</div>
+              <h3>Five do's, five don'ts</h3>
+              <div class="invo">
+                <div class="col user"><h4>Do</h4><ul>
+                  <li><b>Hand it a check it can run</b> — a test, a build, a screenshot</li>
+                  <li><b>Hit Esc</b> the moment it goes sideways</li>
+                  <li><b>/clear after two failed corrections</b> — restart sharper</li>
+                  <li><b>Point at a file</b> — "copy this"</li>
+                  <li><b>Read the diff</b> like you'll defend it in review</li>
+                </ul></div>
+                <div class="col model"><h4>Don't</h4><ul>
+                  <li>Let "looks done" be the only signal</li>
+                  <li>Politely wait out a bad run</li>
+                  <li>Argue with a poisoned context</li>
+                  <li>Describe in prose what a file already shows</li>
+                  <li>Rubber-stamp because it looks plausible</li>
+                </ul></div>
+              </div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Five habits, one per finger. Give it a check it can actually run — a test, a build, a screenshot — or 'looks done' becomes the finish line and you become the verification loop."</p>
+                <p class="say">"When it goes sideways, interrupt — Esc mid-action, redirect. Don't politely watch a bad run finish. And after two failed corrections on the same thing, stop arguing: the context now carries every failed attempt, and that wreckage steers every next turn. /clear, fold what you learned into a sharper prompt, go again."</p>
+                <p class="say">"Pointing at a file — 'do it like that one' — beats a paragraph of adjectives every time. And read the diff like you'll defend it in review. The dangerous approval isn't the first one, it's the tenth, when you're just clicking through."</p>
+                <p class="nxt">next ▸ ③ day to day · the dumb zone</p>
+              </div>
+            </div>
+
+            <!-- 8 · THE DUMB ZONE -->
+            <div class="beat" data-code="③ Day to day · the dumb zone" data-spine="day" data-mins="4">
+              <div class="b-kicker">③ Day to day · context fills, quality drops</div>
+              <h3>The <em>dumb zone</em></h3>
+              <div class="ladder">
+                <div class="rung">quality decays as the context grows — a slope, not a cliff at the limit</div>
+                <div class="rung">it starts in the tens of thousands of tokens, not near the ceiling</div>
+                <div class="rung">the middle of a long context is where recall goes to die</div>
+                <div class="rung">junk speeds the slide — big pastes, error dumps, dead ends</div>
+                <div class="rung hot">the tell: it ignores early instructions, circles, redoes solved work</div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Finish the slice before the zone. When the circling starts: <strong>/clear or /compact</strong>, and hand a fresh session a short written summary.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"You'll hear a folk number — 'it gets dumb around 100k tokens.' The honest version is worse for our intuition: there is no wall. The degradation is continuous, it starts in the low tens of thousands of tokens, and it keeps sliding. Chroma measured 18 frontier models in 2025 and quality dropped at every step up in length — even on trivial retrieval, even on million-token windows."</p>
+                <p class="say">"Why? Attention gets spread thin — your one real instruction competes with thousands of tokens of noise. Position — models hold the start and end of a long context and quietly underweight the middle; 'lost in the middle' is a measured result, not a vibe. And poison — a coding session's context is a pile of failed attempts and stale file dumps, and the model keeps re-reading its own mistakes."</p>
+                <p class="say">"The circling is the tell, and you can't talk a poisoned context back to smart. The move is structural: finish the slice before you're deep in the zone, /clear or /compact, and for genuinely long work hand a fresh session a written summary of where things stand. And stop spending the attention budget on garbage — giant logs and whole files it never needed."</p>
+                <p class="do"><b>say</b> Sources if pressed: Chroma's context-rot study, "Lost in the Middle" (TACL 2024), NoLiMa (ICML 2025), Anthropic's context-engineering guidance, Dex Horthy's "dumb zone" coinage. Keep hard numbers off the slide — the 100k figure doesn't survive contact with the research.</p>
+                <p class="nxt">next ▸ ④ the edges</p>
+              </div>
+            </div>
+
+            <!-- 9 · THE EDGES -->
+            <div class="beat" data-code="④ The edges" data-spine="edges" data-mins="4">
+              <div class="b-kicker">④ The edges · for the back row</div>
+              <h3>When the loop is the <em>wrong</em> tool</h3>
+              <div class="ladder">
+                <div class="rung">a one-character fix you can see — faster typed than described</div>
+                <div class="rung">can't verify the output and wrong is expensive — its confidence is worth nothing</div>
+                <div class="rung hot">circling for three turns — not a prompting problem, a context problem</div>
+              </div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"I'm honest about the edges because the skeptics in the back row are the ones I need. A one-character fix you can see is faster typed than described. And if you can't verify the output and the cost of being wrong is high, the agent's confidence is worth exactly nothing."</p>
+                <p class="say">"The bottom rung is the segue: an agent circling for three turns isn't bad prompting. It's missing context — and that's the next part."</p>
+                <p class="nxt">next ▸ land it · the itch</p>
+              </div>
+            </div>
+
+            <!-- 10 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="2">
+              <div class="b-kicker">Land it · the friction this level leaves</div>
+              <h3>It works — and every task starts with the <em>same paragraph</em></h3>
+              <p class="b-big">"What this project is. Where the utils live. How to run it." Again.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"This level genuinely works — and it leaves you typing the same orientation paragraph at the top of every single task. That itch is the setup for Part 3: stop reciting the context and make the repo carry it."</p>
+                <p class="nxt">▸ on to Part 3 · the agent-ready repo</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
       </section>
 
       <section class="section" data-step id="part3">
         <article class="card">
           <div class="sec-head"><span class="sec-no">PART 3</span></div>
           <h2><span class="lead">Agent-Ready</span>Making the Repo the Agent Can Actually Work In</h2>
+
+          <div class="m4-launch">
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="onboard"><b>①</b>Onboard</span>
+            <span class="sp" data-sp="verify"><b>②</b>Verify</span>
+            <span class="sp" data-sp="ourway"><b>③</b>Our way</span>
+            <span class="sp" data-sp="map"><b>④</b>Map &amp; guard</span>
+          </div></div>
+
           <p>By now everyone has felt the itch from Part 2: every new task opens with the same recited paragraph — what this project is, where the utils live, which design system we use, how to run the thing. So I pull back the curtain on that live build. It didn't go smoothly because the agent is magic — it went smoothly because the repo was <em>set up</em> for it. An agent starts every task cold: it knows none of what your teammates absorbed by osmosis — where things live, how you run them, what "done" looks like, what it must never touch. An <strong>agent-ready repo</strong> writes that tacit knowledge down and puts verification one command away. So this is the upstream lesson for everything after it: a context-starved loop spins, and the cure is almost always here, in the repo, not in a cleverer prompt.</p>
           <p>I teach it as four moves and do each one live on the reference app — showing <em>ours</em>, then how you'd add it to a repo that has none.</p>
 
@@ -760,7 +1156,204 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
             <li>Conventions plus a golden-path example to copy; a territory map and hard guardrails</li>
             <li>The line between this passive substrate and the active skills layer in Part 4</li>
           </ul>
+          <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
+
+        <!-- ============ PART 3 BEAT DECK ============ -->
+        <div class="deck" id="p3deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="onboard"><b>①</b>Onboard</span>
+              <span class="sp" data-sp="verify"><b>②</b>Verify</span>
+              <span class="sp" data-sp="ourway"><b>③</b>Our way</span>
+              <span class="sp" data-sp="map"><b>④</b>Map &amp; guard</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 9</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="Part 3 · Agent-Ready" data-mins="1">
+              <div class="b-kicker">Part 3 · The Upstream Lesson</div>
+              <h3>Making the repo the agent can actually <em>work in</em></h3>
+              <p class="b-sub">By now you've felt the itch: every task opens with the same recited paragraph. This part deletes that paragraph — by moving it into the repo.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Every new task, the same opening: what this project is, where the utils live, which design system, how to run the thing. You're the context. This part makes the repo the context."</p>
+                <p class="say">"And I'll pull back a curtain: the live build in Part 2 didn't go smoothly because the agent is magic. It went smoothly because the repo was set up for it. Today you see the setup."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. Every move in this part gets shown live on the reference app — ours first, then how you'd add it to a repo that has none.</p>
+                <p class="nxt">next ▸ the cold start</p>
+              </div>
+            </div>
+
+            <!-- 2 · COLD START -->
+            <div class="beat" data-code="Cold start" data-mins="3">
+              <div class="b-kicker">Why this exists · every task, from zero</div>
+              <h3>An agent starts every task <em>cold</em></h3>
+              <div class="ladder">
+                <div class="rung">where things live — absorbed by osmosis, written nowhere</div>
+                <div class="rung">how you run them — in the team's fingers, not in a file</div>
+                <div class="rung">what "done" looks like — asserted in review, never stated</div>
+                <div class="rung hot">what it must never touch — everyone knows, nobody wrote it down</div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">An <strong>agent-ready repo</strong> writes that tacit knowledge down and puts verification one command away.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Your teammates absorbed all of this by osmosis. The agent gets none of it — it starts cold on every single task. Remember law one from Part 2: what it doesn't know, it doesn't know. This part is where you fix that."</p>
+                <p class="say">"And it's the upstream lesson for everything after: a context-starved loop spins. The cure is almost always here, in the repo — not in a cleverer prompt."</p>
+                <p class="nxt">next ▸ ① onboard · the file</p>
+              </div>
+            </div>
+
+            <!-- 3 · ONBOARD -->
+            <div class="beat" data-code="① Onboard" data-spine="onboard" data-mins="5">
+              <div class="b-kicker">① Onboard · fix the cold start</div>
+              <h3>One file, read on <em>every</em> task</h3>
+              <div class="tree"># &lt;Project&gt;      what this is, in two lines
+<span class="f">Run</span>            npm run dev
+<span class="f">Verify</span>         npm run verify           <span class="c">← move ②</span>
+<span class="f">Conventions</span>    docs/conventions.md      <span class="c">← link, don't restate</span>
+<span class="f">Guardrails</span>     <span class="hl">never commit secrets · don't hand-edit /migrations</span></div>
+              <p class="b-sub" style="margin-top:18px">In Claude Code this is <code>CLAUDE.md</code>; Cursor and Codex have their own file for the same idea. Keep it <strong>short and true</strong> — a stale onboarding file is worse than none.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"The single highest-leverage move in this whole talk: a root-level instructions file the agent reads on every task. What this project is, how to run it, how to verify it, where the conventions live, and the hard guardrails."</p>
+                <p class="say">"In Claude Code that's CLAUDE.md. Cursor keeps it under .cursor/rules, Codex calls it AGENTS.md — same idea everywhere. And short-and-true beats long-and-stale, because the agent believes every word you wrote. Stale instructions are guessing with extra confidence."</p>
+                <p class="do"><b>do</b> Show ours on the reference app, then add one to a bare repo live — the shape on the slide, not a novel.</p>
+                <p class="nxt">next ▸ ② verify · one command</p>
+              </div>
+            </div>
+
+            <!-- 4 · VERIFY -->
+            <div class="beat" data-code="② Verify" data-spine="verify" data-mins="5">
+              <div class="b-kicker">② Verify · give the loop something true to read</div>
+              <h3>Floor today, ceiling later</h3>
+              <div class="tree"><span class="c">// package.json → "scripts"</span>
+"verify": "tsc --noEmit &amp;&amp; eslint . &amp;&amp; npm run build"   <span class="f">← floor: compiles · lints · builds</span>
+<span class="c">//         … &amp;&amp; vitest run — once you have tests</span>          <span class="hl">← ceiling: proves the round-trip</span></div>
+              <p class="b-sub" style="margin-top:18px">You don't need tests to start. "Does it compile, does it run" already beats the agent's say-so — wire whatever you have behind <strong>one obvious script</strong> and name it in the onboarding file.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Part 2's loop only closes on a real observation, and the repo decides how cheap that observation is. One command any human or agent can run — that's verification as a property of the repo."</p>
+                <p class="say">"The floor is compiles-lints-builds. Even that turns 'looks done' into a verdict the loop can read. The ceiling is a test that proves the behavior round-trips. Start at the floor today; raise it when you can."</p>
+                <p class="nxt">next ▸ ③ our way · the golden path</p>
+              </div>
+            </div>
+
+            <!-- 5 · OUR WAY -->
+            <div class="beat" data-code="③ Our way" data-spine="ourway" data-mins="4">
+              <div class="b-kicker">③ Our way · conventions plus one example</div>
+              <h3>"Do it like that file" beats a page of rules</h3>
+              <div class="tree"><span class="f">docs/conventions.md</span>   short — the things you'd correct in code review
+<span class="hl">one golden-path file</span>  the worked example the agent pattern-matches against</div>
+              <p class="b-sub" style="margin-top:18px">Our <code>add-endpoint-our-way</code> reference is exactly this: one endpoint built the house way, sitting in the repo as the pattern to copy.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"The patterns you'd correct in code review are precisely the ones the agent can't guess — your error envelope, your folder shape, your naming. Write the short doc. But the power move is leaving one golden-path example in the repo."</p>
+                <p class="say">"'Do it like that file' is denser and less ambiguous than any page of rules — same reason it works on the do's-and-don'ts slide from Part 2: an example pins down the 'how' the model would otherwise invent."</p>
+                <p class="nxt">next ▸ ④ map &amp; guard</p>
+              </div>
+            </div>
+
+            <!-- 6 · MAP & GUARD -->
+            <div class="beat" data-code="④ Map &amp; guard" data-spine="map" data-mins="4">
+              <div class="b-kicker">④ Map &amp; guard · the territory and the fence</div>
+              <h3>No spelunking — and no held breath</h3>
+              <div class="invo">
+                <div class="col user"><h4>The map</h4><ul>
+                  <li><b>Where things live</b> — a few lines, not a wiki</li>
+                  <li><b>The entry points</b> — where a change usually starts</li>
+                  <li>So the agent isn't burning turns spelunking</li>
+                </ul></div>
+                <div class="col model"><h4>The guardrails</h4><ul>
+                  <li><b>Secrets</b> — how they're handled, never committed</li>
+                  <li><b>Generated files</b> — regenerate, don't hand-edit</li>
+                  <li><b>The off-limits paths</b> — ask before touching</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Guardrails are how you let the agent move fast without holding your breath.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"A few lines on where things live and where the entry points are — otherwise the agent spends ten turns discovering what any teammate would just know. Then the fence: how secrets are handled, which files are generated, which paths it must never edit."</p>
+                <p class="say">"The off-limits list is what buys you the nerve to let it run. You're not trusting the agent — you're trusting the fence."</p>
+                <p class="nxt">next ▸ proof · ninety seconds</p>
+              </div>
+            </div>
+
+            <!-- 7 · LIVE PAYOFF -->
+            <div class="beat" data-code="Proof" data-mins="2">
+              <div class="b-kicker">Proof · ninety seconds, live</div>
+              <h3>Same loop, <em>ready</em> repo</h3>
+              <div class="tree"><span class="c">before</span>   guesses field names · invents a folder · somebody else's style
+<span class="c">after</span>    reads the onboarding file · <span class="f">follows the house style</span></div>
+              <p class="b-sub" style="margin-top:18px">I extend the <code>CLAUDE.md</code> live, rerun the same kind of loop from Part 2, and the room watches the difference good context makes.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Ninety seconds of proof: I add two lines to the onboarding file, rerun the same kind of loop, and the agent stops guessing field names and starts following the house style. That contrast is this whole part in miniature."</p>
+                <p class="do"><b>do</b> Keep this tight — the slide is the fallback if the live run misbehaves.</p>
+                <p class="nxt">next ▸ the line · passive vs active</p>
+              </div>
+            </div>
+
+            <!-- 8 · PASSIVE vs ACTIVE -->
+            <div class="beat" data-code="The line" data-mins="3">
+              <div class="b-kicker">The line I hold · don't conflate the layers</div>
+              <h3>Passive substrate now — <em>active</em> skills next</h3>
+              <div class="invo">
+                <div class="col user"><h4>This part · passive</h4><ul>
+                  <li><b>Always-on context</b> — read cold, every task</li>
+                  <li>The ground the agent stands on</li>
+                  <li>Answers "where am I, how do I run this"</li>
+                </ul></div>
+                <div class="col model"><h4>Part 4 · active</h4><ul>
+                  <li><b>Your repeated moves</b>, packaged once</li>
+                  <li>Fires when the task matches</li>
+                  <li>Answers "how do we do this, here"</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">First lay the ground the agent stands on. Then teach it your moves.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"One line I hold firm: this part is the passive layer — the always-on context any agent reads cold. Packaging a repeated move into a reusable skill is the active layer, and that's Part 4."</p>
+                <p class="say">"Conflate them and both get worse: the onboarding file bloats into a manual nobody maintains, and the moves that should be skills sit there taxing every task whether it needs them or not."</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 9 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="2">
+              <div class="b-kicker">Land it · four moves, one afternoon</div>
+              <h3>Onboard · Verify · Our way · Map &amp; guard</h3>
+              <p class="b-sub">The floor — an onboarding file and one verify command — is an afternoon of work. The conventions doc and the golden-path example can follow.</p>
+              <p class="b-big" style="margin-top:18px">The cure for a spinning loop lives in the repo.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Four moves: the onboarding file, the one verify command, conventions with a golden-path example, the map and the guardrails. Do the first two this week — that's the floor, and it's an afternoon."</p>
+                <p class="do"><b>handoff</b> "The test of success: a fresh agent — or a new hire — gets to a passing verify without asking anyone anything."</p>
+                <p class="nxt">▸ on to Part 4 · skills</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
       </section>
 
       <section class="section" data-step id="part4">
@@ -785,7 +1378,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           <button class="reh-toggle" id="rehToggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
-        <!-- ============ THE BEAT DECK · single source of truth ============ -->
+        <!-- ============ THE BEAT DECK ============ -->
         <div class="deck" id="m4deck" aria-hidden="true">
           <div class="deck-hud">
             <button class="hud-x" id="deckClose" title="Exit (Esc)">✕</button>
@@ -1070,9 +1663,22 @@ that earns this file its own home</span></div>
         <article class="card">
           <div class="sec-head"><span class="sec-no">PART 5</span></div>
           <h2><span class="lead">The Harness</span>What Turns a Model into an Agent</h2>
+
+          <div class="m4-launch">
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="model"><b>①</b>Text in, out</span>
+            <span class="sp" data-sp="harness"><b>②</b>The harness</span>
+            <span class="sp" data-sp="parts"><b>③</b>The parts</span>
+            <span class="sp" data-sp="product"><b>④</b>The product</span>
+          </div></div>
+
           <p>Time to strip the magic, because everything before this part quietly depended on it. A language model can't <em>do</em> anything. It reads text and it produces text — that's the entire interface. It cannot open a file, run a test, click a button, or remember yesterday. So how did the thing in Part 2 edit our repo and run our suite? It didn't. The <strong>harness</strong> did — the program wrapped around the model that turns its text into actions and the results back into text. When the model writes "run the tests," the harness actually runs them and feeds the output back in. Take the harness away and your "agent" is a very articulate person in a locked room, passing notes under the door.</p>
           <p>Once the room sees that, the vocabulary stops being buzzwords and becomes parts of a machine. <strong>Tools</strong> are the verbs the harness exposes — read a file, edit it, run a command; the model requests, the harness executes. <strong>Hooks</strong> are your code intercepting its moves — a script that runs before every commit, a rule that blocks any command touching prod. <strong>Guardrails</strong> are the permission line: what it may do freely, what needs your yes, what it may never do. And <strong>subagents</strong> are the harness spawning a fresh agent with a clean context — the mechanism that makes the checker patterns in Part 8 possible at all. The loop from Part 2 doesn't live in the model either; the model just talks. The harness is what loops.</p>
-          <p>Then the landing, which reorders how people argue about tooling: Claude Code, Cursor, and Codex run the same handful of models underneath. The product — the thing you're actually choosing, the thing that decides what your agent can and can't do — is the harness. Every "which AI tool" debate is a harness debate wearing a model costume.</p>
+          <p>Then the landing, which reorders how people argue about tooling: Claude Code, Cursor, and Codex run the same handful of models underneath. The product — the thing you're actually choosing, the thing that decides what your agent can and can't do — is the harness. And once the model is just a component, it becomes a per-task knob: heavy reasoning — the architecture call, the two-day bug — gets the big, slow, expensive one; mechanical bulk — renames, boilerplate, sweeps — gets the fast, cheap one, and subagents can run the cheap model while the main loop stays smart. Every "which AI tool" debate is a harness debate wearing a model costume.</p>
           <div class="sub-h">What I cover</div>
           <ul class="cover">
             <li>Text in, text out — what a model actually is, and why it can't act alone</li>
@@ -1080,8 +1686,217 @@ that earns this file its own home</span></div>
             <li>Hooks and guardrails: your code and your permission lines around its moves</li>
             <li>Subagents: fresh contexts on demand — the mechanism behind maker/checker</li>
             <li>Same models, different harnesses — why the harness is the product</li>
+            <li>Matching the model to the task — the big one where judgment matters, the fast one for mechanical bulk</li>
           </ul>
+          <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
+
+        <!-- ============ PART 5 BEAT DECK ============ -->
+        <div class="deck" id="p5deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="model"><b>①</b>Text in, out</span>
+              <span class="sp" data-sp="harness"><b>②</b>The harness</span>
+              <span class="sp" data-sp="parts"><b>③</b>The parts</span>
+              <span class="sp" data-sp="product"><b>④</b>The product</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 10</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="Part 5 · The Harness" data-mins="1">
+              <div class="b-kicker">Part 5 · Stripping the Magic</div>
+              <h3>What turns a model into an <em>agent</em></h3>
+              <p class="b-sub">Everything before this part quietly depended on a piece of machinery nobody named. Time to name it.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Four parts in, you've watched an agent edit a repo, run tests, follow house style. This part strips the magic off all of it — because until you see the machinery, the vocabulary around these tools stays buzzwords."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. Pure concept part — no live demo, so pace lives in the delivery. The beat to protect is ④ the product.</p>
+                <p class="nxt">next ▸ ① what a model actually is</p>
+              </div>
+            </div>
+
+            <!-- 2 · TEXT IN, TEXT OUT -->
+            <div class="beat" data-code="① Text in, out" data-spine="model" data-mins="3">
+              <div class="b-kicker">① Text in, text out · the entire interface</div>
+              <h3>A model can't <em>do</em> anything</h3>
+              <div class="ladder">
+                <div class="rung">it can't open a file</div>
+                <div class="rung">it can't run a test</div>
+                <div class="rung">it can't click a button</div>
+                <div class="rung hot">it can't remember yesterday — it reads text and produces text, that's all</div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">So how did the thing in Part 2 edit our repo and run our suite? <strong>It didn't.</strong></p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"A language model reads text and produces text. That is the entire interface. It cannot open a file, run a test, click a button, or remember yesterday."</p>
+                <p class="say">"So how did the thing you watched in Part 2 edit our repo and run our tests? It didn't. Let that sit for a second — nothing you've seen today was the model acting."</p>
+                <p class="nxt">next ▸ ① the locked room</p>
+              </div>
+            </div>
+
+            <!-- 3 · THE LOCKED ROOM -->
+            <div class="beat" data-code="① The locked room" data-spine="model" data-mins="2">
+              <div class="b-kicker">① Text in, text out · what that leaves you with</div>
+              <h3>Take the harness away, and this is your "agent"</h3>
+              <p class="b-big">A very articulate person in a locked room, passing notes under the door.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Remember Part 1's intern behind the mail slot? Here's the uncomfortable version: the model is <em>always</em> in that room. It never left. What changed between Part 1 and Part 2 wasn't the prisoner — it was who's standing outside the door, reading the notes and acting on them."</p>
+                <p class="do"><b>do</b> Pause on this image — it's the hinge of the whole part.</p>
+                <p class="nxt">next ▸ ② the harness · who's outside the door</p>
+              </div>
+            </div>
+
+            <!-- 4 · THE HARNESS -->
+            <div class="beat" data-code="② The harness" data-spine="harness" data-mins="4">
+              <div class="b-kicker">② The harness · the program around the model</div>
+              <h3>The harness is what <em>acts</em></h3>
+              <div class="tree"><span class="c">model</span>    writes: "run the tests"
+<span class="f">harness</span>  actually runs them
+<span class="f">harness</span>  feeds the output back in — as text
+<span class="c">model</span>    reads the failure · writes the fix</div>
+              <p class="b-sub" style="margin-top:18px">The loop from Part 2 never lived in the model. The model just talks. <strong>The harness is what loops.</strong></p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"The harness is the program wrapped around the model — it turns the model's text into actions, and the results back into text. When the model writes 'run the tests,' the harness runs them and feeds the output back in. That round-trip is the whole trick."</p>
+                <p class="say">"And notice what this does to Part 2's loop: plan, act, observe, verify — the model only ever does the talking parts. The acting and observing are the harness. The loop is a property of the harness."</p>
+                <p class="nxt">next ▸ ③ the parts · tools</p>
+              </div>
+            </div>
+
+            <!-- 5 · TOOLS -->
+            <div class="beat" data-code="③ Tools" data-spine="parts" data-mins="3">
+              <div class="b-kicker">③ The parts · tools</div>
+              <h3>Tools are the <em>verbs</em></h3>
+              <div class="tree"><span class="f">read file</span>     the model asks · the harness reads
+<span class="f">edit file</span>     the model proposes · the harness writes
+<span class="f">run command</span>   the model requests · <span class="hl">the harness executes</span></div>
+              <p class="b-sub" style="margin-top:18px">The model never touches your disk. It asks; the harness acts. What's in the toolbox decides what your agent can do at all.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"From here the vocabulary stops being buzzwords and becomes parts of a machine. Tools are the verbs the harness exposes — read a file, edit it, run a command. Every 'action' you've ever seen an agent take was one of these round-trips."</p>
+                <p class="say">"Hold onto 'what's in the toolbox decides what it can do' — Part 6 is entirely about adding new verbs to that box."</p>
+                <p class="nxt">next ▸ ③ hooks &amp; guardrails</p>
+              </div>
+            </div>
+
+            <!-- 6 · HOOKS & GUARDRAILS -->
+            <div class="beat" data-code="③ Hooks &amp; guardrails" data-spine="parts" data-mins="3">
+              <div class="b-kicker">③ The parts · your code, your lines</div>
+              <h3>Hooks and guardrails</h3>
+              <div class="invo">
+                <div class="col user"><h4>Hooks · your code</h4><ul>
+                  <li><b>Intercept its moves</b> — deterministically</li>
+                  <li>A script that runs before every commit</li>
+                  <li>A rule that blocks any command touching prod</li>
+                </ul></div>
+                <div class="col model"><h4>Guardrails · the permission line</h4><ul>
+                  <li><b>Free</b> — what it may do without asking</li>
+                  <li><b>Your yes</b> — what waits for approval</li>
+                  <li><b>Never</b> — what stays off the table</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Part 3's off-limits list was prose the agent reads. This is <strong>enforcement</strong> — code, not a polite request.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Hooks are your code intercepting the agent's moves — a script before every commit, a rule that blocks anything touching prod. Not a prompt asking nicely. Code that runs whether the model agrees or not."</p>
+                <p class="say">"Guardrails are the permission line: what it may do freely, what needs your yes, what it may never do. In Part 3 you wrote the off-limits list as prose; the harness is where that line actually gets enforced."</p>
+                <p class="nxt">next ▸ ③ subagents</p>
+              </div>
+            </div>
+
+            <!-- 7 · SUBAGENTS -->
+            <div class="beat" data-code="③ Subagents" data-spine="parts" data-mins="3">
+              <div class="b-kicker">③ The parts · fresh contexts on demand</div>
+              <h3>Subagents: a <em>clean context</em>, one spawn away</h3>
+              <div class="tree"><span class="c">main agent</span>   deep in the task · context full of the argument
+     <span class="f">└─ spawns →</span>
+<span class="hl">subagent</span>     starts cold · reads only what you hand it · reports back</div>
+              <p class="b-sub" style="margin-top:18px">The escape hatch from the dumb zone — and the mechanism behind every checker pattern in Part 8.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"A subagent is the harness spawning a fresh agent with a clean context. Two things you've already met make this matter. The dumb zone — a clean context is the cure, available mid-task. And verification: a checker that never heard the builder's rationalizations."</p>
+                <p class="say">"When Part 8 says 'produce in one context, verify in a clean one' — this is the machinery that makes that a workflow instead of a wish."</p>
+                <p class="nxt">next ▸ ④ the product</p>
+              </div>
+            </div>
+
+            <!-- 8 · THE PRODUCT -->
+            <div class="beat" data-code="④ The product" data-spine="product" data-mins="3">
+              <div class="b-kicker">④ The product · the landing</div>
+              <h3>Same models. <em>Different harnesses.</em></h3>
+              <p class="b-big">Every "which AI tool" debate is a harness debate wearing a model costume.</p>
+              <p class="b-sub" style="margin-top:14px">Claude Code, Cursor, and Codex run the same handful of models underneath. What you're choosing — what decides what your agent can and can't do — is the harness.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the keeper</div>
+                <p class="say">"This reorders how people argue about tooling. The same handful of models sits under all of these products. The thing you're actually choosing — the toolbox, the hooks, the permission model, the subagents — is the harness."</p>
+                <p class="say">"So when someone at your office asks 'which AI tool should we buy' — that's a harness question. Judge the harness."</p>
+                <p class="nxt">next ▸ ④ the model becomes a knob</p>
+              </div>
+            </div>
+
+            <!-- 9 · THE MODEL KNOB -->
+            <div class="beat" data-code="④ The model knob" data-spine="product" data-mins="4">
+              <div class="b-kicker">④ The product · the model is a component now</div>
+              <h3>Match the <em>model</em> to the task</h3>
+              <div class="invo">
+                <div class="col user"><h4>The big model</h4><ul>
+                  <li>Architecture and design calls</li>
+                  <li>The bug that's eaten two days</li>
+                  <li><b>Anywhere judgment matters</b> — slow and pricey, and worth it</li>
+                </ul></div>
+                <div class="col model"><h4>The fast model</h4><ul>
+                  <li>Renames, boilerplate, formatting sweeps</li>
+                  <li>Long mechanical grunt work</li>
+                  <li><b>Cheap — and plenty</b> for work with one right answer</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Inside a harness this is a <strong>per-task knob</strong>, not a subscription decision — subagents can run the cheap model while the main loop stays smart.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Once the model is a component, cost stops being a plan you're on and becomes an engineering decision you make per task. The spec, the architecture, the two-day bug — big model. The rename across forty files — fast model, and you pocket the difference."</p>
+                <p class="say">"And you can mix: fan the mechanical sweep out to subagents on the cheap model, keep the main loop on the big one to judge the results. The harness is what makes that a two-line choice."</p>
+                <p class="do"><b>say</b> Model names and prices go stale fast — I say 'big' and 'fast' and let the room map it to whatever's current.</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 10 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="2">
+              <div class="b-kicker">Land it · the machine, named</div>
+              <h3>Tools · Hooks · Guardrails · Subagents</h3>
+              <p class="b-sub">The parts of the machine — and the two decisions that follow: judge the harness, not the model brand, and match the model to the task.</p>
+              <p class="b-big" style="margin-top:18px">The model talks. The harness is the product.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Recap: tools are the verbs, hooks are your code around its moves, guardrails are the permission line, subagents are clean contexts on demand. The model talks; the harness does everything else."</p>
+                <p class="say">"One thread left hanging on purpose: the harness's toolbox is all the agent has. So what happens when the verb you need isn't in the box? That's the next part."</p>
+                <p class="nxt">▸ on to Part 6 · MCP</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
       </section>
 
       <section class="section" data-step id="part6">
@@ -1106,7 +1921,7 @@ that earns this file its own home</span></div>
           <button class="reh-toggle" id="rehToggleM6"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
-        <!-- ============ PART 6 BEAT DECK · single source of truth ============ -->
+        <!-- ============ PART 6 BEAT DECK ============ -->
         <div class="deck" id="m6deck" aria-hidden="true">
           <div class="deck-hud">
             <button class="hud-x" title="Exit (Esc)">✕</button>
@@ -1183,7 +1998,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track · the centerpiece</div>
                 <p class="say">"Hold this line or the two parts blur. A skill is knowledge — a file you write, teaching moves the agent could already make. An MCP is capability — a server you connect that gives it moves it couldn't make at all."</p>
                 <p class="say">"The test in one breath: does the agent need to <em>know</em> something, or be <em>able</em> to do something? Knowledge → a skill or CLAUDE.md. A new ability → an MCP."</p>
-                <p class="do"><b>say</b> "You can't skill your way to a browser. You can't MCP your way to good taste."</p>
+                <p class="do"><b>watch</b> Don't spend the punchline here — Part 7 closes on "you can't skill your way to a browser." Plant the distinction and move.</p>
                 <p class="nxt">next ▸ ② what MCP actually is</p>
               </div>
             </div>
@@ -1275,7 +2090,7 @@ that earns this file its own home</span></div>
               <div class="b-kicker">Land it · four questions before you wire one</div>
               <h3>Capability · Connect · Curate · Cost</h3>
               <p class="b-sub"><strong>Capability?</strong> a power it lacks, not just knowledge · <strong>Connect?</strong> a server you trust · <strong>Curate?</strong> will you actually use it · <strong>Cost?</strong> does it earn its seat in the context window.</p>
-              <p class="b-big" style="margin-top:18px">New knowledge → a skill. New power → an <code>MCP</code>.</p>
+              <p class="b-big" style="margin-top:18px">If the agent just needs to <em>know</em> it — that's not an <code>MCP</code>.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Recap as a rubric you keep. Capability — a power it lacks, or just something it needs to know? Connect — do you trust the server? Curate — will you really use it? Cost — does it earn its place in every prompt?"</p>
@@ -1299,6 +2114,17 @@ that earns this file its own home</span></div>
         <article class="card">
           <div class="sec-head"><span class="sec-no">PART 7</span></div>
           <h2><span class="lead">Skills vs MCP</span>Teach It a Move, or Plug In a Capability?</h2>
+
+          <div class="m4-launch">
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="fail"><b>①</b>Failure modes</span>
+            <span class="sp" data-sp="rule"><b>②</b>The rule</span>
+          </div></div>
+
           <p>By this point the room has met both, and I stop to draw the line hard, because these two get mixed up on every team I've coached — someone writes a skill hoping the agent grows a new sense, or wires an MCP server hoping it teaches house style. Both fail, each in its own way, and the fix is one distinction. A <strong>skill is knowledge</strong>: markdown in your repo that teaches a move the agent could already make but makes wrong, or differently every time — your endpoint structure, your doc format, your review checklist. An <strong>MCP is capability</strong>: a server you connect that gives it verbs it didn't have at all — a browser, a warehouse, your prod logs. A skill will never give the agent eyes; an MCP will never give it taste.</p>
           <p>The costs differ the same way, and cost is where teams actually get burned. A skill is yours — plain text, versioned with the code, reviewed in a PR, and it costs context only when it fires. An MCP is someone else's code running with your access — you vet it like a dependency, and its tool definitions sit in every prompt whether today's task needs them or not. Cheap to write versus cheap to run; trust yourself versus trust a vendor.</p>
           <p>The rule I leave them with fits in one breath: <strong>could the agent already do it, just badly? Write a skill. Can it not do it at all? Wire an MCP.</strong> And the two compose — the best skills orchestrate MCP tools: "check the error budget" is a skill that knows your thresholds and calls the Sentry server to read the truth.</p>
@@ -1309,7 +2135,120 @@ that earns this file its own home</span></div>
             <li>The one-breath rule: does it badly → skill · can't do it at all → MCP</li>
             <li>Composition: skills that orchestrate MCP tools</li>
           </ul>
+          <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
+
+        <!-- ============ PART 7 BEAT DECK ============ -->
+        <div class="deck" id="p7deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="fail"><b>①</b>Failure modes</span>
+              <span class="sp" data-sp="rule"><b>②</b>The rule</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 5</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="Part 7 · Skills vs MCP" data-mins="1">
+              <div class="b-kicker">Part 7 · The Line I Draw Hard</div>
+              <h3>Teach it a <em>move</em>, or plug in a <em>capability</em>?</h3>
+              <p class="b-sub">The room has met both by now — and on every team I've coached, these two get mixed up. Both mix-ups fail. One distinction fixes it.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Short part, one job: draw a line hard. I've watched this exact confusion cost real teams real weeks — so before the workflow, we settle it."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. Ten minutes and change — keep the tempo up, the workflow part is waiting.</p>
+                <p class="nxt">next ▸ ① the two failure modes</p>
+              </div>
+            </div>
+
+            <!-- 2 · FAILURE MODES -->
+            <div class="beat" data-code="① Failure modes" data-spine="fail" data-mins="3">
+              <div class="b-kicker">① Failure modes · I've seen both on real teams</div>
+              <h3>Two hopes, two failures</h3>
+              <div class="invo">
+                <div class="col user"><h4>The skill that hopes for a sense</h4><ul>
+                  <li>Markdown written hoping the agent <b>grows eyes</b></li>
+                  <li>But no file makes a browser appear</li>
+                  <li>Reads beautifully · changes nothing</li>
+                </ul></div>
+                <div class="col model"><h4>The MCP that hopes to teach</h4><ul>
+                  <li>A server wired hoping it <b>learns house style</b></li>
+                  <li>But no tool carries your conventions</li>
+                  <li>New verbs · same foreign code</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">A skill will never give the agent eyes. An MCP will never give it taste.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Failure one: someone writes a skill hoping the agent grows a new sense. It reads beautifully and changes nothing — no markdown file makes a browser appear. Failure two: someone wires an MCP server hoping it teaches house style. New verbs, same foreign code."</p>
+                <p class="say">"Both are the same mistake in opposite directions — reaching for the wrong axis."</p>
+                <p class="say">"The line that fixes both: a skill is knowledge — markdown in your repo teaching a move it could already make but makes wrong, or differently every time. An MCP is capability — a server granting verbs it didn't have at all. Ask: does it need to know something, or be able to do something?"</p>
+                <p class="nxt">next ▸ ② the rule, in one breath</p>
+              </div>
+            </div>
+
+            <!-- 3 · THE RULE -->
+            <div class="beat" data-code="② The rule" data-spine="rule" data-mins="2">
+              <div class="b-kicker">② The rule · one breath</div>
+              <h3>The decision, in one breath</h3>
+              <p class="b-big">Could it already do it, just badly? <em>Write a skill.</em><br>Can it not do it at all? <em>Wire an MCP.</em></p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"If you keep one sentence from this part, it's this one. Badly → skill. Not at all → MCP. Say it before you build, and both failure modes disappear."</p>
+                <p class="say">"The costs split the same way — a skill is yours: plain text, versioned, PR-reviewed, costs context only when it fires. An MCP is a vendor's code with your access: vet it like a dependency, and its tool definitions tax every prompt. Cheap to write versus cheap to run; trust yourself versus trust a vendor. You watched that tax on Part 6's bloat bar."</p>
+                <p class="nxt">next ▸ ② and then they compose</p>
+              </div>
+            </div>
+
+            <!-- 4 · COMPOSE -->
+            <div class="beat" data-code="② Compose" data-spine="rule" data-mins="3">
+              <div class="b-kicker">② The rule · and then they compose</div>
+              <h3>The best skills <em>orchestrate</em> MCP tools</h3>
+              <div class="tree"><span class="f">skill</span>   check-error-budget    knows <span class="hl">your thresholds</span>        <span class="c">← knowledge</span>
+          <span class="c">└─ calls →</span>
+<span class="f">mcp</span>     sentry · query()      reads <span class="hl">the truth from prod</span>   <span class="c">← capability</span></div>
+              <p class="b-sub" style="margin-top:18px">"Check the error budget" knows what acceptable looks like for you — and calls the Sentry server to read what's actually happening. <strong>Knowledge decides; capability fetches.</strong></p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"The line isn't a wall — the two compose, and the best skills are exactly this shape. 'Check the error budget' is a skill that knows your thresholds, and it calls the Sentry server to read the truth from prod. Knowledge decides; capability fetches."</p>
+                <p class="say">"When you see a great skill in the wild, look inside — odds are it's orchestrating a tool."</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 5 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="2">
+              <div class="b-kicker">Land it · the line you keep</div>
+              <h3>New knowledge → a <em>skill</em> · New power → an <em>MCP</em></h3>
+              <p class="b-big">You can't skill your way to a browser. You can't MCP your way to good taste.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Next time a teammate says 'let's write a skill for X' or 'let's add the Y server' — run the breath test first. Does it badly → skill. Not at all → MCP. And when the job needs both, compose them."</p>
+                <p class="nxt">▸ on to Part 8 · the workflow</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
       </section>
 
       <section class="section" data-step id="part8">
@@ -1356,7 +2295,7 @@ that earns this file its own home</span></div>
           <button class="reh-toggle" id="rehToggleWf"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
-        <!-- ============ PART 8 BEAT DECK · single source of truth ============ -->
+        <!-- ============ PART 8 BEAT DECK ============ -->
         <div class="deck" id="wfdeck" aria-hidden="true">
           <div class="deck-hud">
             <button class="hud-x" title="Exit (Esc)">✕</button>
