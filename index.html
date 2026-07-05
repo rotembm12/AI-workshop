@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-First Engineering · Enpitech · The Talk in Eight Parts</title>
+<title>AI-First Engineering · Enpitech · The Talk in Nine Parts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -415,6 +415,17 @@ html.present .invo{max-width:980px}
 html.present .invo .col li{font-size:clamp(.95rem,1.6vw,1.3rem)}
 html.present .ladder{max-width:760px}
 html.present .ladder .rung{font-size:clamp(1rem,1.7vw,1.35rem)}
+html.present .rounds{max-width:720px}
+html.present .rounds .rnd{grid-template-columns:84px 1fr 140px; gap:20px}
+html.present .rounds .rn{font-size:clamp(.8rem,1.2vw,1rem)}
+html.present .rounds .bar{height:12px}
+html.present .rounds .rv{font-size:clamp(.85rem,1.3vw,1.08rem)}
+html.present .sg-r{gap:10px; margin-bottom:8px}
+html.present .sg-lab{width:66px; font-size:14px}
+html.present .sg-cells{grid-template-columns:repeat(3,minmax(84px,140px)); gap:8px}
+html.present .sg-cell{min-height:46px}
+html.present .sg-foot{font-size:14px}
+html.present .sg-key div{font-size:14px}
 
 /* notes block */
 .beat-notes{font-size:.96rem}
@@ -430,6 +441,16 @@ html.present .ladder .rung{font-size:clamp(1rem,1.7vw,1.35rem)}
 .ladder .rung.hot{border-color:var(--coral); color:var(--coral); font-weight:600; background:rgba(255,148,31,.07)}
 .bro{font-family:var(--serif); font-style:italic; font-size:1.15rem; color:var(--ink-dim); margin-top:16px}
 
+/* rounds — one-shots don't converge: every attempt stalls at the same last 20% */
+.rounds{display:flex; flex-direction:column; gap:8px; margin-top:6px; max-width:560px}
+.rounds .rnd{display:grid; grid-template-columns:62px 1fr 92px; align-items:center; gap:14px; font-family:var(--mono)}
+.rounds .rn{font-size:.8rem; letter-spacing:.03em; color:var(--ink-faint)}
+.rounds .bar{position:relative; height:9px; border-radius:5px; background:var(--surface-2); border:1px solid var(--line)}
+.rounds .bar i{position:absolute; left:0; top:0; bottom:0; border-radius:5px; background:var(--ink-faint); display:block}
+.rounds .rv{font-size:.82rem; color:var(--ink-dim); text-align:left}
+.rounds .rnd.last .bar i{background:var(--coral)}
+.rounds .rnd.last .rv{color:var(--coral); font-weight:600}
+
 /* anatomy tree */
 .tree{font-family:var(--mono); font-size:clamp(.85rem,1.4vw,1.05rem); line-height:1.95; color:var(--ink-dim); background:var(--surface-2); border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 22px; display:inline-block; text-align:left; white-space:pre}
 .tree .f{color:var(--teal)} .tree .hl{color:var(--coral)} .tree .c{color:var(--ink-faint)}
@@ -443,6 +464,25 @@ html.present .ladder .rung{font-size:clamp(1rem,1.7vw,1.35rem)}
 .invo .col li{font-size:.95rem; color:var(--ink-dim); padding-left:16px; position:relative; line-height:1.4}
 .invo .col li::before{content:"·"; position:absolute; left:5px; color:var(--ink-faint)}
 .invo .col li b{color:var(--ink); font-weight:600}
+
+/* slice grid — a slice is a column, not a layer */
+.sgrid{display:inline-block; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; margin-top:4px; text-align:left; max-width:100%}
+.sg-r{display:flex; align-items:stretch; gap:8px; margin-bottom:6px}
+.sg-lab{font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--ink-faint); width:54px; text-align:right; align-self:center; flex:0 0 auto}
+.sg-cells{display:grid; grid-template-columns:repeat(3,minmax(56px,92px)); gap:6px; flex:1 1 auto}
+.sg-cell{min-height:30px; border:1px dashed var(--line); border-radius:6px}
+.sg-cell.on{background:var(--coral); border:1px solid var(--coral)}
+.sg-r.ghost .sg-cells{outline:1.5px dashed var(--coral-dim); outline-offset:3px; border-radius:6px; background:rgba(255,148,31,.09)}
+.sg-r.foot{margin-top:2px}
+.sg-r.foot .sg-lab{visibility:hidden}
+.sg-foot{font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); text-align:center}
+.sg-foot.s1{color:var(--coral)}
+.sg-key{margin-top:14px; display:grid; gap:7px}
+.sg-key div{display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:11px; color:var(--ink-dim); line-height:1.35}
+.sg-key b{color:var(--ink); font-weight:600}
+.sg-sw{width:15px; height:15px; border-radius:4px; flex:0 0 auto}
+.sg-sw.v{background:var(--coral)}
+.sg-sw.h{border:1.5px dashed var(--coral-dim); background:rgba(255,148,31,.09)}
 
 /* description before/after widget */
 .descflip{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:4px; align-items:start; max-width:980px}
@@ -644,22 +684,6 @@ html.wt .wm{display:none}
       <div class="bt"><b>Enpitech</b><br>AI-First · The Talk</div>
     </div>
 
-        <div class="nav-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input id="navSearch" type="text" placeholder="Search parts and topics…" autocomplete="off" spellcheck="false" aria-label="Search the talk">
-      <button id="searchClear" title="Clear search" aria-label="Clear search">✕</button>
-    </div>
-
-    <div class="threads" id="threads" aria-label="Cross-cutting threads">
-      <span class="thread-chip" data-q="context">Context</span>
-      <span class="thread-chip" data-q="loop">The loop</span>
-      <span class="thread-chip" data-q="slice">Slicing</span>
-      <span class="thread-chip" data-q="verify">Verification</span>
-      <span class="thread-chip" data-q="skill">Skills</span>
-      <span class="thread-chip" data-q="harness">Harness</span>
-      <span class="thread-chip" data-q="mcp">MCP</span>
-    </div>
-
     <div class="rail-head" id="railHead">All topics</div>
     <div id="navList"></div>
 
@@ -694,9 +718,9 @@ html.wt .wm{display:none}
 
       <!-- HERO -->
       <header class="hero">
-        <div class="kick">The Talk · Eight Parts</div>
+        <div class="kick">The Talk · Nine Parts</div>
         <h1>AI-First<br><em>Engineering</em></h1>
-        <p class="sub">This is the spine I speak from: eight parts in the order I tell them, each one born from the friction the one before it leaves behind — from vibe coding all the way to the full AI-engineering workflow. The live demos run on one small reference app throughout.</p>
+        <p class="sub">This is the spine I speak from: nine parts in the order I tell them, each one born from the friction the one before it leaves behind — from vibe coding all the way to an agent that works while you don't watch. The live demos run on one small reference app throughout.</p>
 
         <div class="flightcard">
           <div class="fc-top">
@@ -710,7 +734,7 @@ html.wt .wm{display:none}
       </header>
 
 
-      <!-- ============ THE EIGHT PARTS ============ -->
+      <!-- ============ THE NINE PARTS ============ -->
       <section class="section" data-step id="part1">
         <article class="card">
           <div class="sec-head"><span class="sec-no">PART 1</span></div>
@@ -813,11 +837,19 @@ html.wt .wm{display:none}
             <!-- 4 · THE LAST 20% -->
             <div class="beat" data-code="② The collapse · the cost" data-spine="collapse" data-mins="3">
               <h3>The last 20% eats the week</h3>
-              <div class="rule3"><div class="r3-count">80%</div><div><p class="b-sub">…in five minutes. Then the sixth round of "almost right" costs more than typing it yourself would have. <strong>One-shots don't converge.</strong></p></div></div>
+              <div class="rounds">
+                <div class="rnd"><span class="rn">round 1</span><span class="bar"><i style="width:80%"></i></span><span class="rv">almost</span></div>
+                <div class="rnd"><span class="rn">round 2</span><span class="bar"><i style="width:81%"></i></span><span class="rv">almost</span></div>
+                <div class="rnd"><span class="rn">round 3</span><span class="bar"><i style="width:79%"></i></span><span class="rv">almost</span></div>
+                <div class="rnd"><span class="rn">round 4</span><span class="bar"><i style="width:82%"></i></span><span class="rv">almost</span></div>
+                <div class="rnd"><span class="rn">round 5</span><span class="bar"><i style="width:80%"></i></span><span class="rv">almost</span></div>
+                <div class="rnd last"><span class="rn">round 6</span><span class="bar"><i style="width:81%"></i></span><span class="rv">still almost</span></div>
+              </div>
+              <p class="b-sub" style="margin-top:18px">Every round lands at almost — the same last 20% never closes. Nothing here can see a result or remember an attempt, so <strong>one-shots don't converge</strong>, and steering the chat costs more than typing it would have.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"The demo got 80% of the way there in five minutes, and that's the part everyone remembers. Nobody counts the week the last 20% ate."</p>
-                <p class="say">"By round six of 'almost right' you're paying more to steer the chat than the typing would have cost. That's not bad luck. One-shots don't converge, because nothing in this setup can observe a result or remember an attempt."</p>
+                <p class="say">"Watch the rounds — every one lands at almost, the same 20% open each time. By round six you're paying more to steer the chat than the typing would have cost. That's not bad luck: one-shots don't converge, because nothing in this setup can observe a result or remember an attempt."</p>
                 <p class="nxt">next ▸ ③ the reframe</p>
               </div>
             </div>
@@ -839,13 +871,13 @@ html.wt .wm{display:none}
             <!-- 6 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
               <h3>Fixing the setup is Parts 2–8</h3>
-              <div class="tree"><span class="hl">give it the repo</span>      Part 2 · an agent that reads, edits, runs the tests
-<span class="hl">give it the context</span>   Part 3 · the repo made agent-ready
-<span class="hl">give it your moves</span>    Part 4 · skills — and on to the full workflow</div>
-              <p class="b-sub" style="margin-top:18px">Each part from here takes down one wall of the mail slot.</p>
+              <div class="tree"><span class="hl">no repo access</span>    <span class="f">Part 2</span> · an agent that reads and edits the repo
+<span class="hl">no way to run</span>     <span class="f">Part 2</span> · runs the tests, so "done" gets checked
+<span class="hl">no memory</span>         <span class="f">Part 3</span> · the repo made agent-ready — no restart from zero</div>
+              <p class="b-sub" style="margin-top:18px">Every wall of the mail slot comes down. From Part 4 on it's your moves — skills, and the full workflow.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Nothing in this part was an argument against AI. It was an argument against the mail slot — and everything from here on removes one of its walls. First we hand it the repo."</p>
+                <p class="say">"Nothing in this part was an argument against AI. It was an argument against the mail slot — and everything from here takes those walls down. Part 2 alone removes two: it hands the agent the repo and lets it run the tests. First, the repo."</p>
                 <p class="nxt">▸ on to Part 2 · an agent in the repo</p>
               </div>
             </div>
@@ -1129,7 +1161,7 @@ html.wt .wm{display:none}
           <p>I teach it as four moves and do each one live on the reference app — showing <em>ours</em>, then how you'd add it to a repo that has none.</p>
 
           <ol class="steps">
-            <li><span class="st">Give it an onboarding file — fix the cold start.</span>The single highest-leverage move: a root-level instructions file the agent reads on every task — what this project is, how to run it, how to verify it, where the conventions live, and the hard guardrails. In Claude Code that file is <code>CLAUDE.md</code> <span class="aside">(Cursor: <code>.cursor/rules/*.mdc</code> · Codex: <code>AGENTS.md</code> — same idea)</span>. Keep it short and true — a stale onboarding file is worse than none.
+            <li><span class="st">Give it an onboarding file — fix the cold start.</span>The single highest-leverage move: a root-level instructions file the agent reads on every task — what this project is, how to run it, how to verify it, where the conventions live, and the hard guardrails. In Claude Code that file is <code>CLAUDE.md</code> <span class="aside">(Cursor: <code>.cursor/rules/*.mdc</code> · Codex: <code>AGENTS.md</code> — same idea)</span>. Keep it short and true — a stale onboarding file is worse than none. And it layers: in a big repo or a monorepo, the root file carries the repo-wide rules and each package carries its own, so the agent reads only what the task touches.
               <div class="snip-cap">CLAUDE.md — the shape, not a novel</div>
               <pre class="snip"># &lt;Project&gt; — what this is, in two lines
 Run         npm run dev          # how to start it
@@ -1173,7 +1205,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               <span class="sp" data-sp="map"><b>④</b>Map &amp; guard</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos">1 / 9</span>
+              <span class="hud-pos">1 / 10</span>
               <span class="deck-clock">00:00</span>
               <span class="deck-tgt"></span>
               <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -1230,6 +1262,22 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
                 <p class="say">"The single highest-leverage move in this whole talk: a root-level instructions file the agent reads on every task. What this project is, how to run it, how to verify it, where the conventions live, and the hard guardrails."</p>
                 <p class="say">"In Claude Code that's CLAUDE.md. Cursor keeps it under .cursor/rules, Codex calls it AGENTS.md — same idea everywhere. And short-and-true beats long-and-stale, because the agent believes every word you wrote. Stale instructions are guessing with extra confidence."</p>
                 <p class="do"><b>do</b> Show ours on the reference app, then add one to a bare repo live — the shape on the slide, not a novel.</p>
+                <p class="nxt">next ▸ ① it layers</p>
+              </div>
+            </div>
+
+            <!-- 3b · IT LAYERS -->
+            <div class="beat" data-code="① It layers" data-spine="onboard" data-mins="3">
+              <h3>One file — until the repo <em>outgrows</em> it</h3>
+              <div class="tree"><span class="f">CLAUDE.md</span>                 <span class="c">root — repo-wide rules, the territory map</span>
+<span class="f">packages/api/CLAUDE.md</span>    <span class="c">the API's stack, commands, conventions</span>
+<span class="f">packages/web/CLAUDE.md</span>    <span class="hl">loads only when the task goes there</span></div>
+              <p class="b-sub" style="margin-top:18px">The onboarding file isn't one file — it's a hierarchy. Root carries the repo-wide rules, each package carries its own, and the agent reads <strong>only what the task touches</strong>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"In a monorepo, one root file has two ways to fail: it bloats into a manual covering every package, or it stays too generic to help anyone. So it layers — the root carries the repo-wide rules, each package carries its own, and the agent loads the local file only when it works there. The web team's conventions never tax an API task."</p>
+                <p class="say">"Same scoping instinct for what the agent reads: generated code, build output, vendored dependencies — block them. Junk in the window costs money and accuracy, and the agent wrote none of it."</p>
+                <p class="do"><b>say</b> If pressed on mechanics: <code>claudeMdExcludes</code> skips other teams' files, a Read deny-rule blocks generated paths, sparse worktrees check out only the directories a task needs. The lesson is scoping — the flags live in the docs.</p>
                 <p class="nxt">next ▸ ② verify · one command</p>
               </div>
             </div>
@@ -1661,7 +1709,7 @@ that earns this file its own home</span></div>
 
           <p>Time to strip the magic, because everything before this part quietly depended on it. A language model can't <em>do</em> anything. It reads text and it produces text — that's the entire interface. It cannot open a file, run a test, click a button, or remember yesterday. So how did the thing in Part 2 edit our repo and run our suite? It didn't. The <strong>harness</strong> did — the program wrapped around the model that turns its text into actions and the results back into text. When the model writes "run the tests," the harness actually runs them and feeds the output back in. Take the harness away and your "agent" is a very articulate person in a locked room, passing notes under the door.</p>
           <p>Once the room sees that, the vocabulary stops being buzzwords and becomes parts of a machine. <strong>Tools</strong> are the verbs the harness exposes — read a file, edit it, run a command; the model requests, the harness executes. <strong>Hooks</strong> are your code intercepting its moves — a script that runs before every commit, a rule that blocks any command touching prod. <strong>Guardrails</strong> are the permission line: what it may do freely, what needs your yes, what it may never do. And <strong>subagents</strong> are the harness spawning a fresh agent with a clean context — the mechanism that makes the checker patterns in Part 8 possible at all. The loop from Part 2 doesn't live in the model either; the model just talks. The harness is what loops.</p>
-          <p>Then the landing, which reorders how people argue about tooling: Claude Code, Cursor, and Codex run the same handful of models underneath. The product — the thing you're actually choosing, the thing that decides what your agent can and can't do — is the harness. And once the model is just a component, it becomes a per-task knob: heavy reasoning — the architecture call, the two-day bug — gets the big, slow, expensive one; mechanical bulk — renames, boilerplate, sweeps — gets the fast, cheap one, and subagents can run the cheap model while the main loop stays smart. Every "which AI tool" debate is a harness debate wearing a model costume.</p>
+          <p>Then the landing, which reorders how people argue about tooling: Claude Code, Cursor, and Codex run the same handful of models underneath. The product — the thing you're actually choosing, the thing that decides what your agent can and can't do — is the harness. And once the model is just a component, it becomes a per-task knob: heavy reasoning — the architecture call, the two-day bug — gets the big, slow, expensive one; mechanical bulk — renames, boilerplate, sweeps — gets the fast, cheap one, and subagents can run the cheap model while the main loop stays smart. There's a second dial on the same panel: <strong>effort</strong> — how hard the model thinks on a given task — dialed down for the sweep, up for the two-day bug, and it moves latency and spend, not just quality. Every "which AI tool" debate is a harness debate wearing a model costume.</p>
           <div class="sub-h">What I cover</div>
           <ul class="cover">
             <li>Text in, text out — what a model actually is, and why it can't act alone</li>
@@ -1669,7 +1717,7 @@ that earns this file its own home</span></div>
             <li>Hooks and guardrails: your code and your permission lines around its moves</li>
             <li>Subagents: fresh contexts on demand — the mechanism behind maker/checker</li>
             <li>Same models, different harnesses — why the harness is the product</li>
-            <li>Matching the model to the task — the big one where judgment matters, the fast one for mechanical bulk</li>
+            <li>Matching the model — and the effort — to the task: the big one where judgment matters, the fast one at low effort for mechanical bulk</li>
           </ul>
           <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
@@ -1686,7 +1734,7 @@ that earns this file its own home</span></div>
               <span class="sp" data-sp="product"><b>④</b>The product</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos">1 / 10</span>
+              <span class="hud-pos">1 / 11</span>
               <span class="deck-clock">00:00</span>
               <span class="deck-tgt"></span>
               <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -1844,6 +1892,22 @@ that earns this file its own home</span></div>
                 <p class="say">"Once the model is a component, cost stops being a plan you're on and becomes an engineering decision you make per task. The spec, the architecture, the two-day bug — big model. The rename across forty files — fast model, and you pocket the difference."</p>
                 <p class="say">"And you can mix: fan the mechanical sweep out to subagents on the cheap model, keep the main loop on the big one to judge the results. The harness is what makes that a two-line choice."</p>
                 <p class="do"><b>say</b> Model names and prices go stale fast — I say 'big' and 'fast' and let the room map it to whatever's current.</p>
+                <p class="nxt">next ▸ ④ the effort knob</p>
+              </div>
+            </div>
+
+            <!-- 9b · THE EFFORT KNOB -->
+            <div class="beat" data-code="④ The effort knob" data-spine="product" data-mins="3">
+              <h3>The second knob: <em>effort</em></h3>
+              <div class="tree"><span class="f">low</span>       renames · sweeps · subagents on grunt work — <span class="c">fast and cheap</span>
+<span class="f">medium</span>    the cost step-down when the default is overkill
+<span class="hl">high</span>      the default — real features, real debugging
+<span class="f">higher</span>    the two-day bug · the architecture call — <span class="c">let it think</span></div>
+              <p class="b-sub" style="margin-top:18px">Model choice picks <strong>who</strong> works. Effort picks <strong>how hard they think</strong> — and it moves latency and spend, not just quality.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Same harness, same model — a second dial. Effort controls how eager the agent is to spend tokens: how deeply it thinks, how many tool calls it makes, how much it explains itself. Drop it for mechanical work and the agent stops writing essays about a rename."</p>
+                <p class="say">"The pairing is the point: a subagent on the fast model at low effort chews through grunt work for a fraction of the spend, while the main loop stays smart. In Claude Code it's one setting. Now that you know both dials exist, leaving them on the default is a choice — make it on purpose."</p>
                 <p class="nxt">next ▸ land it</p>
               </div>
             </div>
@@ -1851,7 +1915,7 @@ that earns this file its own home</span></div>
             <!-- 10 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
               <h3>Tools · Hooks · Guardrails · Subagents</h3>
-              <p class="b-sub">The parts of the machine — and the two decisions that follow: judge the harness, not the model brand, and match the model to the task.</p>
+              <p class="b-sub">The parts of the machine — and the two decisions that follow: judge the harness, not the model brand, and match the model — and the effort — to the task.</p>
               <p class="b-big" style="margin-top:18px">The model talks. The harness is the product.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
@@ -2382,17 +2446,24 @@ that earns this file its own home</span></div>
 
             <!-- 6 · SLICE -->
             <div class="beat" data-code="⑤ Slice" data-spine="slice" data-mins="12">
-              <h3>Slice 1 is ugly, end-to-end, and <em>works</em></h3>
-              <div class="tree"><span class="hl">slice 1</span>  read-only share link — token → shared view → a test proves a
-         non-owner can view via link and <span class="f">cannot edit</span>   <span class="c">← ugly · end-to-end · works</span>
-<span class="hl">slice 2</span>  revoke + expiry                              <span class="c">blocked by 1</span>
-<span class="hl">slice 3</span>  invited collaborators with edit              <span class="c">blocked by 1</span></div>
-              <p class="b-sub" style="margin-top:16px">Each slice cuts through every layer — never a horizontal "build the data layer" task. Acceptance criteria are written against the access seam from ④. Checkpoint → <code>slices/</code>. Command: <code>prd-to-slices</code> — one markdown file per slice.</p>
+              <h3>A slice is a <em>column</em>, not a layer</h3>
+              <div class="sgrid">
+                <div class="sg-r"><div class="sg-lab">UI</div><div class="sg-cells"><div class="sg-cell on"></div><div class="sg-cell"></div><div class="sg-cell"></div></div></div>
+                <div class="sg-r"><div class="sg-lab">API</div><div class="sg-cells"><div class="sg-cell on"></div><div class="sg-cell"></div><div class="sg-cell"></div></div></div>
+                <div class="sg-r"><div class="sg-lab">access</div><div class="sg-cells"><div class="sg-cell on"></div><div class="sg-cell"></div><div class="sg-cell"></div></div></div>
+                <div class="sg-r ghost"><div class="sg-lab">data</div><div class="sg-cells"><div class="sg-cell on"></div><div class="sg-cell"></div><div class="sg-cell"></div></div></div>
+                <div class="sg-r foot"><div class="sg-lab"></div><div class="sg-cells"><div class="sg-foot s1">slice 1</div><div class="sg-foot">slice 2</div><div class="sg-foot">slice 3</div></div></div>
+              </div>
+              <div class="sg-key">
+                <div><span class="sg-sw v"></span> vertical — slice 1 cuts every layer, ugly but round-trips → <b>ships</b></div>
+                <div><span class="sg-sw h"></span> horizontal — build one whole layer, every slice → <b>ships nothing</b></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">Slice 1 is the ugliest column that still works end to end — a raw link and a test proving a non-owner can view but <strong>not edit</strong>. Every later slice is another column: width, never depth. Criteria written against the access seam from ④. Checkpoint → <code>slices/</code>. Command: <code>prd-to-slices</code>.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Slice 1 is a raw, unstyled link that genuinely round-trips. Later slices add width, not depth. Engineers trained on tidy architecture resist the ugliness — that resistance is the thing to talk through."</p>
-                <p class="say">"Each issue is independently grabbable: context gathered, acceptance criteria at the seam, blocked-by marked — 2 and 3 wait on 1's token and policy. Publish to whatever tracker your team uses."</p>
-                <p class="do"><b>watch</b> for horizontal slicers as the room cuts from the frozen PRD + <code>architecture.md</code> — it's the failure mode here.</p>
+                <p class="say">"The diagram is the lesson. A slice is a column straight down through every layer — UI, API, the access policy from ④, data. Build 'the data layer' first and you get the dashed row: one whole layer, every feature, and nothing runs."</p>
+                <p class="say">"Slice 1 is the ugliest column that still round-trips — a raw, unstyled link, a test that a non-owner can view but not edit. Later slices add width, not depth. Engineers trained on tidy architecture resist that ugliness — that resistance is the thing to talk through."</p>
+                <p class="do"><b>watch</b> for horizontal slicers as the room cuts the frozen PRD + <code>architecture.md</code> — point at the dashed row when it happens. 2 and 3 are blocked by 1's token and policy.</p>
                 <p class="nxt">next ▸ ⑥ build + review</p>
               </div>
             </div>
@@ -2425,7 +2496,180 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Every stage produced in one context and was checked in a clean one. That habit — nobody verifies their own homework — is the thing to take home, more than any single command."</p>
                 <p class="do"><b>handoff</b> "Back on your own project, run these beats yourselves. The checkpoint files show what good looks like at each gate."</p>
-                <p class="nxt">▸ that's the arc — vibe coding to the workflow</p>
+                <p class="nxt">▸ on to Part 9 · autonomy — when you get to stop watching</p>
+              </div>
+            </div>
+
+          </div><!-- /deck-stage -->
+
+          <div class="deck-foot">
+            <button class="foot-btn">‹ Prev</button>
+            <div class="dots"></div>
+            <button class="foot-btn primary">Next ›</button>
+            <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
+          </div>
+        </div><!-- /deck -->
+      </section>
+
+      <section class="section" data-step id="part9">
+        <article class="card">
+          <div class="sec-head"><span class="sec-no">PART 9</span></div>
+          <h2><span class="lead">Autonomy</span>The Agent Works While You Don't Watch</h2>
+
+          <div class="m4-launch">
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
+            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
+          </div>
+
+          <div class="m4-spine"><div class="spine">
+            <span class="sp" data-sp="ladder"><b>①</b>The ladder</span>
+            <span class="sp" data-sp="goal"><b>②</b>/goal</span>
+            <span class="sp" data-sp="clock"><b>③</b>/loop &amp; routines</span>
+            <span class="sp" data-sp="catch"><b>④</b>The catch</span>
+          </div></div>
+
+          <p>Every part so far has kept you in the loop — you read the diff, you watched the verify run, you typed the next prompt. So I close on the question the room has been circling since lunch: <em>when do I get to stop watching?</em> The answer is a ladder, and what changes rung to rung is <strong>what starts the next turn</strong>. Today it's you, every time. One rung up, <code>/goal</code> keeps the session working until a condition you wrote holds. Another rung, <code>/loop</code> fires a prompt on a schedule — babysit the PR, poll the deploy. At the top, a routine runs on managed infrastructure on a cron, with your laptop closed.</p>
+          <p><code>/goal</code> gets most of my time, because it's Part 8 wearing a new hat. You hand it a completion condition — "all tests in <code>test/auth</code> pass," "the labeled issue queue is empty" — and after every turn a separate model reads the transcript and judges whether the condition holds; if not, the agent takes another turn instead of handing you the wheel. Look at what that condition is made of: <strong>a verifiable end state, judged in a clean context</strong> — the exact discipline the whole day has been building. A good goal has one measurable end state, a stated check that proves it, the constraints that must survive the trip, and a stop clause.</p>
+          <p>I keep the demo off the stage — autonomy is slow television — and spend the saved minutes on the edges, because this is the one part where overselling does real damage. The ladder is real; it just pays out in proportion to everything that came before it in this talk.</p>
+
+          <div class="caveat">
+            <div class="caveat-h">The honest caveat — autonomy amplifies whatever discipline you have</div>
+            <div class="caveat-b">
+              <div class="row"><span class="t">An unverifiable condition is vibe coding on a timer.</span>If the repo isn't agent-ready and nothing verifies, <code>/goal</code> doesn't fix the mess — it automates it. The ladder stands on Parts 2, 3, and 8.</div>
+              <div class="row"><span class="t">The evaluator only reads the transcript.</span>It runs no commands and opens no files — a condition the agent's own output can't demonstrate will spin forever or pass on vibes. Write conditions the transcript can prove.</div>
+              <div class="row"><span class="t">Unattended turns spend real tokens.</span>Guardrails and budget bounds matter more when nobody's watching, not less. I put a stop clause in every condition — "or stop after 20 turns."</div>
+            </div>
+          </div>
+
+          <div class="sub-h">What I cover</div>
+          <ul class="cover">
+            <li>The ladder: what starts the next turn — you, a condition, a clock, or a cron on managed infra</li>
+            <li><code>/goal</code> anatomy: one measurable end state · a stated check · the constraints that must hold · a stop clause</li>
+            <li><code>/loop</code> for babysitting and polling; routines for laptop-closed scheduled runs — one breath each</li>
+            <li>The catch, said with conviction: the evaluator reads only the transcript, and unattended turns still spend tokens</li>
+            <li>Why this lands the arc — autonomy isn't trusting the agent more, it's being precise about "done"</li>
+          </ul>
+          <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
+        </article>
+
+        <!-- ============ PART 9 BEAT DECK ============ -->
+        <div class="deck" id="p9deck" aria-hidden="true">
+          <div class="deck-hud">
+            <button class="hud-x" title="Exit (Esc)">✕</button>
+            <span class="hud-code">—</span>
+            <div class="hud-spine">
+              <span class="sp" data-sp="ladder"><b>①</b>The ladder</span>
+              <span class="sp" data-sp="goal"><b>②</b>/goal</span>
+              <span class="sp" data-sp="clock"><b>③</b>/loop &amp; routines</span>
+              <span class="sp" data-sp="catch"><b>④</b>The catch</span>
+            </div>
+            <div class="hud-r">
+              <span class="hud-pos">1 / 6</span>
+              <span class="deck-clock">00:00</span>
+              <span class="deck-tgt"></span>
+              <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
+            </div>
+          </div>
+
+          <button class="deck-arrow prev" title="Previous (←)">‹</button>
+          <button class="deck-arrow next" title="Next (→)">›</button>
+
+          <div class="deck-stage">
+
+            <!-- 1 · COVER -->
+            <div class="beat active" data-code="Part 9 · Autonomy" data-mins="1">
+              <h3>The agent works while you <em>don't watch</em></h3>
+              <p class="b-sub">Eight parts of you steering. The last part is about when you're allowed to let go — and what has to be true first.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Every part today kept you in the loop — you read the diff, you watched the verify, you typed the next prompt. By now someone's been wondering all afternoon: when do I get to stop watching? This part is the honest answer."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. Concept part, no live demo — autonomy is slow television. The beat to protect is ④ the catch.</p>
+                <p class="nxt">next ▸ ① the ladder</p>
+              </div>
+            </div>
+
+            <!-- 2 · THE LADDER -->
+            <div class="beat" data-code="① The ladder" data-spine="ladder" data-mins="3">
+              <h3>What starts the <em>next turn</em>?</h3>
+              <div class="tree"><span class="c">you</span>        every turn — the whole workshop so far
+<span class="f">/goal</span>      a condition — works until "done" provably holds
+<span class="f">/loop</span>      a clock — fires the prompt on a schedule
+<span class="hl">routine</span>    a cron on managed infra — your laptop is closed</div>
+              <p class="b-sub" style="margin-top:18px">Four rungs, one variable. Autonomy is just moving <strong>who starts the next turn</strong>.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"This is a ladder, not a leap. Bottom rung: you, every turn — that's everything we've done today. /goal keeps the session working until a condition holds. /loop fires on a schedule — babysit a PR, poll a deploy. And a routine runs on managed infrastructure on a cron: laptop closed, fresh clone."</p>
+                <p class="say">"Every rung up trades your attention for something written down. What exactly you have to write down — that's the next beat, and it's the important one."</p>
+                <p class="nxt">next ▸ ② /goal</p>
+              </div>
+            </div>
+
+            <!-- 3 · /GOAL -->
+            <div class="beat" data-code="② /goal" data-spine="goal" data-mins="4">
+              <h3>Hand the wheel to a <em>condition</em></h3>
+              <div class="tree"><span class="f">/goal</span>  all tests in test/auth pass and lint is clean
+<span class="c">turn ends</span>  →  a separate model reads the transcript: done?
+<span class="c">no</span>   →  the agent takes another turn — with the reason why not
+<span class="hl">yes</span>  →  the goal clears · the wheel comes back to you</div>
+              <p class="b-sub" style="margin-top:18px">A good condition is Part 8 in one sentence: <strong>one measurable end state</strong> · a stated check · the constraints that must survive · a stop clause.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the keeper</div>
+                <p class="say">"You write 'done' as a condition. After every turn a separate model — a clean context, not the one doing the work — reads the transcript and judges it. Not done: another turn starts, carrying the reason. Done: the wheel comes back."</p>
+                <p class="say">"Look at what that condition is made of — a verifiable end state, judged in a clean context. That's not a new idea; that's the whole day. Nobody verifies their own homework — /goal just runs that rule without you in the chair."</p>
+                <p class="nxt">next ▸ ③ the clock rungs</p>
+              </div>
+            </div>
+
+            <!-- 4 · /LOOP & ROUTINES -->
+            <div class="beat" data-code="③ /loop &amp; routines" data-spine="clock" data-mins="3">
+              <h3>The clock rungs: <em>/loop</em> and routines</h3>
+              <div class="invo">
+                <div class="col user"><h4>/loop · your machine</h4><ul>
+                  <li><b>Fires a prompt on an interval</b> — or lets the agent pace itself</li>
+                  <li>Babysit a PR · poll a deploy · check CI</li>
+                  <li>Lives in the session — expires on its own</li>
+                </ul></div>
+                <div class="col model"><h4>Routines · managed infra</h4><ul>
+                  <li><b>A cron on the provider's machines</b></li>
+                  <li>Laptop closed — fresh clone each run</li>
+                  <li>Runs autonomously — no permission prompts</li>
+                </ul></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">One breath each — the mechanics live in the docs. The decision is only: does this need my machine, and does it need my watching.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"/loop is the same session on a timer — the deploy check, the PR babysitter. Useful, mundane, five minutes to learn. Routines are the top rung: the work runs on managed infrastructure whether your laptop exists or not."</p>
+                <p class="say">"Fresh clone, no permission prompts — that last part should raise your eyebrows. Good. Hold that feeling for one more beat."</p>
+                <p class="nxt">next ▸ ④ the catch</p>
+              </div>
+            </div>
+
+            <!-- 5 · THE CATCH -->
+            <div class="beat" data-code="④ The catch" data-spine="catch" data-mins="3">
+              <h3>Autonomy <em>amplifies</em> — it doesn't fix</h3>
+              <div class="ladder">
+                <div class="rung">an unverifiable condition is vibe coding on a timer</div>
+                <div class="rung">the evaluator reads only the transcript — it runs nothing itself</div>
+                <div class="rung hot">unattended turns spend real tokens — bound them: "or stop after 20 turns"</div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">The ladder stands on everything before it — the agent-ready repo, the one-command verify, the clean-context check. Skip those and you've automated the mess.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Three edges I refuse to soften. If nothing verifies, /goal automates your mess — faster than you could make it by hand. The evaluator runs no commands — it judges only what the agent's own output shows, so a condition the transcript can't prove will spin or pass on vibes. And unattended turns spend real tokens; guardrails and budgets matter more when nobody's watching, not less."</p>
+                <p class="say">"I put a stop clause in every condition I write. Every one."</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 6 · LAND IT -->
+            <div class="beat" data-code="Land it" data-mins="2">
+              <h3>You · a condition · a clock · a cron</h3>
+              <p class="b-big">Autonomy isn't trusting the agent more. It's being precise about "done."</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Part 1 was watching code you couldn't verify. Everything since built the discipline — the loop, the ready repo, the skills, the clean-context checks. The prize at the end of it is this ladder: define 'done' precisely enough, and you can walk away."</p>
+                <p class="say">"That's the arc — from vibe coding to an agent that works while you don't watch."</p>
+                <p class="nxt">▸ that's the talk</p>
               </div>
             </div>
 
@@ -2475,7 +2719,8 @@ that earns this file its own home</span></div>
     {id:'part5', label:'5 · The Harness',   blurb:'A model is text in, text out. Tools, hooks, subagents, and guardrails are what make it an agent.',                sectionIds:['part5']},
     {id:'part6', label:'6 · Reach (MCP)',   blurb:'Plug in capabilities nobody builds from scratch — a browser, a warehouse, prod logs — with the logic running on the provider’s side.', sectionIds:['part6']},
     {id:'part7', label:'7 · Skills vs MCP', blurb:'Knowledge vs capability — the one-breath decision rule for which one the job needs.',                             sectionIds:['part7']},
-    {id:'part8', label:'8 · The Workflow',  blurb:'The full pipeline — grill, spec, verify, architect, slice, build — run end-to-end on one real feature.',          sectionIds:['part8']}
+    {id:'part8', label:'8 · The Workflow',  blurb:'The full pipeline — grill, spec, verify, architect, slice, build — run end-to-end on one real feature.',          sectionIds:['part8']},
+    {id:'part9', label:'9 · Autonomy',      blurb:'/goal, /loop, and routines — the wheel goes to a condition you can verify, a clock, or a cron.',                   sectionIds:['part9']}
   ];
   /* searchable keywords — make cross-cutting concepts (context engineering, verification…) findable */
   const TAGS={
@@ -2486,7 +2731,8 @@ that earns this file its own home</span></div>
     part5:'harness model text tools hooks subagents guardrails permissions spawn agents product claude code cursor codex loop',
     part6:'mcp model context protocol tool tools reach server connect capability extend context7 docs playwright browser github figma sentry postgres snowflake bigquery image video token efficiency prod cross-tool',
     part7:'skill mcp difference versus knowledge capability decision rule compose orchestrate vet dependency context cost',
-    part8:'workflow pipeline grilling grill interview prd product requirements spec user stories acceptance criteria non-goals out-of-scope seam verify gaps contradictions clean context architecture candidates locality leverage deepening slice vertical slicing tracer bullet board build review maker checker share checkpoint'
+    part8:'workflow pipeline grilling grill interview prd product requirements spec user stories acceptance criteria non-goals out-of-scope seam verify gaps contradictions clean context architecture candidates locality leverage deepening slice vertical slicing tracer bullet board build review maker checker share checkpoint',
+    part9:'autonomy goal loop scheduled tasks cron routine routines unattended overnight condition evaluator stop clause babysit poll deploy pr ci laptop closed cloud managed infra tokens budget afk hands off done'
   };
 
   const secs=()=>$$('.section');
@@ -2542,23 +2788,12 @@ that earns this file its own home</span></div>
   function buildNav(){
     navList.innerHTML='';
     railHead.textContent='All topics';
+    const ul=document.createElement('ul'); ul.className='tl';
     TOPICS.forEach(t=>{
-      const list=sectionsForTopic(t.id); if(!list.length)return;
-      const grp=document.createElement('div'); grp.className='nav-group'; grp.dataset.topic=t.id;
-      const collapsed=localStorage.getItem('afe-grp-'+t.id)==='0'; if(collapsed)grp.classList.add('collapsed');
-      const totalMins=list.reduce((s,x)=>s+minsOf(x),0);
-      const meta=list.length+(totalMins?' · '+totalMins+'m':'');
-      const head=document.createElement('button'); head.className='group-head'; head.setAttribute('aria-expanded',String(!collapsed));
-      head.innerHTML='<span class="gh-tw"><span class="chev">▸</span><span class="gh-label">'+t.label+'</span></span><span class="gh-meta">'+meta+'</span>';
-      head.onclick=()=>{const c=grp.classList.toggle('collapsed'); head.setAttribute('aria-expanded',String(!c)); localStorage.setItem('afe-grp-'+t.id,c?'0':'1');};
-      grp.appendChild(head);
-      const ul=document.createElement('ul'); ul.className='tl group-body';
-      list.forEach(sec=>{const li=document.createElement('li'); li.appendChild(mkLink(sec)); ul.appendChild(li);});
-      grp.appendChild(ul);
-      if(list.every(s=>isDone(s.id))) grp.classList.add('all-done');
-      navList.appendChild(grp);
+      sectionsForTopic(t.id).forEach(sec=>{const li=document.createElement('li'); li.appendChild(mkLink(sec)); ul.appendChild(li);});
     });
-    applyDisplay(); applySearch();
+    navList.appendChild(ul);
+    applyDisplay();
   }
 
   /* section + band visibility */
@@ -2569,24 +2804,6 @@ that earns this file its own home</span></div>
 
   /* the ordered set walkthrough / spy / timer operate on */
   function activeSet(){ return secs(); }
-
-  /* ============ SEARCH (filter only — never touches the walkthrough set) ============ */
-  const searchInput=$('#navSearch'), searchClear=$('#searchClear');
-  function applySearch(){
-    const q=((searchInput&&searchInput.value)||'').trim().toLowerCase();
-    root.classList.toggle('searching',!!q);
-    $$('#navList .nav-link').forEach(a=>a.classList.toggle('hide',!!q && (a.dataset.hay||'').indexOf(q)<0));
-    $$('#navList .nav-group').forEach(g=>{ const any=[...g.querySelectorAll('.nav-link')].some(a=>!a.classList.contains('hide')); g.classList.toggle('hide',!!q && !any); });
-  }
-  if(searchInput){
-    searchInput.addEventListener('input',applySearch);
-    searchInput.addEventListener('keydown',e=>{
-      if(e.key==='Enter'){ const first=$('#navList .nav-link:not(.hide)'); if(first){ const sec=byId(first.dataset.target); if(sec){ if(root.classList.contains('wt')){const i=activeSet().indexOf(sec); if(i>=0)goTo(i);} else sec.scrollIntoView({behavior:'smooth'}); } } }
-      else if(e.key==='Escape'){ searchInput.value=''; applySearch(); searchInput.blur(); }
-    });
-  }
-  if(searchClear) searchClear.onclick=()=>{ if(searchInput){searchInput.value=''; applySearch(); searchInput.focus();} };
-  $$('.thread-chip').forEach(c=>c.onclick=()=>{ if(searchInput){searchInput.value=c.dataset.q; applySearch(); searchInput.focus();} });
 
   /* ============ SCROLL SPY (id-matched, group-aware) ============ */
   function spy(){
