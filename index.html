@@ -332,7 +332,6 @@ html.wt .section{opacity:1; animation:none}
 .deck{display:none}
 .deck.reh{display:block; margin-top:8px}                       /* inline rehearsal view */
 .deck.reh .beat{border:1px solid var(--line); border-radius:var(--rad); background:var(--surface-2); padding:22px 24px; margin-top:14px}
-.deck.reh .beat .b-kicker{color:var(--teal)}
 .deck.reh .deck-hud,.deck.reh .deck-foot,.deck.reh .deck-arrow{display:none}
 .deck.reh .beat-notes{display:block; margin-top:18px}
 
@@ -405,7 +404,6 @@ html.present.black .deck-stage,html.present.black .deck-hud,html.present.black .
 html.present.black .deck{background:#000}
 
 /* beat stage typography (present) */
-html.present .beat .b-kicker{font-family:var(--mono); font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); margin-bottom:16px}
 html.present .beat h3{font-family:var(--serif); font-weight:700; font-size:clamp(2rem,5.2vw,3.7rem); line-height:1.04; letter-spacing:-.02em; color:var(--ink); margin-bottom:14px}
 html.present .beat h3 em{font-style:italic; color:var(--teal); font-weight:600}
 html.present .beat .b-sub{font-size:clamp(1.05rem,2vw,1.55rem); color:var(--ink-dim); max-width:42ch; line-height:1.45}
@@ -747,7 +745,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 1 · Vibe Coding" data-mins="1">
-              <div class="b-kicker">Part 1 · Where Everyone Starts</div>
               <h3>Great demos — and why they collapse in a <em>real repo</em></h3>
               <p class="b-sub">Everyone in this room has pasted a request into a chat window and shipped what came back. I'm not here to mock that. I'm here to show exactly where it stops working.</p>
               <div class="beat-notes">
@@ -760,7 +757,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 2 · THE VIBE -->
             <div class="beat" data-code="① The vibe" data-spine="vibe" data-mins="3">
-              <div class="b-kicker">① The vibe · what it actually is</div>
               <h3>Describe. Generate. <em>Don't read.</em></h3>
               <div class="tree"><span class="c">you</span>     "build me a habit tracker"
 <span class="c">model</span>   three files of plausible code
@@ -778,7 +774,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 3 · THE COLLAPSE -->
             <div class="beat" data-code="② The collapse" data-spine="collapse" data-mins="4">
-              <div class="b-kicker">② The collapse · same trick, inside a real repo</div>
               <h3>Now watch it fall apart</h3>
               <div class="ladder">
                 <div class="rung">doesn't know our structure — so it invents one</div>
@@ -797,7 +792,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 4 · THE LAST 20% -->
             <div class="beat" data-code="② The collapse · the cost" data-spine="collapse" data-mins="3">
-              <div class="b-kicker">② The collapse · what it actually costs</div>
               <h3>The last 20% eats the week</h3>
               <div class="rule3"><div class="r3-count">80%</div><div><p class="b-sub">…in five minutes. Then the sixth round of "almost right" costs more than typing it yourself would have. <strong>One-shots don't converge.</strong></p></div></div>
               <div class="beat-notes">
@@ -810,7 +804,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 5 · THE REFRAME -->
             <div class="beat" data-code="③ The reframe" data-spine="reframe" data-mins="2">
-              <div class="b-kicker">③ The reframe · the point I land</div>
               <h3>The failure isn't the model. It's the <em>setup</em>.</h3>
               <p class="b-big">A brilliant intern, working through a mail slot.</p>
               <p class="b-sub" style="margin-top:14px">No repo access. No way to run anything. No memory between letters. They'd fail exactly the same way — and you wouldn't blame the intern.</p>
@@ -825,7 +818,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 6 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
-              <div class="b-kicker">Land it · what the rest of the talk is</div>
               <h3>Fixing the setup is Parts 2–8</h3>
               <div class="tree"><span class="hl">give it the repo</span>      Part 2 · an agent that reads, edits, runs the tests
 <span class="hl">give it the context</span>   Part 3 · the repo made agent-ready
@@ -907,7 +899,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 2 · AI Engineering" data-mins="1">
-              <div class="b-kicker">Part 2 · The First Real Step Up</div>
               <h3>An agent in the repo: <em>you steer, it types</em></h3>
               <p class="b-sub">The mail slot from Part 1 comes down. The agent reads the files, edits them, runs commands, runs the tests — and that changes what your job is.</p>
               <div class="beat-notes">
@@ -920,7 +911,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 2 · THE LOOP -->
             <div class="beat" data-code="① The loop" data-spine="loop" data-mins="4">
-              <div class="b-kicker">① The loop · from one-shot to loop</div>
               <h3>Plan → act → observe → <em>verify</em> → repeat</h3>
               <div class="tree"><span class="c">plan</span>     you state intent
 <span class="c">act</span>      it edits files · runs commands
@@ -937,7 +927,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 3 · YOUR JOB CHANGES -->
             <div class="beat" data-code="① The loop · your job" data-spine="loop" data-mins="4">
-              <div class="b-kicker">① The loop · the actual mindset shift</div>
               <h3>Your job stops being "produce the code"</h3>
               <div class="invo">
                 <div class="col user"><h4>The traditional craft</h4><ul>
@@ -964,7 +953,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 4 · NOT A PERSON -->
             <div class="beat" data-code="① The loop · the machine" data-spine="loop" data-mins="3">
-              <div class="b-kicker">① The loop · the thing you're actually steering</div>
               <h3>It's not a person — it doesn't <em>conclude</em> like you do</h3>
               <div class="ladder">
                 <div class="rung">what it doesn't know — it doesn't know</div>
@@ -983,7 +971,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 5 · LIVE PROOF -->
             <div class="beat" data-code="② Live proof" data-spine="proof" data-mins="15">
-              <div class="b-kicker">② Live proof · no slide kills the objection</div>
               <h3>One vertical slice, <em>no editor</em></h3>
               <div class="tree"><span class="hl">save button</span>   the UI piece
 <span class="hl">endpoint</span>      POST /records on the reference app
@@ -1001,7 +988,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 6 · PLANTED MISTAKE -->
             <div class="beat" data-code="② Live proof · planted mistake" data-spine="proof" data-mins="5">
-              <div class="b-kicker">② Live proof · the planted mistake</div>
               <h3>I under-specify <em>on purpose</em></h3>
               <button class="present-btn" data-trace="traceP2" style="margin-top:6px; font-size:13px; padding:11px 18px">Watch the loop converge →</button>
               <div class="trace" id="traceP2" style="margin-top:14px"><div class="tl">agent · after the red test comes back</div><span class="echo">Test failed: <mark>expected 201, route returned 404</mark> — the new route was never registered. Registering it in src/api/index.ts, re-running the suite… green. The round-trip passes.</span></div>
@@ -1017,7 +1003,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 7 · DO'S AND DON'TS -->
             <div class="beat" data-code="③ Day to day" data-spine="day" data-mins="4">
-              <div class="b-kicker">③ Day to day · running the loop</div>
               <h3>Five do's, five don'ts</h3>
               <div class="invo">
                 <div class="col user"><h4>Do</h4><ul>
@@ -1046,7 +1031,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 8 · THE DUMB ZONE -->
             <div class="beat" data-code="③ Day to day · the dumb zone" data-spine="day" data-mins="4">
-              <div class="b-kicker">③ Day to day · context fills, quality drops</div>
               <h3>The <em>dumb zone</em></h3>
               <div class="ladder">
                 <div class="rung">quality decays as the context grows — a slope, not a cliff at the limit</div>
@@ -1068,7 +1052,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 9 · THE EDGES -->
             <div class="beat" data-code="④ The edges" data-spine="edges" data-mins="4">
-              <div class="b-kicker">④ The edges · for the back row</div>
               <h3>When the loop is the <em>wrong</em> tool</h3>
               <div class="ladder">
                 <div class="rung">a one-character fix you can see — faster typed than described</div>
@@ -1085,7 +1068,6 @@ html.present .topic-band{display:none !important}
 
             <!-- 10 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
-              <div class="b-kicker">Land it · the friction this level leaves</div>
               <h3>It works — and every task starts with the <em>same paragraph</em></h3>
               <p class="b-big">"What this project is. Where the utils live. How to run it." Again.</p>
               <div class="beat-notes">
@@ -1185,7 +1167,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 3 · Agent-Ready" data-mins="1">
-              <div class="b-kicker">Part 3 · The Upstream Lesson</div>
               <h3>Making the repo the agent can actually <em>work in</em></h3>
               <p class="b-sub">By now you've felt the itch: every task opens with the same recited paragraph. This part deletes that paragraph — by moving it into the repo.</p>
               <div class="beat-notes">
@@ -1199,7 +1180,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 2 · COLD START -->
             <div class="beat" data-code="Cold start" data-mins="3">
-              <div class="b-kicker">Why this exists · every task, from zero</div>
               <h3>An agent starts every task <em>cold</em></h3>
               <div class="ladder">
                 <div class="rung">where things live — absorbed by osmosis, written nowhere</div>
@@ -1218,7 +1198,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 3 · ONBOARD -->
             <div class="beat" data-code="① Onboard" data-spine="onboard" data-mins="5">
-              <div class="b-kicker">① Onboard · fix the cold start</div>
               <h3>One file, read on <em>every</em> task</h3>
               <div class="tree"># &lt;Project&gt;      what this is, in two lines
 <span class="f">Run</span>            npm run dev
@@ -1237,7 +1216,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 4 · VERIFY -->
             <div class="beat" data-code="② Verify" data-spine="verify" data-mins="5">
-              <div class="b-kicker">② Verify · give the loop something true to read</div>
               <h3>Floor today, ceiling later</h3>
               <div class="tree"><span class="c">// package.json → "scripts"</span>
 "verify": "tsc --noEmit &amp;&amp; eslint . &amp;&amp; npm run build"   <span class="f">← floor: compiles · lints · builds</span>
@@ -1253,7 +1231,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 5 · OUR WAY -->
             <div class="beat" data-code="③ Our way" data-spine="ourway" data-mins="4">
-              <div class="b-kicker">③ Our way · conventions plus one example</div>
               <h3>"Do it like that file" beats a page of rules</h3>
               <div class="tree"><span class="f">docs/conventions.md</span>   short — the things you'd correct in code review
 <span class="hl">one golden-path file</span>  the worked example the agent pattern-matches against</div>
@@ -1268,7 +1245,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 6 · MAP & GUARD -->
             <div class="beat" data-code="④ Map &amp; guard" data-spine="map" data-mins="4">
-              <div class="b-kicker">④ Map &amp; guard · the territory and the fence</div>
               <h3>No spelunking — and no held breath</h3>
               <div class="invo">
                 <div class="col user"><h4>The map</h4><ul>
@@ -1293,7 +1269,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 7 · LIVE PAYOFF -->
             <div class="beat" data-code="Proof" data-mins="2">
-              <div class="b-kicker">Proof · ninety seconds, live</div>
               <h3>Same loop, <em>ready</em> repo</h3>
               <div class="tree"><span class="c">before</span>   guesses field names · invents a folder · somebody else's style
 <span class="c">after</span>    reads the onboarding file · <span class="f">follows the house style</span></div>
@@ -1308,7 +1283,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 8 · PASSIVE vs ACTIVE -->
             <div class="beat" data-code="The line" data-mins="3">
-              <div class="b-kicker">The line I hold · don't conflate the layers</div>
               <h3>Passive substrate now — <em>active</em> skills next</h3>
               <div class="invo">
                 <div class="col user"><h4>This part · passive</h4><ul>
@@ -1333,7 +1307,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 9 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
-              <div class="b-kicker">Land it · four moves, one afternoon</div>
               <h3>Onboard · Verify · Our way · Map &amp; guard</h3>
               <p class="b-sub">The floor — an onboarding file and one verify command — is an afternoon of work. The conventions doc and the golden-path example can follow.</p>
               <p class="b-big" style="margin-top:18px">The cure for a spinning loop lives in the repo.</p>
@@ -1404,7 +1377,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 4 · Skills" data-mins="1">
-              <div class="b-kicker">Part 4 · The Missing Manual</div>
               <h3>Building a <em>great</em> skill</h3>
               <p class="b-sub">Not just a skill — a great one. Four questions tell them apart. We'll build one for the reference app, live.</p>
               <div class="beat-notes">
@@ -1417,7 +1389,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 2 · COLD OPEN -->
             <div class="beat" data-code="Cold open" data-mins="4">
-              <div class="b-kicker">Why this matters</div>
               <h3>Skill hell</h3>
               <div class="ladder">
                 <div class="rung">tutorial hell — watch twenty, build nothing</div>
@@ -1436,7 +1407,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 3 · ANATOMY -->
             <div class="beat" data-code="Anatomy" data-mins="3">
-              <div class="b-kicker">90 seconds, no more</div>
               <h3>A folder with a <code>SKILL.md</code></h3>
               <div class="tree">.claude/skills/<span class="hl">add-endpoint-our-way/</span>
 ├── <span class="f">SKILL.md</span>      <span class="c">frontmatter (name, description) + body</span>
@@ -1454,7 +1424,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 4 · TRIGGER (invocation) -->
             <div class="beat" data-code="① Trigger" data-spine="trigger" data-mins="5">
-              <div class="b-kicker">① Trigger · how it's invoked</div>
               <h3>Two ways in — pick on purpose</h3>
               <div class="invo">
                 <div class="col user"><h4>User-invoked</h4><ul>
@@ -1480,7 +1449,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 5 · TRIGGER (the description) — CENTERPIECE -->
             <div class="beat" data-code="① Trigger · description" data-spine="trigger" data-mins="6">
-              <div class="b-kicker">① Trigger · the description is the product</div>
               <h3>Bad vs great description</h3>
               <div class="descflip" id="descA">
                 <div class="dcard bad"><div class="dl">✗ before</div><div class="desc">Helps you add API endpoints to the codebase.</div></div>
@@ -1500,7 +1468,6 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 6 · STRUCTURE -->
             <div class="beat" data-code="② Structure" data-spine="structure" data-mins="7">
-              <div class="b-kicker">② Structure · steps + reference, kept small</div>
               <h3>Push branch-only reference behind a pointer</h3>
               <div class="skillview" id="svA">
                 <div class="sv-tabs">
@@ -1582,7 +1549,6 @@ that earns this file its own home</span></div>
 
             <!-- 7 · STEERING -->
             <div class="beat" data-code="③ Steering" data-spine="steering" data-mins="6">
-              <div class="b-kicker">③ Steering · leading words</div>
               <h3>Pack intent into a word the model already knows</h3>
               <p class="b-big">"thin vertical slice"</p>
               <div class="trace" id="traceA"><div class="tl">agent · reasoning trace</div><span class="echo">Okay — I'll build this as a <mark>thin vertical slice</mark>: one route, one handler, one test, end-to-end before adding any width…</span></div>
@@ -1598,7 +1564,6 @@ that earns this file its own home</span></div>
 
             <!-- 8 · PRUNING -->
             <div class="beat" data-code="④ Pruning" data-spine="pruning" data-mins="6">
-              <div class="b-kicker">④ Pruning · the deletion test</div>
               <h3>Delete what the agent already does</h3>
               <div class="deltest" id="delA">
                 <div class="file">
@@ -1622,7 +1587,6 @@ that earns this file its own home</span></div>
 
             <!-- 9 · RULE OF THREE -->
             <div class="beat" data-code="Rule of three" data-mins="3">
-              <div class="b-kicker">When is a skill worth writing?</div>
               <h3>The rule of three</h3>
               <div class="rule3"><div class="r3-count">3×</div><div><p class="b-sub">Done by prompt three times, and you'll do it thirty more → <strong>that's</strong> a skill. A one-off dressed up as a skill is just ceremony.</p></div></div>
               <div class="beat-notes">
@@ -1635,7 +1599,6 @@ that earns this file its own home</span></div>
 
             <!-- 10 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="4">
-              <div class="b-kicker">Land it · the rubric you keep</div>
               <h3>Trigger · Structure · Steering · Pruning</h3>
               <p class="b-sub">Same four questions work on any skill — including the dodgy ones you download.</p>
               <p class="b-big" style="margin-top:18px">The rubric itself ships as a skill: <code>writing-great-skills</code>.</p>
@@ -1717,7 +1680,6 @@ that earns this file its own home</span></div>
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 5 · The Harness" data-mins="1">
-              <div class="b-kicker">Part 5 · Stripping the Magic</div>
               <h3>What turns a model into an <em>agent</em></h3>
               <p class="b-sub">Everything before this part quietly depended on a piece of machinery nobody named. Time to name it.</p>
               <div class="beat-notes">
@@ -1730,7 +1692,6 @@ that earns this file its own home</span></div>
 
             <!-- 2 · TEXT IN, TEXT OUT -->
             <div class="beat" data-code="① Text in, out" data-spine="model" data-mins="3">
-              <div class="b-kicker">① Text in, text out · the entire interface</div>
               <h3>A model can't <em>do</em> anything</h3>
               <div class="ladder">
                 <div class="rung">it can't open a file</div>
@@ -1749,7 +1710,6 @@ that earns this file its own home</span></div>
 
             <!-- 3 · THE LOCKED ROOM -->
             <div class="beat" data-code="① The locked room" data-spine="model" data-mins="2">
-              <div class="b-kicker">① Text in, text out · what that leaves you with</div>
               <h3>Take the harness away, and this is your "agent"</h3>
               <p class="b-big">A very articulate person in a locked room, passing notes under the door.</p>
               <div class="beat-notes">
@@ -1762,7 +1722,6 @@ that earns this file its own home</span></div>
 
             <!-- 4 · THE HARNESS -->
             <div class="beat" data-code="② The harness" data-spine="harness" data-mins="4">
-              <div class="b-kicker">② The harness · the program around the model</div>
               <h3>The harness is what <em>acts</em></h3>
               <div class="tree"><span class="c">model</span>    writes: "run the tests"
 <span class="f">harness</span>  actually runs them
@@ -1779,7 +1738,6 @@ that earns this file its own home</span></div>
 
             <!-- 5 · TOOLS -->
             <div class="beat" data-code="③ Tools" data-spine="parts" data-mins="3">
-              <div class="b-kicker">③ The parts · tools</div>
               <h3>Tools are the <em>verbs</em></h3>
               <div class="tree"><span class="f">read file</span>     the model asks · the harness reads
 <span class="f">edit file</span>     the model proposes · the harness writes
@@ -1795,7 +1753,6 @@ that earns this file its own home</span></div>
 
             <!-- 6 · HOOKS & GUARDRAILS -->
             <div class="beat" data-code="③ Hooks &amp; guardrails" data-spine="parts" data-mins="3">
-              <div class="b-kicker">③ The parts · your code, your lines</div>
               <h3>Hooks and guardrails</h3>
               <div class="invo">
                 <div class="col user"><h4>Hooks · your code</h4><ul>
@@ -1820,7 +1777,6 @@ that earns this file its own home</span></div>
 
             <!-- 7 · SUBAGENTS -->
             <div class="beat" data-code="③ Subagents" data-spine="parts" data-mins="3">
-              <div class="b-kicker">③ The parts · fresh contexts on demand</div>
               <h3>Subagents: a <em>clean context</em>, one spawn away</h3>
               <div class="tree"><span class="c">main agent</span>   deep in the task · context full of the argument
      <span class="f">└─ spawns →</span>
@@ -1836,7 +1792,6 @@ that earns this file its own home</span></div>
 
             <!-- 8 · THE PRODUCT -->
             <div class="beat" data-code="④ The product" data-spine="product" data-mins="3">
-              <div class="b-kicker">④ The product · the landing</div>
               <h3>Same models. <em>Different harnesses.</em></h3>
               <p class="b-big">Every "which AI tool" debate is a harness debate wearing a model costume.</p>
               <p class="b-sub" style="margin-top:14px">Claude Code, Cursor, and Codex run the same handful of models underneath. What you're choosing — what decides what your agent can and can't do — is the harness.</p>
@@ -1850,7 +1805,6 @@ that earns this file its own home</span></div>
 
             <!-- 9 · THE MODEL KNOB -->
             <div class="beat" data-code="④ The model knob" data-spine="product" data-mins="4">
-              <div class="b-kicker">④ The product · the model is a component now</div>
               <h3>Match the <em>model</em> to the task</h3>
               <div class="invo">
                 <div class="col user"><h4>The big model</h4><ul>
@@ -1876,7 +1830,6 @@ that earns this file its own home</span></div>
 
             <!-- 10 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
-              <div class="b-kicker">Land it · the machine, named</div>
               <h3>Tools · Hooks · Guardrails · Subagents</h3>
               <p class="b-sub">The parts of the machine — and the two decisions that follow: judge the harness, not the model brand, and match the model to the task.</p>
               <p class="b-big" style="margin-top:18px">The model talks. The harness is the product.</p>
@@ -1947,7 +1900,6 @@ that earns this file its own home</span></div>
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 6 · Reach" data-mins="1">
-              <div class="b-kicker">Part 6 · New Reach</div>
               <h3>Giving the agent <em>hands</em></h3>
               <p class="b-sub">Two parts made the agent smarter about your repo. This one gives it a power it didn't have — eyes on a browser, a live database, the current docs. Not knowledge. <strong>Capability.</strong></p>
               <div class="beat-notes">
@@ -1960,7 +1912,6 @@ that earns this file its own home</span></div>
 
             <!-- 2 · THE GAP -->
             <div class="beat" data-code="① Capability" data-spine="capability" data-mins="3">
-              <div class="b-kicker">① Capability · what's still missing</div>
               <h3>It only knows the <em>repo</em></h3>
               <div class="ladder">
                 <div class="rung">can't see the page it just built render</div>
@@ -1977,7 +1928,6 @@ that earns this file its own home</span></div>
 
             <!-- 3 · KNOWLEDGE vs CAPABILITY -->
             <div class="beat" data-code="① Capability · the line" data-spine="capability" data-mins="5">
-              <div class="b-kicker">① Capability · the line that keeps Parts 4 and 6 apart</div>
               <h3>A file you write vs a server you <em>connect</em></h3>
               <div class="invo">
                 <div class="col user"><h4>Skill · Part 4</h4><ul>
@@ -2005,7 +1955,6 @@ that earns this file its own home</span></div>
 
             <!-- 4 · WHAT MCP IS -->
             <div class="beat" data-code="② Connect" data-spine="connect" data-mins="4">
-              <div class="b-kicker">② Connect · what MCP actually is</div>
               <h3>A standard way to hand the agent <em>tools</em></h3>
               <p class="b-sub" style="margin-bottom:14px">Connect a server once; the agent gains new verbs it can call mid-loop:</p>
               <div class="tree"><span class="hl">context7</span>    → <span class="c">fetch_docs(library)</span>
@@ -2023,7 +1972,6 @@ that earns this file its own home</span></div>
 
             <!-- 5 · ADD ONE LIVE -->
             <div class="beat" data-code="② Connect · live" data-spine="connect" data-mins="5">
-              <div class="b-kicker">② Connect · add one, watch the loop change</div>
               <h3><code>context7</code> — the cheapest win</h3>
               <div class="tree">$ claude mcp add context7 -- npx -y @upstash/context7-mcp@latest
 
@@ -2042,7 +1990,6 @@ that earns this file its own home</span></div>
 
             <!-- 6 · THE MENU -->
             <div class="beat" data-code="③ Curate" data-spine="curate" data-mins="4">
-              <div class="b-kicker">③ Curate · the general-purpose few</div>
               <h3>Recognize them — don't install them all</h3>
               <div class="tree"><span class="hl">context7</span>    live, version-correct docs — kills hallucinated APIs   ← today
 <span class="hl">playwright</span>  a real browser — navigate, click, screenshot
@@ -2060,7 +2007,6 @@ that earns this file its own home</span></div>
 
             <!-- 7 · COST (the caveat) -->
             <div class="beat" data-code="④ Cost" data-spine="cost" data-mins="5">
-              <div class="b-kicker">④ Cost · every MCP taxes every prompt</div>
               <h3>Install few. <em>Curate, don't hoard.</em></h3>
               <div class="bloat" id="bloatA">
                 <div class="bloat-chips">
@@ -2087,7 +2033,6 @@ that earns this file its own home</span></div>
 
             <!-- 8 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="3">
-              <div class="b-kicker">Land it · four questions before you wire one</div>
               <h3>Capability · Connect · Curate · Cost</h3>
               <p class="b-sub"><strong>Capability?</strong> a power it lacks, not just knowledge · <strong>Connect?</strong> a server you trust · <strong>Curate?</strong> will you actually use it · <strong>Cost?</strong> does it earn its seat in the context window.</p>
               <p class="b-big" style="margin-top:18px">If the agent just needs to <em>know</em> it — that's not an <code>MCP</code>.</p>
@@ -2162,7 +2107,6 @@ that earns this file its own home</span></div>
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 7 · Skills vs MCP" data-mins="1">
-              <div class="b-kicker">Part 7 · The Line I Draw Hard</div>
               <h3>Teach it a <em>move</em>, or plug in a <em>capability</em>?</h3>
               <p class="b-sub">The room has met both by now — and on every team I've coached, these two get mixed up. Both mix-ups fail. One distinction fixes it.</p>
               <div class="beat-notes">
@@ -2175,7 +2119,6 @@ that earns this file its own home</span></div>
 
             <!-- 2 · FAILURE MODES -->
             <div class="beat" data-code="① Failure modes" data-spine="fail" data-mins="3">
-              <div class="b-kicker">① Failure modes · I've seen both on real teams</div>
               <h3>Two hopes, two failures</h3>
               <div class="invo">
                 <div class="col user"><h4>The skill that hopes for a sense</h4><ul>
@@ -2201,7 +2144,6 @@ that earns this file its own home</span></div>
 
             <!-- 3 · THE RULE -->
             <div class="beat" data-code="② The rule" data-spine="rule" data-mins="2">
-              <div class="b-kicker">② The rule · one breath</div>
               <h3>The decision, in one breath</h3>
               <p class="b-big">Could it already do it, just badly? <em>Write a skill.</em><br>Can it not do it at all? <em>Wire an MCP.</em></p>
               <div class="beat-notes">
@@ -2214,7 +2156,6 @@ that earns this file its own home</span></div>
 
             <!-- 4 · COMPOSE -->
             <div class="beat" data-code="② Compose" data-spine="rule" data-mins="3">
-              <div class="b-kicker">② The rule · and then they compose</div>
               <h3>The best skills <em>orchestrate</em> MCP tools</h3>
               <div class="tree"><span class="f">skill</span>   check-error-budget    knows <span class="hl">your thresholds</span>        <span class="c">← knowledge</span>
           <span class="c">└─ calls →</span>
@@ -2230,7 +2171,6 @@ that earns this file its own home</span></div>
 
             <!-- 5 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
-              <div class="b-kicker">Land it · the line you keep</div>
               <h3>New knowledge → a <em>skill</em> · New power → an <em>MCP</em></h3>
               <p class="b-big">You can't skill your way to a browser. You can't MCP your way to good taste.</p>
               <div class="beat-notes">
@@ -2323,7 +2263,6 @@ that earns this file its own home</span></div>
 
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 8 · Workflow" data-mins="5">
-              <div class="b-kicker">Part 8 · The Whole Pipeline</div>
               <h3>One feature, <em>end to end</em></h3>
               <p class="b-sub">In Part 2 I deferred sharing on purpose. Now we build it properly — one fuzzy sentence to merged code, and at every stage a fresh context checks the previous one's work.</p>
               <div class="tree"><span class="hl">grill</span>      WHY       <span class="c">one fuzzy sentence → one specific thing</span>
@@ -2344,7 +2283,6 @@ that earns this file its own home</span></div>
 
             <!-- 2 · GRILL -->
             <div class="beat" data-code="① Grill" data-spine="grill" data-mins="12">
-              <div class="b-kicker">① Grill · WHY — I drive, you watch</div>
               <h3>No building until "share" means one specific thing</h3>
               <div class="ladder">
                 <div class="rung">public link, or private by default?</div>
@@ -2365,7 +2303,6 @@ that earns this file its own home</span></div>
 
             <!-- 3 · SPEC -->
             <div class="beat" data-code="② Spec" data-spine="spec" data-mins="12">
-              <div class="b-kicker">② Spec · WHAT — your hands now</div>
               <h3>Six pillars, written <em>with</em> the agent</h3>
               <div class="tree"><span class="hl">Problem</span>        <span class="c">from the user's side, not the implementation's</span>
 <span class="hl">Solution</span>       <span class="c">behavior a user can see</span>
@@ -2385,7 +2322,6 @@ that earns this file its own home</span></div>
 
             <!-- 4 · VERIFY -->
             <div class="beat" data-code="③ Verify" data-spine="verify" data-mins="8">
-              <div class="b-kicker">③ Verify · a context that never heard the argument</div>
               <h3>Loop until the gaps report comes back <em>empty</em></h3>
               <p class="b-sub">Open a clean context. Hand it only the PRD. One ask: find the gaps and contradictions.</p>
               <button class="present-btn" data-trace="traceWf" style="margin-top:16px; font-size:13px; padding:11px 18px">Run the checker →</button>
@@ -2401,7 +2337,6 @@ that earns this file its own home</span></div>
 
             <!-- 5 · ARCHITECT -->
             <div class="beat" data-code="④ Architect" data-spine="architect" data-mins="15">
-              <div class="b-kicker">④ Architect · WHERE — I drive; the new material</div>
               <h3>One access seam instead of scattered checks</h3>
               <div class="invo">
                 <div class="col user"><h4>Before · shallow</h4><ul>
@@ -2427,7 +2362,6 @@ that earns this file its own home</span></div>
 
             <!-- 6 · SLICE -->
             <div class="beat" data-code="⑤ Slice" data-spine="slice" data-mins="12">
-              <div class="b-kicker">⑤ Slice · HOW MUCH — your hands</div>
               <h3>Slice 1 is ugly, end-to-end, and <em>works</em></h3>
               <div class="tree"><span class="hl">slice 1</span>  read-only share link — token → shared view → a test proves a
          non-owner can view via link and <span class="f">cannot edit</span>   <span class="c">← ugly · end-to-end · works</span>
@@ -2445,7 +2379,6 @@ that earns this file its own home</span></div>
 
             <!-- 7 · BUILD + REVIEW -->
             <div class="beat" data-code="⑥ Build + Review" data-spine="build" data-mins="15">
-              <div class="b-kicker">⑥ Build + Review · DO — the relay</div>
               <h3>One context builds. A second one judges.</h3>
               <div class="tree"><span class="hl">build</span>     <span class="c">a clean context takes slice 1 + architecture.md + the card</span>
 <span class="hl">review</span>    <span class="c">a second clean context — conventions · criteria · tests green → findings</span>
@@ -2463,7 +2396,6 @@ that earns this file its own home</span></div>
 
             <!-- 8 · HANDOFF -->
             <div class="beat" data-code="Handoff" data-mins="4">
-              <div class="b-kicker">Land it · the pipeline is yours</div>
               <h3>Next block, <em>your</em> project runs these beats</h3>
               <p class="b-sub">That's the whole pipeline on one feature — produced in one context, verified in a clean one, at every altitude.</p>
               <div class="tree"><span class="c">the trail you keep:</span>
