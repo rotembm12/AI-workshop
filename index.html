@@ -612,17 +612,17 @@ html.present .topic-band{display:none !important}
 /* ============ ENPITECH WATERMARK — global, always-on, subtle ============ */
 .wm{
   position:fixed; right:15px; bottom:13px; z-index:35;
-  display:inline-flex; align-items:center; padding:7px 12px;
-  border:1px solid var(--line); border-radius:999px;
-  background:color-mix(in srgb, var(--surface) 72%, transparent);
-  backdrop-filter:blur(9px); color:var(--ink-dim);
-  opacity:.5; transition:opacity .25s, border-color .25s, transform .25s; text-decoration:none;
+  display:inline-flex; align-items:center; padding:7px 13px;
+  border:1px solid rgba(20,12,40,.08); border-radius:999px;
+  background:rgba(255,255,255,.93); color:#182848;      /* currentColor → brand navy, on a clean chip so the true logo colors show */
+  box-shadow:0 8px 22px -10px rgba(3,1,15,.55);
+  opacity:.85; transition:opacity .25s, transform .25s; text-decoration:none;
 }
-.wm:hover{opacity:1; border-color:var(--teal-deep); transform:translateY(-1px)}
+.wm:hover{opacity:1; transform:translateY(-1px)}
 .wm svg{height:15px; width:auto; display:block}
 /* stays visible over the fullscreen deck (tucked into the empty bottom-left) */
-html.present .wm{z-index:230; right:auto; left:18px; bottom:14px; opacity:.4}
-html.present .wm:hover{opacity:.9}
+html.present .wm{z-index:230; right:auto; left:18px; bottom:14px; opacity:.7}
+html.present .wm:hover{opacity:1}
 /* walkthrough bottom-bar owns that corner; print doesn't need it */
 html.wt .wm{display:none}
 @media print{.wm{display:none}}
