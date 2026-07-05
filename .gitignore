@@ -5,3 +5,10 @@
 guides/
 syllabi/
 *.BACKUP.html
+daybook/
+daybook-origin.git/
+
+# skills-pack/ IS published in this repo (the attendee skills pack). Re-include it —
+# its many .md files (SKILL.md, README.md, reference docs) would otherwise be caught by *.md above.
+!skills-pack/**/*.md
+!skills-pack/README.md
