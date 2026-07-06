@@ -975,7 +975,7 @@ html.wt .wm{display:none}
               <span class="sp" data-sp="edges"><b>④</b>The edges</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos">1 / 11</span>
+              <span class="hud-pos">1 / 9</span>
               <span class="deck-clock">00:00</span>
               <span class="deck-tgt"></span>
               <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -1087,43 +1087,11 @@ html.wt .wm{display:none}
                 <p class="say">"One correction before the proof, so the intern picture from Part 1 doesn't mislead you. The intern was about the setup. The mind is a different story: an AI is not a person, and it doesn't draw conclusions the way a human brain does. A teammate fills the gaps in your request with what you meant. The model fills them with what's statistically likely. Those are different operations."</p>
                 <p class="say">"Three laws, keep them in your pocket. What it doesn't know — it doesn't know; it won't go find out on its own. What you don't tell it to do — maybe it happens, maybe it doesn't. What you don't tell it how to do — that it will do, guaranteed. Its way, not yours. The planted mistake in a few minutes is law three in action."</p>
                 <p class="do"><b>watch</b> Spoon-feed means intent and context, not padding — Part 4's deletion test cuts lines the model already follows. The rule: everything you care about, said explicitly; nothing it already does.</p>
-                <p class="nxt">next ▸ ② the proof · the slice contract</p>
-              </div>
-            </div>
-
-            <!-- 5 · THE PROOF -->
-            <div class="beat" data-code="② The proof" data-spine="proof" data-mins="15">
-              <h3>One vertical slice, <em>no editor</em></h3>
-              <div class="tree"><span class="hl">save button</span>   the UI piece
-<span class="hl">endpoint</span>      POST /records on the reference app
-<span class="hl">persistence</span>   it survives a refresh
-<span class="hl">test</span>          proves the round-trip</div>
-              <p class="b-sub" style="margin-top:18px">Built entirely by steering the agent with prose — this slide holds the contract for the slice.</p>
-              <div class="beat-notes">
-                <div class="bn-l">Talk track</div>
-                <p class="say">"Every room has the 'sure, but not on real code' objection. The answer is one vertical slice: a save button, an endpoint, persistence, a test that proves the round-trip — built by steering the agent with prose, never an editor."</p>
-                <p class="say">"Someone always asks about sharing records while I'm in there. The answer is <em>no sharing yet</em> — on purpose. That debt comes due in Part 8, and I say so out loud."</p>
-                <p class="do"><b>do</b> If you go live: the deck waits while you switch to the terminal — narrate intent before each turn, then let the room read the diff. Otherwise this slide plus the next beat's trace tell the whole story.</p>
-                <p class="nxt">next ▸ ② the proof · the planted mistake</p>
-              </div>
-            </div>
-
-            <!-- 6 · PLANTED MISTAKE -->
-            <div class="beat" data-code="② The proof · planted mistake" data-spine="proof" data-mins="5">
-              <h3>I under-specify <em>on purpose</em></h3>
-              <button class="present-btn" data-trace="traceP2" style="margin-top:6px; font-size:13px; padding:11px 18px">Watch the loop converge →</button>
-              <div class="trace" id="traceP2" style="margin-top:14px"><div class="tl">agent · after the red test comes back</div><span class="echo">Test failed: <mark>expected 201, route returned 404</mark> — the new route was never registered. Registering it in src/api/index.ts, re-running the suite… green. The round-trip passes.</span></div>
-              <p class="b-sub" style="margin-top:16px">The agent guessed wrong because I let it. The test went red, I fed the failure back, and the loop converged — no hand-fixing anywhere.</p>
-              <div class="beat-notes">
-                <div class="bn-l">Talk track · the most useful minutes</div>
-                <p class="say">"These are the most useful minutes of the block. I under-specify on purpose, the agent guesses wrong, and the test goes red in front of everyone. Then I paste the failure back — verbatim, no editorializing — and the next turn fixes it."</p>
-                <p class="say">"The red test did the steering, not me. That's the loop earning its keep."</p>
-                <p class="do"><b>do</b> The trace on this slide carries the whole beat; running it live in the terminal is optional.</p>
                 <p class="nxt">next ▸ ③ day to day · do's and don'ts</p>
               </div>
             </div>
 
-            <!-- 7 · DO'S AND DON'TS -->
+            <!-- 5 · DO'S AND DON'TS -->
             <div class="beat" data-code="③ Day to day" data-spine="day" data-mins="4">
               <h3>Five do's, five don'ts</h3>
               <div class="invo">
@@ -1151,7 +1119,7 @@ html.wt .wm{display:none}
               </div>
             </div>
 
-            <!-- 8 · THE DUMB ZONE -->
+            <!-- 6 · THE DUMB ZONE -->
             <div class="beat" data-code="③ Day to day · the dumb zone" data-spine="day" data-mins="4">
               <h3>The dumb zone — a <em>slope</em>, not a cliff</h3>
               <div class="rounds">
@@ -1172,7 +1140,7 @@ html.wt .wm{display:none}
               </div>
             </div>
 
-            <!-- 9 · THE EDGES -->
+            <!-- 7 · THE EDGES -->
             <div class="beat" data-code="④ The edges" data-spine="edges" data-mins="4">
               <h3>When the loop is the <em>wrong</em> tool</h3>
               <div class="nots">
@@ -1189,7 +1157,7 @@ html.wt .wm{display:none}
               </div>
             </div>
 
-            <!-- 10 · LAND IT -->
+            <!-- 8 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
               <h3>It works — and every task starts with the <em>same paragraph</em></h3>
               <p class="b-big">"What this project is. Where the utils live. How to run it." Again.</p>
