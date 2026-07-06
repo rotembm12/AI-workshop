@@ -609,6 +609,17 @@ html.present .sg-key div{font-size:14px}
 .rule3{display:flex; align-items:center; gap:28px; margin-top:8px; flex-wrap:wrap}
 .r3-count{font-family:var(--serif); font-weight:800; font-size:clamp(3rem,9vw,6.5rem); color:var(--coral); line-height:1}
 
+/* skills pack grid (part 4 · the pack) */
+.packgrid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:6px; max-width:1060px}
+.pg-col{border:2px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:14px 16px}
+.pg-col h4{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px}
+.pg-col.pipe h4{color:var(--coral)}
+.pg-col ul{list-style:none; display:grid; gap:6px}
+.pg-col li{font-family:var(--mono); font-size:.8rem; color:var(--ink-dim); line-height:1.4}
+.pg-col li.star{color:var(--teal); font-weight:600}
+.pg-install{font-family:var(--mono); font-size:.84rem; color:var(--sand); background:var(--surface-2); border:2px solid var(--line); border-radius:var(--rad-sm); padding:11px 16px; display:inline-block; margin-top:16px}
+@media (max-width:860px){ .packgrid{grid-template-columns:1fr 1fr} }
+
 /* context-bloat meter (Part 6) */
 .bloat{margin-top:6px; max-width:780px}
 .bloat-chips{display:flex; flex-wrap:wrap; gap:8px}
@@ -1437,7 +1448,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           </div></div>
 
           <p>The context problem is solved and a new friction arrives on schedule: the <em>tasks</em> repeat. "Create a new endpoint in this structure, with these dependencies." "Write the docs for this, in this shape, with this context." You catch yourself pasting the same prompt with the same preamble for the third time — and the third time is the signal. A <strong>skill</strong> packages that move once, in the repo, so the agent carries it from then on.</p>
-          <p>The flagship worked example: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app.</p>
+          <p>The flagship worked example: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app. And the part lands on the skills pack from the setup checklist — fourteen installed skills, looped through as worked examples of the same four questions.</p>
           <button class="reh-toggle" id="rehToggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
@@ -1453,7 +1464,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               <span class="sp" data-sp="pruning"><b>④</b>Pruning</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos" id="beatPos">1 / 11</span>
+              <span class="hud-pos" id="beatPos">1 / 13</span>
               <span class="deck-clock" id="beatClock">00:00</span>
               <span class="deck-tgt" id="beatTgt"></span>
               <button class="hud-note" id="notesToggle" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -1472,7 +1483,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"You'll all leave here with skills. The real question is whether they're any <em>good</em> — and most people can't tell. Here's the rubric, and we'll build one with it."</p>
-                <p class="do"><b>do</b> Press F for fullscreen. High energy — this is a 50-minute slot, the description beat is the one to protect.</p>
+                <p class="do"><b>do</b> Press F for fullscreen. High energy — this is a ~55-minute slot, the description beat is the one to protect.</p>
                 <p class="nxt">next ▸ what's a skill</p>
               </div>
             </div>
@@ -1573,7 +1584,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               <p class="b-sub" style="margin-top:16px"><strong>Our endpoint skill → model-invoked.</strong> We want the agent to reach for it automatically. So the description has to earn its keep.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Two famous libraries bet opposite ways. Superpowers is mostly model-invoked — flexible. Matt Pocock's are mostly user-invoked — he types the name, removing the risk the agent just doesn't fire it, which you'd otherwise have to eval away."</p>
+                <p class="say">"Public skill libraries bet opposite ways. Some go mostly model-invoked — flexible. Others go mostly user-invoked — you type the name, removing the risk the agent just doesn't fire it, which you'd otherwise have to eval away."</p>
                 <p class="say">"Rule: model-invoke only when the agent must reach it on its own. Every model-invoked skill taxes every request your whole team makes."</p>
                 <p class="do"><b>say</b> "To make one user-invoked instead: disable-model-invocation: true — the description leaves the agent's view."</p>
                 <p class="nxt">next ▸ ① trigger · the description (slow down)</p>
@@ -1674,7 +1685,7 @@ that earns this file its own home</span></div>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Two units: steps — the procedure — and reference — the facts it leans on. Make SKILL.md small; smaller is easier to audit and cheaper every run."</p>
-                <p class="say">"The test for every fact: does EVERY run need it? Matt's to-prd always writes a PRD, so its template stays inline. His domain-modeling only sometimes writes an ADR — so that template moves one file away, and SKILL.md keeps a single line pointing at it. That's the move: branch-only content goes behind a pointer."</p>
+                <p class="say">"The test for every fact: does EVERY run need it? A PRD skill always writes a PRD, so its template stays inline. A domain-modeling skill only sometimes writes an ADR — so that template moves one file away, and SKILL.md keeps a single line pointing at it. That's the move: branch-only content goes behind a pointer."</p>
                 <p class="say">"Same here: pagination only matters for list endpoints, so the conventions move to reference/ and step 4 links them. Watch the main file shrink to five clean steps."</p>
                 <p class="do"><b>do</b> Tab before → after → conventions. The shrink is the lesson.</p>
                 <p class="nxt">next ▸ ③ steering</p>
@@ -1731,16 +1742,102 @@ that earns this file its own home</span></div>
               </div>
             </div>
 
-            <!-- 11 · LAND IT -->
+            <!-- 11 · THE PACK -->
+            <div class="beat" data-code="The pack" data-mins="3">
+              <h3>You already <em>have</em> fourteen of them</h3>
+              <p class="b-sub">The skills pack from your setup checklist — installed before you walked in. Every one passes the four questions.</p>
+              <div class="packgrid">
+                <div class="pg-col pipe"><h4>The pipeline</h4><ul>
+                  <li>agent-ready</li><li>grilling</li><li>write-a-prd</li><li>gaps-report</li><li>prd-to-slices</li><li>code-review</li>
+                </ul></div>
+                <div class="pg-col"><h4>Building</h4><ul>
+                  <li>tdd</li><li>diagnosing-bugs</li><li>prototype</li>
+                </ul></div>
+                <div class="pg-col"><h4>Design</h4><ul>
+                  <li>codebase-design</li><li>domain-modeling</li><li>improve-codebase-architecture</li>
+                </ul></div>
+                <div class="pg-col"><h4>Meta</h4><ul>
+                  <li>handoff</li><li class="star">writing-great-skills ★</li>
+                </ul></div>
+              </div>
+              <span class="pg-install">npx skills@latest add rotembm12/AI-workshop</span>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Rule of three says most things shouldn't be a skill — and when the move IS worth it, often it's already written. That setup step you did before today? You installed fourteen skills. They've been on your machine all day."</p>
+                <p class="say">"Four groups. The pipeline column is the spine of this whole workshop — you'll run it end-to-end in Part 8. And the starred one: writing-great-skills. The rubric I just taught you ships as a skill — user-invoked, pure reference, discloses to a glossary. It practices everything it preaches."</p>
+                <p class="do"><b>do</b> Point at the star when you land the mic-drop line. Don't walk the columns one by one — the next beat does the looping.</p>
+                <p class="nxt">next ▸ the rubric, applied</p>
+              </div>
+            </div>
+
+            <!-- 12 · THE PACK · RUBRIC APPLIED -->
+            <div class="beat" data-code="The pack · rubric applied" data-mins="3">
+              <h3>Loop the four questions <em>over the pack</em></h3>
+              <div class="skillview" id="svPack">
+                <div class="sv-tabs">
+                  <button class="sv-tab on">① trigger</button>
+                  <button class="sv-tab">② structure</button>
+                  <button class="sv-tab">③ steering</button>
+                  <button class="sv-tab">④ pruning</button>
+                  <button class="sv-tab">＋ composition</button>
+                </div>
+                <div class="sv-pane on"><span class="k">diagnosing-bugs</span> · the description that fires
+
+description: Diagnosis loop for hard bugs and performance
+  regressions. Use when the user says <span class="ptr">"diagnose"/"debug
+  this"</span>, or reports something <span class="ptr">broken/throwing/failing/slow</span>.
+<span class="cmt">← real situations, real phrases — the words a stuck
+  developer actually types. Compare: "helps you fix bugs."</span></div>
+                <div class="sv-pane"><span class="k">prototype</span> · branch-only content behind pointers
+
+A prototype answers ONE question. The question picks the branch:
+  "Does this logic feel right?"   → <span class="ptr">LOGIC.md</span>  (terminal app)
+  "What should this look like?"   → <span class="ptr">UI.md</span>     (variants on a route)
+<span class="cmt">← SKILL.md inlines only what every run needs; each
+  branch loads its own file. A logic run never pays for UI rules.</span></div>
+                <div class="sv-pane"><span class="k">diagnosing-bugs</span> again · leading words
+
+Phase 1 is done when the loop is <span class="ptr">tight</span> and <span class="ptr">red-capable</span>:
+run it, watch it go <span class="ptr">red</span> on the bug — green once fixed.
+<span class="cmt">← "fast, deterministic, low-overhead" collapsed into one
+  word the model already knows. "red" turns a fuzzy gate into a
+  binary you can watch. Same skill, second question — no accident.</span></div>
+                <div class="sv-pane"><span class="k">grilling</span> · the whole skill
+
+  Interview me relentlessly about every aspect of this plan…
+  Ask the questions one at a time — multiple at once is bewildering.
+  If a question can be answered by exploring the codebase, explore
+  the codebase instead.
+<span class="cmt">← ten lines, total. Run the deletion test on any of
+  them — nothing falls. That's what pruned-to-done looks like.</span></div>
+                <div class="sv-pane"><span class="k">write-a-prd</span> · skills calling skills
+
+  3. Run the <span class="ptr">/grilling</span> skill — walk the design tree…
+  4. Sketch the modules — use the <span class="ptr">/codebase-design</span> vocabulary…
+  6. Exit check: run <span class="ptr">/gaps-report</span> on the saved file.
+     Loop until the report comes back empty.
+<span class="cmt">← small skills become subroutines for bigger ones.
+  This is the pipeline you'll watch run in Part 8.</span></div>
+              </div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Let's loop the rubric over the pack — one skill per question. Trigger: diagnosing-bugs lists the words a stuck developer actually types. Structure: prototype answers one question per run, so each branch lives behind its own pointer."</p>
+                <p class="say">"Steering: diagnosing-bugs again — 'tight', 'red'. One word each, and the agent's whole debugging behavior bends around them. Pruning: grilling is ten lines and the deletion test finds nothing. And the bonus tab: write-a-prd calls three other skills by name — skills compose, which is exactly where Part 8 picks up."</p>
+                <p class="do"><b>do</b> Tab through all five. Fast — ~30 seconds each. The point isn't any one skill, it's that the same four questions read ALL of them.</p>
+                <p class="nxt">next ▸ land it</p>
+              </div>
+            </div>
+
+            <!-- 13 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="4">
               <h3>Trigger · Structure · Steering · Pruning</h3>
-              <p class="b-sub">Same four questions work on any skill — including the dodgy ones you download.</p>
-              <p class="b-big" style="margin-top:18px">The rubric itself ships as a skill: <code>writing-great-skills</code>.</p>
+              <p class="b-sub">Same four questions work on any skill — the fourteen you already have, and the dodgy ones you download.</p>
+              <p class="b-big" style="margin-top:18px">Four questions. Fourteen worked examples. One skill of your own.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Recap: Trigger — model-invoked on purpose, a description that fires. Structure — steps + reference, conventions behind a pointer. Steering — a leading word the agent echoes. Pruning — deletion test, no no-ops."</p>
-                <p class="say">"Mic drop: this whole rubric is itself a skill — writing-great-skills. User-invoked, pure reference, discloses to a glossary. It practices everything it preaches."</p>
-                <p class="do"><b>handoff</b> "Back home, write ONE skill with skill-creator, then run these four over it. Pick by the rule of three."</p>
+                <p class="say">"You leave with fourteen worked examples of that rubric already installed. Read them like we just did — they're the study set."</p>
+                <p class="do"><b>handoff</b> "Back home, write ONE skill of your own with skill-creator, then run the four questions over it. Pick what to build by the rule of three."</p>
                 <p class="nxt">▸ on to Part 5 · the harness</p>
               </div>
             </div>
