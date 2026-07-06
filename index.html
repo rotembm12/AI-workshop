@@ -420,6 +420,18 @@ html.present .rounds .rnd{grid-template-columns:84px 1fr 140px; gap:20px}
 html.present .rounds .rn{font-size:clamp(.8rem,1.2vw,1rem)}
 html.present .rounds .bar{height:12px}
 html.present .rounds .rv{font-size:clamp(.85rem,1.3vw,1.08rem)}
+html.present .nots{max-width:960px}
+html.present .nots .not{font-size:clamp(.95rem,1.4vw,1.18rem)}
+html.present .nots .not b{font-size:clamp(.85rem,1.2vw,1.05rem)}
+html.present .nest{max-width:860px}
+html.present .nest-lab{font-size:clamp(.9rem,1.4vw,1.15rem)}
+html.present .nest-note{font-size:clamp(.82rem,1.1vw,1rem)}
+html.present .nest-pkg b{font-size:clamp(.85rem,1.2vw,1.05rem)}
+html.present .nest-pkg span{font-size:clamp(.78rem,1vw,.95rem)}
+html.present .beats{max-width:760px}
+html.present .beats-row b{font-size:clamp(.9rem,1.3vw,1.12rem)}
+html.present .beats-row span{font-size:clamp(.85rem,1.1vw,1rem)}
+html.present .beats-vs{font-size:clamp(.75rem,1vw,.92rem)}
 html.present .sg-r{gap:10px; margin-bottom:8px}
 html.present .sg-lab{width:66px; font-size:14px}
 html.present .sg-cells{grid-template-columns:repeat(3,minmax(84px,140px)); gap:8px}
@@ -450,6 +462,36 @@ html.present .sg-key div{font-size:14px}
 .rounds .rv{font-size:.82rem; color:var(--ink-dim); text-align:left}
 .rounds .rnd.last .bar i{background:var(--coral)}
 .rounds .rnd.last .rv{color:var(--coral); font-weight:600}
+
+/* nots — three places the loop is the wrong tool (single-row don'ts) */
+.nots{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:6px; max-width:900px}
+.nots .not{border:1px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; background:var(--surface-2); font-size:.92rem; color:var(--ink-dim); line-height:1.45}
+.nots .not b{display:block; font-family:var(--mono); color:var(--ink-faint); font-weight:600; margin-bottom:7px}
+.nots .not.hot{border-color:var(--coral); background:rgba(255,148,31,.07)}
+.nots .not.hot b{color:var(--coral)}
+
+/* nest — the onboarding file layers; the agent loads only the package it touches */
+.nest{margin-top:6px; max-width:720px}
+.nest-root{border:1px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; background:var(--surface-2)}
+.nest-lab{font-family:var(--mono); font-size:.9rem; color:var(--teal); font-weight:600}
+.nest-note{font-size:.82rem; color:var(--ink-faint); margin-top:3px; margin-bottom:14px}
+.nest-kids{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.nest-pkg{border:1px solid var(--line); border-radius:var(--rad-sm); padding:12px 14px; background:var(--deep)}
+.nest-pkg b{display:block; font-family:var(--mono); font-size:.85rem; color:var(--ink-dim)}
+.nest-pkg span{display:block; font-size:.78rem; margin-top:5px; color:var(--ink-faint)}
+.nest-pkg.on{border-color:var(--coral); background:rgba(255,148,31,.08)}
+.nest-pkg.on b{color:var(--coral)} .nest-pkg.on span{color:var(--coral-dim)}
+.nest-pkg.off{opacity:.5}
+
+/* beats — a copyable example beats a page of rules (vertical winner/loser) */
+.beats{margin-top:6px; max-width:660px; display:flex; flex-direction:column}
+.beats-row{border:1px solid var(--line); border-radius:var(--rad-sm); padding:14px 18px; background:var(--surface-2)}
+.beats-row b{font-family:var(--mono); font-size:.9rem; color:var(--ink-dim)}
+.beats-row span{display:block; font-size:.85rem; color:var(--ink-faint); margin-top:4px}
+.beats-row.weak{opacity:.6}
+.beats-row.win{border-color:var(--coral); background:rgba(255,148,31,.08)}
+.beats-row.win b{color:var(--coral)} .beats-row.win span{color:var(--coral-dim)}
+.beats-vs{font-family:var(--mono); font-size:.75rem; letter-spacing:.03em; color:var(--teal); text-align:center; padding:8px 0}
 
 /* anatomy tree */
 .tree{font-family:var(--mono); font-size:clamp(.85rem,1.4vw,1.05rem); line-height:1.95; color:var(--ink-dim); background:var(--surface-2); border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 22px; display:inline-block; text-align:left; white-space:pre}
@@ -1083,15 +1125,15 @@ html.wt .wm{display:none}
 
             <!-- 8 · THE DUMB ZONE -->
             <div class="beat" data-code="③ Day to day · the dumb zone" data-spine="day" data-mins="4">
-              <h3>The <em>dumb zone</em></h3>
-              <div class="ladder">
-                <div class="rung">quality decays as the context grows — a slope, not a cliff at the limit</div>
-                <div class="rung">it starts in the tens of thousands of tokens, not near the ceiling</div>
-                <div class="rung">the middle of a long context is where recall goes to die</div>
-                <div class="rung">junk speeds the slide — big pastes, error dumps, dead ends</div>
-                <div class="rung hot">the tell: it ignores early instructions, circles, redoes solved work</div>
+              <h3>The dumb zone — a <em>slope</em>, not a cliff</h3>
+              <div class="rounds">
+                <div class="rnd"><span class="rn">fresh</span><span class="bar"><i style="width:94%"></i></span><span class="rv">sharp</span></div>
+                <div class="rnd"><span class="rn">filling</span><span class="bar"><i style="width:72%"></i></span><span class="rv">slipping — starts here</span></div>
+                <div class="rnd"><span class="rn">deep</span><span class="bar"><i style="width:50%"></i></span><span class="rv">the middle fades</span></div>
+                <div class="rnd"><span class="rn">bloated</span><span class="bar"><i style="width:32%"></i></span><span class="rv">circling</span></div>
+                <div class="rnd last"><span class="rn">maxed</span><span class="bar"><i style="width:18%"></i></span><span class="rv">no floor, no cliff</span></div>
               </div>
-              <p class="b-sub" style="margin-top:16px">Finish the slice before the zone. When the circling starts: <strong>/clear or /compact</strong>, and hand a fresh session a short written summary.</p>
+              <p class="b-sub" style="margin-top:16px">As the context fills, quality just slides — no wall at the limit, and it starts in the low tens of thousands of tokens. Junk speeds it. Finish the slice before the zone; when the circling starts, <strong>/clear or /compact</strong> and hand a fresh session a short written summary.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"You'll hear a folk number — 'it gets dumb around 100k tokens.' The honest version is worse for our intuition: there is no wall. The degradation is continuous, it starts in the low tens of thousands of tokens, and it keeps sliding. Chroma measured 18 frontier models in 2025 and quality dropped at every step up in length — even on trivial retrieval, even on million-token windows."</p>
@@ -1105,15 +1147,16 @@ html.wt .wm{display:none}
             <!-- 9 · THE EDGES -->
             <div class="beat" data-code="④ The edges" data-spine="edges" data-mins="4">
               <h3>When the loop is the <em>wrong</em> tool</h3>
-              <div class="ladder">
-                <div class="rung">a one-character fix you can see — faster typed than described</div>
-                <div class="rung">can't verify the output and wrong is expensive — its confidence is worth nothing</div>
-                <div class="rung hot">circling for three turns — not a prompting problem, a context problem</div>
+              <div class="nots">
+                <div class="not"><b>✕ tiny &amp; visible</b>a one-character fix you can see — faster typed than described</div>
+                <div class="not"><b>✕ unverifiable</b>output you can't check when wrong is expensive — its confidence is worth nothing</div>
+                <div class="not hot"><b>✕ circling</b>three turns going nowhere — a context problem, not a prompting one</div>
               </div>
+              <p class="b-sub" style="margin-top:16px">The loop is the default, not a law. These three are when to drop it — and the last one is the door into Part 3.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"I'm honest about the edges because the skeptics in the back row are the ones I need. A one-character fix you can see is faster typed than described. And if you can't verify the output and the cost of being wrong is high, the agent's confidence is worth exactly nothing."</p>
-                <p class="say">"The bottom rung is the segue: an agent circling for three turns isn't bad prompting. It's missing context — and that's the next part."</p>
+                <p class="say">"The last card is the segue: an agent circling for three turns isn't bad prompting. It's missing context — and that's the next part."</p>
                 <p class="nxt">next ▸ land it · the itch</p>
               </div>
             </div>
@@ -1268,11 +1311,18 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 3b · IT LAYERS -->
             <div class="beat" data-code="① It layers" data-spine="onboard" data-mins="3">
-              <h3>One file — until the repo <em>outgrows</em> it</h3>
-              <div class="tree"><span class="f">CLAUDE.md</span>                 <span class="c">root — repo-wide rules, the territory map</span>
-<span class="f">packages/api/CLAUDE.md</span>    <span class="c">the API's stack, commands, conventions</span>
-<span class="f">packages/web/CLAUDE.md</span>    <span class="hl">loads only when the task goes there</span></div>
-              <p class="b-sub" style="margin-top:18px">The onboarding file isn't one file — it's a hierarchy. Root carries the repo-wide rules, each package carries its own, and the agent reads <strong>only what the task touches</strong>.</p>
+              <h3>It <em>layers</em> — load only what the task touches</h3>
+              <div class="nest">
+                <div class="nest-root">
+                  <div class="nest-lab">CLAUDE.md · root</div>
+                  <div class="nest-note">repo-wide rules · the territory map — always read</div>
+                  <div class="nest-kids">
+                    <div class="nest-pkg on"><b>packages/api/CLAUDE.md</b><span>the task is here → loaded</span></div>
+                    <div class="nest-pkg off"><b>packages/web/CLAUDE.md</b><span>untouched → skipped</span></div>
+                  </div>
+                </div>
+              </div>
+              <p class="b-sub" style="margin-top:18px">At scale the onboarding file becomes a hierarchy: root carries the repo-wide rules, each package carries its own, and the agent reads <strong>only what the task touches</strong>. The web team's conventions never tax an API task.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"In a monorepo, one root file has two ways to fail: it bloats into a manual covering every package, or it stays too generic to help anyone. So it layers — the root carries the repo-wide rules, each package carries its own, and the agent loads the local file only when it works there. The web team's conventions never tax an API task."</p>
@@ -1300,9 +1350,12 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
             <!-- 5 · OUR WAY -->
             <div class="beat" data-code="③ Our way" data-spine="ourway" data-mins="4">
               <h3>"Do it like that file" beats a page of rules</h3>
-              <div class="tree"><span class="f">docs/conventions.md</span>   short — the things you'd correct in code review
-<span class="hl">one golden-path file</span>  the worked example the agent pattern-matches against</div>
-              <p class="b-sub" style="margin-top:18px">Our <code>add-endpoint-our-way</code> reference is exactly this: one endpoint built the house way, sitting in the repo as the pattern to copy.</p>
+              <div class="beats">
+                <div class="beats-row weak"><b>docs/conventions.md</b><span>a short doc of rules — the model still fills the gaps its way</span></div>
+                <div class="beats-vs">denser · less ambiguous ▼</div>
+                <div class="beats-row win"><b>add-endpoint-our-way</b><span>one worked example in the repo — the "how" is pinned, not described</span></div>
+              </div>
+              <p class="b-sub" style="margin-top:18px">Write the short doc — but the power move is the golden-path file. Our <code>add-endpoint-our-way</code> reference is one endpoint built the house way, sitting in the repo as the pattern to copy.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"The patterns you'd correct in code review are precisely the ones the agent can't guess — your error envelope, your folder shape, your naming. Write the short doc. But the power move is leaving one golden-path example in the repo."</p>
