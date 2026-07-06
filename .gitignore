@@ -3,6 +3,7 @@
 # Only the genericized index.html is published.
 *.md
 syllabi/
+guides/
 *.BACKUP.html
 daybook/
 daybook-origin.git/
@@ -12,6 +13,3 @@ daybook-demos/
 # its many .md files (SKILL.md, README.md, reference docs) would otherwise be caught by *.md above.
 !skills-pack/**/*.md
 !skills-pack/README.md
-
-# guides/ is published too (facilitator guides) — re-include past the *.md rule above.
-!guides/**/*.md
