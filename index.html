@@ -2080,7 +2080,7 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Recap: tools are the verbs, hooks are your code around its moves, guardrails are the permission line, subagents are clean contexts on demand. The model talks; the harness does everything else."</p>
                 <p class="say">"One thread left hanging on purpose: the harness's toolbox is all the agent has. So what happens when the verb you need isn't in the box? That's the next part."</p>
-                <p class="nxt">▸ on to Part 6 · MCP</p>
+                <p class="nxt">▸ on to Part 6 · Reach</p>
               </div>
             </div>
 
@@ -2096,7 +2096,7 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
       <section class="section" data-step id="part6">
         <article class="card">
           <div class="sec-head"><span class="sec-no">PART 6</span></div>
-          <h2><span class="lead">Reach</span>MCP — Giving the Agent Hands and Eyes Outside the Repo</h2>
+          <h2><span class="lead">Reach</span>Giving the Agent Hands and Eyes Outside the Repo</h2>
 
           <div class="m4-launch">
             <button class="present-btn" id="presentM6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
@@ -2108,8 +2108,8 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
             <span class="sp" data-sp="cost"><b>④</b>Cost</span>
           </div></div>
 
-          <p>Part 5 left the room with a harness whose tools are all the agent has — and smart people didn't sit still with that. <strong>MCP</strong> is how you expand what an agent can do without building the ability from scratch for your specific harness: not new <em>knowledge</em> — that was Part 3's context and Part 4's skills — but new <em>capability</em>. A skill is a file you write; an MCP is a server you <em>connect</em>. Open a browser, generate an image or a video, query Snowflake or BigQuery, search your Sentry logs — thousands more, and the same server works in every harness that speaks the protocol.</p>
-          <p>The token economics matter and I say them plainly: the logic runs on the provider's side, so what enters your context is a tool call and its result — not the machinery behind it. The tax lives elsewhere: every connected server parks its tool definitions in the context window on every prompt. I add one (<code>context7</code>) — the deck carries the trace — then hold the honest line: install few.</p>
+          <p>Part 5 left the room with a harness whose tools are all the agent has — and this part is about growing that toolbox. But I refuse to open with a protocol, because the biggest source of new reach is already installed: the agent holds a <em>shell</em>, and every CLI on your machine is a verb it can call mid-loop — <code>gh</code> for the task board, <code>psql</code> for the real schema, <code>curl</code> for any API, <code>aws</code> or <code>kubectl</code> for your infra. No install, no configuration, and — the part everyone misses — <strong>zero context tax</strong>: nothing sits in the window until the moment it's used, and the agent already knows these tools from every README it trained on. The deck carries a trace of exactly that: the agent reaching for <code>gh</code> unprompted.</p>
+          <p>Only then does <strong>MCP</strong> enter, with an honest job description: the standard for capabilities <em>no CLI covers</em> — a live browser session, a design file, version-resolved docs — not new <em>knowledge</em> (that was Parts 3 and 4), but new verbs, running on the provider's side so only the call and its result enter your context. The tax lives elsewhere: every connected server parks its tool definitions in the window on every prompt. So the check order I drill is the whole lesson: need to <em>do</em> something? Check the shell first. No CLI fits? Now MCP earns its seat — and even then, install few.</p>
           <button class="reh-toggle" id="rehToggleM6"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
@@ -2140,10 +2140,10 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 6 · Reach" data-mins="1">
               <h3>Giving the agent <em>hands</em></h3>
-              <p class="b-sub">Two parts made the agent smarter about your repo. This one gives it a power it didn't have — eyes on a browser, a live database, the current docs. Not knowledge. <strong>Capability.</strong></p>
+              <p class="b-sub">Two parts made the agent smarter about your repo. This one gives it powers beyond it — the task board, a live database, a real browser. Not knowledge. <strong>Capability.</strong> And the first batch is already installed.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"You've taught the agent what your project is and how your team works. It's still blind to everything outside the repo. This part hands it a new sense — and names the cost that comes with it."</p>
+                <p class="say">"You've taught the agent what your project is and how your team works. It's still blind to everything outside the repo. This part hands it new senses — starting with the ones sitting on your machine all along — and names the cost that comes with the rest."</p>
                 <p class="do"><b>do</b> Press F for fullscreen. Thirty-minute slot — keep it moving; the one beat to protect is ④ Cost.</p>
                 <p class="nxt">next ▸ the gap · what it still can't do</p>
               </div>
@@ -2161,13 +2161,33 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"An agent starts every task cold, knowing only the repo — that was Part 3's whole point. So anything real that lives elsewhere is invisible to it: the browser, prod, the live docs. No prompt fixes that. It's not a knowledge gap, it's a reach gap."</p>
-                <p class="nxt">next ▸ ① a file you write vs a server you connect</p>
+                <p class="nxt">next ▸ ① the reach you already have</p>
               </div>
             </div>
 
-            <!-- 3 · KNOWLEDGE vs CAPABILITY -->
+            <!-- 3 · THE SHELL YOU ALREADY HAVE -->
+            <div class="beat" data-code="① Capability · the shell" data-spine="capability" data-mins="5">
+              <h3>The reach you <em>already</em> have</h3>
+              <p class="b-sub" style="margin-bottom:14px">Part 5 put a shell in the toolbox. That means every CLI on your machine is already an agent capability:</p>
+              <div class="tree"><span class="hl">gh</span>          issues + PRs — reads + moves <span class="f">your task board</span>
+<span class="hl">psql</span>        real schema + data — a true observation for the loop
+<span class="hl">curl</span>        any HTTP API on earth
+<span class="hl">aws · kubectl</span>  your actual infra</div>
+              <p class="b-sub" style="margin-top:18px">Zero install. Zero context tax — nothing loads until the moment it's used. And the agent already <strong>knows</strong> these tools: they're in every README it trained on, and <code>--help</code> is self-teaching.</p>
+              <button class="present-btn" data-trace="traceCli" style="margin-top:16px; font-size:13px; padding:11px 18px">Run the agent →</button>
+              <div class="trace" id="traceCli" style="margin-top:14px"><div class="tl">agent · reasoning trace</div><span class="echo">I need the open PRs to see what's in flight — I have a shell, and <mark>gh is right there</mark>… running <mark>gh pr list</mark>… three open, one failing CI. Reading that one first.</span></div>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track · the check that comes first</div>
+                <p class="say">"Before I show you anything new, look at what you already handed the agent in Part 5: a shell. Which means every CLI on your machine is a capability it can use mid-loop. GitHub, your database, any API, your infra — reachable today, nothing to install."</p>
+                <p class="say">"And it's free twice over. No context tax — a CLI takes zero space in the window until the turn that runs it. And no teaching — these tools are in every README the model trained on, and --help fills any gap. The agent knows gh better than most of your teammates do."</p>
+                <p class="do"><b>do</b> Click 'Run the agent' — the canned trace shows it reaching for gh unprompted. Nothing in this part runs live; the deck carries it.</p>
+                <p class="nxt">next ▸ ① a file you write vs a tool it can call</p>
+              </div>
+            </div>
+
+            <!-- 4 · KNOWLEDGE vs CAPABILITY -->
             <div class="beat" data-code="① Capability · the line" data-spine="capability" data-mins="5">
-              <h3>A file you write vs a server you <em>connect</em></h3>
+              <h3>A file you write vs a tool it can <em>call</em></h3>
               <div class="invo">
                 <div class="col user"><h4>Skill · Part 4</h4><ul>
                   <li><b>Knowledge</b> — a markdown file</li>
@@ -2175,54 +2195,36 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
                   <li>Shapes behavior it could already do</li>
                   <li>Can't grant a new power</li>
                 </ul></div>
-                <div class="col model"><h4>MCP · Part 6</h4><ul>
-                  <li><b>Capability</b> — a server you connect</li>
-                  <li>Adds verbs it can call mid-loop</li>
+                <div class="col model"><h4>Reach · Part 6</h4><ul>
+                  <li><b>Capability</b> — a verb it can call mid-loop</li>
+                  <li>A CLI it already has — or a server you connect</li>
                   <li>Reaches systems outside the repo</li>
                   <li>Can't teach your review checklist</li>
                 </ul></div>
               </div>
-              <p class="b-sub" style="margin-top:16px">Different axes. A skill will never give the agent eyes on a browser; an MCP will never teach it how your team reviews a PR.</p>
+              <p class="b-sub" style="margin-top:16px">Different axes. A skill will never give the agent eyes on a browser; a new tool will never teach it how your team reviews a PR.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track · the centerpiece</div>
-                <p class="say">"Hold this line or the two parts blur. A skill is knowledge — a file you write, teaching moves the agent could already make. An MCP is capability — a server you connect that gives it moves it couldn't make at all."</p>
-                <p class="say">"The test in one breath: does the agent need to <em>know</em> something, or be <em>able</em> to do something? Knowledge → a skill or CLAUDE.md. A new ability → an MCP."</p>
+                <p class="say">"Hold this line or the parts blur. A skill is knowledge — a file you write, teaching moves the agent could already make. Reach is capability — a verb it couldn't call at all, whether that's a CLI sitting on your machine or a server you connect."</p>
+                <p class="say">"The test in one breath: does the agent need to <em>know</em> something, or be <em>able</em> to do something? Knowledge → a skill or CLAUDE.md. A new ability → a tool. And you just saw the cheapest kind of tool — the CLI check always runs first."</p>
                 <p class="do"><b>watch</b> Don't spend the punchline here — Part 7 closes on "you can't skill your way to a browser." Plant the distinction and move.</p>
-                <p class="nxt">next ▸ ② what MCP actually is</p>
+                <p class="nxt">next ▸ ② MCP — for what a CLI can't do</p>
               </div>
             </div>
 
-            <!-- 4 · WHAT MCP IS -->
+            <!-- 5 · WHAT MCP IS -->
             <div class="beat" data-code="② Connect" data-spine="connect" data-mins="4">
-              <h3>A standard way to hand the agent <em>tools</em></h3>
-              <p class="b-sub" style="margin-bottom:14px">Connect a server once; the agent gains new verbs it can call mid-loop:</p>
-              <div class="tree"><span class="hl">context7</span>    → <span class="c">fetch_docs(library)</span>
-<span class="hl">playwright</span>  → <span class="c">open() · click() · screenshot()</span>
-<span class="hl">github</span>      → <span class="c">create_issue() · list_prs()</span>
-<span class="hl">postgres</span>    → <span class="c">query(sql)</span></div>
+              <h3>MCP — for what a CLI <em>can't</em> do</h3>
+              <p class="b-sub" style="margin-bottom:14px">Some reach has no command-line shape — a live browser session, a design file, docs matched to your exact version. That's what MCP is for: connect a server once, the agent gains the verbs:</p>
+              <div class="tree"><span class="hl">playwright</span>  → <span class="c">open() · click() · screenshot()</span>
+<span class="hl">figma</span>       → <span class="c">get_design(file)</span>
+<span class="hl">context7</span>    → <span class="c">fetch_docs(library, version)</span>
+<span class="hl">sentry</span>      → <span class="c">search_errors(query)</span></div>
               <p class="b-sub" style="margin-top:18px">It's an <strong>open standard</strong> — the same server works in Claude Code, Cursor, and Codex. The agent doesn't <em>learn</em> to browse; it <em>gains</em> a browser.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"MCP — Model Context Protocol. Strip the ceremony: a standard way to give the agent tools it can call in the middle of a loop. A server knows how to drive a browser or query Postgres; you connect it; the agent gains those actions."</p>
-                <p class="say">"Not a Claude thing — an open standard, so one server works across tools. The agent doesn't <em>learn</em> to browse. It <em>gains</em> a browser."</p>
-                <p class="nxt">next ▸ ② add one — one command</p>
-              </div>
-            </div>
-
-            <!-- 5 · ADD ONE — ONE COMMAND -->
-            <div class="beat" data-code="② Connect · one command" data-spine="connect" data-mins="5">
-              <h3><code>context7</code> — the cheapest win</h3>
-              <div class="tree">$ claude mcp add context7 -- npx -y @upstash/context7-mcp@latest
-
-<span class="c">before</span>  "use the latest &lt;lib&gt; API"  → invents a method → loop goes <span class="hl">red</span>
-<span class="c">after</span>   same prompt → reads the <span class="f">current</span> docs → it compiles</div>
-              <button class="present-btn" data-trace="traceMcp" style="margin-top:16px; font-size:13px; padding:11px 18px">Run the agent →</button>
-              <div class="trace" id="traceMcp" style="margin-top:14px"><div class="tl">agent · reasoning trace</div><span class="echo">User wants the latest API — I'll <mark>call context7</mark> for the current docs instead of guessing… writing the signature it returned. No invented method names.</span></div>
-              <div class="beat-notes">
-                <div class="bn-l">Talk track</div>
-                <p class="say">"One command. No account, no service — that's why context7 is the one I show. The command is on the slide; back home you run it once and rerun the same kind of loop from Part 2."</p>
-                <p class="say">"Before: it guesses an API and the loop goes red on a method that doesn't exist. After: it fetches the real docs and writes code that compiles. New reach turning straight into a real observation."</p>
-                <p class="do"><b>do</b> Click 'Run the agent' — the canned trace echoes the tool call. Nothing in this part runs live; the deck carries it. If a real agent doesn't reach for a tool, the task didn't need it — that's fine too.</p>
+                <p class="say">"MCP — Model Context Protocol. Strip the ceremony: a standard way to hand the agent tools it can call in the middle of a loop, for the reach the shell doesn't cover. There is no CLI that <em>is</em> a browser session, none that reads a Figma file. A server knows how; you connect it; the agent gains those actions."</p>
+                <p class="say">"Not a Claude thing — an open standard, so one server works across tools. And keep the order straight: you arrive here <em>after</em> the CLI check fails, not instead of it. The agent doesn't <em>learn</em> to browse. It <em>gains</em> a browser."</p>
                 <p class="nxt">next ▸ ③ the general-purpose few</p>
               </div>
             </div>
@@ -2230,16 +2232,15 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
             <!-- 6 · THE MENU -->
             <div class="beat" data-code="③ Curate" data-spine="curate" data-mins="4">
               <h3>Recognize them — don't install them all</h3>
-              <div class="tree"><span class="hl">context7</span>    live, version-correct docs — kills hallucinated APIs   ← today
+              <div class="tree"><span class="hl">context7</span>    live, <span class="f">version-correct</span> docs — kills hallucinated APIs
 <span class="hl">playwright</span>  a real browser — navigate, click, screenshot
-<span class="hl">github</span>      issues + PRs — reads + moves your task board
-<span class="hl">postgres</span>    real schema + data — a true observation for the loop
+<span class="hl">sentry</span>      search prod errors mid-loop — the truth from prod
 <span class="hl">figma</span>       a design file → code — straight from the file</div>
-              <p class="b-sub" style="margin-top:16px">You want <strong>two or three</strong> of these — chosen for what you're building — not all five.</p>
+              <p class="b-sub" style="margin-top:16px">Every row here already <strong>passed the CLI check</strong> — no command on your machine does these. And you still want <strong>two or three</strong>, chosen for what you're building — not all four.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"The ones I actually reach for. Browser for anything with a UI. Live docs so it stops hallucinating. GitHub so it reads and moves your task board. A database or Sentry when the truth lives in prod. Figma when you're building from a design."</p>
-                <p class="say">"But recognize, don't collect. Which two or three you wire depends on what you're building today — and that leads straight to the catch."</p>
+                <p class="say">"The ones I actually reach for — and notice what's <em>not</em> on this menu. No GitHub server, no Postgres server: gh and psql already do those jobs for free. Every row that survived is here because no CLI does it — a browser you can drive, docs matched to your version, prod errors you can search, a design file you can read."</p>
+                <p class="say">"If you wire one first, make it context7 — one command, no account, and it kills hallucinated APIs. But recognize, don't collect. Which two or three you wire depends on what you're building today — and that leads straight to the catch."</p>
                 <p class="nxt">next ▸ ④ the catch — every MCP has a cost</p>
               </div>
             </div>
@@ -2264,21 +2265,26 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <div class="beat-notes">
                 <div class="bn-l">Talk track · the keeper</div>
                 <p class="say">"The reflex walking out of here is to install all of them. That reflex is wrong. Every MCP's tool definitions sit in the context window for the whole session — not loaded on demand. Ten you 'might use' is a slower, more confused, pricier agent on every turn that needed none of them."</p>
+                <p class="say">"And look at two of those chips — github and postgres. You never needed them. gh and psql were already on your machine, at zero tax. That's the CLI check saving you twice: once on install, forever on context."</p>
                 <p class="say">"Two more honest ones. An MCP is third-party code running with your tokens and access — vet it like any dependency, be slow near prod and secrets. And a browser or a live DB doesn't suspend Part 2: you still steer, observe, verify. More reach just raises the cost of skipping that."</p>
-                <p class="do"><b>do</b> Click chips past three — watch the bar go coral. That's the whole lesson: curate.</p>
+                <p class="do"><b>do</b> Click chips past three — watch the bar go coral. Click github and postgres last and land the line: those two were free all along. That's the whole lesson: curate.</p>
                 <p class="nxt">next ▸ land it</p>
               </div>
             </div>
 
             <!-- 8 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="3">
-              <h3>Capability · Connect · Curate · Cost</h3>
-              <p class="b-sub"><strong>Capability?</strong> a power it lacks, not just knowledge · <strong>Connect?</strong> a server you trust · <strong>Curate?</strong> will you actually use it · <strong>Cost?</strong> does it earn its seat in the context window.</p>
-              <p class="b-big" style="margin-top:18px">If the agent just needs to <em>know</em> it — that's not an <code>MCP</code>.</p>
+              <h3>Know it? · Do it? · <em>Check the shell first.</em></h3>
+              <ul class="loop">
+                <li>Needs to <b>know</b> it → context or a skill — Parts 3 and 4</li>
+                <li>Needs to <b>do</b> it → check the shell — a CLI is capability at zero context tax</li>
+                <li>No CLI fits → <b>MCP</b> — and Connect, Curate, Cost still apply</li>
+              </ul>
+              <p class="b-big" style="margin-top:18px">The cheapest capability is a <code>CLI</code> you already have.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Recap as a rubric you keep. Capability — a power it lacks, or just something it needs to know? Connect — do you trust the server? Curate — will you really use it? Cost — does it earn its place in every prompt?"</p>
-                <p class="do"><b>handoff</b> "Back home, if you're fluent: wire an MCP for your own stack and prove it changed a loop. Everyone else — one is plenty."</p>
+                <p class="say">"The ladder you walk out with. Know it — that's context or a skill, not reach. Do it — shell first, because a CLI costs nothing and the agent already speaks it. Only when no CLI fits do you wire a server — and then the three checks from this part: do you trust it, will you use it, does it earn its seat in every prompt?"</p>
+                <p class="do"><b>handoff</b> "Back home, if you're fluent: run the ladder on your own stack — I bet half the servers you were about to install lose to a CLI. Wire the one that survives and prove it changed a loop. Everyone else — one is plenty."</p>
                 <p class="nxt">▸ on to Part 7 · Skills vs MCP</p>
               </div>
             </div>
@@ -2307,12 +2313,12 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
 
           <p>By this point the room has met both, and I stop to draw the line hard, because these two get mixed up on every team I've coached — someone writes a skill hoping the agent grows a new sense, or wires an MCP server hoping it teaches house style. Both fail, each in its own way, and the fix is one distinction. A <strong>skill is knowledge</strong>: markdown in your repo that teaches a move the agent could already make but makes wrong, or differently every time — your endpoint structure, your doc format, your review checklist. An <strong>MCP is capability</strong>: a server you connect that gives it verbs it didn't have at all — a browser, a warehouse, your prod logs. A skill will never give the agent eyes; an MCP will never give it taste.</p>
           <p>The costs differ the same way, and cost is where teams actually get burned. A skill is yours — plain text, versioned with the code, reviewed in a PR, and it costs context only when it fires. An MCP is someone else's code running with your access — you vet it like a dependency, and its tool definitions sit in every prompt whether today's task needs them or not. Cheap to write versus cheap to run; trust yourself versus trust a vendor.</p>
-          <p>The rule I leave them with fits in one breath: <strong>could the agent already do it, just badly? Write a skill. Can it not do it at all? Wire an MCP.</strong> And the two compose — the best skills orchestrate MCP tools: "check the error budget" is a skill that knows your thresholds and calls the Sentry server to read the truth.</p>
+          <p>The rule I leave them with fits in one breath: <strong>could the agent already do it, just badly? Write a skill. Can it not do it at all? Give it a tool — the CLI it already holds if one exists, an MCP if not.</strong> And the two compose — the best skills orchestrate tools: "check the error budget" is a skill that knows your thresholds and calls the Sentry server to read the truth.</p>
           <div class="sub-h">What I cover</div>
           <ul class="cover">
             <li>The two failure modes: a skill that hopes for a new sense, an MCP that hopes to teach taste</li>
             <li>Knowledge vs capability — where each one lives, what each one costs, who you trust</li>
-            <li>The one-breath rule: does it badly → skill · can't do it at all → MCP</li>
+            <li>The one-breath rule: does it badly → skill · can't do it at all → a tool: CLI first, MCP if none fits</li>
             <li>Composition: skills that orchestrate MCP tools</li>
           </ul>
           <button class="reh-toggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
@@ -2380,10 +2386,10 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
             <!-- 3 · THE RULE -->
             <div class="beat" data-code="② The rule" data-spine="rule" data-mins="2">
               <h3>The decision, in one breath</h3>
-              <p class="b-big">Could it already do it, just badly? <em>Write a skill.</em><br>Can it not do it at all? <em>Wire an MCP.</em></p>
+              <p class="b-big">Could it already do it, just badly? <em>Write a skill.</em><br>Can it not do it at all? <em>Give it a tool — CLI if one exists, MCP if not.</em></p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"If you keep one sentence from this part, it's this one. Badly → skill. Not at all → MCP. Say it before you build, and both failure modes disappear."</p>
+                <p class="say">"If you keep one sentence from this part, it's this one. Badly → skill. Not at all → a tool, and Part 6's ladder picks which kind: CLI if one exists, MCP if not. Say it before you build, and both failure modes disappear."</p>
                 <p class="say">"The costs split the same way — a skill is yours: plain text, versioned, PR-reviewed, costs context only when it fires. An MCP is a vendor's code with your access: vet it like a dependency, and its tool definitions tax every prompt. Cheap to write versus cheap to run; trust yourself versus trust a vendor. You watched that tax on Part 6's bloat bar."</p>
                 <p class="nxt">next ▸ ② and then they compose</p>
               </div>
@@ -2410,7 +2416,7 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <p class="b-big">You can't skill your way to a browser. You can't MCP your way to good taste.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Next time a teammate says 'let's write a skill for X' or 'let's add the Y server' — run the breath test first. Does it badly → skill. Not at all → MCP. And when the job needs both, compose them."</p>
+                <p class="say">"Next time a teammate says 'let's write a skill for X' or 'let's add the Y server' — run the breath test first. Does it badly → skill. Not at all → a tool, CLI before server. And when the job needs both, compose them."</p>
                 <p class="nxt">▸ on to Part 8 · the workflow</p>
               </div>
             </div>
@@ -2858,7 +2864,7 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
     {id:'part3', label:'3 · Agent-Ready',   blurb:'Stop re-typing the project orientation on every task — make the repo itself carry the context.',                  sectionIds:['part3']},
     {id:'part4', label:'4 · Skills',        blurb:'The same prompt for the third time is a skill — teach the agent your team’s moves, once.',                        sectionIds:['part4']},
     {id:'part5', label:'5 · The Harness',   blurb:'A model is text in, text out. Tools, hooks, subagents, and guardrails are what make it an agent.',                sectionIds:['part5']},
-    {id:'part6', label:'6 · Reach (MCP)',   blurb:'Plug in capabilities nobody builds from scratch — a browser, a warehouse, prod logs — with the logic running on the provider’s side.', sectionIds:['part6']},
+    {id:'part6', label:'6 · Reach (CLI + MCP)',   blurb:'Grow the agent’s reach — first the CLIs it already holds, then MCP for what no command covers: a browser, a design file, prod logs.', sectionIds:['part6']},
     {id:'part7', label:'7 · Skills vs MCP', blurb:'Knowledge vs capability — the one-breath decision rule for which one the job needs.',                             sectionIds:['part7']},
     {id:'part8', label:'8 · The Workflow',  blurb:'The full pipeline — grill, spec, verify, architect, slice, build — run end-to-end on one real feature.',          sectionIds:['part8']},
     {id:'part9', label:'9 · Autonomy',      blurb:'/goal, /loop, and routines — the wheel goes to a condition you can verify, a clock, or a cron.',                   sectionIds:['part9']}
