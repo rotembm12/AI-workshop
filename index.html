@@ -413,6 +413,8 @@ html.present .bcard .bdesc{font-size:clamp(.9rem,1.4vw,1.15rem)}
 html.present .bcard .verd li{font-size:clamp(.82rem,1.2vw,1rem)}
 html.present .ladder{max-width:760px}
 html.present .ladder .rung{font-size:clamp(1rem,1.7vw,1.35rem)}
+html.present .hoursbars{max-width:960px}
+html.present .hoursbars .seg{font-size:clamp(.85rem,1.4vw,1.1rem); padding:14px 16px}
 html.present .rounds{max-width:720px}
 html.present .rounds .rnd{grid-template-columns:84px 1fr 140px; gap:20px}
 html.present .rounds .rn{font-size:clamp(.8rem,1.2vw,1rem)}
@@ -449,6 +451,12 @@ html.present .sg-key div{font-size:14px}
 .ladder{display:flex; flex-direction:column; gap:9px; margin-top:6px; max-width:620px}
 .ladder .rung{font-family:var(--mono); font-size:1rem; padding:12px 18px; border:2px solid var(--line); border-radius:var(--rad-sm); color:var(--ink-faint)}
 .ladder .rung.hot{border-color:var(--coral); color:var(--coral); font-weight:600; background:rgba(255,148,31,.07)}
+
+.hoursbars{display:flex; flex-direction:column; gap:20px; margin-top:6px; max-width:840px}
+.hoursbars .hb-label{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px}
+.hoursbars .hb-bar{display:flex; gap:6px}
+.hoursbars .seg{border:2px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); color:var(--ink-dim); font-family:var(--mono); font-size:.78rem; line-height:1.35; padding:11px 12px; min-width:0}
+.hoursbars .seg.hot{border-color:var(--coral); color:var(--coral); font-weight:600; background:rgba(255,148,31,.07)}
 
 /* rounds — one-shots don't converge: every attempt stalls at the same last 20% */
 .rounds{display:flex; flex-direction:column; gap:8px; margin-top:6px; max-width:560px}
@@ -634,7 +642,7 @@ html.present .sg-key div{font-size:14px}
 .bloat-read b{color:var(--ink); font-weight:600}
 .bloat-read.over .br-pct,.bloat-read.over .br-say{color:var(--coral)}
 
-@media(max-width:720px){.descflip,.invo,.pasteflip,.blind{grid-template-columns:1fr}}
+@media(max-width:720px){.descflip,.invo,.pasteflip,.blind{grid-template-columns:1fr}.hoursbars .seg{font-size:.68rem;padding:8px 7px}}
 @media(max-width:980px){
   html.present .deck-stage{padding:2vh 5vw; inset:62px 0 60px}
   html.present .deck-arrow{width:46px; height:46px; font-size:20px}
@@ -940,7 +948,7 @@ html.wt .wm{display:none}
             <span class="sp" data-sp="edges"><b>④</b>The edges</span>
           </div></div>
 
-          <p>The first real step up from the chat window: put the agent <em>inside</em> the repo. Claude Code reads the files, edits them, runs commands, runs the tests — and that changes the shape of the work from a one-shot into a loop: <strong>plan → act → observe → verify → repeat.</strong> You state intent, it acts, something observable happens — a test passes or fails, an error prints, a diff appears — and that observation steers the next turn. Your job stops being "produce the code" and becomes designing the loop and judging each turn. I give the loss its minute too — the traditional way of writing code, you and an editor and every line yours, had a real romance to it, and steering an agent isn't that. I'd rather name it than sell past it: the typing is what left the job; the deciding and judging is what grew. And I put one correction on the table early: an AI is not a person and doesn't draw conclusions the way a human brain does — what it doesn't know it doesn't know, what you don't tell it to do it may skip, and what you don't tell it how to do it will absolutely do, its way. You feed it intent by the spoonful and treat it like the machine it is.</p>
+          <p>The first real step up from the chat window: put the agent <em>inside</em> the repo. Claude Code reads the files, edits them, runs commands, runs the tests — and that changes the shape of the work from a one-shot into a loop: <strong>plan → act → observe → verify → repeat.</strong> You state intent, it acts, something observable happens — a test passes or fails, an error prints, a diff appears — and that observation steers the next turn. Your job stops being "produce the code" and becomes designing the loop and judging each turn. I give the loss its minute too — the traditional way of writing code, you and an editor and every line yours, had a real romance to it, and steering an agent isn't that. I'd rather name it than sell past it: the typing is what left the job; the deciding and judging is what grew. The hours tell the same story — they don't shrink so much as move downstream of the output: understanding what came back, verifying it, correcting it, fine-tuning it. And I put one correction on the table early: an AI is not a person and doesn't draw conclusions the way a human brain does — what it doesn't know it doesn't know, what you don't tell it to do it may skip, and what you don't tell it how to do it will absolutely do, its way. You feed it intent by the spoonful and treat it like the machine it is.</p>
           <p>The proof is a build, not a claim — the answer to the "sure, but not on real code" objection. One vertical slice of the reference app — a save button, an API endpoint, persistence, a test that proves the round-trip — built entirely by steering the agent, no editor. The most useful minutes are the planted mistake: I under-specify on purpose, the agent guesses wrong, the test goes red, I feed the failure back, and the loop converges on its own instead of me fixing it by hand. Someone always asks about sharing records here; I say <em>no sharing yet</em>, on purpose — that debt comes due in Part 8.</p>
           <p>I'm honest about the edges, because the skeptics in the back row are the ones I need: a one-character fix you can see is faster typed than described. If you can't verify the output and the cost of wrong is high, the agent's confidence is worth nothing. And an agent circling for three turns isn't a prompting problem — it's a context problem. Sometimes the context is missing; sometimes it's just full — quality slides as a session grows, a slope rather than a cliff, so I finish the slice before the dumb zone and hand long work to a fresh session with a written summary. Which is exactly the friction this level leaves you with: it works, and every single task starts with you typing the same orientation paragraph again.</p>
           <div class="sub-h">What I cover</div>
@@ -967,7 +975,7 @@ html.wt .wm{display:none}
               <span class="sp" data-sp="edges"><b>④</b>The edges</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos">1 / 10</span>
+              <span class="hud-pos">1 / 11</span>
               <span class="deck-clock">00:00</span>
               <span class="deck-tgt"></span>
               <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -1029,6 +1037,38 @@ html.wt .wm{display:none}
                 <p class="say">"Some of that romance doesn't survive this shift, and I say so out loud instead of selling past it. But the typing was never the job. Deciding what to build, what done means, and what's good enough — that was the job, and that part grew."</p>
                 <p class="say">"So the sentence I care about today: you design the loop, and you judge every turn it takes. The KPI of this talk is that mindset shift, not a demo."</p>
                 <p class="do"><b>watch</b> Some people hear 'the agent replaces the typing' as a threat. Naming the loss first is what buys you the right to say: you were never paid for the typing.</p>
+                <p class="nxt">next ▸ ① the loop · where the hours go</p>
+              </div>
+            </div>
+
+            <!-- 3b · WHERE THE HOURS GO -->
+            <div class="beat" data-code="① The loop · the hours" data-spine="loop" data-mins="3">
+              <h3>Where the hours go now</h3>
+              <div class="hoursbars">
+                <div>
+                  <div class="hb-label">before</div>
+                  <div class="hb-bar">
+                    <div class="seg" style="flex:7">typing — building it by hand</div>
+                    <div class="seg" style="flex:2">review</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="hb-label">now</div>
+                  <div class="hb-bar">
+                    <div class="seg" style="flex:2">stating intent</div>
+                    <div class="seg" style="flex:3">understanding the output</div>
+                    <div class="seg hot" style="flex:3">verifying</div>
+                    <div class="seg" style="flex:2">correcting</div>
+                    <div class="seg" style="flex:2">fine-tuning</div>
+                  </div>
+                </div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">The typing collapsed — the day didn't get shorter. The hours refilled <strong>downstream</strong>, after the output exists.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"My typing time collapsed, but my days didn't get shorter. They refilled with reading code I didn't write — and that's a different muscle. First you work out what the agent actually did, then whether it's right, then you correct it, and then the small stuff: naming, edges, taste."</p>
+                <p class="say">"There are no numbers on these bars on purpose. I'm not claiming a percentage — I'm claiming a direction. We just said the typing was never the job; this is what fills its place. You're paid to disbelieve now."</p>
+                <p class="do"><b>watch</b> The orange block is the one people under-budget. Skimming an approval feels like verifying; it isn't. The 'five do's' beat picks this thread back up with the tenth-diff warning.</p>
                 <p class="nxt">next ▸ ① the loop · it's not a person</p>
               </div>
             </div>
