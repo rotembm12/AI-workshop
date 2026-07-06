@@ -1,6 +1,6 @@
 # Enpitech Agent Skills
 
-The workflow from our AI-first engineering workshop, as installable Claude Code skills: take a fuzzy feature sentence to merged code through grounded context, a PRD, vertical slices, and a two-axis review — with a clean-context check at every altitude.
+Our AI-first engineering workflow, as installable Claude Code skills: take a fuzzy feature sentence to merged code through grounded context, a PRD, vertical slices, and a two-axis review — with a clean-context check at every altitude.
 
 ## Install
 
@@ -8,7 +8,7 @@ The workflow from our AI-first engineering workshop, as installable Claude Code 
 npx skills@latest add rotembm12/AI-workshop
 ```
 
-Coming to the workshop? [SETUP.md](SETUP.md) is the five-minute pre-day checklist.
+Starting from zero? [SETUP.md](SETUP.md) is the five-minute checklist — Claude Code install through smoke test.
 
 Pick the skills you want when prompted. There is no setup step — every skill works with plain markdown files in your repo. No issue tracker, no auth, nothing to configure.
 

@@ -27,7 +27,7 @@ Look for the originating spec, in this order:
 1. A path the user passed as an argument.
 2. A slice file under `./slices/` matching the branch name or feature — take its `00-overview.md` and the parent PRD from `./prds/` along with it.
 3. Issue references in the commit messages (`#123`, `Closes #45`, etc.) — fetch via `gh issue view` if the team tracks work on GitHub.
-4. A PRD/spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
+4. A PRD/spec file under `./prds/`, `docs/`, or `specs/` matching the branch name or feature.
 5. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
 
 ### 3. Identify the standards sources

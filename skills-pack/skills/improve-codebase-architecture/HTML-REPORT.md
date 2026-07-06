@@ -60,7 +60,7 @@ Pick the pattern that fits the candidate. Mix them. Don't make every diagram loo
 
 ### Mermaid graph (the workhorse for dependencies / call flow)
 
-Use a Mermaid `flowchart` or `graph` when the point is "X calls Y calls Z, and look at the mess." Wrap it in a Tailwind-styled card so it doesn't feel parachuted in. Style with classDef to colour leakage edges red and the deep module dark. Sequence diagrams work well for "before: 6 round-trips; after: 1."
+Use a Mermaid `flowchart` or `graph` when the point is "X calls Y calls Z, and look at the mess." Wrap it in a Tailwind-styled card so it doesn't feel parachuted in. Style with linkStyle to colour leakage edges red and classDef to make the deep module dark (classDef/class only style nodes — edges need linkStyle, indexed in order of appearance). Sequence diagrams work well for "before: 6 round-trips; after: 1."
 
 ```html
 <div class="rounded-lg border border-slate-200 bg-white p-4">
@@ -69,8 +69,7 @@ Use a Mermaid `flowchart` or `graph` when the point is "X calls Y calls Z, and l
       A[OrderHandler] --> B[OrderValidator]
       B --> C[OrderRepo]
       C -.leak.-> D[PricingClient]
-      classDef leak stroke:#dc2626,stroke-width:2px;
-      class C,D leak
+      linkStyle 2 stroke:#dc2626,stroke-width:2px
   </pre>
 </div>
 ```

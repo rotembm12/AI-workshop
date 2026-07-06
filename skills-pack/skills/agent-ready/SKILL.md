@@ -42,4 +42,4 @@ With the user's approval, fix every fail:
 
 ### 4. Verify the fix
 
-Run the verification command. Then run the `/gaps-report` skill on the onboarding file — a cold reader who gets only that file should know how to start a change and how to check it. Done when all five checks pass and the gaps report comes back empty.
+Run the verification command. Then run the `/gaps-report` skill (it ships in this pack) on the onboarding file — a cold reader who gets only that file should know how to start a change and how to check it. Done when all five checks pass and the gaps report comes back empty.

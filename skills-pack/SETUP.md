@@ -1,7 +1,6 @@
-# Workshop setup — five minutes, before you arrive
+# Setup — five minutes
 
-You need two things working: **Claude Code** and this **skills pack**. Do this before the
-workshop day — the afternoon hands-on assumes it's done.
+You need two things working: **Claude Code** and this **skills pack**.
 
 ## 1 · Install Claude Code
 
@@ -14,11 +13,9 @@ claude
 # first run walks you through login — a Claude account (Pro/Max) or an API key both work
 ```
 
-If your team was given a shared key for the event, the organizers will send it separately.
-
 ## 2 · Install the skills pack
 
-From any terminal:
+From a terminal **inside the project you want the skills in** — the installer scopes skills to the project it's run from (add `-g` if you'd rather install them user-global):
 
 ```sh
 npx skills@latest add rotembm12/AI-workshop
@@ -36,8 +33,3 @@ claude
 ```
 
 Type `/grilling` — if it autocompletes, you're done. Ask it anything or `/exit`.
-
-## If something's broken
-
-Don't burn your evening on it. Come as you are — you'll pair with a neighbor for the
-hands-on (one working setup per pair is all it takes), and I'll be around at the breaks.

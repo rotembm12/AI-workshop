@@ -11,7 +11,7 @@ Break a PRD into independently-grabbable vertical slices (tracer bullets). Outpu
 
 ### 1. Locate the PRD
 
-The PRD should be in the conversation or in `./prds/`. If it's neither, ask the user to point you to it.
+The PRD should be in the conversation or in `./prds/`. If it's neither, ask the user to point you to it. If it lives only in the conversation, save it to `./prds/<feature-slug>.prd.md` before slicing — the overview and slice files link back to it.
 
 ### 2. Explore the codebase
 
@@ -36,7 +36,7 @@ Break the PRD into **tracer bullet** slices. Each slice is a thin vertical slice
 Slices may be 'HITL' or 'AFK'. HITL slices require human interaction, such as an architectural decision or a design review. AFK slices can be implemented and merged without human interaction. Prefer AFK over HITL where possible.
 
 <vertical-slice-rules>
-- Each slice delivers a narrow but COMPLETE path through every layer (schema, API, UI, tests)
+- Each slice delivers a narrow but COMPLETE path through every layer the codebase has (e.g. schema, API, UI, tests)
 - A completed slice is demoable or verifiable on its own
 - Prefer many thin slices over few thick ones
 - Do NOT include specific file names, function names, or implementation details that are likely to change as earlier slices are built
