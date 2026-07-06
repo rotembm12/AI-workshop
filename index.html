@@ -762,12 +762,12 @@ html.wt .wm{display:none}
       <header class="hero">
         <div class="kick">The Talk · Nine Parts</div>
         <h1>AI-First<br><em>Engineering</em></h1>
-        <p class="sub">This is the spine I speak from: nine parts in the order I tell them, each one born from the friction the one before it leaves behind — from vibe coding all the way to an agent that works while you don't watch. The live demos run on one small reference app throughout.</p>
+        <p class="sub">This is the spine I speak from: nine parts in the order I tell them, each one born from the friction the one before it leaves behind — from vibe coding all the way to an agent that works while you don't watch. Every example runs on one small reference app throughout.</p>
 
         <div class="flightcard">
           <div class="fc-top">
             <div class="fc-cell"><div class="l">Facilitator</div><div class="v">ENPITECH</div></div>
-            <div class="fc-cell"><div class="l">Mode</div><div class="v tl-c">TALK + LIVE DEMO</div></div>
+            <div class="fc-cell"><div class="l">Mode</div><div class="v tl-c">TALK + WORKED EXAMPLES</div></div>
             <div class="fc-cell"><div class="l">Primary tool</div><div class="v">CLAUDE CODE</div></div>
             <div class="fc-cell"><div class="l">House rule</div><div class="v co-c">NO IDE · ALL AI</div></div>
           </div>
@@ -794,12 +794,12 @@ html.wt .wm{display:none}
           </div></div>
 
           <p>I open with the thing everyone in the room has already done, because starting anywhere else is dishonest. You paste a request into a chat window, code comes back, you paste it in, it runs. It feels like the future — and for a weekend toy it genuinely is. That's vibe coding: you describe, it generates, and you ride the vibes instead of reading the code. I don't mock it. Vibe coding is how most of us got convinced this technology is real, and for greenfield throwaways it's still the right speed.</p>
-          <p>Then I bring it into a real repo and let the room watch it fall apart. The model doesn't know our project structure, so it invents one. It doesn't know our conventions, so it writes somebody else's. It can't run our tests, so "it works" means "it looked plausible." Every paste is a one-shot — no memory of the last attempt, no way to check itself — and the sixth round of "almost right" costs more than typing it yourself would have. The demo got 80% of the way there in five minutes; the last 20% eats the week.</p>
+          <p>Then the same trick meets a real repo, and it falls apart. The model doesn't know our project structure, so it invents one. It doesn't know our conventions, so it writes somebody else's. It can't run our tests, so "it works" means "it looked plausible." Every paste is a one-shot — no memory of the last attempt, no way to check itself — and the sixth round of "almost right" costs more than typing it yourself would have. The demo got 80% of the way there in five minutes; the last 20% eats the week.</p>
           <p>The point I land: the failure isn't the model, it's the setup. A brilliant intern working through a mail slot — no repo access, no way to run anything, no memory between letters — would fail exactly the same way. Fixing the setup is the rest of this talk.</p>
           <div class="sub-h">What I cover</div>
           <ul class="cover">
             <li>What vibe coding actually is — describe, generate, don't read — and where it legitimately wins</li>
-            <li>The live collapse: invented structure, foreign conventions, "works" without verification</li>
+            <li>The collapse: invented structure, foreign conventions, "works" without verification</li>
             <li>Why the last 20% eats the week — one-shots don't converge</li>
             <li>The reframe: the model isn't the bottleneck, the setup is</li>
           </ul>
@@ -869,9 +869,9 @@ html.wt .wm{display:none}
               </div>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Same trick, real repo, and I let the room watch it fall apart. It invents a project structure we don't have. It writes conventions from somebody else's codebase. And it calls the result done without ever running a thing."</p>
+                <p class="say">"Same trick, real repo, and it falls apart. It invents a project structure we don't have. It writes conventions from somebody else's codebase. And it calls the result done without ever running a thing."</p>
                 <p class="say">"The bottom rung is the killer: each paste starts from zero. It doesn't remember what went wrong two attempts ago, and it has no way to check its own work."</p>
-                <p class="do"><b>do</b> Run this live on the reference app if the demo gods allow — the slide is the fallback, not the plan.</p>
+                <p class="do"><b>do</b> The slide carries this on its own; a live run on the reference app is a bonus, never a commitment.</p>
                 <p class="nxt">next ▸ ② the collapse · what it costs</p>
               </div>
             </div>
@@ -947,20 +947,20 @@ html.wt .wm{display:none}
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="loop"><b>①</b>The loop</span>
-            <span class="sp" data-sp="proof"><b>②</b>Live proof</span>
+            <span class="sp" data-sp="proof"><b>②</b>The proof</span>
             <span class="sp" data-sp="day"><b>③</b>Day to day</span>
             <span class="sp" data-sp="edges"><b>④</b>The edges</span>
           </div></div>
 
-          <p>The first real step up from the chat window: put the agent <em>inside</em> the repo. Claude Code reads the files, edits them, runs commands, runs the tests — and that changes the shape of the work from a one-shot into a loop: <strong>plan → act → observe → verify → repeat.</strong> You state intent, it acts, something observable happens — a test passes or fails, an error prints, a diff appears — and that observation steers the next turn. Your job stops being "produce the code" and becomes designing the loop and judging each turn. I give the loss its minute too — the traditional way of writing code, you and an editor and every line yours, had a real romance to it, and steering an agent isn't that. I'd rather name it than sell past it: the typing is what left the job; the deciding and judging is what grew. And I put one correction on the table before any demo: an AI is not a person and doesn't draw conclusions the way a human brain does — what it doesn't know it doesn't know, what you don't tell it to do it may skip, and what you don't tell it how to do it will absolutely do, its way. You feed it intent by the spoonful and treat it like the machine it is.</p>
-          <p>I prove it live, because no slide kills the "not on real code" objection. One vertical slice of the reference app — a save button, an API endpoint, persistence, a test that proves the round-trip — built entirely by steering the agent, no editor. The most useful minutes are the planted mistake: I under-specify on purpose, the agent guesses wrong, the test goes red, I feed the failure back, and the room watches the loop converge instead of watching me fix it by hand. Someone always asks about sharing records while I'm in there; I say <em>no sharing yet</em>, on purpose — that debt comes due in Part 8.</p>
+          <p>The first real step up from the chat window: put the agent <em>inside</em> the repo. Claude Code reads the files, edits them, runs commands, runs the tests — and that changes the shape of the work from a one-shot into a loop: <strong>plan → act → observe → verify → repeat.</strong> You state intent, it acts, something observable happens — a test passes or fails, an error prints, a diff appears — and that observation steers the next turn. Your job stops being "produce the code" and becomes designing the loop and judging each turn. I give the loss its minute too — the traditional way of writing code, you and an editor and every line yours, had a real romance to it, and steering an agent isn't that. I'd rather name it than sell past it: the typing is what left the job; the deciding and judging is what grew. And I put one correction on the table early: an AI is not a person and doesn't draw conclusions the way a human brain does — what it doesn't know it doesn't know, what you don't tell it to do it may skip, and what you don't tell it how to do it will absolutely do, its way. You feed it intent by the spoonful and treat it like the machine it is.</p>
+          <p>The proof is a build, not a claim — the answer to the "sure, but not on real code" objection. One vertical slice of the reference app — a save button, an API endpoint, persistence, a test that proves the round-trip — built entirely by steering the agent, no editor. The most useful minutes are the planted mistake: I under-specify on purpose, the agent guesses wrong, the test goes red, I feed the failure back, and the loop converges on its own instead of me fixing it by hand. Someone always asks about sharing records here; I say <em>no sharing yet</em>, on purpose — that debt comes due in Part 8.</p>
           <p>I'm honest about the edges, because the skeptics in the back row are the ones I need: a one-character fix you can see is faster typed than described. If you can't verify the output and the cost of wrong is high, the agent's confidence is worth nothing. And an agent circling for three turns isn't a prompting problem — it's a context problem. Sometimes the context is missing; sometimes it's just full — quality slides as a session grows, a slope rather than a cliff, so I finish the slice before the dumb zone and hand long work to a fresh session with a written summary. Which is exactly the friction this level leaves you with: it works, and every single task starts with you typing the same orientation paragraph again.</p>
           <div class="sub-h">What I cover</div>
           <ul class="cover">
             <li>The agentic loop — plan → act → observe → verify — and why iteration plus verification beats one-shotting</li>
             <li>Not a person: what it doesn't know it doesn't know · what you don't say it may skip · what you don't specify it does its way</li>
             <li>Day to day: five do's and don'ts at the turn level, and the dumb zone — quality slides long before the window is full</li>
-            <li>The live proof: a tested vertical slice through prose alone, planted mistake and recovery included</li>
+            <li>The proof: a tested vertical slice through prose alone, planted mistake and recovery included</li>
             <li>Reading agent output critically — the test result is the truth, not the agent's confidence</li>
             <li>When the loop is the wrong tool, said plainly — and the repeated-context itch that sets up Part 3</li>
           </ul>
@@ -974,7 +974,7 @@ html.wt .wm{display:none}
             <span class="hud-code">—</span>
             <div class="hud-spine">
               <span class="sp" data-sp="loop"><b>①</b>The loop</span>
-              <span class="sp" data-sp="proof"><b>②</b>Live proof</span>
+              <span class="sp" data-sp="proof"><b>②</b>The proof</span>
               <span class="sp" data-sp="day"><b>③</b>Day to day</span>
               <span class="sp" data-sp="edges"><b>④</b>The edges</span>
             </div>
@@ -998,7 +998,7 @@ html.wt .wm{display:none}
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"The first real step up from the chat window is putting the agent inside the repo. Not smarter answers — access. It can finally see what's there and run what it wrote."</p>
-                <p class="do"><b>do</b> Press F for fullscreen. This block carries the biggest live demo before Part 8 — check the terminal is ready before you start talking.</p>
+                <p class="do"><b>do</b> Press F for fullscreen. The proof block runs off the slides on its own; only if you choose to go live, check the terminal before you start talking.</p>
                 <p class="nxt">next ▸ ① the loop</p>
               </div>
             </div>
@@ -1056,41 +1056,41 @@ html.wt .wm{display:none}
               <p class="b-sub" style="margin-top:16px">A human fills the gaps in a request with your intent. The model fills them with the most plausible guess. So spoon-feed the intent — treat it like a machine that happens to speak fluent English.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"One correction before the demo, so the intern picture from Part 1 doesn't mislead you. The intern was about the setup. The mind is a different story: an AI is not a person, and it doesn't draw conclusions the way a human brain does. A teammate fills the gaps in your request with what you meant. The model fills them with what's statistically likely. Those are different operations."</p>
-                <p class="say">"Three laws, keep them in your pocket. What it doesn't know — it doesn't know; it won't go find out on its own. What you don't tell it to do — maybe it happens, maybe it doesn't. What you don't tell it how to do — that it will do, guaranteed. Its way, not yours. The planted mistake in a few minutes is law three, live."</p>
+                <p class="say">"One correction before the proof, so the intern picture from Part 1 doesn't mislead you. The intern was about the setup. The mind is a different story: an AI is not a person, and it doesn't draw conclusions the way a human brain does. A teammate fills the gaps in your request with what you meant. The model fills them with what's statistically likely. Those are different operations."</p>
+                <p class="say">"Three laws, keep them in your pocket. What it doesn't know — it doesn't know; it won't go find out on its own. What you don't tell it to do — maybe it happens, maybe it doesn't. What you don't tell it how to do — that it will do, guaranteed. Its way, not yours. The planted mistake in a few minutes is law three in action."</p>
                 <p class="do"><b>watch</b> Spoon-feed means intent and context, not padding — Part 4's deletion test cuts lines the model already follows. The rule: everything you care about, said explicitly; nothing it already does.</p>
-                <p class="nxt">next ▸ ② live proof · the slice contract</p>
+                <p class="nxt">next ▸ ② the proof · the slice contract</p>
               </div>
             </div>
 
-            <!-- 5 · LIVE PROOF -->
-            <div class="beat" data-code="② Live proof" data-spine="proof" data-mins="15">
+            <!-- 5 · THE PROOF -->
+            <div class="beat" data-code="② The proof" data-spine="proof" data-mins="15">
               <h3>One vertical slice, <em>no editor</em></h3>
               <div class="tree"><span class="hl">save button</span>   the UI piece
 <span class="hl">endpoint</span>      POST /records on the reference app
 <span class="hl">persistence</span>   it survives a refresh
 <span class="hl">test</span>          proves the round-trip</div>
-              <p class="b-sub" style="margin-top:18px">Built entirely by steering the agent with prose. This slide stays up while I switch to the terminal.</p>
+              <p class="b-sub" style="margin-top:18px">Built entirely by steering the agent with prose — this slide holds the contract for the slice.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Every room has the 'sure, but not on real code' objection, and no slide kills it — so I stop talking and build. One vertical slice: a save button, an endpoint, persistence, a test that proves the round-trip. I never open an editor."</p>
+                <p class="say">"Every room has the 'sure, but not on real code' objection. The answer is one vertical slice: a save button, an endpoint, persistence, a test that proves the round-trip — built by steering the agent with prose, never an editor."</p>
                 <p class="say">"Someone always asks about sharing records while I'm in there. The answer is <em>no sharing yet</em> — on purpose. That debt comes due in Part 8, and I say so out loud."</p>
-                <p class="do"><b>do</b> Switch to the terminal here; the deck waits. Narrate intent before each turn, then shut up and let the room read the diff.</p>
-                <p class="nxt">next ▸ ② live proof · the planted mistake</p>
+                <p class="do"><b>do</b> If you go live: the deck waits while you switch to the terminal — narrate intent before each turn, then let the room read the diff. Otherwise this slide plus the next beat's trace tell the whole story.</p>
+                <p class="nxt">next ▸ ② the proof · the planted mistake</p>
               </div>
             </div>
 
             <!-- 6 · PLANTED MISTAKE -->
-            <div class="beat" data-code="② Live proof · planted mistake" data-spine="proof" data-mins="5">
+            <div class="beat" data-code="② The proof · planted mistake" data-spine="proof" data-mins="5">
               <h3>I under-specify <em>on purpose</em></h3>
               <button class="present-btn" data-trace="traceP2" style="margin-top:6px; font-size:13px; padding:11px 18px">Watch the loop converge →</button>
               <div class="trace" id="traceP2" style="margin-top:14px"><div class="tl">agent · after the red test comes back</div><span class="echo">Test failed: <mark>expected 201, route returned 404</mark> — the new route was never registered. Registering it in src/api/index.ts, re-running the suite… green. The round-trip passes.</span></div>
-              <p class="b-sub" style="margin-top:16px">The agent guessed wrong because I let it. The test went red, I fed the failure back, and the room watched the loop converge — instead of watching me fix it by hand.</p>
+              <p class="b-sub" style="margin-top:16px">The agent guessed wrong because I let it. The test went red, I fed the failure back, and the loop converged — no hand-fixing anywhere.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track · the most useful minutes</div>
                 <p class="say">"These are the most useful minutes of the block. I under-specify on purpose, the agent guesses wrong, and the test goes red in front of everyone. Then I paste the failure back — verbatim, no editorializing — and the next turn fixes it."</p>
                 <p class="say">"The red test did the steering, not me. That's the loop earning its keep."</p>
-                <p class="do"><b>do</b> This happens live in the terminal; the trace on this slide is the fallback if the demo gods say no.</p>
+                <p class="do"><b>do</b> The trace on this slide carries the whole beat; running it live in the terminal is optional.</p>
                 <p class="nxt">next ▸ ③ day to day · do's and don'ts</p>
               </div>
             </div>
@@ -1200,8 +1200,8 @@ html.wt .wm{display:none}
             <span class="sp" data-sp="map"><b>④</b>Map &amp; guard</span>
           </div></div>
 
-          <p>By now everyone has felt the itch from Part 2: every new task opens with the same recited paragraph — what this project is, where the utils live, which design system we use, how to run the thing. So I pull back the curtain on that live build. It didn't go smoothly because the agent is magic — it went smoothly because the repo was <em>set up</em> for it. An agent starts every task cold: it knows none of what your teammates absorbed by osmosis — where things live, how you run them, what "done" looks like, what it must never touch. An <strong>agent-ready repo</strong> writes that tacit knowledge down and puts verification one command away. So this is the upstream lesson for everything after it: a context-starved loop spins, and the cure is almost always here, in the repo, not in a cleverer prompt.</p>
-          <p>I teach it as four moves and do each one live on the reference app — showing <em>ours</em>, then how you'd add it to a repo that has none.</p>
+          <p>By now everyone has felt the itch from Part 2: every new task opens with the same recited paragraph — what this project is, where the utils live, which design system we use, how to run the thing. So I pull back the curtain on that Part 2 build. It didn't go smoothly because the agent is magic — it went smoothly because the repo was <em>set up</em> for it. An agent starts every task cold: it knows none of what your teammates absorbed by osmosis — where things live, how you run them, what "done" looks like, what it must never touch. An <strong>agent-ready repo</strong> writes that tacit knowledge down and puts verification one command away. So this is the upstream lesson for everything after it: a context-starved loop spins, and the cure is almost always here, in the repo, not in a cleverer prompt.</p>
+          <p>I teach it as four moves, each one grounded in the reference app — <em>ours</em> first, then how you'd add it to a repo that has none.</p>
 
           <ol class="steps">
             <li><span class="st">Give it an onboarding file — fix the cold start.</span>The single highest-leverage move: a root-level instructions file the agent reads on every task — what this project is, how to run it, how to verify it, where the conventions live, and the hard guardrails. In Claude Code that file is <code>CLAUDE.md</code> <span class="aside">(Cursor: <code>.cursor/rules/*.mdc</code> · Codex: <code>AGENTS.md</code> — same idea)</span>. Keep it short and true — a stale onboarding file is worse than none. And it layers: in a big repo or a monorepo, the root file carries the repo-wide rules and each package carries its own, so the agent reads only what the task touches.
@@ -1223,7 +1223,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           </ol>
 
           <p>One line I hold firm: this is the <em>passive</em> layer — the always-on context any agent reads cold. Packaging a repeated move into a reusable skill is the <em>active</em> layer, and that's Part 4 — don't conflate them. First we lay the ground the agent stands on; then we teach it your moves.</p>
-          <p>Then I make it real in ninety seconds: I add or extend the <code>CLAUDE.md</code> live, rerun the same kind of loop from Part 2, and let the room watch the difference good context makes — the agent stops guessing field names and starts following the house style.</p>
+          <p>Then the payoff, before and after: extend the <code>CLAUDE.md</code>, rerun the same kind of loop from Part 2, and the difference good context makes shows itself — the agent stops guessing field names and starts following the house style.</p>
 
           <div class="sub-h">What I cover</div>
           <ul class="cover">
@@ -1267,8 +1267,8 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Every new task, the same opening: what this project is, where the utils live, which design system, how to run the thing. You're the context. This part makes the repo the context."</p>
-                <p class="say">"And I'll pull back a curtain: the live build in Part 2 didn't go smoothly because the agent is magic. It went smoothly because the repo was set up for it. Today you see the setup."</p>
-                <p class="do"><b>do</b> Press F for fullscreen. Every move in this part gets shown live on the reference app — ours first, then how you'd add it to a repo that has none.</p>
+                <p class="say">"And I'll pull back a curtain: the build in Part 2 didn't go smoothly because the agent is magic. It went smoothly because the repo was set up for it. Today you see the setup."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. Every move in this part is grounded in the reference app — ours first, then how you'd add it to a repo that has none.</p>
                 <p class="nxt">next ▸ the cold start</p>
               </div>
             </div>
@@ -1304,7 +1304,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
                 <div class="bn-l">Talk track</div>
                 <p class="say">"The single highest-leverage move in this whole talk: a root-level instructions file the agent reads on every task. What this project is, how to run it, how to verify it, where the conventions live, and the hard guardrails."</p>
                 <p class="say">"In Claude Code that's CLAUDE.md. Cursor keeps it under .cursor/rules, Codex calls it AGENTS.md — same idea everywhere. And short-and-true beats long-and-stale, because the agent believes every word you wrote. Stale instructions are guessing with extra confidence."</p>
-                <p class="do"><b>do</b> Show ours on the reference app, then add one to a bare repo live — the shape on the slide, not a novel.</p>
+                <p class="do"><b>do</b> Ours on the reference app is the example — the shape on the slide, not a novel.</p>
                 <p class="nxt">next ▸ ① it layers</p>
               </div>
             </div>
@@ -1388,16 +1388,16 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               </div>
             </div>
 
-            <!-- 7 · LIVE PAYOFF -->
+            <!-- 7 · THE PAYOFF -->
             <div class="beat" data-code="Proof" data-mins="2">
               <h3>Same loop, <em>ready</em> repo</h3>
               <div class="tree"><span class="c">before</span>   guesses field names · invents a folder · somebody else's style
 <span class="c">after</span>    reads the onboarding file · <span class="f">follows the house style</span></div>
-              <p class="b-sub" style="margin-top:18px">I extend the <code>CLAUDE.md</code> live, rerun the same kind of loop from Part 2, and the room watches the difference good context makes.</p>
+              <p class="b-sub" style="margin-top:18px">Extend the <code>CLAUDE.md</code>, rerun the same kind of loop from Part 2, and the difference good context makes speaks for itself.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Ninety seconds of proof: I add two lines to the onboarding file, rerun the same kind of loop, and the agent stops guessing field names and starts following the house style. That contrast is this whole part in miniature."</p>
-                <p class="do"><b>do</b> Keep this tight — the slide is the fallback if the live run misbehaves.</p>
+                <p class="say">"The payoff: two lines in the onboarding file, the same kind of loop rerun, and the agent stops guessing field names and starts following the house style. That contrast is this whole part in miniature."</p>
+                <p class="do"><b>do</b> Keep this tight — the before/after on the slide lands it with or without a live run.</p>
                 <p class="nxt">next ▸ the line · passive vs active</p>
               </div>
             </div>
@@ -1468,7 +1468,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           </div></div>
 
           <p>The context problem is solved and a new friction arrives on schedule: the <em>tasks</em> repeat. "Create a new endpoint in this structure, with these dependencies." "Write the docs for this, in this shape, with this context." You catch yourself pasting the same prompt with the same preamble for the third time — and the third time is the signal. A <strong>skill</strong> packages that move once, in the repo, so the agent carries it from then on.</p>
-          <p>The flagship demo: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app.</p>
+          <p>The flagship worked example: draft a skill with <code>skill-creator</code>, then run the four-part checklist over it until it's <em>great</em>. My worked example is <code>add-endpoint-our-way</code> for the reference app.</p>
           <button class="reh-toggle" id="rehToggle"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
@@ -1499,7 +1499,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
             <!-- 1 · COVER -->
             <div class="beat active" data-code="Part 4 · Skills" data-mins="1">
               <h3>Building a <em>great</em> skill</h3>
-              <p class="b-sub">Not just a skill — a great one. Four questions tell them apart. We'll build one for the reference app, live.</p>
+              <p class="b-sub">Not just a skill — a great one. Four questions tell them apart. We'll build one for the reference app.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"You'll all leave here with skills. The real question is whether they're any <em>good</em> — and most people can't tell. Here's the rubric, and we'll build one with it."</p>
@@ -1577,12 +1577,12 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
                   <div class="moves"><div>Front-load the leading concept</div><div>List real triggers — situations &amp; phrases</div><div>Cut identity already in the body</div></div>
                 </div>
               </div>
-              <button class="present-btn" data-flip="descA" style="margin-top:16px; font-size:13px; padding:11px 18px">Rewrite it live →</button>
+              <button class="present-btn" data-flip="descA" style="margin-top:16px; font-size:13px; padding:11px 18px">Rewrite it →</button>
               <div class="beat-notes">
                 <div class="bn-l">Talk track · the centerpiece</div>
                 <p class="say">"Read the bad one like the agent does: 'helps you add API endpoints.' When does it fire? It doesn't say. It restates its own name. A skill that doesn't fire rots, unused."</p>
                 <p class="say">"Now watch me sharpen it. Front-load what it does. List the real trigger phrases people actually say. Cut anything already in the body — every word here costs context load on every turn. The description IS the product."</p>
-                <p class="do"><b>do</b> Click 'Rewrite it live'. Notice 'thin vertical slice' — the same words the workflow part (Part 8) leans on; shared words make it fire more reliably.</p>
+                <p class="do"><b>do</b> Click 'Rewrite it'. Notice 'thin vertical slice' — the same words the workflow part (Part 8) leans on; shared words make it fire more reliably.</p>
                 <p class="nxt">next ▸ ② structure</p>
               </div>
             </div>
@@ -1701,7 +1701,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"A working skill isn't a finished skill. The deletion test: take a line and ask — if I delete it, does the agent do worse? 'Write a clear commit message' — delete it, you still get a good one. That's a no-op. Pay tokens to say nothing? Delete it."</p>
                 <p class="say">"Three bloat sources: duplication (one fact, one place), sediment (everyone adds, nobody deletes), no-ops. The deletion test kills all three. That's the whole secret to small skills — not cleverness, deletion."</p>
-                <p class="do"><b>do</b> Click the three no-op lines live; watch the file shrink.</p>
+                <p class="do"><b>do</b> Click the three no-op lines; watch the file shrink.</p>
                 <p class="nxt">next ▸ when is it worth it?</p>
               </div>
             </div>
@@ -2007,7 +2007,7 @@ that earns this file its own home</span></div>
           </div></div>
 
           <p>Part 5 left the room with a harness whose tools are all the agent has — and smart people didn't sit still with that. <strong>MCP</strong> is how you expand what an agent can do without building the ability from scratch for your specific harness: not new <em>knowledge</em> — that was Part 3's context and Part 4's skills — but new <em>capability</em>. A skill is a file you write; an MCP is a server you <em>connect</em>. Open a browser, generate an image or a video, query Snowflake or BigQuery, search your Sentry logs — thousands more, and the same server works in every harness that speaks the protocol.</p>
-          <p>The token economics matter and I say them plainly: the logic runs on the provider's side, so what enters your context is a tool call and its result — not the machinery behind it. The tax lives elsewhere: every connected server parks its tool definitions in the context window on every prompt. I add one live (<code>context7</code>), then hold the honest line: install few.</p>
+          <p>The token economics matter and I say them plainly: the logic runs on the provider's side, so what enters your context is a tool call and its result — not the machinery behind it. The tax lives elsewhere: every connected server parks its tool definitions in the context window on every prompt. I add one (<code>context7</code>) — the deck carries the trace — then hold the honest line: install few.</p>
           <button class="reh-toggle" id="rehToggleM6"><span class="rt">Show rehearsal script — read every beat inline</span></button>
         </article>
 
@@ -2347,10 +2347,10 @@ that earns this file its own home</span></div>
             <span class="sp" data-sp="build"><b>⑥</b>Build</span>
           </div></div>
 
-          <p>Back in Part 2's live build I said it out loud: <em>no sharing yet</em>. This is where that deferral comes due. One fuzzy sentence — "let people share their records" — goes in; merged, reviewed, tested code comes out, and the room watches every stage in between. The disciplines are all behind us by now; this part chains them into one pipeline on the reference app — the flagship block of the talk.</p>
+          <p>Back in Part 2's build I said it out loud: <em>no sharing yet</em>. This is where that deferral comes due. One fuzzy sentence — "let people share their records" — goes in; merged, reviewed, tested code comes out, with every stage in between made visible. The disciplines are all behind us by now; this part chains them into one pipeline on the reference app — the flagship block of the talk.</p>
           <p>One idea carries the whole ninety minutes: <strong>produce in one context, verify in a clean one.</strong> The agent that argued the spec into shape is the worst judge of whether the spec is complete — it heard the argument, so it shares the blind spots. At every stage a fresh context that never saw the drafting checks the work: a gaps report on the PRD, a grilling pass on the architecture, a reviewer on the code. Nobody verifies their own homework, the AI included.</p>
           <p>The pipeline descends by altitude — WHY → WHAT → prove it → WHERE → HOW MUCH → DO. Grill until "share" means one specific thing. Write the spec <em>with</em> the agent. Hand it to a clean context and loop until the gaps report comes back empty. Let the agent propose where the change should live, and judge the candidates. Cut the spec into slices an agent can finish. Then build and review in separate contexts, and merge.</p>
-          <p>Delivery is follow-along: I drive the two divergent beats — the grilling and the architecture — and the room runs the crisp ones on their own machines. At every stage boundary a frozen checkpoint file drops and everyone re-syncs from it, so a wandering agent never strands anyone. The same files go home as the worked reference.</p>
+          <p>Delivery is follow-along: I take the two divergent beats — the grilling and the architecture — and the room runs the crisp ones on their own machines. At every stage boundary a frozen checkpoint file drops and everyone re-syncs from it, so a wandering agent never strands anyone. The same files go home as the worked reference.</p>
 
           <div class="caveat">
             <div class="caveat-h">The honest caveat — this is the heavy-feature pipeline</div>
@@ -2410,10 +2410,10 @@ that earns this file its own home</span></div>
 <span class="hl">build</span>      DO        <span class="c">one context builds · a second reviews</span></div>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"In the live build back in Part 2 I said it out loud: no sharing yet. That deferral comes due now — one fuzzy sentence to merged code, the whole pipeline."</p>
+                <p class="say">"In the build back in Part 2 I said it out loud: no sharing yet. That deferral comes due now — one fuzzy sentence to merged code, the whole pipeline."</p>
                 <p class="say">"Watch what happens at every step: a fresh agent checks the previous one's work. Nobody verifies their own homework, the AI included. That's the whole engine."</p>
                 <p class="say">"Honest line before we start: this is the heavy-feature pipeline. For a one-line fix, skip all of it and run the loop — using this on a rename is ceremony."</p>
-                <p class="do"><b>do</b> State the hackathon contract: I demo each stage on my reference app, then you run that same stage on your own project, right now — your hackathon feature is the exercise. I drive the slow beats; you run the crisp ones on your own repo.</p>
+                <p class="do"><b>do</b> State the hackathon contract: each stage is shown on my reference app, then you run that same stage on your own project, right now — your hackathon feature is the exercise. I take the slow beats; you run the crisp ones on your own repo.</p>
                 <p class="nxt">next ▸ ① grill · why</p>
               </div>
             </div>
@@ -2452,7 +2452,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Stories enumerate the real cases: 'as an owner I share a view-only link so a friend sees my plan without editing it.' 'As an owner I revoke a link so access ends.' A long list is the point — gesturing is how drift gets in."</p>
                 <p class="say">"And I pick the test seam before any code exists: the access decision — canView, canEdit. Highest seam, fewest seams; it doesn't exist yet, so we create exactly one. Every share story gets verified right there."</p>
-                <p class="do"><b>do</b> A five-minute synthesis live, not a form to fill. At the gate the room starts their own PRDs — each against their own grill transcript, not mine.</p>
+                <p class="do"><b>do</b> A five-minute synthesis, not a form to fill. At the gate the room starts their own PRDs — each against their own grill transcript, not mine.</p>
                 <p class="nxt">next ▸ ③ verify the plan</p>
               </div>
             </div>
@@ -2516,7 +2516,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"The diagram is the lesson. A slice is a column straight down through every layer — UI, API, the access policy from ④, data. Build 'the data layer' first and you get the dashed row: one whole layer, every feature, and nothing runs."</p>
                 <p class="say">"Slice 1 is the ugliest column that still round-trips — a raw, unstyled link, a test that a non-owner can view but not edit. Later slices add width, not depth. Engineers trained on tidy architecture resist that ugliness — that resistance is the thing to talk through."</p>
-                <p class="do"><b>watch</b> for horizontal slicers as the room cuts their own PRDs — point at the dashed row when it happens. In my demo, 2 and 3 are blocked by 1's token and policy.</p>
+                <p class="do"><b>watch</b> for horizontal slicers as the room cuts their own PRDs — point at the dashed row when it happens. In my example, 2 and 3 are blocked by 1's token and policy.</p>
                 <p class="nxt">next ▸ ⑥ build + review</p>
               </div>
             </div>
@@ -2532,7 +2532,7 @@ that earns this file its own home</span></div>
               <div class="beat-notes">
                 <div class="bn-l">Talk track · the punchline</div>
                 <p class="say">"The reviewer never saw the builder's rationalizations — and it catches that the shared-view endpoint renders an expired link, because the builder forgot to ask canView. That catch is the whole part's punchline. Land it."</p>
-                <p class="say">"In real life you fan slices 2 and 3 out AFK overnight and review them in the morning. Today we stay attended and watch the relay end to end."</p>
+                <p class="say">"In real life you fan slices 2 and 3 out AFK overnight and review them in the morning. Today we stay attended, with the relay visible end to end."</p>
                 <p class="do"><b>do</b> Their slice 1 is their next hour of hackathon — send them off with "build it with your agent, then /code-review before you merge." I merge my slice at the gate. If time is tight, drop the TDD aside — the relay is the lesson.</p>
                 <p class="nxt">next ▸ handoff</p>
               </div>
@@ -2969,7 +2969,7 @@ that earns this file its own home</span></div>
 
     function resetWidgets(){
       qq('.descflip').forEach(w=>w.classList.remove('revealed'));
-      qq('[data-flip]').forEach(b=>b.textContent=b.dataset.flipOff||'Rewrite it live →');
+      qq('[data-flip]').forEach(b=>b.textContent=b.dataset.flipOff||'Rewrite it →');
       qq('.trace').forEach(t=>t.classList.remove('run'));
       qq('.deltest').forEach(dt=>{ dt.querySelectorAll('.ln').forEach(l=>l.classList.remove('cut','kept')); const c=dt.querySelector('[data-count]'); if(c)c.textContent=dt.querySelectorAll('.ln').length; });
       qq('.bloat').forEach(b=>b._reset&&b._reset());
@@ -3031,7 +3031,7 @@ that earns this file its own home</span></div>
     qq('[data-flip]').forEach(btn=>btn.onclick=()=>{
       const w=document.getElementById(btn.dataset.flip); if(!w)return;
       const on=w.classList.toggle('revealed');
-      btn.textContent=on?(btn.dataset.flipOn||'↺ Show the bad one again'):(btn.dataset.flipOff||'Rewrite it live →');
+      btn.textContent=on?(btn.dataset.flipOn||'↺ Show the bad one again'):(btn.dataset.flipOff||'Rewrite it →');
     });
     qq('[data-trace]').forEach(btn=>btn.onclick=()=>{ const t=document.getElementById(btn.dataset.trace); if(t)t.classList.toggle('run'); });
     qq('.deltest').forEach(dt=>{
