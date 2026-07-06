@@ -12,26 +12,26 @@
 /* enpitech.dev — deep navy-purple base, electric-purple brand, warm-orange accent */
 :root{
   --abyss:#090715; --deep:#0f0a29; --surface:#161042; --surface-2:#1e1550;
-  --line:rgba(167,139,250,.15); --line-2:rgba(167,139,250,.07);
+  --line:rgba(167,139,250,.30); --line-2:rgba(167,139,250,.12);
   --ink:#ece8fb; --ink-dim:#a99fd4; --ink-faint:#8c85ad;
   --teal:#b98aed; --teal-deep:#6917c5; --teal-glow:rgba(142,45,226,.22);
   --coral:#ff941f; --coral-dim:#ffbe78;
   --sand:#f5b95c;
   --rad:16px; --rad-sm:10px;
   --maxw:880px;
-  --shadow:0 24px 60px -28px rgba(3,1,15,.75);
+  --shadow:0 16px 40px -24px rgba(3,1,15,.55);
   --serif:"Ubuntu",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --sans:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
 }
 html[data-theme="light"]{
   --abyss:#f4f1fb; --deep:#ebe6f8; --surface:#fffdff; --surface-2:#f2ecfc;
-  --line:rgba(74,0,224,.13); --line-2:rgba(74,0,224,.06);
+  --line:rgba(74,0,224,.24); --line-2:rgba(74,0,224,.10);
   --ink:#1b1147; --ink-dim:#544a7f; --ink-faint:#686184;
   --teal:#6d28d9; --teal-deep:#5b21b6; --teal-glow:rgba(109,40,217,.12);
   --coral:#ae4d0c; --coral-dim:#c2560f;
   --sand:#965909;
-  --shadow:0 18px 44px -30px rgba(60,40,120,.3);
+  --shadow:0 14px 36px -26px rgba(60,40,120,.28);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -58,7 +58,7 @@ a{color:inherit}
 /* ============ SIDEBAR ============ */
 .rail{
   position:sticky; top:0; height:100vh; overflow-y:auto; padding:26px 20px 40px;
-  border-right:1px solid var(--line); background:linear-gradient(180deg,var(--deep),var(--abyss));
+  border-right:2px solid var(--line); background:linear-gradient(180deg,var(--deep),var(--abyss));
   scrollbar-width:thin; scrollbar-color:var(--teal-deep) transparent;
 }
 .rail::-webkit-scrollbar{width:7px}
@@ -106,12 +106,12 @@ a{color:inherit}
 .topbar{
   position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:14px;
   padding:12px 30px; background:color-mix(in srgb, var(--abyss) 86%, transparent);
-  backdrop-filter:blur(14px); border-bottom:1px solid var(--line);
+  backdrop-filter:blur(14px); border-bottom:2px solid var(--line);
 }
 .tb-spacer{flex:1}
 .btn{
   font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-  padding:8px 13px; border:1px solid var(--line); border-radius:999px; background:transparent;
+  padding:8px 13px; border:2px solid var(--line); border-radius:999px; background:transparent;
   color:var(--ink-dim); cursor:pointer; transition:.2s; display:inline-flex; gap:7px; align-items:center; white-space:nowrap;
 }
 .btn:hover{border-color:var(--teal); color:var(--ink)}
@@ -128,7 +128,7 @@ a{color:inherit}
 .hero h1 em{font-style:italic; color:var(--teal); font-weight:400}
 .hero .sub{font-size:1.12rem; color:var(--ink-dim); margin-top:18px; max-width:60ch}
 .flightcard{
-  margin-top:26px; border:1px solid var(--line); border-radius:var(--rad); overflow:hidden;
+  margin-top:26px; border:2px solid var(--line); border-radius:var(--rad); overflow:hidden;
   background:linear-gradient(135deg,var(--surface),var(--deep)); box-shadow:var(--shadow);
 }
 .fc-top{display:flex; flex-wrap:wrap; gap:1px; background:var(--line)}
@@ -137,22 +137,20 @@ a{color:inherit}
 .fc-cell .v{font-family:var(--mono); font-size:14px; color:var(--ink); margin-top:4px; font-weight:500; letter-spacing:.02em}
 .fc-cell .v.tl-c{color:var(--teal)}
 .fc-cell .v.co-c{color:var(--coral)}
-.fc-strip{display:flex; align-items:center; gap:10px; padding:11px 16px; border-top:1px dashed var(--line); font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--ink-faint)}
-.fc-strip .perf{flex:1; border-bottom:1.5px dotted var(--line)}
 
 /* sections / cards */
 .section{margin-top:30px; scroll-margin-top:80px}
 .card{
-  border:1px solid var(--line); border-radius:var(--rad); background:var(--surface);
+  border:2px solid var(--line); border-radius:var(--rad); background:var(--surface);
   padding:30px 32px; position:relative; box-shadow:var(--shadow);
 }
 .card + .card{margin-top:22px}
 .sec-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px}
 .sec-no{font-family:var(--mono); font-size:12px; color:var(--coral); letter-spacing:.1em; font-weight:600}
-.sec-time{font-family:var(--mono); font-size:11px; color:var(--teal); letter-spacing:.06em; border:1px solid var(--line); border-radius:999px; padding:3px 9px}
+.sec-time{font-family:var(--mono); font-size:11px; color:var(--teal); letter-spacing:.06em; border:2px solid var(--line); border-radius:999px; padding:3px 9px}
 .card h2{font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem,3vw,2rem); line-height:1.12; letter-spacing:-.01em; color:var(--ink); margin:4px 0 2px}
 .card h2 .lead{display:block; font-size:.62em; color:var(--teal); font-weight:500; font-style:italic; margin-bottom:3px}
-.gauge{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:5px 11px; border-radius:999px; margin:14px 0 4px; border:1px solid var(--line)}
+.gauge{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:5px 11px; border-radius:999px; margin:14px 0 4px; border:2px solid var(--line)}
 .gauge i{width:8px; height:8px; border-radius:50%}
 .gauge.light i{background:var(--teal)} .gauge.light{color:var(--teal)}
 .gauge.medium i{background:var(--sand)} .gauge.medium{color:var(--sand)}
@@ -162,7 +160,7 @@ a{color:inherit}
 .card p strong, .card li strong{color:var(--ink); font-weight:600}
 .card em{color:var(--ink); font-style:italic}
 .card code{font-family:var(--mono); font-size:.86em; background:var(--surface-2); border:1px solid var(--line-2); padding:1.5px 6px; border-radius:6px; color:var(--teal); letter-spacing:-.01em}
-.obj{display:flex; gap:12px; padding:15px 18px; background:var(--surface-2); border-left:3px solid var(--teal); border-radius:var(--rad-sm); margin:16px 0}
+.obj{display:flex; gap:12px; padding:15px 18px; background:var(--surface-2); border-left:4px solid var(--teal); border-radius:var(--rad-sm); margin:16px 0}
 .obj .lab{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--teal); text-transform:uppercase; flex:0 0 auto; padding-top:3px}
 .obj p{margin:0; color:var(--ink)}
 
@@ -171,20 +169,20 @@ a{color:inherit}
 .cover{list-style:none; margin:8px 0}
 .cover li{position:relative; padding:7px 0 7px 26px; color:var(--ink-dim); border-bottom:1px solid var(--line-2)}
 .cover li:last-child{border-bottom:0}
-.cover li::before{content:""; position:absolute; left:4px; top:15px; width:7px; height:7px; border:1.5px solid var(--teal); transform:rotate(45deg)}
+.cover li::before{content:""; position:absolute; left:4px; top:15px; width:7px; height:7px; border:2px solid var(--teal); transform:rotate(45deg)}
 
-.note{margin:18px 0 4px; padding:16px 18px; border:1px dashed var(--line); border-radius:var(--rad-sm); background:linear-gradient(var(--surface-2),transparent)}
+.note{margin:18px 0 4px; padding:16px 18px; border:2px solid var(--line); border-radius:var(--rad-sm); background:linear-gradient(var(--surface-2),transparent)}
 .note .lab{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--coral); margin-bottom:7px}
 .note.leave .lab{color:var(--sand)}
 .note p{margin:0}
 .steps{list-style:none; margin:18px 0 8px; padding:0; counter-reset:step}
 .steps>li{position:relative; padding:13px 0 15px 44px; border-bottom:1px solid var(--line-2); counter-increment:step; color:var(--ink-dim)}
 .steps>li:last-child{border-bottom:0}
-.steps>li::before{content:counter(step); position:absolute; left:0; top:11px; width:27px; height:27px; border-radius:50%; background:var(--surface-2); border:1px solid var(--line); color:var(--coral); font-family:var(--mono); font-size:12.5px; font-weight:600; display:flex; align-items:center; justify-content:center}
+.steps>li::before{content:counter(step); position:absolute; left:0; top:11px; width:27px; height:27px; border-radius:50%; background:var(--surface-2); border:2px solid var(--line); color:var(--coral); font-family:var(--mono); font-size:12.5px; font-weight:600; display:flex; align-items:center; justify-content:center}
 .steps .st{display:block; color:var(--ink); font-weight:600; margin-bottom:5px}
 .steps .aside{color:var(--ink-faint)}
 .snip-cap{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin:12px 0 6px}
-.snip{font-family:var(--mono); font-size:12px; line-height:1.7; color:var(--ink-dim); background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--sand); border-radius:var(--rad-sm); padding:13px 16px; margin:0; overflow-x:auto; white-space:pre; tab-size:2}
+.snip{font-family:var(--mono); font-size:12px; line-height:1.7; color:var(--ink-dim); background:var(--surface-2); border:2px solid var(--line); border-left:4px solid var(--sand); border-radius:var(--rad-sm); padding:13px 16px; margin:0; overflow-x:auto; white-space:pre; tab-size:2}
 
 /* ordered loop steps */
 .loop{counter-reset:lp; list-style:none; margin:14px 0}
@@ -192,7 +190,7 @@ a{color:inherit}
 .loop li::before{counter-increment:lp; content:counter(lp); position:absolute; left:0; top:9px; width:28px; height:28px; border-radius:50%; border:1px solid var(--teal-deep); color:var(--teal); font-family:var(--mono); font-size:12px; display:grid; place-items:center}
 
 /* caveat block */
-.caveat{margin-top:22px; border:1px solid var(--coral); border-radius:var(--rad); overflow:hidden}
+.caveat{margin-top:22px; border:2px solid var(--coral); border-radius:var(--rad); overflow:hidden}
 .caveat-h{background:linear-gradient(90deg,rgba(255,148,31,.14),transparent); padding:14px 20px; font-family:var(--serif); font-style:italic; font-size:1.2rem; color:var(--coral); border-bottom:1px solid var(--line)}
 .caveat-b{padding:6px 20px 18px}
 .caveat-b .row{padding:14px 0; border-bottom:1px solid var(--line-2)}
@@ -202,10 +200,10 @@ a{color:inherit}
 /* interactive checklist */
 .chk{list-style:none; margin:14px 0}
 .chk li{margin:3px 0}
-.chk label{display:flex; gap:12px; align-items:flex-start; padding:11px 14px; border:1px solid var(--line); border-radius:var(--rad-sm); cursor:pointer; transition:.18s; color:var(--ink-dim); background:var(--surface-2)}
+.chk label{display:flex; gap:12px; align-items:flex-start; padding:11px 14px; border:2px solid var(--line); border-radius:var(--rad-sm); cursor:pointer; transition:.18s; color:var(--ink-dim); background:var(--surface-2)}
 .chk label:hover{border-color:var(--teal-deep)}
 .chk input{position:absolute; opacity:0; width:0; height:0}
-.chk .box{flex:0 0 auto; width:20px; height:20px; border:1.5px solid var(--teal-deep); border-radius:6px; margin-top:1px; display:grid; place-items:center; transition:.18s}
+.chk .box{flex:0 0 auto; width:20px; height:20px; border:2px solid var(--teal-deep); border-radius:6px; margin-top:1px; display:grid; place-items:center; transition:.18s}
 .chk .box svg{width:13px; height:13px; opacity:0; transform:scale(.4); transition:.18s; color:var(--abyss)}
 .chk input:checked + .box{background:var(--teal); border-color:var(--teal)}
 .chk input:checked + .box svg{opacity:1; transform:scale(1)}
@@ -215,12 +213,12 @@ a{color:inherit}
 
 .phase{margin-top:18px}
 .phase .ph-l{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal); margin-bottom:6px}
-.rhythm{font-family:var(--serif); font-size:1.35rem; font-style:italic; color:var(--ink); text-align:center; padding:20px; border:1px solid var(--line); border-radius:var(--rad); background:var(--surface-2); margin:8px 0 18px}
+.rhythm{font-family:var(--serif); font-size:1.35rem; font-style:italic; color:var(--ink); text-align:center; padding:20px; border:2px solid var(--line); border-radius:var(--rad); background:var(--surface-2); margin:8px 0 18px}
 .rhythm b{color:var(--coral); font-style:normal; font-weight:600}
 
 /* anti-pattern radar cards */
 .radar{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:8px}
-.ap{border:1px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:16px 17px; cursor:pointer; transition:.2s; position:relative; overflow:hidden}
+.ap{border:2px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:16px 17px; cursor:pointer; transition:.2s; position:relative; overflow:hidden}
 .ap:hover{border-color:var(--coral); transform:translateY(-2px)}
 .ap .ap-t{font-weight:600; color:var(--ink); font-size:1.02rem; display:flex; justify-content:space-between; align-items:center; gap:8px}
 .ap .ap-t .chev{font-family:var(--mono); color:var(--coral); transition:.25s; flex:0 0 auto}
@@ -232,20 +230,20 @@ a{color:inherit}
 
 /* pocket prompts */
 .pocket{display:grid; gap:10px; margin-top:10px}
-.pocket div{padding:13px 16px; border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:var(--rad-sm); background:var(--surface-2); font-family:var(--serif); font-style:italic; font-size:1.08rem; color:var(--ink)}
+.pocket div{padding:13px 16px; border:2px solid var(--line); border-left:4px solid var(--teal); border-radius:var(--rad-sm); background:var(--surface-2); font-family:var(--serif); font-style:italic; font-size:1.08rem; color:var(--ink)}
 
 /* rosetta table */
 .tablewrap{overflow-x:auto; margin:14px -6px 6px; border-radius:var(--rad-sm)}
 table{border-collapse:collapse; width:100%; min-width:660px; font-size:.86rem}
 th,td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top}
-thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); border-bottom:1px solid var(--teal-deep); position:sticky; top:0; background:var(--surface)}
+thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); border-bottom:2px solid var(--teal-deep); position:sticky; top:0; background:var(--surface)}
 tbody th{font-weight:600; color:var(--ink); white-space:nowrap; font-family:var(--sans)}
 td{color:var(--ink-dim)}
 tbody tr:hover{background:var(--surface-2)}
 td code,th code{font-size:.82em}
 
 .callouts{display:grid; gap:10px; margin-top:16px}
-.callouts .co{padding:14px 16px; border-radius:var(--rad-sm); background:var(--surface-2); border:1px solid var(--line)}
+.callouts .co{padding:14px 16px; border-radius:var(--rad-sm); background:var(--surface-2); border:2px solid var(--line)}
 .callouts .co b{color:var(--teal)}
 
 /* walkthrough mode */
@@ -257,10 +255,10 @@ html.wt .wrap{padding-top:30px}
 html.wt .wt-bar{
   display:flex; position:fixed; bottom:0; left:312px; right:0; z-index:60; align-items:center; gap:16px;
   padding:14px 30px; background:color-mix(in srgb,var(--deep) 92%,transparent); backdrop-filter:blur(14px);
-  border-top:1px solid var(--teal-deep);
+  border-top:2px solid var(--teal-deep);
 }
 .wt-nav{display:flex; gap:8px}
-.wt-nav button{width:44px; height:44px; border-radius:12px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; font-size:18px; transition:.2s; display:grid; place-items:center}
+.wt-nav button{width:44px; height:44px; border-radius:12px; border:2px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; font-size:18px; transition:.2s; display:grid; place-items:center}
 .wt-nav button:hover:not(:disabled){border-color:var(--teal); color:var(--teal)}
 .wt-nav button:disabled{opacity:.3; cursor:not-allowed}
 .wt-pos{font-family:var(--mono); font-size:12px; color:var(--ink-dim); letter-spacing:.05em; min-width:74px}
@@ -269,7 +267,7 @@ html.wt .wt-bar{
 .timer .clock{font-family:var(--mono); font-size:26px; font-weight:500; letter-spacing:.04em; color:var(--ink); min-width:96px; text-align:right}
 .timer .clock.over{color:var(--coral)}
 .timer .tgt{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.06em}
-.timer button{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; padding:9px 12px; border-radius:9px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; transition:.2s}
+.timer button{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; padding:9px 12px; border-radius:9px; border:2px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; transition:.2s}
 .timer button:hover{border-color:var(--teal); color:var(--ink)}
 .timer button.run{background:var(--coral); color:#fff; border-color:var(--coral)}
 
@@ -308,14 +306,12 @@ html.wt .section{opacity:1; animation:none}
 }
 .present-btn:hover{transform:translateY(-2px); box-shadow:0 14px 32px -14px var(--teal)}
 .present-btn svg{width:16px; height:16px}
-.present-hint{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.02em; line-height:1.6}
-.present-hint kbd{font-family:var(--mono); background:var(--surface-2); border:1px solid var(--line); border-radius:4px; padding:1px 6px; color:var(--ink-dim); font-size:10px}
 
 /* the 4-part spine */
 .spine{display:flex; gap:7px; flex-wrap:wrap; align-items:center}
 .spine .sp{
   font-family:var(--mono); font-size:11px; letter-spacing:.04em; cursor:pointer;
-  padding:7px 13px; border-radius:999px; border:1px solid var(--line); color:var(--ink-faint); transition:.2s; white-space:nowrap; background:transparent;
+  padding:7px 13px; border-radius:999px; border:2px solid var(--line); color:var(--ink-faint); transition:.2s; white-space:nowrap; background:transparent;
 }
 .spine .sp:hover{border-color:var(--teal-deep); color:var(--ink-dim)}
 .spine .sp b{color:var(--ink-dim); font-weight:600; margin-right:4px}
@@ -332,7 +328,7 @@ html.wt .section{opacity:1; animation:none}
 /* ---- THE DECK ---- */
 .deck{display:none}
 .deck.reh{display:block; margin-top:8px}                       /* inline rehearsal view */
-.deck.reh .beat{border:1px solid var(--line); border-radius:var(--rad); background:var(--surface-2); padding:22px 24px; margin-top:14px}
+.deck.reh .beat{border:2px solid var(--line); border-radius:var(--rad); background:var(--surface-2); padding:22px 24px; margin-top:14px}
 .deck.reh .deck-hud,.deck.reh .deck-foot,.deck.reh .deck-arrow{display:none}
 .deck.reh .beat-notes{display:block; margin-top:18px}
 
@@ -349,9 +345,9 @@ html.present .deck.presenting{
 /* HUD (top) */
 html.present .deck-hud{
   display:flex; align-items:center; gap:18px; position:absolute; top:0; left:0; right:0; height:62px;
-  padding:0 22px; border-bottom:1px solid var(--line); font-family:var(--mono);
+  padding:0 22px; border-bottom:2px solid var(--line); font-family:var(--mono);
 }
-.hud-x{width:38px; height:38px; border-radius:10px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; font-size:18px; display:grid; place-items:center; transition:.2s; flex:0 0 auto}
+.hud-x{width:38px; height:38px; border-radius:10px; border:2px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; font-size:18px; display:grid; place-items:center; transition:.2s; flex:0 0 auto}
 .hud-x:hover{border-color:var(--coral); color:var(--coral)}
 .hud-code{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); font-weight:600; white-space:nowrap}
 .hud-spine{flex:1; display:flex; justify-content:center; gap:7px; overflow:hidden}
@@ -360,7 +356,7 @@ html.present .deck-hud{
 .deck-clock{font-size:17px; font-weight:500; color:var(--ink); letter-spacing:.04em; min-width:52px; text-align:right}
 .deck-clock.over{color:var(--coral)}
 .deck-tgt{font-size:10px; color:var(--ink-faint); letter-spacing:.06em; min-width:48px}
-.hud-note{width:38px; height:38px; border-radius:10px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; display:grid; place-items:center; transition:.2s}
+.hud-note{width:38px; height:38px; border-radius:10px; border:2px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; display:grid; place-items:center; transition:.2s}
 .hud-note:hover{border-color:var(--teal); color:var(--teal)}
 html.present.notes .hud-note{background:var(--coral); color:#fff; border-color:var(--coral)}
 .hud-note svg{width:16px; height:16px}
@@ -378,7 +374,7 @@ html.present.notes .beat.active .beat-notes{
 .deck-arrow{display:none}
 html.present .deck-arrow{
   display:grid; place-items:center; position:absolute; top:50%; transform:translateY(-50%); z-index:205;
-  width:56px; height:56px; border-radius:50%; border:1px solid var(--line); background:color-mix(in srgb,var(--surface) 70%,transparent);
+  width:56px; height:56px; border-radius:50%; border:2px solid var(--line); background:color-mix(in srgb,var(--surface) 70%,transparent);
   color:var(--ink-dim); font-size:24px; cursor:pointer; transition:.2s; backdrop-filter:blur(6px);
 }
 html.present .deck-arrow:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-50%) scale(1.06)}
@@ -387,17 +383,15 @@ html.present .deck-arrow.prev{left:18px}
 html.present .deck-arrow.next{right:18px}
 
 /* foot (bottom controls) */
-html.present .deck-foot{display:flex; align-items:center; justify-content:center; gap:10px; position:absolute; left:0; right:0; bottom:0; height:60px; border-top:1px solid var(--line); padding:0 22px}
-.foot-btn{font-family:var(--mono); font-size:11px; letter-spacing:.04em; padding:9px 15px; border-radius:9px; border:1px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; transition:.2s; display:inline-flex; gap:7px; align-items:center}
+html.present .deck-foot{display:flex; align-items:center; justify-content:center; gap:10px; position:absolute; left:0; right:0; bottom:0; height:60px; border-top:2px solid var(--line); padding:0 22px}
+.foot-btn{font-family:var(--mono); font-size:11px; letter-spacing:.04em; padding:9px 15px; border-radius:9px; border:2px solid var(--line); background:transparent; color:var(--ink-dim); cursor:pointer; transition:.2s; display:inline-flex; gap:7px; align-items:center}
 .foot-btn:hover:not(:disabled){border-color:var(--teal); color:var(--ink)}
-.foot-btn:disabled{opacity:.3; cursor:default}
-.foot-btn.primary{border-color:var(--teal-deep); color:var(--teal)}
 .dots{display:flex; gap:7px; margin:0 8px}
 .dots .dot{width:9px; height:9px; border-radius:50%; background:var(--line); border:0; padding:0; cursor:pointer; transition:.2s}
 .dots .dot:hover{background:var(--ink-faint)}
 .dots .dot.on{background:var(--coral); transform:scale(1.25)}
 .foot-keys{position:absolute; right:22px; font-family:var(--mono); font-size:10px; color:var(--ink-faint); letter-spacing:.04em}
-.foot-keys kbd{background:var(--surface-2); border:1px solid var(--line); border-radius:4px; padding:0 5px; color:var(--ink-dim)}
+.foot-keys kbd{background:var(--surface-2); border:2px solid var(--line); border-radius:4px; padding:0 5px; color:var(--ink-dim)}
 @media(max-width:820px){.foot-keys{display:none}}
 
 /* blackout */
@@ -453,7 +447,7 @@ html.present .sg-key div{font-size:14px}
 
 /* ladder — shared stacked-rungs device (used across parts) */
 .ladder{display:flex; flex-direction:column; gap:9px; margin-top:6px; max-width:620px}
-.ladder .rung{font-family:var(--mono); font-size:1rem; padding:12px 18px; border:1px solid var(--line); border-radius:var(--rad-sm); color:var(--ink-faint)}
+.ladder .rung{font-family:var(--mono); font-size:1rem; padding:12px 18px; border:2px solid var(--line); border-radius:var(--rad-sm); color:var(--ink-faint)}
 .ladder .rung.hot{border-color:var(--coral); color:var(--coral); font-weight:600; background:rgba(255,148,31,.07)}
 
 /* rounds — one-shots don't converge: every attempt stalls at the same last 20% */
@@ -468,18 +462,18 @@ html.present .sg-key div{font-size:14px}
 
 /* nots — three places the loop is the wrong tool (single-row don'ts) */
 .nots{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:6px; max-width:900px}
-.nots .not{border:1px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; background:var(--surface-2); font-size:.92rem; color:var(--ink-dim); line-height:1.45}
+.nots .not{border:2px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; background:var(--surface-2); font-size:.92rem; color:var(--ink-dim); line-height:1.45}
 .nots .not b{display:block; font-family:var(--mono); color:var(--ink-faint); font-weight:600; margin-bottom:7px}
 .nots .not.hot{border-color:var(--coral); background:rgba(255,148,31,.07)}
 .nots .not.hot b{color:var(--coral)}
 
 /* nest — the onboarding file layers; the agent loads only the package it touches */
 .nest{margin-top:6px; max-width:720px}
-.nest-root{border:1px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; background:var(--surface-2)}
+.nest-root{border:2px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; background:var(--surface-2)}
 .nest-lab{font-family:var(--mono); font-size:.9rem; color:var(--teal); font-weight:600}
 .nest-note{font-size:.82rem; color:var(--ink-faint); margin-top:3px; margin-bottom:14px}
 .nest-kids{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-.nest-pkg{border:1px solid var(--line); border-radius:var(--rad-sm); padding:12px 14px; background:var(--deep)}
+.nest-pkg{border:2px solid var(--line); border-radius:var(--rad-sm); padding:12px 14px; background:var(--deep)}
 .nest-pkg b{display:block; font-family:var(--mono); font-size:.85rem; color:var(--ink-dim)}
 .nest-pkg span{display:block; font-size:.78rem; margin-top:5px; color:var(--ink-faint)}
 .nest-pkg.on{border-color:var(--coral); background:rgba(255,148,31,.08)}
@@ -488,7 +482,7 @@ html.present .sg-key div{font-size:14px}
 
 /* beats — a copyable example beats a page of rules (vertical winner/loser) */
 .beats{margin-top:6px; max-width:660px; display:flex; flex-direction:column}
-.beats-row{border:1px solid var(--line); border-radius:var(--rad-sm); padding:14px 18px; background:var(--surface-2)}
+.beats-row{border:2px solid var(--line); border-radius:var(--rad-sm); padding:14px 18px; background:var(--surface-2)}
 .beats-row b{font-family:var(--mono); font-size:.9rem; color:var(--ink-dim)}
 .beats-row span{display:block; font-size:.85rem; color:var(--ink-faint); margin-top:4px}
 .beats-row.weak{opacity:.6}
@@ -497,12 +491,12 @@ html.present .sg-key div{font-size:14px}
 .beats-vs{font-family:var(--mono); font-size:.75rem; letter-spacing:.03em; color:var(--teal); text-align:center; padding:8px 0}
 
 /* anatomy tree */
-.tree{font-family:var(--mono); font-size:clamp(.85rem,1.4vw,1.05rem); line-height:1.95; color:var(--ink-dim); background:var(--surface-2); border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 22px; display:inline-block; text-align:left; white-space:pre}
+.tree{font-family:var(--mono); font-size:clamp(.85rem,1.4vw,1.05rem); line-height:1.95; color:var(--ink-dim); background:var(--surface-2); border:2px solid var(--line); border-radius:var(--rad-sm); padding:18px 22px; display:inline-block; text-align:left; white-space:pre}
 .tree .f{color:var(--teal)} .tree .hl{color:var(--coral)} .tree .c{color:var(--ink-faint)}
 
 /* invocation two-up */
 .invo{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; max-width:820px}
-.invo .col{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2)}
+.invo .col{border:2px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2)}
 .invo .col h4{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:12px}
 .invo .col.model h4{color:var(--coral)}
 .invo .col ul{list-style:none; display:grid; gap:9px}
@@ -511,7 +505,7 @@ html.present .sg-key div{font-size:14px}
 .invo .col li b{color:var(--ink); font-weight:600}
 
 /* slice grid — a slice is a column, not a layer */
-.sgrid{display:inline-block; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; margin-top:4px; text-align:left; max-width:100%}
+.sgrid{display:inline-block; background:var(--surface-2); border:2px solid var(--line); border-radius:var(--rad-sm); padding:16px 18px; margin-top:4px; text-align:left; max-width:100%}
 .sg-r{display:flex; align-items:stretch; gap:8px; margin-bottom:6px}
 .sg-lab{font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--ink-faint); width:54px; text-align:right; align-self:center; flex:0 0 auto}
 .sg-cells{display:grid; grid-template-columns:repeat(3,minmax(56px,92px)); gap:6px; flex:1 1 auto}
@@ -531,7 +525,7 @@ html.present .sg-key div{font-size:14px}
 
 /* description before/after widget */
 .descflip{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:4px; align-items:start; max-width:980px}
-.dcard{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
+.dcard{border:2px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
 .dcard .dl{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:11px}
 .dcard.bad .dl{color:var(--coral)} .dcard.good .dl{color:var(--teal)}
 .dcard .desc{font-family:var(--mono); font-size:.92rem; line-height:1.65; color:var(--ink)}
@@ -547,10 +541,10 @@ html.present .sg-key div{font-size:14px}
 
 /* what-is-a-skill · third-paste flip */
 .pasteflip{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:4px; align-items:start; max-width:1020px}
-.pcard{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
+.pcard{border:2px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
 .pcard .dl{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:11px}
 .pcard.bad .dl{color:var(--coral)} .pcard.good .dl{color:var(--teal)}
-.paste{font-family:var(--mono); font-size:.82rem; line-height:1.55; color:var(--ink-dim); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:9px}
+.paste{font-family:var(--mono); font-size:.82rem; line-height:1.55; color:var(--ink-dim); border:2px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:9px}
 .paste:last-child{margin-bottom:0}
 .paste .pwho{display:block; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px}
 .paste.dim{opacity:.62}
@@ -566,7 +560,7 @@ html.present .sg-key div{font-size:14px}
 
 /* blind test — two skills, outside view only */
 .blind{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:4px; align-items:start; max-width:1020px}
-.bcard{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
+.bcard{border:2px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
 .bcard .bname{font-family:var(--mono); font-size:.95rem; font-weight:600; color:var(--teal); margin-bottom:9px}
 .bcard .bdesc{font-family:var(--mono); font-size:.88rem; line-height:1.6; color:var(--ink)}
 .bcard .verd{list-style:none; display:grid; gap:6px; margin-top:14px; opacity:0; transform:translateY(6px); transition:.45s}
@@ -579,7 +573,7 @@ html.present .sg-key div{font-size:14px}
 
 /* deletion test widget */
 .deltest{margin-top:4px; max-width:760px}
-.deltest .file{font-family:var(--mono); font-size:.92rem; line-height:1.5; border:1px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:12px 14px}
+.deltest .file{font-family:var(--mono); font-size:.92rem; line-height:1.5; border:2px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:12px 14px}
 .deltest .ln{display:block; padding:5px 9px; border-radius:6px; cursor:pointer; color:var(--ink-dim); transition:.2s; border:1px solid transparent; margin:2px 0}
 .deltest .ln[data-noop]::after{content:"no-op?"; font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--coral); opacity:0; margin-left:10px; transition:.2s}
 .deltest .ln[data-noop]:hover{border-color:var(--coral); color:var(--coral)}
@@ -592,14 +586,14 @@ html.present .sg-key div{font-size:14px}
 .deltest .meter b{color:var(--teal); font-size:20px; font-weight:600}
 
 /* leading-word trace */
-.trace{font-family:var(--mono); font-size:.95rem; line-height:1.7; border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:var(--rad-sm); background:var(--surface-2); padding:15px 18px; color:var(--ink-dim); margin-top:4px; max-width:760px; min-height:84px}
+.trace{font-family:var(--mono); font-size:.95rem; line-height:1.7; border:2px solid var(--line); border-left:4px solid var(--teal); border-radius:var(--rad-sm); background:var(--surface-2); padding:15px 18px; color:var(--ink-dim); margin-top:4px; max-width:760px; min-height:84px}
 .trace .tl{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:9px}
 .trace .echo{opacity:0; transition:.5s}
 .trace.run .echo{opacity:1}
 .trace mark{background:rgba(255,148,31,.16); color:var(--coral); padding:0 4px; border-radius:3px; font-weight:600}
 
 /* skill before/after viewer */
-.skillview{margin-top:4px; border:1px solid var(--line); border-radius:var(--rad-sm); overflow:hidden; background:var(--surface-2); max-width:900px}
+.skillview{margin-top:4px; border:2px solid var(--line); border-radius:var(--rad-sm); overflow:hidden; background:var(--surface-2); max-width:900px}
 .sv-tabs{display:flex; border-bottom:1px solid var(--line)}
 .sv-tab{font-family:var(--mono); font-size:11px; letter-spacing:.04em; padding:11px 16px; cursor:pointer; color:var(--ink-faint); background:transparent; border:0; border-right:1px solid var(--line); transition:.2s}
 .sv-tab:hover{color:var(--ink)}
@@ -618,11 +612,11 @@ html.present .sg-key div{font-size:14px}
 /* context-bloat meter (Part 6) */
 .bloat{margin-top:6px; max-width:780px}
 .bloat-chips{display:flex; flex-wrap:wrap; gap:8px}
-.bchip{font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:8px 13px; border-radius:8px; border:1px solid var(--line); background:var(--surface-2); color:var(--ink-faint); cursor:pointer; transition:.2s}
+.bchip{font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:8px 13px; border-radius:8px; border:2px solid var(--line); background:var(--surface-2); color:var(--ink-faint); cursor:pointer; transition:.2s}
 .bchip:hover{border-color:var(--teal-deep); color:var(--ink-dim)}
 .bchip.on{border-color:var(--teal); color:var(--teal); background:rgba(142,45,226,.10)}
 .bchip.on.over{border-color:var(--coral); color:var(--coral); background:rgba(255,148,31,.10)}
-.bloat-bar{height:10px; border-radius:6px; background:var(--surface-2); border:1px solid var(--line); margin-top:16px; overflow:hidden}
+.bloat-bar{height:10px; border-radius:6px; background:var(--surface-2); border:2px solid var(--line); margin-top:16px; overflow:hidden}
 .bloat-fill{display:block; height:100%; width:0; background:var(--teal); transition:width .3s, background .3s}
 .bloat-fill.over{background:var(--coral)}
 .bloat-read{font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-top:11px; line-height:1.5}
@@ -659,52 +653,7 @@ html.present .sg-key div{font-size:14px}
   .sv-pane{display:block!important; max-height:none!important}
 }
 
-/* ============ TOPIC NAV · search / threads / groups ============ */
-.nav-search{position:relative; margin:18px 0 10px}
-.nav-search > svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); width:14px; height:14px; color:var(--ink-faint); pointer-events:none}
-.nav-search input{
-  width:100%; font-family:var(--sans); font-size:13px; color:var(--ink);
-  background:var(--surface-2); border:1px solid var(--line); border-radius:999px;
-  padding:9px 30px 9px 33px; outline:none; transition:.2s;
-}
-.nav-search input::placeholder{color:var(--ink-faint)}
-.nav-search input:focus{border-color:var(--teal-deep); background:var(--surface)}
-#searchClear{
-  position:absolute; right:7px; top:50%; transform:translateY(-50%); width:21px; height:21px;
-  border:0; background:none; color:var(--ink-faint); cursor:pointer; font-size:12px; border-radius:50%;
-  display:grid; place-items:center; opacity:0; pointer-events:none; transition:.2s;
-}
-html.searching #searchClear{opacity:1; pointer-events:auto}
-#searchClear:hover{color:var(--coral)}
-
-.threads{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 8px}
-.thread-chip{
-  font-family:var(--mono); font-size:10px; letter-spacing:.03em; padding:4px 9px;
-  border:1px dashed var(--line); border-radius:999px; color:var(--ink-faint); cursor:pointer; transition:.2s; user-select:none;
-}
-.thread-chip:hover{border-style:solid; border-color:var(--teal); color:var(--teal)}
-
-/* group accordions */
 #navList{margin-top:6px}
-.nav-group{margin-bottom:3px; border-bottom:1px solid var(--line-2)}
-.nav-group:last-child{border-bottom:0}
-.group-head{
-  display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;
-  background:none; border:0; cursor:pointer; padding:11px 4px 9px 2px; color:var(--ink-dim); transition:.2s; text-align:left;
-}
-.group-head:hover{color:var(--ink)}
-.group-head .chev{display:inline-block; color:var(--teal); font-size:9px; transition:transform .2s; transform:rotate(90deg); flex:0 0 auto}
-.nav-group.collapsed .chev{transform:rotate(0deg)}
-.gh-tw{display:flex; align-items:center; min-width:0}
-.gh-label{font-family:var(--mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:inherit; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.nav-group.active .gh-label{color:var(--coral)}
-.nav-group.all-done .gh-label{text-decoration:line-through; text-decoration-color:var(--teal-deep); opacity:.65}
-.gh-meta{font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; flex:0 0 auto}
-.group-body{margin:0 0 8px}
-.nav-group.collapsed .group-body{display:none}
-html.searching .nav-group.collapsed .group-body{display:block}
-.nav-link.hide{display:none}
-.nav-group.hide{display:none}
 
 /* topic bands — in-document section dividers */
 .topic-band{margin:54px 0 4px; padding:0 2px; display:flex; flex-direction:column; gap:4px; opacity:0; animation:rise .5s forwards}
@@ -721,11 +670,9 @@ html.present .topic-band{display:none !important}
 
 /* print — full topic-ordered document */
 @media print{
-  .nav-search,.threads{display:none !important}
   .section{display:block !important}
   .topic-band{display:block !important; opacity:1 !important; break-after:avoid; margin-top:26px}
   .topic-band .tb-label{font-size:1.35rem}
-  .nav-group .group-body{display:block !important}
 }
 
 /* ============ ENPITECH WATERMARK — global, always-on, subtle ============ */
@@ -808,7 +755,6 @@ html.wt .wm{display:none}
             <div class="fc-cell"><div class="l">Primary tool</div><div class="v">CLAUDE CODE</div></div>
             <div class="fc-cell"><div class="l">House rule</div><div class="v co-c">NO IDE · ALL AI</div></div>
           </div>
-          <div class="fc-strip"><span>ENP · AI</span><span class="perf"></span><span>NO IDE · ALL AI · SHIP WHAT YOU TRUST</span></div>
         </div>
       </header>
 
@@ -820,9 +766,7 @@ html.wt .wm{display:none}
           <h2><span class="lead">Vibe Coding</span>Great Demos, and Why They Collapse in a Real Repo</h2>
 
           <div class="m4-launch">
-            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="vibe"><b>①</b>The vibe</span>
@@ -964,9 +908,7 @@ html.wt .wm{display:none}
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -978,9 +920,7 @@ html.wt .wm{display:none}
           <h2><span class="lead">AI Engineering</span>An Agent in the Repo: You Steer, It Types</h2>
 
           <div class="m4-launch">
-            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="loop"><b>①</b>The loop</span>
@@ -1212,9 +1152,7 @@ html.wt .wm{display:none}
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -1226,9 +1164,7 @@ html.wt .wm{display:none}
           <h2><span class="lead">Agent-Ready</span>Making the Repo the Agent Can Actually Work In</h2>
 
           <div class="m4-launch">
-            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="onboard"><b>①</b>Onboard</span>
@@ -1479,9 +1415,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -1493,9 +1427,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
           <h2><span class="lead">Skills</span>Teaching the Agent Your Team's Moves</h2>
 
           <div class="m4-launch">
-            <button class="present-btn" id="presentM4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn" id="presentM4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="trigger"><b>①</b>Trigger</span>
@@ -1816,9 +1748,7 @@ that earns this file its own home</span></div>
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn" id="footPrev">‹ Prev</button>
             <div class="dots" id="deckDots"></div>
-            <button class="foot-btn primary" id="footNext">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -1830,9 +1760,7 @@ that earns this file its own home</span></div>
           <h2><span class="lead">The Harness</span>What Turns a Model into an Agent</h2>
 
           <div class="m4-launch">
-            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="model"><b>①</b>Text in, out</span>
@@ -2062,9 +1990,7 @@ that earns this file its own home</span></div>
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -2076,9 +2002,7 @@ that earns this file its own home</span></div>
           <h2><span class="lead">Reach</span>MCP — Giving the Agent Hands and Eyes Outside the Repo</h2>
 
           <div class="m4-launch">
-            <button class="present-btn" id="presentM6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn" id="presentM6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="capability"><b>①</b>Capability</span>
@@ -2265,9 +2189,7 @@ that earns this file its own home</span></div>
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -2279,9 +2201,7 @@ that earns this file its own home</span></div>
           <h2><span class="lead">Skills vs MCP</span>Teach It a Move, or Plug In a Capability?</h2>
 
           <div class="m4-launch">
-            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="fail"><b>①</b>Failure modes</span>
@@ -2401,9 +2321,7 @@ that earns this file its own home</span></div>
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -2415,9 +2333,7 @@ that earns this file its own home</span></div>
           <h2><span class="lead">The Workflow</span>One Feature, End to End — from Fuzzy Sentence to Merged Code</h2>
 
           <div class="m4-launch">
-            <button class="present-btn" id="presentWf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn" id="presentWf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="grill"><b>①</b>Grill</span>
@@ -2637,9 +2553,7 @@ that earns this file its own home</span></div>
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -2651,9 +2565,7 @@ that earns this file its own home</span></div>
           <h2><span class="lead">Autonomy</span>The Agent Works While You Don't Watch</h2>
 
           <div class="m4-launch">
-            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>
-            <span class="present-hint">Fullscreen beat deck · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>N</kbd> your notes · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> exit</span>
-          </div>
+            <button class="present-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Present this part</button>          </div>
 
           <div class="m4-spine"><div class="spine">
             <span class="sp" data-sp="ladder"><b>①</b>The ladder</span>
@@ -2810,9 +2722,7 @@ that earns this file its own home</span></div>
           </div><!-- /deck-stage -->
 
           <div class="deck-foot">
-            <button class="foot-btn">‹ Prev</button>
             <div class="dots"></div>
-            <button class="foot-btn primary">Next ›</button>
             <span class="foot-keys"><kbd>←</kbd><kbd>→</kbd> move · <kbd>N</kbd> notes · <kbd>F</kbd> full · <kbd>B</kbd> black · <kbd>Esc</kbd> exit</span>
           </div>
         </div><!-- /deck -->
@@ -2856,18 +2766,6 @@ that earns this file its own home</span></div>
     {id:'part8', label:'8 · The Workflow',  blurb:'The full pipeline — grill, spec, verify, architect, slice, build — run end-to-end on one real feature.',          sectionIds:['part8']},
     {id:'part9', label:'9 · Autonomy',      blurb:'/goal, /loop, and routines — the wheel goes to a condition you can verify, a clock, or a cron.',                   sectionIds:['part9']}
   ];
-  /* searchable keywords — make cross-cutting concepts (context engineering, verification…) findable */
-  const TAGS={
-    part1:'vibe coding chat one-shot paste prompt pray demo greenfield collapse conventions unverified',
-    part2:'agent loop agentic verify observe plan act iterate live build proof planted mistake recovery caveat steer diff claude code',
-    part3:'repo agent-ready agent-friendly claude.md agents.md context onboarding conventions verify verification guardrails golden-path scaffold cold-start observable',
-    part4:'skill skills description trigger structure steering pruning rule of three repetitive tasks',
-    part5:'harness model text tools hooks subagents guardrails permissions spawn agents product claude code cursor codex loop',
-    part6:'mcp model context protocol tool tools reach server connect capability extend context7 docs playwright browser github figma sentry postgres snowflake bigquery image video token efficiency prod cross-tool',
-    part7:'skill mcp difference versus knowledge capability decision rule compose orchestrate vet dependency context cost',
-    part8:'workflow pipeline grilling grill interview prd product requirements spec user stories acceptance criteria non-goals out-of-scope seam verify gaps contradictions clean context architecture candidates locality leverage deepening slice vertical slicing tracer bullet board build review maker checker share checkpoint',
-    part9:'autonomy goal loop scheduled tasks cron routine routines unattended overnight condition evaluator stop clause babysit poll deploy pr ci laptop closed cloud managed infra tokens budget afk hands off done'
-  };
 
   const secs=()=>$$('.section');
   function codeFor(sec){const no=sec.querySelector('.sec-no'); return no?no.textContent.split('·')[0].trim():'';}
@@ -2875,7 +2773,7 @@ that earns this file its own home</span></div>
   function minsOf(sec){return sec.dataset.mins?+sec.dataset.mins:0;}
 
   /* ============ APPLY METADATA + REORDER DOM BY TOPIC ============ */
-  TOPICS.forEach(t=>t.sectionIds.forEach(id=>{const s=byId(id); if(s){s.dataset.topic=t.id; s.dataset.tags=TAGS[id]||'';}}));
+  TOPICS.forEach(t=>t.sectionIds.forEach(id=>{const s=byId(id); if(s){s.dataset.topic=t.id;}}));
   (function reorder(){
     const wrap=$('.wrap'); if(!wrap)return;
     TOPICS.forEach(t=>{
@@ -2911,7 +2809,6 @@ that earns this file its own home</span></div>
 
   function mkLink(sec){
     const a=document.createElement('a'); a.className='nav-link'; a.href='#'+sec.id; a.dataset.target=sec.id;
-    a.dataset.hay=(codeFor(sec)+' '+titleFor(sec)+' '+(sec.dataset.tags||'')).toLowerCase();
     const mins=sec.dataset.mins?'<span class="mins">'+sec.dataset.mins+'m</span>':'';
     a.innerHTML='<span class="dot"></span><span class="nav-txt"><span class="code">'+codeFor(sec)+' '+mins+'</span><span class="ttl">'+titleFor(sec)+'</span></span>';
     if(isDone(sec.id)){a.classList.add('done'); sec.classList.add('done');}
@@ -2945,8 +2842,7 @@ that earns this file its own home</span></div>
     let best=null,bd=1e9;
     activeSet().forEach(sec=>{ if(sec.style.display==='none')return; const r=sec.getBoundingClientRect(), d=Math.abs(r.top-120); if(r.top<window.innerHeight*0.5 && d<bd){bd=d;best=sec;} });
     $$('#navList .nav-link').forEach(l=>l.classList.remove('active'));
-    $$('#navList .nav-group').forEach(g=>g.classList.remove('active'));
-    if(best){ const a=$('#navList .nav-link[data-target="'+best.id+'"]'); if(a){ a.classList.add('active'); const g=a.closest('.nav-group'); if(g)g.classList.add('active'); } }
+    if(best){ const a=$('#navList .nav-link[data-target="'+best.id+'"]'); if(a)a.classList.add('active'); }
   }
   const progBar=$('#progBar');
   function prog(){ const h=document.documentElement.scrollHeight-window.innerHeight; progBar.style.width=(h>0?(window.scrollY/h*100):0)+'%'; }
@@ -2997,7 +2893,6 @@ that earns this file its own home</span></div>
     const id=a.dataset.target, sec=byId(id), on=!a.classList.contains('done');
     a.classList.toggle('done',on); if(sec)sec.classList.toggle('done',on);
     localStorage.setItem('afe-done-'+id,on?'1':'0');
-    const g=a.closest('.nav-group'); if(g){const links=[...g.querySelectorAll('.nav-link')]; g.classList.toggle('all-done',links.length>0&&links.every(l=>l.classList.contains('done')));}
   });
 
   /* ============ MOBILE NAV ============ */
@@ -3014,7 +2909,6 @@ that earns this file its own home</span></div>
     const q=s=>deck.querySelector(s), qq=s=>[...deck.querySelectorAll(s)];
     const hudCode=q('.hud-code'), hudPos=q('.hud-pos'), bclock=q('.deck-clock'), btgt=q('.deck-tgt');
     const prevA=q('.deck-arrow.prev'), nextA=q('.deck-arrow.next');
-    const footPrev=q('.deck-foot .foot-btn:not(.primary)'), footNext=q('.deck-foot .foot-btn.primary');
     const launch=section&&section.querySelector('.m4-launch .present-btn');
     const rehBtn=section&&section.querySelector('.reh-toggle');
     const bkey='afe-beat-'+(deck.id||'deck');
@@ -3042,8 +2936,8 @@ that earns this file its own home</span></div>
       bel=0; brender(); if(deck.classList.contains('presenting')) bstart();
       const sp=b.dataset.spine||'';
       qq('.hud-spine .sp').forEach(el=>el.classList.toggle('on',!!sp&&el.dataset.sp===sp));
-      if(prevA)prevA.disabled=bi===0; if(footPrev)footPrev.disabled=bi===0;
-      if(nextA)nextA.disabled=bi===beats.length-1; if(footNext)footNext.disabled=bi===beats.length-1;
+      if(prevA)prevA.disabled=bi===0;
+      if(nextA)nextA.disabled=bi===beats.length-1;
       try{localStorage.setItem(bkey,String(bi));}catch(e){}
     }
     const nextBeat=()=>showBeat(bi+1), prevBeat=()=>showBeat(bi-1);
@@ -3072,8 +2966,8 @@ that earns this file its own home</span></div>
 
     if(launch)launch.onclick=enterPresent;
     const closeBtn=q('.hud-x'); if(closeBtn)closeBtn.onclick=exitPresent;
-    if(prevA)prevA.onclick=prevBeat; if(footPrev)footPrev.onclick=prevBeat;
-    if(nextA)nextA.onclick=nextBeat; if(footNext)footNext.onclick=nextBeat;
+    if(prevA)prevA.onclick=prevBeat;
+    if(nextA)nextA.onclick=nextBeat;
     const noteBtn=q('.hud-note'); if(noteBtn)noteBtn.onclick=()=>root.classList.toggle('notes');
 
     document.addEventListener('keydown',e=>{
