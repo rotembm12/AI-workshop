@@ -8,6 +8,8 @@ The workflow from our AI-first engineering workshop, as installable Claude Code 
 npx skills@latest add rotembm12/AI-workshop
 ```
 
+Coming to the workshop? [SETUP.md](SETUP.md) is the five-minute pre-day checklist.
+
 Pick the skills you want when prompted. There is no setup step — every skill works with plain markdown files in your repo. No issue tracker, no auth, nothing to configure.
 
 ## Start here

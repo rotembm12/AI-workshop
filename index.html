@@ -2041,7 +2041,7 @@ that earns this file its own home</span></div>
               <p class="b-sub">Two parts made the agent smarter about your repo. This one gives it a power it didn't have — eyes on a browser, a live database, the current docs. Not knowledge. <strong>Capability.</strong></p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"You've taught the agent what your project is and how your team works. It's still blind to everything outside the repo. Watch me hand it a new sense — live."</p>
+                <p class="say">"You've taught the agent what your project is and how your team works. It's still blind to everything outside the repo. This part hands it a new sense — and names the cost that comes with it."</p>
                 <p class="do"><b>do</b> Press F for fullscreen. Thirty-minute slot — keep it moving; the one beat to protect is ④ Cost.</p>
                 <p class="nxt">next ▸ the gap · what it still can't do</p>
               </div>
@@ -2103,12 +2103,12 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"MCP — Model Context Protocol. Strip the ceremony: a standard way to give the agent tools it can call in the middle of a loop. A server knows how to drive a browser or query Postgres; you connect it; the agent gains those actions."</p>
                 <p class="say">"Not a Claude thing — an open standard, so one server works across tools. The agent doesn't <em>learn</em> to browse. It <em>gains</em> a browser."</p>
-                <p class="nxt">next ▸ ② add one, live</p>
+                <p class="nxt">next ▸ ② add one — one command</p>
               </div>
             </div>
 
-            <!-- 5 · ADD ONE LIVE -->
-            <div class="beat" data-code="② Connect · live" data-spine="connect" data-mins="5">
+            <!-- 5 · ADD ONE — ONE COMMAND -->
+            <div class="beat" data-code="② Connect · one command" data-spine="connect" data-mins="5">
               <h3><code>context7</code> — the cheapest win</h3>
               <div class="tree">$ claude mcp add context7 -- npx -y @upstash/context7-mcp@latest
 
@@ -2118,9 +2118,9 @@ that earns this file its own home</span></div>
               <div class="trace" id="traceMcp" style="margin-top:14px"><div class="tl">agent · reasoning trace</div><span class="echo">User wants the latest API — I'll <mark>call context7</mark> for the current docs instead of guessing… writing the signature it returned. No invented method names.</span></div>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"One command. No account, no service — that's why context7 is the one I add in front of you. Then I rerun the same kind of loop from Part 2."</p>
+                <p class="say">"One command. No account, no service — that's why context7 is the one I show. The command is on the slide; back home you run it once and rerun the same kind of loop from Part 2."</p>
                 <p class="say">"Before: it guesses an API and the loop goes red on a method that doesn't exist. After: it fetches the real docs and writes code that compiles. New reach turning straight into a real observation."</p>
-                <p class="do"><b>do</b> Click 'Run the agent' — the trace should echo the tool call. If it doesn't reach for it, the task didn't need it; that's fine too.</p>
+                <p class="do"><b>do</b> Click 'Run the agent' — the canned trace echoes the tool call. Nothing in this part runs live; the deck carries it. If a real agent doesn't reach for a tool, the task didn't need it — that's fine too.</p>
                 <p class="nxt">next ▸ ③ the general-purpose few</p>
               </div>
             </div>
@@ -2413,7 +2413,7 @@ that earns this file its own home</span></div>
                 <p class="say">"In the live build back in Part 2 I said it out loud: no sharing yet. That deferral comes due now — one fuzzy sentence to merged code, the whole pipeline."</p>
                 <p class="say">"Watch what happens at every step: a fresh agent checks the previous one's work. Nobody verifies their own homework, the AI included. That's the whole engine."</p>
                 <p class="say">"Honest line before we start: this is the heavy-feature pipeline. For a one-line fix, skip all of it and run the loop — using this on a rename is ceremony."</p>
-                <p class="do"><b>do</b> Run the commit gate — everyone on the same reference-app commit. State the contract: I drive the slow beats and hand you a file at each boundary; you run the crisp ones.</p>
+                <p class="do"><b>do</b> State the hackathon contract: I demo each stage on my reference app, then you run that same stage on your own project, right now — your hackathon feature is the exercise. I drive the slow beats; you run the crisp ones on your own repo.</p>
                 <p class="nxt">next ▸ ① grill · why</p>
               </div>
             </div>
@@ -2452,7 +2452,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Stories enumerate the real cases: 'as an owner I share a view-only link so a friend sees my plan without editing it.' 'As an owner I revoke a link so access ends.' A long list is the point — gesturing is how drift gets in."</p>
                 <p class="say">"And I pick the test seam before any code exists: the access decision — canView, canEdit. Highest seam, fewest seams; it doesn't exist yet, so we create exactly one. Every share story gets verified right there."</p>
-                <p class="do"><b>do</b> A five-minute synthesis live, not a form to fill. At the gate everyone adopts the canonical frozen PRD, so the next beat runs against one spec.</p>
+                <p class="do"><b>do</b> A five-minute synthesis live, not a form to fill. At the gate the room starts their own PRDs — each against their own grill transcript, not mine.</p>
                 <p class="nxt">next ▸ ③ verify the plan</p>
               </div>
             </div>
@@ -2467,7 +2467,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"This agent never heard our argument and doesn't know how hard we worked. It reads the spec cold — and that's exactly why its report is worth something."</p>
                 <p class="say">"Take the report back to the plan agent — it has the context to fix each hole — then run the checker again. The payoff is the empty second report. Keep this move in your pocket; it comes back at build time."</p>
-                <p class="do"><b>do</b> Room runs this hands-on from the frozen PRD. Checkpoint → tightened PRD + <code>gaps-report.md</code>. Say it out loud: this is a discipline, not a tool — a second window is enough.</p>
+                <p class="do"><b>do</b> Room runs this hands-on on their own PRD — then the peer gate: swap laptops with a neighbor, each hunts one gap in the other's. Checkpoint → tightened PRD + <code>gaps-report.md</code>. Say it out loud: this is a discipline, not a tool — a second window is enough.</p>
                 <p class="nxt">next ▸ ④ architect · where</p>
               </div>
             </div>
@@ -2516,7 +2516,7 @@ that earns this file its own home</span></div>
                 <div class="bn-l">Talk track</div>
                 <p class="say">"The diagram is the lesson. A slice is a column straight down through every layer — UI, API, the access policy from ④, data. Build 'the data layer' first and you get the dashed row: one whole layer, every feature, and nothing runs."</p>
                 <p class="say">"Slice 1 is the ugliest column that still round-trips — a raw, unstyled link, a test that a non-owner can view but not edit. Later slices add width, not depth. Engineers trained on tidy architecture resist that ugliness — that resistance is the thing to talk through."</p>
-                <p class="do"><b>watch</b> for horizontal slicers as the room cuts the frozen PRD + <code>architecture.md</code> — point at the dashed row when it happens. 2 and 3 are blocked by 1's token and policy.</p>
+                <p class="do"><b>watch</b> for horizontal slicers as the room cuts their own PRDs — point at the dashed row when it happens. In my demo, 2 and 3 are blocked by 1's token and policy.</p>
                 <p class="nxt">next ▸ ⑥ build + review</p>
               </div>
             </div>
@@ -2528,12 +2528,12 @@ that earns this file its own home</span></div>
 <span class="hl">review</span>    <span class="c">a second clean context — conventions · criteria · tests green → findings</span>
 <span class="hl">refactor</span>  <span class="c">a third pass works the findings</span>
 <span class="hl">merge</span>     <span class="c">slice 1 lands</span></div>
-              <p class="b-sub" style="margin-top:16px">The knobs I name and don't demo: AFK vs attended · one slice vs fan-out parallel · TDD vs not. Today: attended, slice 1 only, full relay visible. Command: your coding agent, then <code>/code-review</code> — it already reviews on Standards + Spec.</p>
+              <p class="b-sub" style="margin-top:16px">The knobs I name and don't demo: AFK vs attended · one slice vs fan-out parallel · TDD vs not. Today: attended, one slice, full relay visible. Command: your coding agent, then <code>/code-review</code> — it already reviews on Standards + Spec.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track · the punchline</div>
                 <p class="say">"The reviewer never saw the builder's rationalizations — and it catches that the shared-view endpoint renders an expired link, because the builder forgot to ask canView. That catch is the whole part's punchline. Land it."</p>
                 <p class="say">"In real life you fan slices 2 and 3 out AFK overnight and review them in the morning. Today we stay attended and watch the relay end to end."</p>
-                <p class="do"><b>do</b> Room builds hands-on; merge slice 1 at the gate. If time is tight, drop the TDD aside — the relay is the lesson.</p>
+                <p class="do"><b>do</b> Their slice 1 is their next hour of hackathon — send them off with "build it with your agent, then /code-review before you merge." I merge my slice at the gate. If time is tight, drop the TDD aside — the relay is the lesson.</p>
                 <p class="nxt">next ▸ handoff</p>
               </div>
             </div>
