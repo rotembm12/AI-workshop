@@ -1901,7 +1901,7 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <span class="sp" data-sp="product"><b>④</b>The product</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos">1 / 11</span>
+              <span class="hud-pos">1 / 12</span>
               <span class="deck-clock">00:00</span>
               <span class="deck-tgt"></span>
               <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -2006,6 +2006,38 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Hooks are your code intercepting the agent's moves — a script before every commit, a rule that blocks anything touching prod. Not a prompt asking nicely. Code that runs whether the model agrees or not."</p>
                 <p class="say">"Guardrails are the permission line: what it may do freely, what needs your yes, what it may never do. In Part 3 you wrote the off-limits list as prose; the harness is where that line actually gets enforced."</p>
+                <p class="nxt">next ▸ ③ in the flesh</p>
+              </div>
+            </div>
+
+            <!-- 6b · HOOKS IN THE FLESH -->
+            <div class="beat" data-code="③ In the flesh" data-spine="parts" data-mins="3">
+              <h3><em>Code</em>, not a polite request</h3>
+              <div class="invo">
+                <div class="col user"><h4>The hook · settings.json</h4>
+                  <div class="tree" style="border:none;background:none;padding:8px 0 0;display:block">"hooks": {
+  "<span class="f">PreToolUse</span>": [{
+    "matcher": "<span class="f">Bash</span>",
+    "hooks": [{ "type": "command",
+        "command": "<span class="hl">./guard-prod.sh</span>" }]
+  }]
+}</div>
+                </div>
+                <div class="col model"><h4>The permission line · settings.json</h4>
+                  <div class="tree" style="border:none;background:none;padding:8px 0 0;display:block">"permissions": {
+  "<span class="f">allow</span>": ["Bash(npm test:*)"],
+  "<span class="f">ask</span>":   ["Bash(git push:*)"],
+  <span class="hl">"deny":  ["Read(./.env)"]</span>
+}</div>
+                </div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">The script gets every call as JSON on stdin — <strong>exit 2, and the action never happens</strong>. The agent is told why.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"This is the previous slide, in the flesh. Left: one JSON block in settings, and now my script sees every command before it runs. It gets the call as JSON on stdin; if it exits with an error, the action never happens and the agent is told why. That's what 'deterministic' means — no prompt, no persuasion."</p>
+                <p class="say">"Right: the permission ladder as three lines of config. Tests run free, push waits for my yes — and look at the last line. The agent can read your <code>.env</code> unless you say otherwise. That one line is the difference between a demo and something you'd run at work."</p>
+                <p class="do"><b>say</b> Config syntax drifts — I keep the shape, not the letter, and point the room at the docs. And there's a whole family of these events — after every edit, on session start, before compaction — I name-drop it and move on.</p>
+                <p class="do"><b>do</b> If the room is hot: flip to a terminal, ask the agent to <code>git push --force</code>, let the hook block it live. Thirty seconds, biggest laugh in Part 5.</p>
                 <p class="nxt">next ▸ ③ subagents</p>
               </div>
             </div>
