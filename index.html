@@ -1669,7 +1669,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
 
             <!-- 7 · STRUCTURE -->
             <div class="beat" data-code="② Structure" data-spine="structure" data-mins="7">
-              <h3>Push branch-only reference behind a pointer</h3>
+              <h3>If it's only <em>sometimes</em> needed, don't <em>always</em> load it</h3>
               <div class="skillview" id="svA">
                 <div class="sv-tabs">
                   <button class="sv-tab bad on">SKILL.md · before</button>
@@ -1742,7 +1742,8 @@ that earns this file its own home</span></div>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Two units: steps — the procedure — and reference — the facts it leans on. Make SKILL.md small; smaller is easier to audit and cheaper every run."</p>
-                <p class="say">"The lever is branches. Matt's to-prd always writes a PRD, so its template stays inline. His domain-modeling sometimes writes an ADR, sometimes not — so that template moves behind a pointer. Here: the conventions are branch-only, so they live one file away. Watch the main file shrink to five clean steps."</p>
+                <p class="say">"The test for every fact: does EVERY run need it? Matt's to-prd always writes a PRD, so its template stays inline. His domain-modeling only sometimes writes an ADR — so that template moves one file away, and SKILL.md keeps a single line pointing at it. That's the move: branch-only content goes behind a pointer."</p>
+                <p class="say">"Same here: pagination only matters for list endpoints, so the conventions move to reference/ and step 4 links them. Watch the main file shrink to five clean steps."</p>
                 <p class="do"><b>do</b> Tab before → after → conventions. The shrink is the lesson.</p>
                 <p class="nxt">next ▸ ③ steering</p>
               </div>
