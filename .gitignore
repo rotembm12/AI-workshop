@@ -2,7 +2,6 @@
 # Keep internal, client-identified source (markdown, client-named HTML, backups) OUT of it.
 # Only the genericized index.html is published.
 *.md
-guides/
 syllabi/
 *.BACKUP.html
 daybook/
@@ -13,3 +12,6 @@ daybook-demos/
 # its many .md files (SKILL.md, README.md, reference docs) would otherwise be caught by *.md above.
 !skills-pack/**/*.md
 !skills-pack/README.md
+
+# guides/ is published too (facilitator guides) — re-include past the *.md rule above.
+!guides/**/*.md
