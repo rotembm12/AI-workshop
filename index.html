@@ -955,7 +955,7 @@ html.wt .wm{display:none}
           <ul class="cover">
             <li>The agentic loop — plan → act → observe → verify — and why iteration plus verification beats one-shotting</li>
             <li>Not a person: what it doesn't know it doesn't know · what you don't say it may skip · what you don't specify it does its way</li>
-            <li>Day to day: five do's and don'ts at the turn level, and the dumb zone — quality slides long before the window is full</li>
+            <li>Day to day: the dumb zone — quality slides long before the window is full — then five do's and don'ts at the turn level</li>
             <li>The proof: a tested vertical slice through prose alone, planted mistake and recovery included</li>
             <li>Reading agent output critically — the test result is the truth, not the agent's confidence</li>
             <li>When the loop is the wrong tool, said plainly — and the repeated-context itch that sets up Part 3</li>
@@ -1087,11 +1087,32 @@ html.wt .wm{display:none}
                 <p class="say">"One correction before the proof, so the intern picture from Part 1 doesn't mislead you. The intern was about the setup. The mind is a different story: an AI is not a person, and it doesn't draw conclusions the way a human brain does. A teammate fills the gaps in your request with what you meant. The model fills them with what's statistically likely. Those are different operations."</p>
                 <p class="say">"Three laws, keep them in your pocket. What it doesn't know — it doesn't know; it won't go find out on its own. What you don't tell it to do — maybe it happens, maybe it doesn't. What you don't tell it how to do — that it will do, guaranteed. Its way, not yours. The planted mistake in a few minutes is law three in action."</p>
                 <p class="do"><b>watch</b> Spoon-feed means intent and context, not padding — Part 4's deletion test cuts lines the model already follows. The rule: everything you care about, said explicitly; nothing it already does.</p>
+                <p class="nxt">next ▸ ③ day to day · the dumb zone</p>
+              </div>
+            </div>
+
+            <!-- 5 · THE DUMB ZONE -->
+            <div class="beat" data-code="③ Day to day · the dumb zone" data-spine="day" data-mins="4">
+              <h3>The dumb zone — a <em>slope</em>, not a cliff</h3>
+              <div class="rounds">
+                <div class="rnd"><span class="rn">fresh</span><span class="bar"><i style="width:94%"></i></span><span class="rv">sharp</span></div>
+                <div class="rnd"><span class="rn">filling</span><span class="bar"><i style="width:72%"></i></span><span class="rv">slipping — starts here</span></div>
+                <div class="rnd"><span class="rn">deep</span><span class="bar"><i style="width:50%"></i></span><span class="rv">the middle fades</span></div>
+                <div class="rnd"><span class="rn">bloated</span><span class="bar"><i style="width:32%"></i></span><span class="rv">circling</span></div>
+                <div class="rnd last"><span class="rn">maxed</span><span class="bar"><i style="width:18%"></i></span><span class="rv">no floor, no cliff</span></div>
+              </div>
+              <p class="b-sub" style="margin-top:16px">As the context fills, quality just slides — no wall at the limit, and it starts in the low tens of thousands of tokens. Junk speeds it. Finish the slice before the zone; when the circling starts, <strong>/clear or /compact</strong> and hand a fresh session a short written summary.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"You'll hear a folk number — 'it gets dumb around 100k tokens.' The honest version is worse for our intuition: there is no wall. The degradation is continuous, it starts in the low tens of thousands of tokens, and it keeps sliding. Chroma measured 18 frontier models in 2025 and quality dropped at every step up in length — even on trivial retrieval, even on million-token windows."</p>
+                <p class="say">"Why? Attention gets spread thin — your one real instruction competes with thousands of tokens of noise. Position — models hold the start and end of a long context and quietly underweight the middle; 'lost in the middle' is a measured result, not a vibe. And poison — a coding session's context is a pile of failed attempts and stale file dumps, and the model keeps re-reading its own mistakes."</p>
+                <p class="say">"The circling is the tell, and you can't talk a poisoned context back to smart. The move is structural: finish the slice before you're deep in the zone, /clear or /compact, and for genuinely long work hand a fresh session a written summary of where things stand. And stop spending the attention budget on garbage — giant logs and whole files it never needed."</p>
+                <p class="do"><b>say</b> Sources if pressed: Chroma's context-rot study, "Lost in the Middle" (TACL 2024), NoLiMa (ICML 2025), Anthropic's context-engineering guidance, Dex Horthy's "dumb zone" coinage. Keep hard numbers off the slide — the 100k figure doesn't survive contact with the research.</p>
                 <p class="nxt">next ▸ ③ day to day · do's and don'ts</p>
               </div>
             </div>
 
-            <!-- 5 · DO'S AND DON'TS -->
+            <!-- 6 · DO'S AND DON'TS -->
             <div class="beat" data-code="③ Day to day" data-spine="day" data-mins="4">
               <h3>Five do's, five don'ts</h3>
               <div class="invo">
@@ -1113,29 +1134,8 @@ html.wt .wm{display:none}
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Five habits, one per finger. Give it a check it can actually run — a test, a build, a screenshot — or 'looks done' becomes the finish line and you become the verification loop."</p>
-                <p class="say">"When it goes sideways, interrupt — Esc mid-action, redirect. Don't politely watch a bad run finish. And after two failed corrections on the same thing, stop arguing: the context now carries every failed attempt, and that wreckage steers every next turn. /clear, fold what you learned into a sharper prompt, go again."</p>
+                <p class="say">"When it goes sideways, interrupt — Esc mid-action, redirect. Don't politely watch a bad run finish. And after two failed corrections on the same thing, stop arguing: you just saw why — the context now carries every failed attempt, and that wreckage steers every next turn. /clear, fold what you learned into a sharper prompt, go again."</p>
                 <p class="say">"Pointing at a file — 'do it like that one' — beats a paragraph of adjectives every time. And read the diff like you'll defend it in review. The dangerous approval isn't the first one, it's the tenth, when you're just clicking through."</p>
-                <p class="nxt">next ▸ ③ day to day · the dumb zone</p>
-              </div>
-            </div>
-
-            <!-- 6 · THE DUMB ZONE -->
-            <div class="beat" data-code="③ Day to day · the dumb zone" data-spine="day" data-mins="4">
-              <h3>The dumb zone — a <em>slope</em>, not a cliff</h3>
-              <div class="rounds">
-                <div class="rnd"><span class="rn">fresh</span><span class="bar"><i style="width:94%"></i></span><span class="rv">sharp</span></div>
-                <div class="rnd"><span class="rn">filling</span><span class="bar"><i style="width:72%"></i></span><span class="rv">slipping — starts here</span></div>
-                <div class="rnd"><span class="rn">deep</span><span class="bar"><i style="width:50%"></i></span><span class="rv">the middle fades</span></div>
-                <div class="rnd"><span class="rn">bloated</span><span class="bar"><i style="width:32%"></i></span><span class="rv">circling</span></div>
-                <div class="rnd last"><span class="rn">maxed</span><span class="bar"><i style="width:18%"></i></span><span class="rv">no floor, no cliff</span></div>
-              </div>
-              <p class="b-sub" style="margin-top:16px">As the context fills, quality just slides — no wall at the limit, and it starts in the low tens of thousands of tokens. Junk speeds it. Finish the slice before the zone; when the circling starts, <strong>/clear or /compact</strong> and hand a fresh session a short written summary.</p>
-              <div class="beat-notes">
-                <div class="bn-l">Talk track</div>
-                <p class="say">"You'll hear a folk number — 'it gets dumb around 100k tokens.' The honest version is worse for our intuition: there is no wall. The degradation is continuous, it starts in the low tens of thousands of tokens, and it keeps sliding. Chroma measured 18 frontier models in 2025 and quality dropped at every step up in length — even on trivial retrieval, even on million-token windows."</p>
-                <p class="say">"Why? Attention gets spread thin — your one real instruction competes with thousands of tokens of noise. Position — models hold the start and end of a long context and quietly underweight the middle; 'lost in the middle' is a measured result, not a vibe. And poison — a coding session's context is a pile of failed attempts and stale file dumps, and the model keeps re-reading its own mistakes."</p>
-                <p class="say">"The circling is the tell, and you can't talk a poisoned context back to smart. The move is structural: finish the slice before you're deep in the zone, /clear or /compact, and for genuinely long work hand a fresh session a written summary of where things stand. And stop spending the attention budget on garbage — giant logs and whole files it never needed."</p>
-                <p class="do"><b>say</b> Sources if pressed: Chroma's context-rot study, "Lost in the Middle" (TACL 2024), NoLiMa (ICML 2025), Anthropic's context-engineering guidance, Dex Horthy's "dumb zone" coinage. Keep hard numbers off the slide — the 100k figure doesn't survive contact with the research.</p>
                 <p class="nxt">next ▸ ④ the edges</p>
               </div>
             </div>
@@ -2714,10 +2714,12 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
             <span class="sp" data-sp="ladder"><b>①</b>The ladder</span>
             <span class="sp" data-sp="goal"><b>②</b>/goal</span>
             <span class="sp" data-sp="clock"><b>③</b>/loop &amp; routines</span>
-            <span class="sp" data-sp="catch"><b>④</b>The catch</span>
+            <span class="sp" data-sp="cloud"><b>④</b>The cloud rung</span>
+            <span class="sp" data-sp="catch"><b>⑤</b>The catch</span>
           </div></div>
 
           <p>Every part so far has kept you in the loop — you read the diff, you watched the verify run, you typed the next prompt. So I close on the question the room has been circling since lunch: <em>when do I get to stop watching?</em> The answer is a ladder, and what changes rung to rung is <strong>what starts the next turn</strong>. Today it's you, every time. One rung up, <code>/goal</code> keeps the session working until a condition you wrote holds. Another rung, <code>/loop</code> fires a prompt on a schedule — babysit the PR, poll the deploy. At the top, a routine runs on managed infrastructure on a cron, with your laptop closed.</p>
+          <p>Cutting across the ladder is a second axis: <strong>where the turn runs</strong>. Claude Code on the web moves the same session onto an Anthropic-managed VM — I fire tasks at it with <code>claude --cloud</code> and keep working while three of them run in parallel, steer them from my phone, and pull one back into my terminal with <code>--teleport</code> when it needs my hands. The move that closes the circle is auto-fix: the PR that Part 8 shipped gets a babysitter that pushes fixes when CI fails or a reviewer comments. One rule makes all of it work — the VM clones the repo, so only what's committed rides along. Your <code>CLAUDE.md</code>, skills, and hooks travel; your <code>~/.claude</code> doesn't.</p>
           <p><code>/goal</code> gets most of my time, because it's Part 8 wearing a new hat. You hand it a completion condition — "all tests in <code>test/auth</code> pass," "the labeled issue queue is empty" — and after every turn a separate model reads the transcript and judges whether the condition holds; if not, the agent takes another turn instead of handing you the wheel. Look at what that condition is made of: <strong>a verifiable end state, judged in a clean context</strong> — the exact discipline the whole day has been building. A good goal has one measurable end state, a stated check that proves it, the constraints that must survive the trip, and a stop clause.</p>
           <p>I keep the demo off the stage — autonomy is slow television — and spend the saved minutes on the edges, because this is the one part where overselling does real damage. The ladder is real; it just pays out in proportion to everything that came before it in this talk.</p>
 
@@ -2735,6 +2737,7 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
             <li>The ladder: what starts the next turn — you, a condition, a clock, or a cron on managed infra</li>
             <li><code>/goal</code> anatomy: one measurable end state · a stated check · the constraints that must hold · a stop clause</li>
             <li><code>/loop</code> for babysitting and polling; routines for laptop-closed scheduled runs — one breath each</li>
+            <li>The cloud rung: <code>--cloud</code> fan-out to managed VMs · steer from the phone · <code>--teleport</code> home · auto-fix babysits the PR</li>
             <li>The catch, said with conviction: the evaluator reads only the transcript, and unattended turns still spend tokens</li>
             <li>Why this lands the arc — autonomy isn't trusting the agent more, it's being precise about "done"</li>
           </ul>
@@ -2750,10 +2753,11 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <span class="sp" data-sp="ladder"><b>①</b>The ladder</span>
               <span class="sp" data-sp="goal"><b>②</b>/goal</span>
               <span class="sp" data-sp="clock"><b>③</b>/loop &amp; routines</span>
-              <span class="sp" data-sp="catch"><b>④</b>The catch</span>
+              <span class="sp" data-sp="cloud"><b>④</b>The cloud rung</span>
+              <span class="sp" data-sp="catch"><b>⑤</b>The catch</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos">1 / 6</span>
+              <span class="hud-pos">1 / 7</span>
               <span class="deck-clock">00:00</span>
               <span class="deck-tgt"></span>
               <button class="hud-note" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -2772,7 +2776,8 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Every part today kept you in the loop — you read the diff, you watched the verify, you typed the next prompt. By now someone's been wondering all afternoon: when do I get to stop watching? This part is the honest answer."</p>
-                <p class="do"><b>do</b> Press F for fullscreen. Concept part, no live demo — autonomy is slow television. The beat to protect is ④ the catch.</p>
+                <p class="say">"And I want it concrete before it gets conceptual. The migration where you press 'continue' forty times. The PR that goes red at 23:00. The triage nobody does before standup. Every rung on this ladder exists because one of those is eating somebody's evening."</p>
+                <p class="do"><b>do</b> Press F for fullscreen. Concept part, no live demo — autonomy is slow television. The beat to protect is ⑤ the catch.</p>
                 <p class="nxt">next ▸ ① the ladder</p>
               </div>
             </div>
@@ -2782,12 +2787,16 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <h3>What starts the <em>next turn</em>?</h3>
               <div class="tree"><span class="c">you</span>        every turn — the whole workshop so far
 <span class="f">/goal</span>      a condition — works until "done" provably holds
+<span class="c">             "the 37 tests the rename broke are green again"</span>
 <span class="f">/loop</span>      a clock — fires the prompt on a schedule
-<span class="hl">routine</span>    a cron on managed infra — your laptop is closed</div>
+<span class="c">             "every 10 min: check CI on the open PR, fix what's red"</span>
+<span class="hl">routine</span>    a cron on managed infra — your laptop is closed
+<span class="c">             "7am, daily: triage overnight issues, try to reproduce each"</span></div>
               <p class="b-sub" style="margin-top:18px">Four rungs, one variable. Autonomy is just moving <strong>who starts the next turn</strong>.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"This is a ladder, not a leap. Bottom rung: you, every turn — that's everything we've done today. /goal keeps the session working until a condition holds. /loop fires on a schedule — babysit a PR, poll a deploy. And a routine runs on managed infrastructure on a cron: laptop closed, fresh clone."</p>
+                <p class="say">"Look at the examples under each rung — none of them are exotic. A rename that broke a pile of tests. A PR you'd tab back to every ten minutes anyway. Morning triage. The work is real on every rung; what changes is whether your attention has to be in the room while it happens."</p>
                 <p class="say">"Every rung up trades your attention for something written down. What exactly you have to write down — that's the next beat, and it's the important one."</p>
                 <p class="nxt">next ▸ ② /goal</p>
               </div>
@@ -2801,10 +2810,16 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
 <span class="c">no</span>   →  the agent takes another turn — with the reason why not
 <span class="hl">yes</span>  →  the goal clears · the wheel comes back to you</div>
               <p class="b-sub" style="margin-top:18px">A good condition is Part 8 in one sentence: <strong>one measurable end state</strong> · a stated check · the constraints that must survive · a stop clause.</p>
+              <div class="tree" style="margin-top:14px"><span class="c">goals that earn it — many boring turns, one checkable end</span>
+<span class="f">·</span> the strict-mode flip: 47 type errors → zero, tsc --noEmit proves it
+<span class="f">·</span> every endpoint in src/api has a round-trip test, and the suite is green
+<span class="f">·</span> the deprecated logger is gone from the repo — grep comes back empty
+<span class="hl">·</span> each one ends with: "…or stop after 20 turns"</div>
               <div class="beat-notes">
                 <div class="bn-l">Talk track · the keeper</div>
                 <p class="say">"You write 'done' as a condition. After every turn a separate model — a clean context, not the one doing the work — reads the transcript and judges it. Not done: another turn starts, carrying the reason. Done: the wheel comes back."</p>
-                <p class="say">"Look at what that condition is made of — a verifiable end state, judged in a clean context. That's not a new idea; that's the whole day. Nobody verifies their own homework — /goal just runs that rule without you in the chair."</p>
+                <p class="say">"Here's the shape of a task that earns a /goal: many turns, all boring, one checkable end. The strict-mode flip is my favorite — every turn fixes ten more type errors, and before I had this I was the machine pressing continue for an hour. That hour is what /goal buys back. Same shape: backfilling round-trip tests across an API, or purging a deprecated logger where grep is the judge."</p>
+                <p class="say">"Look at what those conditions are made of — a verifiable end state, judged in a clean context. That's not a new idea; that's the whole day. Nobody verifies their own homework — /goal just runs that rule without you in the chair."</p>
                 <p class="nxt">next ▸ ③ the clock rungs</p>
               </div>
             </div>
@@ -2815,48 +2830,69 @@ run it, watch it go <span class="ptr">red</span> on the bug — green once fixed
               <div class="invo">
                 <div class="col user"><h4>/loop · your machine</h4><ul>
                   <li><b>Fires a prompt on an interval</b> — or lets the agent pace itself</li>
-                  <li>Babysit a PR · poll a deploy · check CI</li>
+                  <li>The 17:40 PR: "every 10 min — check CI and reviews, fix what's red, until merged"</li>
+                  <li>Poll the staging deploy · run the smoke test the moment it lands</li>
                   <li>Lives in the session — expires on its own</li>
                 </ul></div>
                 <div class="col model"><h4>Routines · managed infra</h4><ul>
                   <li><b>A cron on the provider's machines</b></li>
-                  <li>Laptop closed — fresh clone each run</li>
-                  <li>Runs autonomously — no permission prompts</li>
+                  <li>7am: triage overnight issues — reproduce each, label, draft a fix note</li>
+                  <li>Monday: the dependency-bump PR nobody ever gets to — tests passing</li>
+                  <li>Laptop closed · fresh clone · no permission prompts</li>
                 </ul></div>
               </div>
               <p class="b-sub" style="margin-top:16px">One breath each — the mechanics live in the docs. The decision is only: does this need my machine, and does it need my watching.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"/loop is the same session on a timer — the deploy check, the PR babysitter. Useful, mundane, five minutes to learn. Routines are the top rung: the work runs on managed infrastructure whether your laptop exists or not."</p>
-                <p class="say">"Fresh clone, no permission prompts — that last part should raise your eyebrows. Good. Hold that feeling for one more beat."</p>
-                <p class="nxt">next ▸ ④ the catch</p>
+                <p class="say">"/loop is the same session on a timer, and the 17:40 PR is its poster child: you open it, CI takes twenty minutes, and mentally you've already left the building. The loop hasn't. It checks, fixes what's red, answers the review nit, and you arrive tomorrow to a merged PR instead of a red X."</p>
+                <p class="say">"Routines are for the chores that never make the sprint. Triage before standup, the Monday dependency bump, the flaky-test sweep — every team agrees these matter and no team budgets a human for them. A cron on managed infrastructure does them every week without being asked, laptop closed."</p>
+                <p class="say">"Fresh clone, no permission prompts — that last part should raise your eyebrows. Good. Hold that feeling for two more beats."</p>
+                <p class="nxt">next ▸ ④ the cloud rung</p>
               </div>
             </div>
 
-            <!-- 5 · THE CATCH -->
-            <div class="beat" data-code="④ The catch" data-spine="catch" data-mins="3">
+            <!-- 5 · THE CLOUD RUNG -->
+            <div class="beat" data-code="④ The cloud rung" data-spine="cloud" data-mins="3">
+              <h3>The second axis: <em>where</em> it runs</h3>
+              <div class="tree"><span class="f">claude --cloud "fix the flaky auth test"</span>
+<span class="c">runs on</span>    an Anthropic-managed VM — fresh clone, isolated, network off by default
+<span class="c">you</span>        stay on the feature · fan out three triage bugs at once · steer from your phone
+<span class="f">--teleport</span> pulls a session home — the branch and the whole conversation land in your terminal
+<span class="hl">auto-fix</span>   the PR gets a babysitter — CI fails or a reviewer comments, it investigates and pushes</div>
+              <p class="b-sub" style="margin-top:18px">The VM clones the repo, so <strong>only what's committed rides along</strong> — <code>CLAUDE.md</code>, skills, hooks, <code>.mcp.json</code>. Your <code>~/.claude</code> stays home. Commit your team's config.</p>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Everything on the ladder so far runs on your machine. Claude Code on the web moves the same session onto a VM Anthropic manages — claude --cloud from the terminal, or claude.ai/code in the browser. The use case is triage day: three shallow bugs in the queue, none worth breaking your focus, all real. Fire all three at the cloud, stay on the feature, and check on them from your phone in the coffee line. When one needs your hands, --teleport pulls it home — branch checked out, full history in your terminal."</p>
+                <p class="say">"And auto-fix closes Part 8's loop: the PR we shipped gets a babysitter. The scenario everybody in this room knows — your reviewer is in another timezone, the comment lands at 2am, and you lose a full day to a one-line lint fix. With auto-fix, Claude investigates and pushes it before you wake; by standup the PR is green again. Per-PR toggle, opt-in. Notice this is the agent-ready story again: the VM sees only what the repo carries, so the team whose config is committed gets the same agent in the cloud that they have locally."</p>
+                <p class="nxt">next ▸ ⑤ the catch</p>
+              </div>
+            </div>
+
+            <!-- 6 · THE CATCH -->
+            <div class="beat" data-code="⑤ The catch" data-spine="catch" data-mins="3">
               <h3>Autonomy <em>amplifies</em> — it doesn't fix</h3>
               <div class="ladder">
-                <div class="rung">an unverifiable condition is vibe coding on a timer</div>
-                <div class="rung">the evaluator reads only the transcript — it runs nothing itself</div>
+                <div class="rung">an unverifiable condition is vibe coding on a timer — "make the dashboard feel snappier"</div>
+                <div class="rung">the evaluator reads only the transcript — a coverage number the agent never printed doesn't exist</div>
                 <div class="rung hot">unattended turns spend real tokens — bound them: "or stop after 20 turns"</div>
               </div>
               <p class="b-sub" style="margin-top:16px">The ladder stands on everything before it — the agent-ready repo, the one-command verify, the clean-context check. Skip those and you've automated the mess.</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Three edges I refuse to soften. If nothing verifies, /goal automates your mess — faster than you could make it by hand. The evaluator runs no commands — it judges only what the agent's own output shows, so a condition the transcript can't prove will spin or pass on vibes. And unattended turns spend real tokens; guardrails and budgets matter more when nobody's watching, not less."</p>
-                <p class="say">"I put a stop clause in every condition I write. Every one."</p>
+                <p class="say">"Three edges I refuse to soften, each with a face. 'Make the dashboard feel snappier' — nothing in a transcript proves 'snappy', so that goal spins forever or passes on vibes; /goal automates your mess faster than you could make it by hand. Second: the evaluator runs no commands. 'Coverage is above 80%' fails as a condition unless the agent actually runs the coverage report and prints the summary — I write that step into the condition itself, because a number the judge never saw doesn't exist."</p>
+                <p class="say">"Third: an unbounded loop over a long weekend is a bill, not a feature. Unattended turns spend real tokens; guardrails and budgets matter more when nobody's watching, not less. I put a stop clause in every condition I write. Every one."</p>
                 <p class="nxt">next ▸ land it</p>
               </div>
             </div>
 
-            <!-- 6 · LAND IT -->
+            <!-- 7 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="2">
               <h3>You · a condition · a clock · a cron</h3>
               <p class="b-big">Autonomy isn't trusting the agent more. It's being precise about "done."</p>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
                 <p class="say">"Part 1 was watching code you couldn't verify. Everything since built the discipline — the loop, the ready repo, the skills, the clean-context checks. The prize at the end of it is this ladder: define 'done' precisely enough, and you can walk away."</p>
+                <p class="say">"And 'walk away' is concrete now: the strict-mode flip you didn't sit through, the 17:40 PR that merged itself, the triage report waiting at standup. None of that came from trusting the agent more — it came from writing 'done' well."</p>
                 <p class="say">"That's the arc — from vibe coding to an agent that works while you don't watch."</p>
                 <p class="nxt">▸ that's the talk</p>
               </div>
