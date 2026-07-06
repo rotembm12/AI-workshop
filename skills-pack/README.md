@@ -63,6 +63,6 @@ Two kinds, deliberately. A **user-invoked** skill fires only when you type its n
 
 PRDs live in `prds/`, slices in `slices/` — markdown in your repo, versioned with your code. If your team lives in GitHub issues instead: in `write-a-prd`, replace the save-to-`prds/` step with `gh issue create`; in `prd-to-slices`, create one issue per slice (blockers first, so `Blocked by` lines can reference real issue numbers) instead of writing files. Everything else works unchanged.
 
-## Attribution
+## License
 
-Most skills here are adapted from [Matt Pocock's skills library](https://github.com/mattpocock/skills) (MIT) — thinned of setup steps and issue-tracker dependencies to run zero-setup. `agent-ready` and `gaps-report` are Enpitech originals. See [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE) for the full notice and attribution.
