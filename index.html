@@ -413,6 +413,10 @@ html.present .beat .b-big{font-family:var(--serif); font-weight:600; font-size:c
 html.present .beat .b-big code{font-size:.9em}
 html.present .invo{max-width:980px}
 html.present .invo .col li{font-size:clamp(.95rem,1.6vw,1.3rem)}
+html.present .pasteflip,html.present .blind{max-width:1080px}
+html.present .paste{font-size:clamp(.8rem,1.25vw,1.02rem)}
+html.present .bcard .bdesc{font-size:clamp(.9rem,1.4vw,1.15rem)}
+html.present .bcard .verd li{font-size:clamp(.82rem,1.2vw,1rem)}
 html.present .ladder{max-width:760px}
 html.present .ladder .rung{font-size:clamp(1rem,1.7vw,1.35rem)}
 html.present .rounds{max-width:720px}
@@ -447,11 +451,10 @@ html.present .sg-key div{font-size:14px}
 .beat-notes .do b{font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--sand); margin-right:6px}
 .beat-notes .nxt{font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-top:12px; padding-top:9px; border-top:1px dashed var(--line)}
 
-/* skill-hell ladder */
+/* ladder — shared stacked-rungs device (used across parts) */
 .ladder{display:flex; flex-direction:column; gap:9px; margin-top:6px; max-width:620px}
 .ladder .rung{font-family:var(--mono); font-size:1rem; padding:12px 18px; border:1px solid var(--line); border-radius:var(--rad-sm); color:var(--ink-faint)}
 .ladder .rung.hot{border-color:var(--coral); color:var(--coral); font-weight:600; background:rgba(255,148,31,.07)}
-.bro{font-family:var(--serif); font-style:italic; font-size:1.15rem; color:var(--ink-dim); margin-top:16px}
 
 /* rounds — one-shots don't converge: every attempt stalls at the same last 20% */
 .rounds{display:flex; flex-direction:column; gap:8px; margin-top:6px; max-width:560px}
@@ -542,6 +545,38 @@ html.present .sg-key div{font-size:14px}
 .moves div{font-size:.86rem; color:var(--ink-dim); padding-left:19px; position:relative}
 .moves div::before{content:"→"; position:absolute; left:0; color:var(--teal); font-weight:600}
 
+/* what-is-a-skill · third-paste flip */
+.pasteflip{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:4px; align-items:start; max-width:1020px}
+.pcard{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
+.pcard .dl{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:11px}
+.pcard.bad .dl{color:var(--coral)} .pcard.good .dl{color:var(--teal)}
+.paste{font-family:var(--mono); font-size:.82rem; line-height:1.55; color:var(--ink-dim); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:9px}
+.paste:last-child{margin-bottom:0}
+.paste .pwho{display:block; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px}
+.paste.dim{opacity:.62}
+.paste.hot{border-color:var(--coral)}
+.paste.hot .pwho{color:var(--coral)}
+.paste .again{color:var(--coral); font-weight:600; margin-left:8px}
+.paste.fire{border-color:var(--teal); color:var(--ink)}
+.paste.fire .pwho,.paste.fire b{color:var(--teal)}
+.pcard.good{opacity:.18; filter:blur(3px); pointer-events:none}
+.pasteflip.revealed .pcard.good{opacity:1; filter:none; pointer-events:auto}
+.pasteflip.revealed .pcard.bad{opacity:.5}
+.pasteflip.revealed .moves{opacity:1; transform:none}
+
+/* blind test — two skills, outside view only */
+.blind{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:4px; align-items:start; max-width:1020px}
+.bcard{border:1px solid var(--line); border-radius:var(--rad-sm); padding:18px 20px; background:var(--surface-2); transition:.35s}
+.bcard .bname{font-family:var(--mono); font-size:.95rem; font-weight:600; color:var(--teal); margin-bottom:9px}
+.bcard .bdesc{font-family:var(--mono); font-size:.88rem; line-height:1.6; color:var(--ink)}
+.bcard .verd{list-style:none; display:grid; gap:6px; margin-top:14px; opacity:0; transform:translateY(6px); transition:.45s}
+.blind.revealed .verd{opacity:1; transform:none}
+.bcard .verd li{font-size:.84rem; line-height:1.4}
+.bcard .verd li.no{color:var(--coral)}
+.bcard .verd li.ok{color:var(--teal)}
+.blind.revealed .bcard.deadweight{border-color:var(--coral); opacity:.6}
+.blind.revealed .bcard.keeper{border-color:var(--teal)}
+
 /* deletion test widget */
 .deltest{margin-top:4px; max-width:760px}
 .deltest .file{font-family:var(--mono); font-size:.92rem; line-height:1.5; border:1px solid var(--line); border-radius:var(--rad-sm); background:var(--surface-2); padding:12px 14px}
@@ -594,7 +629,7 @@ html.present .sg-key div{font-size:14px}
 .bloat-read b{color:var(--ink); font-weight:600}
 .bloat-read.over .br-pct,.bloat-read.over .br-say{color:var(--coral)}
 
-@media(max-width:720px){.descflip,.invo{grid-template-columns:1fr}}
+@media(max-width:720px){.descflip,.invo,.pasteflip,.blind{grid-template-columns:1fr}}
 @media(max-width:980px){
   html.present .deck-stage{padding:2vh 5vw; inset:62px 0 60px}
   html.present .deck-arrow{width:46px; height:46px; font-size:20px}
@@ -618,6 +653,8 @@ html.present .sg-key div{font-size:14px}
   .beat-notes{display:block!important}
   .descflip .dcard.good{opacity:1!important; filter:none!important}
   .descflip .moves{opacity:1!important; transform:none!important}
+  .pasteflip .pcard.good{opacity:1!important; filter:none!important}
+  .pasteflip .moves,.blind .verd{opacity:1!important; transform:none!important}
   .trace .echo{opacity:1!important}
   .sv-pane{display:block!important; max-height:none!important}
 }
@@ -1484,7 +1521,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               <span class="sp" data-sp="pruning"><b>④</b>Pruning</span>
             </div>
             <div class="hud-r">
-              <span class="hud-pos" id="beatPos">1 / 10</span>
+              <span class="hud-pos" id="beatPos">1 / 11</span>
               <span class="deck-clock" id="beatClock">00:00</span>
               <span class="deck-tgt" id="beatTgt"></span>
               <button class="hud-note" id="notesToggle" title="Your notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h7M8 17h5"/></svg></button>
@@ -1504,29 +1541,72 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
                 <div class="bn-l">Talk track</div>
                 <p class="say">"You'll all leave here with skills. The real question is whether they're any <em>good</em> — and most people can't tell. Here's the rubric, and we'll build one with it."</p>
                 <p class="do"><b>do</b> Press F for fullscreen. High energy — this is a 50-minute slot, the description beat is the one to protect.</p>
-                <p class="nxt">next ▸ cold open · skill hell</p>
+                <p class="nxt">next ▸ what's a skill</p>
               </div>
             </div>
 
-            <!-- 2 · COLD OPEN -->
-            <div class="beat" data-code="Cold open" data-mins="4">
-              <h3>Skill hell</h3>
-              <div class="ladder">
-                <div class="rung">tutorial hell — watch twenty, build nothing</div>
-                <div class="rung">framework hell — a new one every week</div>
-                <div class="rung hot">skill hell — everyone has skills, nobody can tell good from bad</div>
+            <!-- 2 · WHAT'S A SKILL -->
+            <div class="beat" data-code="What's a skill" data-mins="4">
+              <h3>The prompt you <em>stopped retyping</em></h3>
+              <div class="pasteflip" id="pasteA">
+                <div class="pcard bad"><div class="dl">✗ your week with the agent</div>
+                  <div class="paste"><span class="pwho">▸ you · monday</span>"Add a projects endpoint. Follow the structure under src/api, validate with a schema, reject bad input with 400, go through the repository, write the round-trip test…"</div>
+                  <div class="paste dim"><span class="pwho">▸ you · wednesday</span>"Add a tags endpoint. Follow the structure under src/api, validate with a schema, reject bad input with 400…"</div>
+                  <div class="paste hot"><span class="pwho">▸ you · friday<b class="again">third time</b></span>"Add a comments endpoint. Follow the structure under src/api, validate with a schema…"</div>
+                </div>
+                <div class="pcard good"><div class="dl">✓ the same ask, saved</div>
+                  <div class="paste"><span class="pwho">▸ you</span>"add a comments endpoint"</div>
+                  <div class="paste fire"><span class="pwho">◂ agent</span>⚡ <b>add-endpoint-our-way</b> — your preamble, saved as a file in the repo. It loads itself when the moment matches.</div>
+                  <div class="moves"><div>Written once — lives in the repo, ships with it</div><div>Loads only when the task matches</div><div>No magic — it's a markdown file</div></div>
+                </div>
               </div>
-              <p class="bro">"just one more skill, bro — this one fixes it."</p>
+              <button class="present-btn" data-flip="pasteA" data-flip-off="Save it as a skill →" data-flip-on="↺ Back to the pasting" style="margin-top:16px; font-size:13px; padding:11px 18px">Save it as a skill →</button>
               <div class="beat-notes">
                 <div class="bn-l">Talk track</div>
-                <p class="say">"Quick history of developer suffering: tutorial hell, then framework hell. Now — skill hell. Everyone has skills they can download and share, and nobody can tell a good one from a bad one, so they pile up, don't fire, and quietly don't deliver."</p>
-                <p class="say">"The missing piece is a shared rubric. By the end of this you'll have one — four items — and a real skill built with it."</p>
-                <p class="do"><b>watch</b> The advanced engineers perk up at 'you can't tell good from bad.' That's your hook for them.</p>
+                <p class="say">"Here's a week with an agent. Monday you type the task plus the preamble — our structure, our validation, our tests. Wednesday, same preamble. Friday you're pasting it a third time. That preamble IS the skill — you just haven't saved it yet."</p>
+                <p class="say">"So the definition: a skill is the prompt you stopped retyping. Saved as a file in the repo, and from then on the agent pulls it in whenever the task matches. No magic, no product to buy — a markdown file, versioned with your code, shared with your whole team."</p>
+                <p class="do"><b>do</b> Click 'Save it as a skill'. Land the demystifying line hard — half the room thinks 'skill' is a feature they have to install.</p>
+                <p class="nxt">next ▸ the blind test</p>
+              </div>
+            </div>
+
+            <!-- 3 · THE BLIND TEST -->
+            <div class="beat" data-code="The blind test" data-mins="3">
+              <h3>One of these is <em>dead weight</em></h3>
+              <p class="b-sub">Two skills, exactly as you'd meet them — a name and a description. Which one do you install?</p>
+              <div class="blind" id="blindA" style="margin-top:16px">
+                <div class="bcard deadweight">
+                  <div class="bname">pr-review-checklist</div>
+                  <div class="bdesc">A comprehensive, structured quality checklist ensuring every pull request meets the highest standards of excellence before merging.</div>
+                  <ul class="verd">
+                    <li class="no">① Trigger — when would it fire? It doesn't say</li>
+                    <li class="no">② Structure — 240 lines, everything inline</li>
+                    <li class="no">③ Steering — "excellence" steers nothing</li>
+                    <li class="no">④ Pruning — half of it fails the deletion test</li>
+                  </ul>
+                </div>
+                <div class="bcard keeper">
+                  <div class="bname">review-pr</div>
+                  <div class="bdesc">Review a pull request the way our team does — risk first: schema, migrations and auth changes before style. Use when reviewing a PR or when someone says "review this", "look at my PR", "ready for review".</div>
+                  <ul class="verd">
+                    <li class="ok">① Trigger — real situations, real phrases</li>
+                    <li class="ok">② Structure — five steps, reference behind a pointer</li>
+                    <li class="ok">③ Steering — "risk first" bends the whole review</li>
+                    <li class="ok">④ Pruning — nothing left to delete</li>
+                  </ul>
+                </div>
+              </div>
+              <button class="present-btn" data-flip="blindA" data-flip-off="Which one is great? →" data-flip-on="↺ Hide the verdicts" style="margin-top:16px; font-size:13px; padding:11px 18px">Which one is great? →</button>
+              <div class="beat-notes">
+                <div class="bn-l">Talk track</div>
+                <p class="say">"Two skills, exactly as you'd meet them in a repo or a marketplace: a name and a description. One is great. One is dead weight that sits in your context taxing every request. Ten seconds — which do you install?"</p>
+                <p class="say">"Most rooms split, and that's the point: polish hides rot. From the outside you can't tell. These four questions can — trigger, structure, steering, pruning — and they're the next forty minutes."</p>
+                <p class="do"><b>watch</b> Get a show of hands before revealing — the split IS the argument. The advanced engineers lock in at 'you can't tell.'</p>
                 <p class="nxt">next ▸ 90-second anatomy</p>
               </div>
             </div>
 
-            <!-- 3 · ANATOMY -->
+            <!-- 4 · ANATOMY -->
             <div class="beat" data-code="Anatomy" data-mins="3">
               <h3>A folder with a <code>SKILL.md</code></h3>
               <div class="tree">.claude/skills/<span class="hl">add-endpoint-our-way/</span>
@@ -1543,7 +1623,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               </div>
             </div>
 
-            <!-- 4 · TRIGGER (invocation) -->
+            <!-- 5 · TRIGGER (invocation) -->
             <div class="beat" data-code="① Trigger" data-spine="trigger" data-mins="5">
               <h3>Two ways in — pick on purpose</h3>
               <div class="invo">
@@ -1568,7 +1648,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               </div>
             </div>
 
-            <!-- 5 · TRIGGER (the description) — CENTERPIECE -->
+            <!-- 6 · TRIGGER (the description) — CENTERPIECE -->
             <div class="beat" data-code="① Trigger · description" data-spine="trigger" data-mins="6">
               <h3>Bad vs great description</h3>
               <div class="descflip" id="descA">
@@ -1587,7 +1667,7 @@ Guardrails  never commit secrets · don't hand-edit /migrations · ask before de
               </div>
             </div>
 
-            <!-- 6 · STRUCTURE -->
+            <!-- 7 · STRUCTURE -->
             <div class="beat" data-code="② Structure" data-spine="structure" data-mins="7">
               <h3>Push branch-only reference behind a pointer</h3>
               <div class="skillview" id="svA">
@@ -1668,7 +1748,7 @@ that earns this file its own home</span></div>
               </div>
             </div>
 
-            <!-- 7 · STEERING -->
+            <!-- 8 · STEERING -->
             <div class="beat" data-code="③ Steering" data-spine="steering" data-mins="6">
               <h3>Pack intent into a word the model already knows</h3>
               <p class="b-big">"thin vertical slice"</p>
@@ -1683,7 +1763,7 @@ that earns this file its own home</span></div>
               </div>
             </div>
 
-            <!-- 8 · PRUNING -->
+            <!-- 9 · PRUNING -->
             <div class="beat" data-code="④ Pruning" data-spine="pruning" data-mins="6">
               <h3>Delete what the agent already does</h3>
               <div class="deltest" id="delA">
@@ -1706,7 +1786,7 @@ that earns this file its own home</span></div>
               </div>
             </div>
 
-            <!-- 9 · RULE OF THREE -->
+            <!-- 10 · RULE OF THREE -->
             <div class="beat" data-code="Rule of three" data-mins="3">
               <h3>The rule of three</h3>
               <div class="rule3"><div class="r3-count">3×</div><div><p class="b-sub">Done by prompt three times, and you'll do it thirty more → <strong>that's</strong> a skill. A one-off dressed up as a skill is just ceremony.</p></div></div>
@@ -1718,7 +1798,7 @@ that earns this file its own home</span></div>
               </div>
             </div>
 
-            <!-- 10 · LAND IT -->
+            <!-- 11 · LAND IT -->
             <div class="beat" data-code="Land it" data-mins="4">
               <h3>Trigger · Structure · Steering · Pruning</h3>
               <p class="b-sub">Same four questions work on any skill — including the dodgy ones you download.</p>
@@ -2968,7 +3048,7 @@ that earns this file its own home</span></div>
     const nextBeat=()=>showBeat(bi+1), prevBeat=()=>showBeat(bi-1);
 
     function resetWidgets(){
-      qq('.descflip').forEach(w=>w.classList.remove('revealed'));
+      qq('.descflip,.pasteflip,.blind').forEach(w=>w.classList.remove('revealed'));
       qq('[data-flip]').forEach(b=>b.textContent=b.dataset.flipOff||'Rewrite it →');
       qq('.trace').forEach(t=>t.classList.remove('run'));
       qq('.deltest').forEach(dt=>{ dt.querySelectorAll('.ln').forEach(l=>l.classList.remove('cut','kept')); const c=dt.querySelector('[data-count]'); if(c)c.textContent=dt.querySelectorAll('.ln').length; });
