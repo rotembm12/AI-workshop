@@ -31,7 +31,7 @@ fuzzy sentence
 
 Each stage produces a file the next stage reads — so every handoff can happen in a fresh context, and a cold reader (`gaps-report`) can tell you whether the file stands on its own.
 
-Run the stages yourself, one per clean session — or run `engineer-flow` and have one agent orchestrate the whole pipeline: a pre-run interview sets where you want to be pulled in and which model tier plays each role, then subagents perform the stages while you watch the gates.
+Run the stages yourself, one per clean session — or run `engineer-flow` and have one agent conduct the whole pipeline: a pre-run interview sets where you want to be pulled in and which model tier plays each role, then it interviews you at the interview-shaped stages and casts subagents for everything file-shaped, while you watch the gates.
 
 ## The skills
 
@@ -41,7 +41,7 @@ Two kinds, deliberately. A **user-invoked** skill fires only when you type its n
 
 | Skill | What it does |
 |---|---|
-| `engineer-flow` | Orchestrates the whole pipeline: an interview writes the run's score — human gates + model casting — then subagents play each stage in clean contexts |
+| `engineer-flow` | Conducts the whole pipeline: an interview writes the run's score — human gates + model casting — then it interviews you at the interview stages and casts subagents, each in a clean context, for the rest |
 | `improve-codebase-architecture` | Scans for deepening opportunities, presents them as a visual HTML report, then grills through your pick |
 | `handoff` | Compacts the conversation into a handoff document a fresh agent can continue from |
 | `writing-great-skills` | Reference for writing skills of your own — invocation trade-offs, information hierarchy, pruning |
@@ -64,7 +64,7 @@ Two kinds, deliberately. A **user-invoked** skill fires only when you type its n
 
 ## Local-first, by design
 
-PRDs live in `prds/`, slices in `slices/` — markdown in your repo, versioned with your code. If your team lives in GitHub issues instead: in `write-a-prd`, replace the save-to-`prds/` step with `gh issue create`; in `prd-to-slices`, create one issue per slice (blockers first, so `Blocked by` lines can reference real issue numbers) instead of writing files. Everything else works unchanged.
+PRDs live in `prds/`, slices in `slices/` — markdown in your repo, versioned with your code. If your team lives in GitHub issues instead: in `write-a-prd`, replace the save-to-`prds/` step with `gh issue create`; in `prd-to-slices`, create one issue per slice (blockers first, so `Blocked by` lines can reference real issue numbers) instead of writing files. Everything else works unchanged — except `engineer-flow`, which is wired to the local-file mode: its gates check `prds/` and `slices/` on disk.
 
 ## License
 

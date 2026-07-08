@@ -94,7 +94,7 @@ Create `./slices/<feature-slug>/`. Write:
 
 > Overview: ./00-overview.md · Parent PRD: ../../prds/<feature-slug>.prd.md
 
-**Type**: HITL / AFK
+**Type**: AFK, or HITL — name the human moment: the decision or review needed, and whether it comes before or after building
 **Blocked by**: Slice NN (or "None — can start immediately")
 
 ## What to build
