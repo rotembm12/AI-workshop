@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Claude Code Loops — Enpitech Engineering Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF8; --panel:#FFFFFF;
+  --ink:#1A201E; --muted:#5C6461; --faint:#8A928E;
+  --line:#E4E6E1; --line-soft:#EEF0EB;
+  --accent:#14655A; --accent-ink:#0E4A42; --accent-soft:#EAF2EF; --accent-softer:#F3F8F6;
+  --warn:#9C5D12; --warn-soft:#FBF2E4;
+  --danger:#9A3B2E; --danger-soft:#F8ECE9;
+  --term-bg:#111716; --term-fg:#DAE6E2; --term-dim:#7E9089; --term-accent:#5FC9AC; --term-line:#232E2B;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --body:'Instrument Sans',system-ui,sans-serif;
+  --display:'Bricolage Grotesque','Instrument Sans',sans-serif;
+  --s1:8px; --s2:14px; --s3:22px; --s4:34px; --s5:56px; --s6:88px;
+  --r:12px;
+  --header-h:56px;
+  --header-bg:rgba(250,250,248,.94);
+  --tag-fg:#FFFFFF;
+  color-scheme:light dark;
+}
+@media(prefers-color-scheme:dark){
+:root{
+  --paper:#0F1413; --panel:#161D1B;
+  --ink:#E8EDEA; --muted:#A9B3AE; --faint:#78827D;
+  --line:#293230; --line-soft:#212927;
+  --accent:#3FBEA0; --accent-ink:#8FDCC7; --accent-soft:#1C352E; --accent-softer:#16281F;
+  --warn:#E0A45C; --warn-soft:#2C2313;
+  --danger:#E28372; --danger-soft:#301B16;
+  --term-bg:#0B100F; --term-line:#1E2926;
+  --header-bg:rgba(15,20,19,.92);
+  --tag-fg:#0F1413;
+}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 20px)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+@media(min-width:961px){body{font-size:16.5px}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* ============ Progress bar ============ */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60}
+
+/* ============ Mobile header ============ */
+.m-header{display:none}
+@media(max-width:960px){
+  .m-header{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--header-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50;padding:0 18px}
+  .m-title{font-family:var(--display);font-weight:700;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:12px}
+  .m-title small{font-family:var(--mono);font-weight:400;font-size:10px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;display:block;line-height:1}
+  .m-menu-btn{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--accent-ink);background:var(--accent-soft);border:1px solid transparent;border-radius:8px;padding:10px 16px;cursor:pointer;min-height:40px}
+  body{padding-top:var(--header-h)}
+}
+/* ============ Mobile nav overlay ============ */
+.m-nav{position:fixed;inset:0;top:var(--header-h);background:var(--paper);z-index:49;overflow-y:auto;padding:14px 18px 40px;display:none}
+.m-nav.open{display:block}
+.m-nav a{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);font-size:16px;padding:14px 10px;border-bottom:1px solid var(--line-soft);min-height:48px}
+.m-nav a .num{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:22px}
+.m-nav .m-group{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:20px 10px 6px}
+body.nav-open{overflow:hidden}
+
+/* ============ Layout ============ */
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1200px;margin:0 auto}
+main{padding:0 52px var(--s6);max-width:860px;min-width:0}
+@media(max-width:960px){.layout{grid-template-columns:1fr}main{padding:0 20px 72px}}
+
+/* ============ Sidebar (desktop) ============ */
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;padding:38px 18px 48px 30px;border-right:1px solid var(--line);scrollbar-width:thin}
+@media(max-width:960px){.sidebar{display:none}}
+.brand{font-family:var(--display);font-weight:800;font-size:15.5px;line-height:1.25}
+.brand small{display:block;font-family:var(--mono);font-weight:400;font-size:10px;color:var(--faint);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+.toc{margin-top:26px;display:flex;flex-direction:column}
+.toc a{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--muted);font-size:13.5px;padding:7px 10px;border-radius:7px;border-left:2px solid transparent;line-height:1.4}
+.toc a .num{font-family:var(--mono);font-size:10.5px;color:var(--faint);min-width:18px}
+.toc a:hover{color:var(--ink);background:var(--accent-softer)}
+.toc a.active{color:var(--accent-ink);border-left-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.toc a.active .num{color:var(--accent)}
+.toc-group{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:18px 0 4px 10px}
+
+/* ============ Typography ============ */
+section{padding-top:var(--s6)}
+@media(max-width:960px){section{padding-top:var(--s5)}}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,5.5vw,50px);line-height:1.06;letter-spacing:-.015em}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.4vw,30px);line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--s2)}
+h3{font-family:var(--display);font-weight:700;font-size:19px;margin:var(--s4) 0 var(--s1)}
+h4{font-weight:600;font-size:16px;margin:var(--s3) 0 6px}
+p{margin-bottom:var(--s2);max-width:68ch}
+p.lede{font-size:clamp(17px,2.4vw,19px);color:var(--muted);line-height:1.6;max-width:60ch}
+a{color:var(--accent-ink)}
+strong{font-weight:600}
+ul,ol{margin:0 0 var(--s2) 22px;max-width:68ch}
+li{margin-bottom:8px}
+li::marker{color:var(--accent)}
+code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);color:var(--accent-ink);padding:2px 6px;border-radius:5px;word-break:break-word}
+
+/* ============ TL;DR strip ============ */
+.tldr{display:flex;gap:12px;align-items:flex-start;background:var(--accent-softer);border:1px solid var(--accent-soft);border-radius:var(--r);padding:14px 18px;margin:0 0 var(--s3);font-size:15px;color:var(--accent-ink)}
+.tldr .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:var(--tag-fg);border-radius:5px;padding:3px 8px;margin-top:3px;flex:none}
+
+/* ============ Hero ============ */
+.hero{padding-top:var(--s5)}
+.hero-grid{display:grid;grid-template-columns:1fr 210px;gap:36px;align-items:center}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr}.hero-grid svg{max-width:170px;margin-top:6px}}
+.hero p.lede{margin-top:18px}
+.hero-meta{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;padding:6px 12px;border:1px solid var(--line);border-radius:99px;color:var(--muted);background:var(--panel)}
+.loop-svg{width:100%;height:auto}
+.ring-track{stroke:var(--line)}
+.loop-ring{stroke:var(--accent)}
+.ring-labels{fill:var(--ink)}
+.ring-labels .node{fill:var(--accent)}
+.ring-center{fill:var(--muted)}
+@keyframes orbit{to{stroke-dashoffset:-160}}
+.loop-ring{animation:orbit 9s linear infinite}
+
+/* ============ Reading paths ============ */
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:var(--s4)}
+@media(max-width:720px){.paths{grid-template-columns:1fr}}
+.path{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;text-decoration:none;color:var(--ink);display:block;transition:border-color .15s}
+.path:hover{border-color:var(--accent)}
+.path b{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+.path span{font-size:14px;color:var(--muted);line-height:1.5;display:block}
+
+/* ============ Pattern jump cards ============ */
+.pattern-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:var(--s3) 0}
+@media(max-width:720px){.pattern-cards{grid-template-columns:1fr}}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;text-decoration:none;color:var(--ink);display:block;transition:border-color .15s,transform .15s}
+.pcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+.pcard .pc-top{display:flex;justify-content:space-between;align-items:baseline}
+.pcard .pc-num{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:.1em}
+.pcard .pc-cost{font-family:var(--mono);font-size:10px;color:var(--faint)}
+.pcard h4{font-family:var(--display);font-weight:700;font-size:17px;margin:8px 0 5px}
+.pcard p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
+
+/* ============ Terminal blocks ============ */
+.term{background:var(--term-bg);color:var(--term-fg);border-radius:var(--r);margin:16px 0 var(--s3);overflow:hidden;font-family:var(--mono);border:1px solid var(--term-line)}
+.term-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px 9px 16px;border-bottom:1px solid var(--term-line);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--term-dim);min-height:44px}
+.term-head span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{font-family:var(--mono);font-size:11px;color:var(--term-dim);background:transparent;border:1px solid #2E3B37;border-radius:7px;padding:8px 14px;cursor:pointer;letter-spacing:.05em;min-height:36px;flex:none}
+.copy-btn:hover,.copy-btn.copied{color:var(--term-accent);border-color:var(--term-accent)}
+.term pre{padding:16px 18px;font-size:12.5px;line-height:1.66;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+@media(min-width:961px){.term pre{font-size:13px}}
+.term pre .marker{color:var(--term-accent);user-select:none}
+.term pre .cm{color:var(--term-dim)}
+
+/* ============ Callouts ============ */
+.note,.warn,.risk{border-radius:var(--r);padding:16px 18px;margin:var(--s3) 0;font-size:15px}
+.note{background:var(--accent-softer);border:1px solid var(--accent-soft);border-left:3px solid var(--accent)}
+.warn{background:var(--warn-soft);border-left:3px solid var(--warn)}
+.risk{background:var(--danger-soft);border-left:3px solid var(--danger)}
+.note b,.warn b,.risk b{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:6px}
+.note b{color:var(--accent-ink)}.warn b{color:var(--warn)}.risk b{color:var(--danger)}
+.note p:last-child,.warn p:last-child,.risk p:last-child{margin-bottom:0}
+
+/* ============ Pros/cons cards ============ */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:var(--s3) 0}
+@media(max-width:720px){.cards{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.card h5{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.card.pro{border-top:3px solid var(--accent)}
+.card.con{border-top:3px solid var(--danger)}
+.card.pro h5{color:var(--accent-ink)}.card.con h5{color:var(--danger)}
+.card ul{margin:0 0 0 18px;font-size:14px}
+.card li{margin-bottom:6px}
+
+/* ============ Tables — responsive to stacked cards ============ */
+.tbl-wrap{overflow-x:auto;margin:var(--s2) 0 var(--s3);border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--muted);background:var(--paper);padding:11px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+@media(max-width:720px){
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr{border-bottom:8px solid var(--paper);padding:6px 0}
+  table.stack tr:last-child{border-bottom:0}
+  table.stack td{border-bottom:0;padding:7px 16px}
+  table.stack td::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
+  table.stack td:first-child{background:var(--accent-softer);padding:10px 16px;font-weight:600}
+  table.stack td:first-child::before{display:none}
+}
+
+/* ============ Phases strip ============ */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:var(--s3) 0}
+@media(max-width:720px){.phases{grid-template-columns:1fr}}
+.phase{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.phase .ph-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.phase h4{margin:7px 0 6px;font-family:var(--display);font-weight:700;font-size:17px}
+.phase p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
+
+/* ============ Anti-patterns ============ */
+.anti{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);margin:14px 0;padding:17px 20px}
+.anti h4{margin:0 0 6px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.anti h4 span{font-family:var(--mono);font-size:10.5px;color:var(--danger);letter-spacing:.08em}
+.anti p{font-size:14.5px;color:var(--muted);margin:0}
+.anti .fix{font-size:14px;color:var(--accent-ink);margin:9px 0 0}
+.anti .fix b{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-right:6px}
+
+/* ============ Section pager ============ */
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line)}
+.pager a{flex:1;text-decoration:none;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:14px 16px;color:var(--ink);max-width:48%;transition:border-color .15s}
+.pager a:hover{border-color:var(--accent)}
+.pager a.next{text-align:right;margin-left:auto}
+.pager a b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:4px;font-weight:500}
+.pager a span{font-family:var(--display);font-weight:700;font-size:14.5px;color:var(--accent-ink)}
+
+/* ============ Footer / misc ============ */
+.src-list{font-size:14.5px}
+.src-list li{margin-bottom:9px}
+footer{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line);font-size:12.5px;color:var(--faint);font-family:var(--mono)}
+.to-top{position:fixed;bottom:22px;right:22px;z-index:40;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--accent-ink);font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(20,30,27,.10);opacity:0;pointer-events:none;transition:opacity .2s}
+.to-top.show{opacity:1;pointer-events:auto}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+
+<header class="m-header">
+  <div class="m-title">Claude Code Loops<small>Enpitech · Field Guide</small></div>
+  <button class="m-menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mNav">Contents</button>
+</header>
+<nav class="m-nav" id="mNav" aria-label="Sections">
+  <div class="m-group">Foundations</div>
+  <a href="#mental-model"><span class="num">01</span>Mental model</a>
+  <a href="#anatomy"><span class="num">02</span>Anatomy of the loop</a>
+  <a href="#context"><span class="num">03</span>Context management</a>
+  <div class="m-group">Loop patterns</div>
+  <a href="#verification"><span class="num">04</span>Verification &amp; TDD</a>
+  <a href="#automation"><span class="num">05</span>Automation &amp; headless</a>
+  <a href="#subagents"><span class="num">06</span>Subagents</a>
+  <a href="#teams"><span class="num">07</span>Agent teams</a>
+  <div class="m-group">Practice</div>
+  <a href="#choosing"><span class="num">08</span>Choosing a loop</a>
+  <a href="#antipatterns"><span class="num">09</span>Anti-patterns</a>
+  <a href="#prompts"><span class="num">10</span>Prompt library</a>
+  <a href="#sources"><span class="num">→</span>Sources</a>
+</nav>
+
+<div class="layout">
+<aside class="sidebar" aria-label="Table of contents">
+  <div class="brand">Claude Code Loops<small>Enpitech · Field Guide</small></div>
+  <nav class="toc">
+    <div class="toc-group">Foundations</div>
+    <a href="#mental-model"><span class="num">01</span>Mental model</a>
+    <a href="#anatomy"><span class="num">02</span>Anatomy of the loop</a>
+    <a href="#context"><span class="num">03</span>Context management</a>
+    <div class="toc-group">Loop patterns</div>
+    <a href="#verification"><span class="num">04</span>Verification &amp; TDD</a>
+    <a href="#automation"><span class="num">05</span>Automation &amp; headless</a>
+    <a href="#subagents"><span class="num">06</span>Subagents</a>
+    <a href="#teams"><span class="num">07</span>Agent teams</a>
+    <div class="toc-group">Practice</div>
+    <a href="#choosing"><span class="num">08</span>Choosing a loop</a>
+    <a href="#antipatterns"><span class="num">09</span>Anti-patterns</a>
+    <a href="#prompts"><span class="num">10</span>Prompt library</a>
+    <a href="#sources"><span class="num">→</span>Sources</a>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Enpitech engineering · field guide</div>
+      <h1>Claude Code loops, from single session to agent swarm</h1>
+      <p class="lede">How the agentic loop works, how context economics shape every decision, and four loop patterns with copy-paste prompts, trade-offs, and failure modes.</p>
+      <div class="hero-meta">
+        <span class="chip">senior engineers</span>
+        <span class="chip">language-agnostic</span>
+        <span class="chip">verified · Jul 2026</span>
+      </div>
+    </div>
+    <svg class="loop-svg" viewBox="0 0 220 220" role="img" aria-label="The agentic loop: gather context, take action, verify results, repeat">
+      <circle class="ring-track" cx="110" cy="110" r="78" fill="none" stroke-width="2"/>
+      <circle class="loop-ring" cx="110" cy="110" r="78" fill="none" stroke-width="2.5" stroke-dasharray="40 120" stroke-linecap="round"/>
+      <g class="ring-labels" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">
+        <circle class="node" cx="110" cy="24" r="5"/><text x="110" y="10">gather</text>
+        <circle class="node" cx="184" cy="152" r="5"/><text x="188" y="176">act</text>
+        <circle class="node" cx="36" cy="152" r="5"/><text x="32" y="176">verify</text>
+      </g>
+      <text class="ring-center" x="110" y="115" font-family="Bricolage Grotesque, sans-serif" font-size="13" font-weight="700" text-anchor="middle">repeat</text>
+    </svg>
+  </div>
+
+  <div class="paths">
+    <a class="path" href="#mental-model"><b>New to loops?</b><span>Read 01 → 04 in order. Foundations first, then close your first verification loop.</span></a>
+    <a class="path" href="#automation"><b>Ready to scale?</b><span>Jump to 05 → 07: headless automation, subagents, and agent teams.</span></a>
+    <a class="path" href="#prompts"><b>Just need a prompt?</b><span>08–10 are pure reference: decision matrix, anti-patterns, prompt library.</span></a>
+  </div>
+</section>
+
+<!-- ================= 1. MENTAL MODEL ================= -->
+<section id="mental-model">
+  <div class="eyebrow">01 · Foundations</div>
+  <h2>The mental model: one loop, one constraint</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span>Everything Claude Code does is one loop — gather, act, verify, repeat — and every technique in this guide is a strategy for spending its scarcest resource: the context window.</span></div>
+
+  <p>Claude Code is not a chatbot with file access. It's an <strong>agentic harness</strong> around a model: it supplies tools, permission gating, memory loading, and the loop that chains actions together. When you hand it a task, it cycles through three blended phases until the work is done:</p>
+
+  <div class="phases">
+    <div class="phase"><div class="ph-label">Phase A</div><h4>Gather context</h4><p>Search and read files, inspect git state, load CLAUDE.md, pull docs, ask you questions.</p></div>
+    <div class="phase"><div class="ph-label">Phase B</div><h4>Take action</h4><p>Edit files, run commands, call MCP tools, commit — every action produces new evidence.</p></div>
+    <div class="phase"><div class="ph-label">Phase C</div><h4>Verify results</h4><p>Run tests, builds, linters, screenshots. The result feeds the next iteration of the loop.</p></div>
+  </div>
+
+  <p>The loop adapts to the task: a codebase question may be pure gathering, a bug fix cycles through all three phases repeatedly, a refactor is verification-heavy. Claude chains dozens of actions, course-correcting on what each step returns — and you're part of the loop too, free to interrupt, redirect, or step away.</p>
+
+  <div class="note"><b>The governing constraint</b>
+  <p>The context window holds the entire conversation — every message, file read, and command output — and <strong>model performance degrades as it fills</strong>. A single debugging session can burn tens of thousands of tokens. Context is the scarcest resource you manage.</p></div>
+
+  <h3>The autonomy ladder</h3>
+  <p>Think of the four loop patterns as rungs on a ladder. Each rung trades more setup and more tokens for less of your attention:</p>
+
+  <div class="pattern-cards">
+    <a class="pcard" href="#verification"><div class="pc-top"><span class="pc-num">Pattern I · §04</span><span class="pc-cost">cost 1×</span></div><h4>Verification loops</h4><p>One session that closes its own feedback loop with a check it can run. The default.</p></a>
+    <a class="pcard" href="#automation"><div class="pc-top"><span class="pc-num">Pattern II · §05</span><span class="pc-cost">cost scales with N</span></div><h4>Automation loops</h4><p>Non-interactive <code>claude -p</code> runs in scripts, CI, and fan-out pipelines.</p></a>
+    <a class="pcard" href="#subagents"><div class="pc-top"><span class="pc-num">Pattern III · §06</span><span class="pc-cost">cost ~1–3×</span></div><h4>Subagents</h4><p>Disposable workers with isolated context, reporting summaries back to one session.</p></a>
+    <a class="pcard" href="#teams"><div class="pc-top"><span class="pc-num">Pattern IV · §07</span><span class="pc-cost">cost ~N×+</span></div><h4>Agent teams</h4><p>Multiple full sessions with a shared task list and peer-to-peer messaging.</p></a>
+  </div>
+
+  <nav class="pager"><a class="next" href="#anatomy"><b>Next</b><span>02 · Anatomy of the loop →</span></a></nav>
+</section>
+
+<!-- ================= 2. ANATOMY ================= -->
+<section id="anatomy">
+  <div class="eyebrow">02 · Foundations</div>
+  <h2>Anatomy of the loop</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span>Models reason, tools act, the harness glues them. Every extension mechanism plugs into a specific loop phase — pick where to intervene, and remember: CLAUDE.md is advisory, hooks are deterministic.</span></div>
+
+  <p>Under the hood the loop is a tight transaction: the model decides what to do next, the harness executes it, and the result becomes new evidence in the context window.</p>
+
+  <h3>What Claude sees when a session starts</h3>
+  <ul>
+    <li><strong>Your project</strong> — files in the directory and subdirectories, plus anything you grant access to.</li>
+    <li><strong>Your terminal</strong> — any command you could run: build tools, git, package managers, scripts.</li>
+    <li><strong>Your git state</strong> — current branch, uncommitted changes, recent history.</li>
+    <li><strong>Your CLAUDE.md</strong> — persistent project instructions loaded every session.</li>
+    <li><strong>Configured extensions</strong> — MCP servers, skills, hooks, subagent definitions.</li>
+  </ul>
+
+  <h3>Extension points map onto loop phases</h3>
+  <p>The key architectural insight for advanced users: choosing an extension mechanism is choosing <em>where</em> in the loop to intervene.</p>
+
+  <div class="tbl-wrap"><table class="stack">
+    <thead><tr><th>Mechanism</th><th>Loop phase</th><th>Nature</th><th>Use for</th></tr></thead>
+    <tbody>
+    <tr><td><code>CLAUDE.md</code></td><td data-l="Loop phase">Gather · every session</td><td data-l="Nature">Advisory, always loaded</td><td data-l="Use for">Broad conventions, commands Claude can't guess</td></tr>
+    <tr><td>Skills</td><td data-l="Loop phase">Gather · on demand</td><td data-l="Nature">Advisory, loaded when relevant</td><td data-l="Use for">Domain knowledge, repeatable workflows</td></tr>
+    <tr><td>MCP servers</td><td data-l="Loop phase">Gather + Act</td><td data-l="Nature">New tools</td><td data-l="Use for">Issue trackers, databases, design tools, monitoring</td></tr>
+    <tr><td>Hooks</td><td data-l="Loop phase">Act + Verify gates</td><td data-l="Nature"><strong>Deterministic</strong> scripts</td><td data-l="Use for">Things that must happen every time, no exceptions</td></tr>
+    <tr><td>Subagents</td><td data-l="Loop phase">Whole-loop delegation</td><td data-l="Nature">Isolated context</td><td data-l="Use for">Investigation, adversarial review</td></tr>
+    <tr><td>Agent teams</td><td data-l="Loop phase">Parallel loops</td><td data-l="Nature">Full sessions + coordination</td><td data-l="Use for">Work that benefits from peer coordination</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note"><b>Rule of thumb</b>
+  <p>A rule buried in a bloated CLAUDE.md gets ignored — it's advisory. Hooks <em>always</em> run. If a rule keeps being violated, don't add emphasis; convert it into a hook.</p></div>
+
+  <h3>You are a component of the loop</h3>
+  <p>The harness assumes an operator. <code>Esc</code> stops Claude mid-action with context preserved; <code>Esc Esc</code> / <code>/rewind</code> restores conversation, code, or both to any checkpoint. Every prompt creates a checkpoint and Claude snapshots files before each change — so "try something risky, rewind if it fails" is a legitimate strategy. (Checkpoints only track Claude's changes; they're not a git replacement.)</p>
+
+  <nav class="pager">
+    <a href="#mental-model"><b>Previous</b><span>← 01 · Mental model</span></a>
+    <a class="next" href="#context"><b>Next</b><span>03 · Context management →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 3. CONTEXT MANAGEMENT ================= -->
+<section id="context">
+  <div class="eyebrow">03 · Foundations</div>
+  <h2>Context management</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span>Treat context like a performance budget. <code>/clear</code> between tasks, keep CLAUDE.md ruthlessly small, and after two failed corrections — reset and rewrite the prompt.</span></div>
+
+  <p>Senior engineers who get mediocre results from Claude Code almost always have a context problem, not a model problem. Everything you let into the window competes with your actual instructions.</p>
+
+  <h3>The session-hygiene toolkit</h3>
+  <div class="tbl-wrap"><table class="stack">
+    <thead><tr><th>Command</th><th>What it does</th><th>When to reach for it</th></tr></thead>
+    <tbody>
+    <tr><td><code>/clear</code></td><td data-l="What it does">Resets context entirely</td><td data-l="When">Between unrelated tasks — the single highest-leverage habit</td></tr>
+    <tr><td><code>/compact &lt;instructions&gt;</code></td><td data-l="What it does">Summarizes history with your guidance, e.g. <code>/compact focus on the API changes</code></td><td data-l="When">Long sessions where the thread still matters</td></tr>
+    <tr><td><code>/rewind</code> → summarize</td><td data-l="What it does">Condenses messages from / up to a checkpoint</td><td data-l="When">Surgical compaction of only part of the conversation</td></tr>
+    <tr><td><code>/btw</code></td><td data-l="What it does">Side question in a dismissible overlay — never enters history</td><td data-l="When">Quick lookups that don't belong in the session</td></tr>
+    <tr><td>Status line · <code>/context</code></td><td data-l="What it does">Continuous visibility into context usage</td><td data-l="When">Always-on; you can't manage what you can't see</td></tr>
+    <tr><td><code>--continue</code> / <code>--resume</code> · <code>/rename</code></td><td data-l="What it does">Persistent, named sessions</td><td data-l="When">Treat sessions like branches — one workstream each</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="warn"><b>The two-correction rule</b>
+  <p>If you've corrected Claude twice on the same issue, the context is polluted with failed approaches — and every further correction competes with them. <code>/clear</code> and write a better initial prompt incorporating what you learned. A clean session with a sharper prompt almost always beats a long session with accumulated corrections.</p></div>
+
+  <h3>CLAUDE.md: small, sharp, versioned</h3>
+  <p>CLAUDE.md is loaded every session, which makes it expensive real estate. For each line ask: <em>"would removing this cause mistakes?"</em> If not, cut it.</p>
+  <div class="cards">
+    <div class="card pro"><h5>✓ Belongs in CLAUDE.md</h5><ul>
+      <li>Build/test commands Claude can't guess</li>
+      <li>Style rules that differ from language defaults</li>
+      <li>Repo etiquette: branch naming, PR conventions</li>
+      <li>Architecture decisions specific to the project</li>
+      <li>Environment quirks and non-obvious gotchas</li>
+    </ul></div>
+    <div class="card con"><h5>✗ Doesn't belong</h5><ul>
+      <li>Anything Claude can learn by reading the code</li>
+      <li>Standard conventions the model already knows</li>
+      <li>Detailed API docs — link instead</li>
+      <li>File-by-file codebase descriptions</li>
+      <li>"Write clean code" — self-evident filler</li>
+    </ul></div>
+  </div>
+  <p>Check it into git so the team compounds it over time. Use <code>@path/to/file</code> imports for modular instructions, <code>CLAUDE.local.md</code> for personal overrides, and nested CLAUDE.md files in monorepos. Knowledge that's only <em>sometimes</em> relevant belongs in a skill, which loads on demand instead of taxing every session.</p>
+
+  <h3>Steering compaction</h3>
+  <p>Auto-compaction triggers as the window approaches its limit. You can shape what survives — add a rule to CLAUDE.md:</p>
+  <div class="term">
+    <div class="term-head"><span>CLAUDE.md</span><button class="copy-btn">copy</button></div>
+    <pre>When compacting, always preserve the full list of modified files,
+the current task list, and any test commands used in this session.</pre>
+  </div>
+
+  <h3>Spec first, execute fresh</h3>
+  <p>For larger features, split the loop across two sessions: an <strong>interview session</strong> that produces a spec, and a <strong>clean execution session</strong> that consumes it — starting with zero exploration noise.</p>
+  <div class="term">
+    <div class="term-head"><span>prompt · interview session</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> I want to build [brief description]. Interview me in detail using the
+AskUserQuestion tool. Ask about technical implementation, UI/UX, edge
+cases, and tradeoffs — skip the obvious questions, dig into the hard
+parts I might not have considered. Keep going until we've covered
+everything, then write a complete, self-contained spec to SPEC.md:
+name the files and interfaces involved, state what's out of scope,
+and end with an end-to-end verification step that proves it works.</pre>
+  </div>
+  <p>Then <code>/clear</code> (or a fresh session) and execute: <em>"Implement SPEC.md. Follow it exactly; where it's silent, match existing patterns in the codebase."</em></p>
+
+  <nav class="pager">
+    <a href="#anatomy"><b>Previous</b><span>← 02 · Anatomy</span></a>
+    <a class="next" href="#verification"><b>Next</b><span>04 · Verification &amp; TDD →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 4. VERIFICATION LOOPS ================= -->
+<section id="verification">
+  <div class="eyebrow">04 · Loop pattern I</div>
+  <h2>Verification loops &amp; TDD</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span>Give Claude a check it can run — tests, build, diff script, screenshot — and the loop closes itself. No check, no ship. Always demand the evidence, not the assertion.</span></div>
+
+  <p>Claude stops when the work <em>looks</em> done. Without a runnable check, "looks done" is the only signal — and you become the verification loop, catching every mistake by hand. Give Claude something that returns pass/fail and the loop closes itself: do the work, run the check, read the result, iterate until green.</p>
+
+  <h3>The gating ladder</h3>
+  <p>Once a check exists, decide how hard it gates the stop. Each step trades setup for attention:</p>
+  <div class="tbl-wrap"><table class="stack">
+    <thead><tr><th>Level</th><th>Mechanism</th><th>Gate strength</th><th>Best for</th></tr></thead>
+    <tbody>
+    <tr><td>1 · In-prompt</td><td data-l="Mechanism">"Run the tests and iterate until they pass"</td><td data-l="Gate strength">Advisory</td><td data-l="Best for">Any task, today, zero setup</td></tr>
+    <tr><td>2 · Session goal</td><td data-l="Mechanism"><code>/goal</code> condition — a separate evaluator re-checks after every turn</td><td data-l="Gate strength">Persistent</td><td data-l="Best for">Multi-turn work toward one outcome</td></tr>
+    <tr><td>3 · Stop hook</td><td data-l="Mechanism">Your script blocks the turn from ending until it passes (overridden after 8 consecutive blocks)</td><td data-l="Gate strength"><strong>Deterministic</strong></td><td data-l="Best for">Unattended runs that must finish correctly</td></tr>
+    <tr><td>4 · Second opinion</td><td data-l="Mechanism">Verification subagent in fresh context tries to refute the result</td><td data-l="Gate strength">Adversarial</td><td data-l="Best for">Anything you'd normally peer-review</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note"><b>Evidence, not assertions</b>
+  <p>Always ask Claude to <em>show</em> the proof — test output, the exact command and its result, a screenshot. Reviewing evidence is faster than re-running verification yourself, and it's the only way to trust sessions you weren't watching.</p></div>
+
+  <h3>The strict TDD loop</h3>
+  <p>TDD is the canonical verification loop: the failing test <em>is</em> the spec, and "tests pass" is an unambiguous exit condition. Two constraints matter: tests first, confirmed failing for the right reason — and implementation may not touch the tests.</p>
+  <div class="term">
+    <div class="term-head"><span>prompt · TDD feature loop</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> We're doing strict TDD for [behavior]. Expected input/output pairs:
+[case 1 → result], [case 2 → result], [edge case → result].
+
+Step 1: write failing tests covering these cases plus edge cases you
+identify. Do NOT write any implementation. Run the tests and confirm
+each fails for the right reason (missing behavior, not a typo).
+Step 2: commit the tests.
+Step 3: implement until all tests pass. You may not modify the tests.
+Step 4: run the full suite, show me the output, then commit.</pre>
+  </div>
+  <div class="term">
+    <div class="term-head"><span>prompt · bug-reproduction loop</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> Users report [symptom]. Likely area: [path/to/module], especially
+[specific flow]. Write a failing test that reproduces the issue first,
+then fix the root cause — do not suppress the error or special-case
+the test. Run the full suite to check for regressions and show me
+the output, including the new test passing.</pre>
+  </div>
+  <div class="term">
+    <div class="term-head"><span>prompt · visual verification loop (UI)</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> [attach mock] Implement this design. When done, take a screenshot of
+the running result, compare it to the mock, list every difference
+(spacing, color, type, alignment), fix them, and re-screenshot.
+Repeat until you can't find meaningful differences.</pre>
+  </div>
+
+  <h3>Writer / Reviewer: split the loop across sessions</h3>
+  <p>A fresh context makes a better reviewer — Claude won't be biased toward code it just wrote. Implement in Session A, review in Session B, feed findings back to A. The same split works for tests: one session writes tests, another writes code to pass them — a division of labor that keeps either side from gaming the check.</p>
+
+  <h3>Adversarial review, in-session</h3>
+  <p>Before treating a task as done, have a subagent review the diff in fresh context. The bundled <code>/code-review</code> skill does a correctness pass; for plan conformance, write your own:</p>
+  <div class="term">
+    <div class="term-head"><span>prompt · adversarial review subagent</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> Use a subagent to review the [feature] diff against PLAN.md. Check
+that every requirement is implemented, the listed edge cases have
+tests, and nothing outside the task's scope changed. Report gaps
+that affect correctness or the stated requirements only — not style
+preferences.</pre>
+  </div>
+  <div class="warn"><b>Reviewer inflation</b>
+  <p>A reviewer prompted to find gaps will report some even when the work is sound — that's its job. Chasing every finding produces over-engineering: extra abstraction layers, defensive code, tests for impossible cases. Scope the reviewer to correctness and requirements; treat the rest as optional.</p></div>
+
+  <div class="cards">
+    <div class="card pro"><h5>✓ Pros</h5><ul>
+      <li>Converts "watch the session" into "walk away from the session"</li>
+      <li>Exit condition is objective — no over- or under-execution</li>
+      <li>Cheapest pattern: one context window, no coordination overhead</li>
+      <li>TDD variant doubles as regression protection forever</li>
+    </ul></div>
+    <div class="card con"><h5>✗ Cons</h5><ul>
+      <li>Only as good as the check — weak tests → confidently wrong code</li>
+      <li>Claude may satisfy the letter of a check (watch for test edits, suppressed errors)</li>
+      <li>Long fix-loops can cascade: a fix breaks another test, and so on</li>
+      <li>Verification output itself consumes context in long sessions</li>
+    </ul></div>
+  </div>
+
+  <nav class="pager">
+    <a href="#context"><b>Previous</b><span>← 03 · Context management</span></a>
+    <a class="next" href="#automation"><b>Next</b><span>05 · Automation loops →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 5. AUTOMATION LOOPS ================= -->
+<section id="automation">
+  <div class="eyebrow">05 · Loop pattern II</div>
+  <h2>Automation loops: headless, CI &amp; fan-out</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span><code>claude -p</code> runs one prompt and exits — the bridge to scripts, CI, and cron. Fresh context per unit of work, but no human in the loop: invest in permissions, exit conditions, and calibration first.</span></div>
+
+  <p><code>claude -p "prompt"</code> (<em>print mode</em>, formerly headless mode) executes a single prompt and exits — no interactive session. The Agent SDK is the programmatic TypeScript/Python equivalent.</p>
+
+  <div class="term">
+    <div class="term-head"><span>shell · the three output modes</span><button class="copy-btn">copy</button></div>
+    <pre><span class="cm"># One-off query, plain text</span>
+claude -p "Explain what this project does"
+
+<span class="cm"># Structured output for scripts</span>
+claude -p "List all API endpoints as JSON" --output-format json
+
+<span class="cm"># Streaming JSON for real-time processing (needs --verbose)</span>
+claude -p "Analyze this log file" --output-format stream-json --verbose
+
+<span class="cm"># Pipe data in, pipe results out</span>
+cat error.log | claude -p "Cluster these errors by root cause" \
+  --output-format json | your_command</pre>
+  </div>
+
+  <h3>Scoping what an unattended loop can do</h3>
+  <ul>
+    <li><code>--allowedTools "Edit,Bash(npm test:*),Bash(git commit *)"</code> — allowlist exactly the tools the task needs.</li>
+    <li><code>--permission-mode auto</code> — a classifier reviews commands, blocking scope escalation and hostile-content-driven actions. In <code>-p</code> runs, auto mode <strong>aborts</strong> if the classifier repeatedly blocks — there's no human to fall back to.</li>
+    <li><strong>Sandboxing</strong> (<code>/sandbox</code>) — OS-level filesystem and network isolation for defense in depth.</li>
+    <li>Prefer reversible actions; exclude destructive ones; define "done" explicitly so the loop doesn't over-execute.</li>
+  </ul>
+
+  <h3>The fan-out pattern</h3>
+  <p>For large migrations or analyses, don't run one giant session — give each unit of work its own fresh, small context:</p>
+  <div class="term">
+    <div class="term-head"><span>shell · fan-out migration</span><button class="copy-btn">copy</button></div>
+    <pre><span class="cm"># 1. Have Claude generate the task list (one interactive session):</span>
+<span class="cm">#    "List every file that still uses [old pattern] into targets.txt"</span>
+
+<span class="cm"># 2. Loop with scoped permissions; test the prompt on 2-3 files first</span>
+for file in $(cat targets.txt); do
+  claude -p "Migrate $file from [old pattern] to [new pattern].
+    Follow the conventions in MIGRATION.md. Run the tests related
+    to this file. Print exactly OK or FAIL: &lt;one-line reason&gt;." \
+    --allowedTools "Edit,Bash(npm test:*),Bash(git commit *)" \
+    >> migration.log
+done
+
+<span class="cm"># 3. grep FAIL migration.log → triage the stragglers interactively</span></pre>
+  </div>
+  <div class="note"><b>Calibrate before you scale</b>
+  <p>Run the loop on the first 2–3 files, read the output, refine the prompt, <em>then</em> unleash it on the full set. Prompt bugs at N=2,000 are expensive.</p></div>
+
+  <h3>CI integration</h3>
+  <div class="term">
+    <div class="term-head"><span>shell · CI review gate</span><button class="copy-btn">copy</button></div>
+    <pre><span class="cm"># In your pipeline, after checkout:</span>
+claude -p "Review the diff between origin/main and HEAD. Flag ONLY
+  correctness, security, and data-loss risks — no style comments.
+  Output JSON: {\"findings\": [{\"file\", \"line\", \"severity\", \"note\"}]}.
+  Return an empty findings array if the diff is clean." \
+  --output-format json --allowedTools "Read,Grep,Glob,Bash(git *)"</pre>
+  </div>
+  <p>The same shape works for changelog generation, issue triage, labeling, or nightly dependency-risk scans. Use <code>--verbose</code> while developing the pipeline; turn it off in production.</p>
+
+  <h3>The "Ralph" loop: while-true autonomy</h3>
+  <p>A community pattern (not an official feature): run the <em>same</em> prompt in a bash loop, each iteration a fresh context, using the file system and git as the only memory. The prompt describes the goal, the state convention, and the exit condition; each run picks one unit of work, does it, commits, and exits.</p>
+  <div class="term">
+    <div class="term-head"><span>shell · ralph-style loop (sandbox only)</span><button class="copy-btn">copy</button></div>
+    <pre><span class="cm"># PROMPT.md contains: the goal, "read TODO.md, pick ONE item,</span>
+<span class="cm"># implement it with tests, mark it done, commit" and the rule:</span>
+<span class="cm"># "if TODO.md is empty, print DONE and stop."</span>
+while :; do
+  out=$(claude -p "$(cat PROMPT.md)" \
+    --allowedTools "Edit,Bash(npm test:*),Bash(git commit *)" \
+    --output-format json)
+  echo "$out" >> ralph.log
+  grep -q '"DONE"' <<<"$out" && break
+done</pre>
+  </div>
+  <div class="risk"><b>Handle with care</b>
+  <p>This trades all oversight for throughput. It only works when: the prompt is idempotent, each unit is independently verifiable (tests gate every commit), permissions are tightly scoped, it runs in a sandbox or throwaway container, and there's a hard exit condition plus an iteration cap. Never point it at anything with production access, and never combine it with permission-skipping flags outside isolation. Expect a large diff review at the end — budget for it.</p></div>
+
+  <div class="cards">
+    <div class="card pro"><h5>✓ Pros</h5><ul>
+      <li>Fresh context per unit of work — no degradation at scale</li>
+      <li>Composable with everything: pipes, CI, cron, make</li>
+      <li>Massively parallelizable (fan-out across thousands of files)</li>
+      <li>Machine-readable output for downstream tooling</li>
+    </ul></div>
+    <div class="card con"><h5>✗ Cons</h5><ul>
+      <li>No human in the loop — bad early decisions compound silently</li>
+      <li>Prompt quality is everything; iteration cycle is slower</li>
+      <li>Cross-file consistency is harder than in one session</li>
+      <li>Requires real investment in permissions, sandboxing, exit conditions</li>
+    </ul></div>
+  </div>
+
+  <nav class="pager">
+    <a href="#verification"><b>Previous</b><span>← 04 · Verification &amp; TDD</span></a>
+    <a class="next" href="#subagents"><b>Next</b><span>06 · Subagents →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 6. SUBAGENTS ================= -->
+<section id="subagents">
+  <div class="eyebrow">06 · Loop pattern III</div>
+  <h2>Subagents: isolated context, condensed results</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span>Disposable workers with their own context window. The subagent reads fifty files; your session receives two paragraphs. Highest-leverage tool against context degradation.</span></div>
+
+  <p>A subagent is a separate, focused agent instance with <strong>its own context window</strong> that does one scoped unit of work and returns a condensed result to the main session. The main agent stays in charge of the narrative and the final decision; subagents are workers whose report comes back like a tool result. They can run in parallel, can be tool-restricted (e.g., read-only), and cannot talk to each other — only back to the parent. Built-ins include <em>Explore</em>, <em>Plan</em>, and <em>general-purpose</em>.</p>
+
+  <h3>Use case 1 · Investigation without pollution</h3>
+  <div class="term">
+    <div class="term-head"><span>prompt · delegated research</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> Use subagents to investigate how our authentication system handles
+token refresh, and whether we have existing OAuth utilities I should
+reuse. Report back: the relevant files, the current flow, and any
+sharp edges — I don't need the file contents in this session.</pre>
+  </div>
+
+  <h3>Use case 2 · Parallel hypotheses</h3>
+  <div class="term">
+    <div class="term-head"><span>prompt · parallel debugging</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> The p95 latency on [endpoint] doubled since last week. Spin up three
+subagents in parallel: one investigating query patterns and indexes,
+one profiling the middleware chain, one checking recent dependency
+and config changes. Each reports its top suspect with evidence.
+Then synthesize and tell me which hypothesis to test first.</pre>
+  </div>
+
+  <h3>Use case 3 · Custom specialists</h3>
+  <p>Define reusable specialists in <code>.claude/agents/</code> — frontmatter for name, description, allowed tools, and model, followed by the system prompt:</p>
+  <div class="term">
+    <div class="term-head"><span>.claude/agents/security-reviewer.md</span><button class="copy-btn">copy</button></div>
+    <pre>---
+name: security-reviewer
+description: Reviews code for security vulnerabilities
+tools: Read, Grep, Glob, Bash
+model: opus
+---
+You are a senior security engineer. Review code for:
+- Injection vulnerabilities (SQL, XSS, command injection)
+- Authentication and authorization flaws
+- Secrets or credentials in code
+- Insecure data handling
+Provide specific line references and suggested fixes.</pre>
+  </div>
+  <p>Invoke explicitly: <em>"Use the security-reviewer subagent on this diff."</em> Note the tool scoping — a read-only reviewer physically cannot "fix" things itself, which is exactly what you want from a reviewer.</p>
+
+  <div class="cards">
+    <div class="card pro"><h5>✓ Pros</h5><ul>
+      <li>Protects the main session's context — the whole point</li>
+      <li>Fresh-context reviews are less biased than self-review</li>
+      <li>Parallelism inside one session, no coordination burden on you</li>
+      <li>Tool scoping reduces blast radius</li>
+    </ul></div>
+    <div class="card con"><h5>✗ Cons</h5><ul>
+      <li>Each subagent re-pays initialization context — token cost multiplies</li>
+      <li>Fire-and-forget: no mid-task steering, no peer communication</li>
+      <li>Summaries are lossy; critical detail can be flattened</li>
+      <li>Doesn't inherit the parent's history — brief it fully</li>
+    </ul></div>
+  </div>
+
+  <nav class="pager">
+    <a href="#automation"><b>Previous</b><span>← 05 · Automation loops</span></a>
+    <a class="next" href="#teams"><b>Next</b><span>07 · Agent teams →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 7. AGENT TEAMS ================= -->
+<section id="teams">
+  <div class="eyebrow">07 · Loop pattern IV</div>
+  <h2>Agent teams: coordinated parallel sessions</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span>Experimental. Multiple full sessions — a lead, teammates, a shared task list, peer-to-peer messaging. The most capable pattern and the most expensive; use only when workers must react to each other.</span></div>
+
+  <p>Agent teams (experimental, disabled by default — enable with <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code> in <code>settings.json</code> or your environment) coordinate multiple <strong>full Claude Code sessions</strong>. One session acts as <strong>team lead</strong>: it spawns teammates, breaks work into a shared task list, approves plans, and synthesizes results. Teammates each have their own context window, load the same project context (CLAUDE.md, MCP, skills) but not the lead's history, and — the key difference from subagents — <strong>message each other directly</strong>. You can also talk to any teammate yourself, without going through the lead.</p>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Component</th><th>Role</th></tr></thead>
+    <tbody>
+    <tr><td><strong>Team lead</strong></td><td>Main session: spawns teammates, assigns tasks, approves plans, synthesizes</td></tr>
+    <tr><td><strong>Teammates</strong></td><td>Independent full sessions, each with its own context window</td></tr>
+    <tr><td><strong>Task list</strong></td><td>Shared work items teammates claim and complete (view with Ctrl+T)</td></tr>
+    <tr><td><strong>Mailbox</strong></td><td>Peer-to-peer messaging between any agents by name</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Spawning a team</h3>
+  <p>Describe the task and roles in natural language; name the teammates yourself if you want to address them later:</p>
+  <div class="term">
+    <div class="term-head"><span>prompt · parallel refactor team</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> Spawn three teammates for the checkout-module refactor: "api" owns
+the API layer, "data" owns migrations, "tests" owns test coverage.
+Coordinate through the shared task list; when api changes an
+interface, it must message tests directly. Only approve plans that
+include test coverage. No one merges without your review.</pre>
+  </div>
+  <div class="term">
+    <div class="term-head"><span>prompt · multi-angle design review</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> I'm designing [system/feature]. Spawn three teammates to explore it
+from different angles: one on developer experience, one on technical
+architecture, one playing devil's advocate. Have them challenge each
+other's findings over messages before you synthesize a
+recommendation with the open disagreements listed explicitly.</pre>
+  </div>
+
+  <h3>Operator controls that matter</h3>
+  <ul>
+    <li><strong>Delegate mode</strong> (Shift+Tab on the lead) — the lead stops implementing and only coordinates. Use it when the lead keeps "helping" with code.</li>
+    <li><strong>Plan approval</strong> — require teammates to plan before touching code; steer the lead's judgment in your prompt ("reject plans that modify the DB schema without a migration").</li>
+    <li><strong>Direct messaging</strong> — select a teammate in the agent panel (or its split pane) to redirect it, give it context the lead doesn't have, or interrupt with Escape.</li>
+    <li><strong>Mixed models</strong> — run the lead on a stronger model for decomposition and plan review, teammates on a faster model for scoped implementation. A meaningful cost lever.</li>
+    <li><strong>Worktrees</strong> — give teammates isolated git checkouts when they'd otherwise collide on the same files.</li>
+  </ul>
+
+  <div class="warn"><b>Token economics</b>
+  <p>Teams use significantly more tokens than a single session — every teammate is a full session with its own context window, so cost scales roughly linearly with team size (higher when teammates plan first). Worth it for research, review, and parallel feature work; wasteful for routine tasks. If workers don't genuinely need to coordinate, subagents or a fan-out script are cheaper.</p></div>
+
+  <div class="cards">
+    <div class="card pro"><h5>✓ Pros</h5><ul>
+      <li>True parallel work with peer coordination — no round-trips through a parent</li>
+      <li>You can steer any individual worker mid-flight</li>
+      <li>Lead as quality gate: plan approval, sequencing, synthesis</li>
+      <li>Opposing-perspective teams surface disagreement a single agent smooths over</li>
+    </ul></div>
+    <div class="card con"><h5>✗ Cons</h5><ul>
+      <li>Experimental: known limitations around resumption and shutdown</li>
+      <li>Highest token cost of any pattern</li>
+      <li>Permission prompts multiply across teammates — invest in your allowlist first</li>
+      <li>Coordination overhead only pays off on genuinely parallel work</li>
+    </ul></div>
+  </div>
+
+  <nav class="pager">
+    <a href="#subagents"><b>Previous</b><span>← 06 · Subagents</span></a>
+    <a class="next" href="#choosing"><b>Next</b><span>08 · Choosing a loop →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 8. CHOOSING ================= -->
+<section id="choosing">
+  <div class="eyebrow">08 · Practice</div>
+  <h2>Choosing a loop: the decision matrix</h2>
+  <div class="tldr"><span class="tag">TL;DR</span><span>Default to the cheapest pattern that fits. Escalate only when a specific limitation bites — most day-to-day work belongs in a single verification loop.</span></div>
+
+  <div class="tbl-wrap"><table class="stack">
+    <thead><tr><th>Pattern</th><th>Context isolation</th><th>Coordination</th><th>Cost</th><th>Your attention</th><th>Reach for it when…</th></tr></thead>
+    <tbody>
+    <tr><td>Verification loop <span style="color:var(--faint);font-weight:400">· §04</span></td><td data-l="Context isolation">None — one window</td><td data-l="Coordination">N/A</td><td data-l="Cost">1×</td><td data-l="Your attention">Low–medium</td><td data-l="Reach for it when">Any task with a runnable check; the default</td></tr>
+    <tr><td>Subagents <span style="color:var(--faint);font-weight:400">· §06</span></td><td data-l="Context isolation">Per-worker windows, summaries return</td><td data-l="Coordination">Parent-only, fire-and-forget</td><td data-l="Cost">~1–3×</td><td data-l="Your attention">Low</td><td data-l="Reach for it when">Investigation would flood your context; you want an unbiased reviewer</td></tr>
+    <tr><td>Automation / fan-out <span style="color:var(--faint);font-weight:400">· §05</span></td><td data-l="Context isolation">Fresh context per invocation</td><td data-l="Coordination">Your script</td><td data-l="Cost">Scales with N, each unit small</td><td data-l="Your attention">Setup-heavy, then zero</td><td data-l="Reach for it when">Many independent, repetitive units; CI; scheduled work</td></tr>
+    <tr><td>Agent teams <span style="color:var(--faint);font-weight:400">· §07</span></td><td data-l="Context isolation">Full window per teammate</td><td data-l="Coordination">Shared tasks + peer messaging</td><td data-l="Cost">~N× and up</td><td data-l="Your attention">Medium (orchestration)</td><td data-l="Reach for it when">Workers must react to each other's output; multi-angle analysis</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Escalation triggers</h3>
+  <ul>
+    <li>Session keeps degrading mid-task despite <code>/clear</code> discipline → move investigation to <strong>subagents</strong>.</li>
+    <li>The task is "do X, N times, independently" → <strong>fan-out</strong>, never one long session.</li>
+    <li>Subagent workers keep needing each other's outputs and you're playing messenger → <strong>agent team</strong>.</li>
+    <li>The task would need 20+ coordinated steps unattended → reconsider scope first; a tighter spec beats a bigger loop.</li>
+  </ul>
+  <p>And in the other direction: if an agent team's members never message each other, you paid team prices for subagent work.</p>
+
+  <nav class="pager">
+    <a href="#teams"><b>Previous</b><span>← 07 · Agent teams</span></a>
+    <a class="next" href="#antipatterns"><b>Next</b><span>09 · Anti-patterns →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 9. ANTI-PATTERNS ================= -->
+<section id="antipatterns">
+  <div class="eyebrow">09 · Practice</div>
+  <h2>Failure patterns to recognize early</h2>
+
+  <div class="anti"><h4><span>AP-01</span>The kitchen-sink session</h4>
+    <p>One task, then an unrelated question, then back to the first task. Context fills with irrelevant material that competes with your instructions.</p>
+    <p class="fix"><b>Fix</b><code>/clear</code> between unrelated tasks; <code>/btw</code> for side questions.</p></div>
+  <div class="anti"><h4><span>AP-02</span>Correcting over and over</h4>
+    <p>Wrong → correct → still wrong → correct again. Every failed approach stays in context, actively steering the model back toward it.</p>
+    <p class="fix"><b>Fix</b>Two-correction rule: <code>/clear</code>, then a better prompt that encodes what you learned.</p></div>
+  <div class="anti"><h4><span>AP-03</span>The over-specified CLAUDE.md</h4>
+    <p>Important rules get lost in noise; Claude appears to "ignore instructions" when really the file is too long to weight properly.</p>
+    <p class="fix"><b>Fix</b>Ruthlessly prune. If a rule must always hold, make it a hook — hooks are deterministic.</p></div>
+  <div class="anti"><h4><span>AP-04</span>The trust-then-verify gap</h4>
+    <p>A plausible-looking implementation ships without a check, and the missing edge cases surface in production.</p>
+    <p class="fix"><b>Fix</b>No check, no ship. Tests, a build, a diff script, a screenshot — something must gate "done".</p></div>
+  <div class="anti"><h4><span>AP-05</span>The infinite exploration</h4>
+    <p>An unscoped "investigate this" sends Claude reading hundreds of files, torching the context before real work starts.</p>
+    <p class="fix"><b>Fix</b>Scope investigations narrowly, or delegate them to subagents so the reading happens elsewhere.</p></div>
+  <div class="anti"><h4><span>AP-06</span>The unbounded autonomous loop</h4>
+    <p>A headless loop with vague success conditions keeps "improving" forever, or cascades: a fix breaks a test, which triggers a fix, which breaks another.</p>
+    <p class="fix"><b>Fix</b>Machine-checkable definition of done; iteration caps; checkpoint-and-continue between subtasks.</p></div>
+
+  <div class="note"><b>Meta-rule</b>
+  <p>These defaults aren't dogma. Sometimes context <em>should</em> accumulate (you're deep in one hard problem and the history is the asset). Sometimes a vague prompt is right (you want Claude's uninfluenced read). Notice what worked, notice what didn't — the loop between you and your own workflow is the one that compounds.</p></div>
+
+  <nav class="pager">
+    <a href="#choosing"><b>Previous</b><span>← 08 · Choosing a loop</span></a>
+    <a class="next" href="#prompts"><b>Next</b><span>10 · Prompt library →</span></a>
+  </nav>
+</section>
+
+<!-- ================= 10. PROMPT LIBRARY ================= -->
+<section id="prompts">
+  <div class="eyebrow">10 · Practice</div>
+  <h2>Prompt library</h2>
+  <p>Copy-paste starters, grouped by loop phase. Replace the brackets; keep the structure — each prompt encodes scope, sources, and a verification step on purpose.</p>
+
+  <h3>Gather · exploration &amp; onboarding</h3>
+  <div class="term">
+    <div class="term-head"><span>codebase questions — no special prompting needed</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> How does logging work in this codebase?
+<span class="marker">&gt;</span> How do I add a new API endpoint here? Point me at the closest example.
+<span class="marker">&gt;</span> Look through [module]'s git history and summarize how its API came to be.
+<span class="marker">&gt;</span> What edge cases does [component] handle, and which are untested?</pre>
+  </div>
+
+  <h3>Plan · before the diff</h3>
+  <div class="term">
+    <div class="term-head"><span>plan mode · explore → plan → implement</span><button class="copy-btn">copy</button></div>
+    <pre><span class="cm"># In plan mode (reads only, no changes):</span>
+<span class="marker">&gt;</span> Read [dir] and understand how we handle [concern]. Also check how
+we manage [related concern].
+<span class="marker">&gt;</span> I want to add [feature]. Which files change? What's the data flow?
+Create a plan. Flag anything ambiguous in the requirements.
+<span class="cm"># Ctrl+G to edit the plan directly, then exit plan mode:</span>
+<span class="marker">&gt;</span> Implement the plan. Write tests for [critical path], run the suite,
+fix failures, and show me the final output.</pre>
+  </div>
+  <p><em>Skip planning when the diff fits in one sentence — plan mode is overhead for typo-level changes.</em></p>
+
+  <h3>Act · scoped implementation</h3>
+  <div class="term">
+    <div class="term-head"><span>pattern-following feature</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> Look at how existing [widgets/handlers/jobs] are implemented —
+[ExampleFile] is the reference pattern. Follow it to implement
+[feature], using only libraries already in the codebase. Then run
+[check command] and show the output.</pre>
+  </div>
+  <div class="term">
+    <div class="term-head"><span>root-cause build fix</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> The build fails with this error: [paste error]. Fix it and verify
+the build succeeds. Address the root cause — do not suppress the
+error, loosen the config, or skip the failing step.</pre>
+  </div>
+
+  <h3>Verify · gates and reviews</h3>
+  <div class="term">
+    <div class="term-head"><span>hooks Claude writes for you</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> Write a hook that runs [linter] after every file edit and reports
+failures back into the session.
+<span class="marker">&gt;</span> Write a hook that blocks any write to the migrations folder.
+<span class="marker">&gt;</span> Write a Stop hook that runs [test command] and blocks ending the
+turn until it exits 0.</pre>
+  </div>
+  <div class="term">
+    <div class="term-head"><span>fresh-context review</span><button class="copy-btn">copy</button></div>
+    <pre><span class="marker">&gt;</span> Use a subagent to review this diff for edge cases, race conditions,
+and consistency with our existing patterns. Only report findings
+that affect correctness or the stated requirements.</pre>
+  </div>
+
+  <h3>Scale · headless one-liners</h3>
+  <div class="term">
+    <div class="term-head"><span>shell</span><button class="copy-btn">copy</button></div>
+    <pre><span class="cm"># PR summary for a bot comment</span>
+git diff origin/main...HEAD | claude -p "Summarize this diff for a
+reviewer: intent, risk areas, what to look at first. Markdown, short."
+
+<span class="cm"># Nightly triage</span>
+claude -p "Read the open issues with 'gh issue list'. Propose labels
+and a priority for each. Output JSON." --output-format json \
+  --allowedTools "Bash(gh issue list*)"
+
+<span class="cm"># Log forensics</span>
+cat prod-errors.log | claude -p "Cluster by root cause, give each
+cluster a name, a count, and the single most representative line."</pre>
+  </div>
+
+  <nav class="pager">
+    <a href="#antipatterns"><b>Previous</b><span>← 09 · Anti-patterns</span></a>
+    <a class="next" href="#sources"><b>Next</b><span>Sources →</span></a>
+  </nav>
+</section>
+
+<!-- ================= SOURCES ================= -->
+<section id="sources">
+  <div class="eyebrow">Appendix</div>
+  <h2>Sources &amp; further reading</h2>
+  <p>This guide paraphrases and condenses the official documentation, verified July 2026. When in doubt, the docs win:</p>
+  <ul class="src-list">
+    <li><a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a> — the agentic loop, tools, and harness architecture</li>
+    <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a> — the primary source for context management, verification, and scaling patterns</li>
+    <li><a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a> — step-by-step recipes</li>
+    <li><a href="https://code.claude.com/docs/en/sub-agents">Subagents</a> · <a href="https://code.claude.com/docs/en/agent-teams">Agent teams</a> · <a href="https://code.claude.com/docs/en/headless">Run programmatically (print mode)</a></li>
+    <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a> · <a href="https://code.claude.com/docs/en/memory">CLAUDE.md / memory</a> · <a href="https://code.claude.com/docs/en/permission-modes">Permission modes</a></li>
+    <li><a href="https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk">Building agents with the Claude Agent SDK</a> — gather → act → verify applied beyond coding</li>
+  </ul>
+  <p style="font-size:14px;color:var(--muted)">The "Ralph" while-true pattern is a community technique, included with safety caveats; it does not appear in official docs.</p>
+  <footer>Enpitech · engineering field guide · compiled with Claude · July 2026</footer>
+</section>
+
+</main>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+// ---- Copy buttons ----
+document.querySelectorAll('.term').forEach(function(block){
+  var btn = block.querySelector('.copy-btn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var clone = block.querySelector('pre').cloneNode(true);
+    clone.querySelectorAll('.marker').forEach(function(m){ m.remove(); });
+    var text = clone.textContent.replace(/^ /gm,'').trim();
+    navigator.clipboard.writeText(text).then(function(){
+      btn.textContent = 'copied ✓'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1600);
+    });
+  });
+});
+// ---- Mobile nav ----
+var menuBtn = document.getElementById('menuBtn');
+var mNav = document.getElementById('mNav');
+if(menuBtn){
+  menuBtn.addEventListener('click', function(){
+    var open = mNav.classList.toggle('open');
+    document.body.classList.toggle('nav-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.textContent = open ? 'Close ✕' : 'Contents';
+  });
+  mNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mNav.classList.remove('open');
+      document.body.classList.remove('nav-open');
+      menuBtn.setAttribute('aria-expanded','false');
+      menuBtn.textContent = 'Contents';
+    });
+  });
+}
+// ---- Progress bar + back-to-top ----
+var bar = document.querySelector('.progress');
+var toTop = document.getElementById('toTop');
+function onScroll(){
+  var h = document.documentElement;
+  var pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+  bar.style.width = pct + '%';
+  toTop.classList.toggle('show', h.scrollTop > 900);
+}
+document.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+toTop.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+// ---- Active section highlighting (desktop TOC) ----
+var links = Array.from(document.querySelectorAll('.toc a'));
+var map = {};
+links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      links.forEach(function(a){ a.classList.remove('active'); });
+      var a = map[e.target.id];
+      if(a){ a.classList.add('active'); }
+    }
+  });
+},{rootMargin:'-12% 0px -72% 0px'});
+document.querySelectorAll('main section[id]').forEach(function(s){ observer.observe(s); });
+</script>
+</body>
+</html>
