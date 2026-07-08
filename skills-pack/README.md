@@ -31,6 +31,8 @@ fuzzy sentence
 
 Each stage produces a file the next stage reads — so every handoff can happen in a fresh context, and a cold reader (`gaps-report`) can tell you whether the file stands on its own.
 
+Run the stages yourself, one per clean session — or run `engineer-flow` and have one agent orchestrate the whole pipeline: a pre-run interview sets where you want to be pulled in and which model tier plays each role, then subagents perform the stages while you watch the gates.
+
 ## The skills
 
 Two kinds, deliberately. A **user-invoked** skill fires only when you type its name — it costs you remembering it exists, and costs the agent nothing. A **model-invoked** skill carries a description the agent reads every turn — it can fire on its own, and other skills can call it.
@@ -39,6 +41,7 @@ Two kinds, deliberately. A **user-invoked** skill fires only when you type its n
 
 | Skill | What it does |
 |---|---|
+| `engineer-flow` | Orchestrates the whole pipeline: an interview writes the run's score — human gates + model casting — then subagents play each stage in clean contexts |
 | `improve-codebase-architecture` | Scans for deepening opportunities, presents them as a visual HTML report, then grills through your pick |
 | `handoff` | Compacts the conversation into a handoff document a fresh agent can continue from |
 | `writing-great-skills` | Reference for writing skills of your own — invocation trade-offs, information hierarchy, pruning |
